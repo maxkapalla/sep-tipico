@@ -1,0 +1,28 @@
+<input #fileInput (change)="onFileInput(fileInput.files)" type="file"/>
+
+<button
+  (click)="onSubmit()"
+  [disabled]="!file"
+  color="primary"
+  mat-raised-button
+  type="submit"
+>
+  Submit
+</button>
+
+
+<table>
+  <tr>
+    <th>
+      File ID
+    </th>
+    <th>
+      File
+    </th>
+
+  </tr>
+  <tr *ngFor="let file of sepfiles">
+    <td> {{ file.id }} </td>
+    <td>{{ file.file }}</td>
+  </tr>
+</table>

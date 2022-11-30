@@ -1,0 +1,7 @@
+<header>
+  <img class="logo" src="assets/LogoMakr-3Vjava.png">
+  <a href onclick="sessionStorage.clear() ; window.location.reload()"  *ngIf="loggedIn!== null">Logout</a>
+  <a href='/profile' *ngIf="nutzer !== 'null'">{{nutzer}}</a>
+  <b>{{datum}}</b>
+</header>
+

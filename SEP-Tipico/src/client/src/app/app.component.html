@@ -1,0 +1,50 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark my-5">
+        <div class="card-body">
+          <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
+          <ul class="text-center list-inline py-3">
+            <li class="list-inline-item">
+              <a routerLink="/user" class="btn btn-info" *ngIf="loggedIn=== null">Als User registrieren</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/login" class="btn btn-info" *ngIf="loggedIn=== null">Login</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/admin" class="btn btn-info" *ngIf="loggedIn=== null">Als Admin registrieren</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/date-change" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Date Change</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/liga-see" class="btn btn-info" *ngIf="loggedIn!== null">Liga ansehen</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/liga-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Liga ändern</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/matchplan-show" class="btn btn-info" *ngIf="loggedIn!== null">Spielplan anzeigen</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/matchplan-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Spielplan erstellen</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/team-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Team erstellen</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/team-show" class="btn btn-info" *ngIf="loggedIn!== null">Team ansehen</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/csv" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">CSV einlesen</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!--<router-outlet></router-outlet>-->

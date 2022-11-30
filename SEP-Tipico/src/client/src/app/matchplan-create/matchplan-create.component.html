@@ -1,0 +1,113 @@
+<div class="createMatchList">
+  <table>
+    <tr>
+      <th>
+        Match ID
+      </th>
+      <th>
+        Liga ID
+      </th>
+      <th>
+        Datum
+      </th>
+      <th>
+        Spieltag
+      </th>
+      <th>
+        Team A
+      </th>
+      <th>
+        Tore Team A
+      </th>
+      <th>
+        Tore Team B
+      </th>
+      <th>
+        Team B
+      </th>
+
+    </tr>
+    <tr *ngFor="let spiel of matches">
+      <td> {{ spiel.id }} </td>
+      <td>{{ spiel.liga }}</td>
+      <td>{{ spiel.date }}</td>
+      <td>{{ spiel.spieltag }}</td>
+      <td>{{getTeamName(spiel.teamA)}}</td>
+      <td>{{ spiel.scoreTeamA }}</td>
+      <td>{{ spiel.scoreTeamB }}</td>
+      <td>{{ getTeamName(spiel.teamB) }}</td>
+
+    </tr>
+  </table>
+
+</div>
+
+<div class="ligaSelectForm">
+  <form #matchCreateForm="ngForm">
+    <div class="form-group">
+      <label for="liga">liga</label>
+      <select [(ngModel)]="liga.id" [(ngModel)]="match.liga" id="liga" name="liga" required>
+        <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+      </select>
+    </div>
+    <button (click)="onLoadLiga()" class="btn btn-info"
+            type="button">Liga laden
+    </button>
+  </form>
+</div>
+
+<div class="createMatchNameForm">
+  <form #matchCreateForm="ngForm">
+    <div class="form-group">
+      <label for="id">Spieltag</label>
+      <input [(ngModel)]="match.spieltag" class="form-control"
+             id="id"
+             name="id"
+             placeholder="Spieltag"
+             required
+             type="text">
+      <label for="date">Datum</label>
+      <input [(ngModel)]="match.date" class="form-control"
+             id="date"
+             name="date"
+             placeholder="Datum"
+             required
+             type="text">
+      <label for="scoreA">Tore A</label>
+      <input [(ngModel)]="match.scoreTeamA" class="form-control"
+             id="scoreA"
+             name="scoreA"
+             placeholder="Tore A"
+             required
+             type="text">
+      <label for="scoreB">Tore B</label>
+      <input [(ngModel)]="match.scoreTeamB" class="form-control"
+             id="scoreB"
+             name="scoreB"
+             placeholder="Tore B"
+             required
+             type="text">
+
+      <label for="teamA">Team A</label>
+      <select [(ngModel)]="teamA.id" [(ngModel)]="match.teamA" id="teamA" name="teamA" required>
+        <option *ngFor="let teamA of teams" value="{{ teamA.id }}">{{ teamA.name }}</option>
+      </select>
+      <label for="teamB">Team B</label>
+      <select [(ngModel)]="teamB.id" [(ngModel)]="match.teamB" id="teamB" name="teamB" required>
+        <option *ngFor="let teamB of teams" value="{{ teamB.id }}">{{ teamB.name }}</option>
+      </select>
+
+    </div>
+
+    <div class="dangerButton">
+      <button (click)="onSave()" [disabled]="!matchCreateForm.form.valid" class="btn btn-info"
+              type="button">Spiel erstellen
+      </button>
+
+      <button (click)="onFlush()" class="btn btn-info"
+              type="button">Flush
+      </button>
+    </div>
+
+  </form>
+</div>

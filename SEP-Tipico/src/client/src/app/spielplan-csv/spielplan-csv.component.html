@@ -1,0 +1,31 @@
+<input #csvReader (change)="uploadListener($event)" accept=".csv" id="txtFileUpload" name="Upload CSV" type="file"/>
+
+<label for="liga">liga</label>
+<select [(ngModel)]="liga" id="liga" name="liga" required>
+
+  <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+
+
+</select>
+
+
+<table *ngIf="records.length > 0" class="minimalistBlack">
+  <thead>
+  <tr>
+    <th>Matchday</th>
+    <th>Playdate</th>
+    <th>Team 1</th>
+    <th>FT</th>
+    <th>Team 2</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let record of records;let i = index;">
+    <td><span>{{record.matchday}}</span></td>
+    <td><span>{{record.playdate}}</span></td>
+    <td><span>{{record.team1}}</span></td>
+    <td><span>{{record.ftgoals}}</span></td>
+    <td><span>{{record.team2}}</span></td>
+  </tr>
+  </tbody>
+</table>

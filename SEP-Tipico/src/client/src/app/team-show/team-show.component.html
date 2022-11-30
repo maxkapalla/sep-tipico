@@ -1,0 +1,68 @@
+<div class="showTeamForm">
+  <button type="button" (click)="onFlush()"
+          class="btn btn-info">flush
+  </button>
+
+  <form (ngSubmit)="onShowTeamsInLiga()" #teamShowForm="ngForm">
+    <label for="liga">Liga</label>
+    <select [(ngModel)]="liga" name="liga" id="liga" required>
+
+      <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+
+    </select>
+
+    <div class="dangerButton">
+      <button type="submit"
+              class="btn btn-info">Anzeigen
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+
+<table>
+  <tr>
+    <th>
+      Team Name
+    </th>
+    <th>
+      Team ID
+    </th>
+    <th>
+      Team Punkte
+    </th>
+    <th>
+      Team Tore
+    </th>
+    <th>
+      Team Siege
+    </th>
+    <th>
+      Team Gleichstand
+    </th>
+    <th>
+      Team Verloren
+    </th>
+    <th>
+      Team Liga
+    </th>
+    <th>
+      Team Liga Name
+    </th>
+
+  </tr>
+  <tr *ngFor="let team of teams">
+    <td> {{ team.name }} </td>
+    <td>{{ team.id }}</td>
+    <td>{{team.points}}</td>
+    <td>{{team.goals}}</td>
+    <td>{{team.winnings}}</td>
+    <td>{{team.draws}}</td>
+    <td>{{team.losses}}</td>
+    <td>{{team.liga}}</td>
+
+   <td>{{getLigaName(team.liga)}}</td>
+  </tr>
+</table>

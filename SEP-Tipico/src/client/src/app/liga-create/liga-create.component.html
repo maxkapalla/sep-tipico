@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="showLigaList">
+    <table>
+      <tr>
+        <th>
+          Liga Name
+        </th>
+        <th>
+          Liga ID
+        </th>
+
+      </tr>
+      <tr *ngFor="let liga of ligen">
+        <td> {{ liga.name }} </td>
+        <td>{{ liga.id }}</td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="changeLigaNameForm">
+    <form #ligaChangeForm="ngForm" (ngSubmit)="onChangeName()">
+      <div class="form-group">
+        <label for="name">Liga Name anpassen</label>
+        <input [(ngModel)]="changeliga.name" class="form-control"
+               id="name"
+               name="name"
+               placeholder="Liga Name"
+               required
+               type="text">
+
+      </div>
+      <div class="form-group">
+        <label for="name">Liga ID</label>
+        <input [(ngModel)]="changeliga.id" class="form-control"
+               id="id"
+               name="id"
+               pattern="([0-9]{4}"
+               placeholder="Liga ID"
+               required
+               type="text">
+
+      </div>
+      <div class="form-group">
+        <label for="name">Liga URL</label>
+        <input [(ngModel)]="changeliga.url" class="form-control"
+               id="url"
+               name="url"
+               pattern="([0-9]{4}"
+               placeholder="Liga ID"
+               required
+               type="text">
+
+      </div>
+      <div class="dangerButton">
+        <button [disabled]="!ligaChangeForm.form.valid" class="btn btn-info"
+                type="submit">Name ändern
+        </button>
+      </div>
+
+    </form>
+  </div>
+  <div class="deleteLigaForm">
+    <form #ligaDeleteForm="ngForm" (ngSubmit)="onDelete()">
+
+      <div class="form-group">
+        <label for="name">Liga löschen</label>
+        <input [(ngModel)]="deleteliga.id" class="form-control"
+               id="deleteid"
+               name="id"
+               pattern="([0-9]{4}"
+               placeholder="Liga ID"
+               required s
+               type="text">
+
+      </div>
+
+      <div class="dangerButton">
+        <button [disabled]="!ligaDeleteForm.form.valid" class="btn btn-info"
+                type="submit">Delete
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="createLigaForm">
+    <br>
+    <form #ligaCreateForm="ngForm" (ngSubmit)="onCreateLiga()">
+      <div class="form-group">
+        <label for="createLigaName">Liga erstellen</label>
+        <input #ligaName="ngModel" [(ngModel)]="createLiga.name"
+               class="form-control"
+               id="createLigaName"
+               name="name"
+               placeholder="Liga Name"
+               required type="text">
+
+      </div>
+      <div class="form-group">
+        <label for="createLigaUrl">Liga Bild URL</label>
+        <input #ligaName="ngModel" [(ngModel)]="createLiga.url"
+               class="form-control"
+               id="createLigaUrl"
+               name="url"
+               placeholder="Liga Name"
+               required type="text">
+
+      </div>
+      <button [disabled]="!ligaCreateForm.form.valid" class="btn btn-info"
+              type="Erstellen">Submit
+      </button>
+      <button (click)="onFlush()" class="btn btn-info"
+              type="button">Flush
+      </button>
+      <button (click)="onRandomCreate()" class="btn btn-info"
+              type="button">Random generate
+      </button>
+    </form>
+    <br>
+  </div>
+
+
+</div>
