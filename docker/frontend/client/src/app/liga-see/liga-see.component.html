@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="showLigaList">
+    <table>
+      <tr>
+        <th>
+          Liga Name
+        </th>
+        <th>
+          Liga ID
+        </th>
+
+      </tr>
+      <tr *ngFor="let liga of ligen">
+        <td> {{ liga.name }} </td>
+        <td>{{ liga.id }}</td>
+      </tr>
+    </table>
+
+  </div>
+
+ </div>

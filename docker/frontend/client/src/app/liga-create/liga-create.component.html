@@ -1,0 +1,104 @@
+<div class="container">
+  <div class="showLigaList">
+    <table>
+      <tr>
+        <th>
+          Liga Name
+        </th>
+        <th>
+          Liga ID
+        </th>
+
+      </tr>
+      <tr *ngFor="let liga of ligen">
+        <td> {{ liga.name }} </td>
+        <td>{{ liga.id }}</td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="changeLigaNameForm">
+    <form (ngSubmit)="onChangeName()" #ligaChangeForm="ngForm">
+      <div class="form-group">
+        <label for="name">Liga Name ändern</label>
+        <input type="text" [(ngModel)]="changeliga.name"
+               class="form-control"
+               id="name"
+               name="name"
+               placeholder="Liga Name"
+               required>
+
+      </div>
+      <div class="form-group">
+        <label for="name">Liga ID</label>
+        <input type="text" [(ngModel)]="changeliga.id"
+               class="form-control"
+               id="id"
+               name="id"
+               placeholder="Liga ID"
+               pattern="([0-9]{4}" s
+               required>
+
+      </div>
+      <div class="dangerButton">
+        <button type="submit" [disabled]="!ligaChangeForm.form.valid"
+                class="btn btn-info">Name ändern
+        </button>
+      </div>
+
+    </form>
+  </div>
+  <div class="deleteLigaForm">
+    <form (ngSubmit)="onDelete()" #ligaDeleteForm="ngForm">
+
+      <div class="form-group">
+        <label for="name">Liga löschen</label>
+        <input type="text" [(ngModel)]="deleteliga.id"
+               class="form-control"
+               id="deleteid"
+               name="id"
+               placeholder="Liga ID"
+               pattern="([0-9]{4}" s
+               required>
+
+      </div>
+
+      <div class="dangerButton">
+        <button type="submit" [disabled]="!ligaDeleteForm.form.valid"
+                class="btn btn-info">Delete
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="createLigaForm">
+    <br>
+    <form (ngSubmit)="onCreateLiga()" #ligaCreateForm="ngForm">
+      <div class="form-group">
+        <label for="name">Liga erstellen</label>
+        <input type="text" [(ngModel)]="createLiga.name"
+               class="form-control"
+               id="createLigaName"
+               name="name"
+               placeholder="Liga Name"
+               required #ligaName="ngModel">
+
+      </div>
+      <button type="Erstellen" [disabled]="!ligaCreateForm.form.valid"
+              class="btn btn-info">Submit
+      </button>
+      <button type="button" (click)="onFlush()"
+              class="btn btn-info">Flush
+      </button>
+      <button type="button" (click)="onRandomCreate()"
+              class="btn btn-info">Random generate
+      </button>
+    </form>
+    <br>
+  </div>
+
+
+</div>

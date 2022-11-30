@@ -1,0 +1,22 @@
+header {
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.1);
+  background-color: cornflowerblue;
+}
+.logo {
+  height: 50px;
+  margin-left: 20px;
+}
+header a, b{
+  float: right;
+  font-size: 18px;
+  color: white;
+  text-align: right;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+header a:hover{
+  color: darkblue;
+}
+
+

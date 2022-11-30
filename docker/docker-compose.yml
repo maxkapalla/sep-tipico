@@ -1,0 +1,32 @@
+##TODO##
+
+version: "3"
+services:
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - 4200:4200
+    image: frontend:latest
+    restart: unless-stopped
+    networks:
+      - frontend-backend
+      
+  backend:
+    container_name: backend
+    build: ./backend
+    ports:
+      - 8080:8080
+    image: backend:latest
+    volumes:
+      - myapp:/usr/app/data
+    restart: unless-stopped
+    networks:
+      - frontend-backend
+
+networks:
+  frontend-backend:
+volumes:
+  myapp:

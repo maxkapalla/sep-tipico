@@ -1,0 +1,22 @@
+<div class="container">
+  <header class="jumbotron">
+    <h3>
+      <img src="{{url}}" *ngIf="url !== 'null'">
+      Profil von: <strong>{{ name }}</strong>
+    </h3>
+  </header>
+  <p>
+    <strong>Email:</strong>
+    {{ email }}
+  </p>
+
+  <p>
+    <strong>Role:</strong>
+    {{ role }}
+  </p>
+
+  <p *ngIf="role==='USER'">
+    <strong>Geburtstag:</strong>
+    {{birthdate}}
+  </p>
+</div>

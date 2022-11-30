@@ -1,0 +1,54 @@
+<h2>Registrierung Admin</h2>
+<div class="card-body">
+  <form (ngSubmit)="onSubmit()" #adminForm="ngForm">
+    <div class="form-group">
+      <label for="firstname">Vorname</label>
+      <input type="text" [(ngModel)]="nutzer.firstName"
+             class="form-control"
+             id="firstname"
+             name="firstname"
+             placeholder="Vorname"
+             required #firstName="ngModel">
+      <div style = "color: red" *ngIf="firstName.invalid && firstName.touched">Bitte Vornamen eingeben!</div>
+
+    </div>
+    <div class="form-group">
+      <label for="nachname">Nachname</label>
+      <input type="text" [(ngModel)]="nutzer.lastName"
+             class="form-control"
+             id="nachname"
+             name="nachname"
+             placeholder="Nachname"
+             required #lastname="ngModel">
+      <div style = "color: red" *ngIf="lastname.invalid && lastname.touched">Bitte Nachnamen eingeben!</div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" [(ngModel)]="nutzer.email"
+             class="form-control"
+             id="email"
+             name="email"
+             placeholder="Email"
+             pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+             required
+             #email="ngModel">
+      <div style = "color: red" *ngIf="email.invalid && email.touched">Ungültige Email-Adresse!</div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" [(ngModel)]="nutzer.password"
+             class="form-control"
+             id="password"
+             name="password"
+             minlength="6"
+
+             placeholder="Passwort"
+             required #password="ngModel">
+      <div style = "color: red" *ngIf="password.invalid && password.touched">Passwort muss mindestens 6 Zeichen haben!</div>
+    </div>
+    <button type="submit" [disabled]="!adminForm.form.valid"
+            class="btn btn-info">Registrieren</button>
+  </form>
+</div>
+

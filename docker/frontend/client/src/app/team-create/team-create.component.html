@@ -1,0 +1,112 @@
+
+<div class="changeLigaNameForm">
+  <form #teamSelectForm="ngForm">
+    <label for="name">id</label>
+    <select [(ngModel)]="team.id" name="id" id="id" required>
+      <option *ngFor="let team of teams" value="{{ team.id }}">{{ team.name }}</option>
+    </select>
+    <br>
+
+    <button type="button" (click)="onLoadTeam()" [disabled]="!teamSelectForm.form.valid"
+            class="btn btn-info">Team laden
+    </button>
+    <button type="button" (click)="onDeleteTeam()" [disabled]="!teamSelectForm.form.valid"
+            class="btn btn-info">Team löschen
+    </button>
+  </form>
+
+
+  <form (ngSubmit)="onSubmit()" #teamCreateForm="ngForm">
+    <div class="form-group">
+      <label for="name">Liga Name</label>
+      <input type="text" [(ngModel)]="team.name"
+             class="form-control"
+             id="name"
+             name="name"
+             placeholder="Liga Name"
+             required>
+
+    </div>
+    <div class="form-group">
+      <label for="name">losses</label>
+      <input type="text" [(ngModel)]="team.losses"
+             class="form-control"
+             id="losses"
+             name="losses"
+             placeholder="losses"
+
+             required>
+
+    </div>
+    <div class="form-group">
+      <label for="name">draws</label>
+      <input type="text" [(ngModel)]="team.draws"
+             class="form-control"
+             id="draws"
+             name="draws"
+             placeholder="draws"
+             required>
+
+    </div>
+    <div class="form-group">
+      <label for="name">winnings</label>
+      <input type="text" [(ngModel)]="team.winnings"
+             class="form-control"
+             id="winnings"
+             name="winnings"
+             placeholder="winnings"
+
+             required>
+
+    </div>
+    <div class="form-group">
+      <label for="name">goals</label>
+      <input type="text" [(ngModel)]="team.goals"
+             class="form-control"
+             id="goals"
+             name="goals"
+             placeholder="goals"
+
+             required>
+
+    </div>
+    <div class="form-group">
+      <label for="name">points</label>
+      <input type="text" [(ngModel)]="team.points"
+             class="form-control"
+             id="points"
+             name="points"
+             placeholder="points"
+
+             required>
+
+    </div>
+
+    <label for="name">liga</label>
+    <select [(ngModel)]="team.liga" name="liga" id="liga" required>
+
+      <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+
+
+    </select>
+    <br>
+
+
+    <div class="dangerButton">
+      <button type="submit" [disabled]="!teamCreateForm.form.valid"
+              class="btn btn-info">{{createButtonText}}
+      </button>
+
+      <button type="button" (click)="resetButtonText()"
+              class="btn btn-info">Reset
+      </button>
+
+      <button type="button" (click)="onRandom()"
+              class="btn btn-info">generate
+      </button>
+
+
+    </div>
+
+  </form>
+</div>

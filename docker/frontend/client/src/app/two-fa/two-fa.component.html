@@ -1,0 +1,29 @@
+<h1>Two Factor Authentication</h1>
+<div class="card-body">
+  <form (ngSubmit)="onSubmit(twofa.value)" #twofa="ngForm">
+    <div class="form-group">
+      <label for="twofa">Code:</label>
+      <input
+        #twofa (keyup.enter)="onSubmit(twofa.value)"
+        type="text" [(ngModel)]="twoFa.twofa"
+        class="form-control"
+        id="twofa"
+        name="twofa"
+        placeholder="6 digit code"
+        minlength="6"
+        maxlength="6"
+        required
+      >
+    </div>
+
+    <li class="list-inline-item">
+    <button type="submit"
+            class="btn btn-info">Submit</button>
+      </li>
+    <li class="list-inline-item">
+    <button (click)='resendMail()'
+            class="btn btn-info">Neuen Code anfordern</button>
+    </li>
+  </form>
+
+</div>
