@@ -1,16 +1,17 @@
 package com.example.septipico.liga;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
 
-    public List<Team> findByName(String name);
+     List<Team> findByName(String name);
 
-    public List<Team> findByLiga(Long liga);
+     List<Team> findByLiga(Long liga);
     
 
 }

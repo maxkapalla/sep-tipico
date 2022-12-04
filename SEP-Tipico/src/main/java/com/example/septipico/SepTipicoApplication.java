@@ -1,8 +1,5 @@
 package com.example.septipico;
 
-
-import com.example.septipico.liga.*;
-
 import com.example.septipico.liga.LigaRepository;
 import com.example.septipico.liga.TeamRepository;
 import com.example.septipico.nutzer.NutzerRepository;
@@ -10,12 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.RestController;
 
 
 
 @SpringBootApplication
-@RestController
 public class SepTipicoApplication {
 
     public static void main(String[] args) {
