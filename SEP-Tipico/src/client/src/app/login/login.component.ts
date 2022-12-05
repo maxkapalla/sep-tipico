@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
               sessionStorage.setItem('birthday', this.nutzer.dateOfBirth + "")
             }
             sessionStorage.setItem('role', this.nutzer.role + "")
+            sessionStorage.setItem('id', this.nutzer.id+"")
 
             this.gotoTwoFa()
           }

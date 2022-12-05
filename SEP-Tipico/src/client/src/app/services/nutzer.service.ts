@@ -25,4 +25,13 @@ export class NutzerService {
   public registerUser(nutzer:Nutzer): Observable<Nutzer> {
     return this.http.post<Nutzer>(userURL+'/signup', nutzer);
   }
+
+  public searchUser(firstName: string, lastName: string): Observable<Nutzer[]>{
+    console.log(firstName +" "+ lastName)
+    return this.http.get<Nutzer[]>("http://localhost:8080/nutzer/search/"+firstName+"/"+lastName)
+  }
+
+  public getFriends(id: number): Observable<Nutzer[]>{
+    return this.http.get<Nutzer[]>("http://localhost:8080/friends/list/"+id)
+  }
 }

@@ -1,3 +1,8 @@
 2022-11-10 17:37:20 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]LIGA SELECT * FROM NUTZER"; SQL statement:
 LIGA SELECT * FROM NUTZER [42000-214]
+2022-12-05 16:13:17 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table FRIENDS\000d\000adrop column sender\000d\000a[*]drop column receiver"; SQL statement:
+alter table FRIENDS
+drop column sender
+drop column receiver [42000-214]

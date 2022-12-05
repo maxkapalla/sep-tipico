@@ -1,0 +1,26 @@
+<h2>Nutzer suchen</h2>
+<div class="card-body">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Vorname</label>
+      <input type="text" [(ngModel)]="nutzerName"
+             class="form-control"
+             id="name"
+             name="name"
+             placeholder="Name"
+             required #name="ngModel"
+             (keyup.enter)="onSubmit()">
+      <div style = "color: red" *ngIf="name.invalid && name.touched">Ungültiger Name!</div>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <div class="showNutzerList">
+    <div *ngFor="let nutzer of nutzers">
+      <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
+    </div>
+  </div>
+</div>
+
+

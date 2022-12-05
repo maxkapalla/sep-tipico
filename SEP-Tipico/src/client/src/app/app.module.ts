@@ -22,6 +22,8 @@ import {SpielplanCsvComponent} from "./spielplan-csv/spielplan-csv.component";
 import {LigaSeeComponent} from "./liga-see/liga-see.component";
 import { ProfileComponent } from './profile/profile.component';
 import {FileUploadComponent} from "./file-upload/file-upload.component";
+import { NutzerSearchComponent } from './nutzer-search/nutzer-search.component';
+import { FriendListComponent } from './friend-list/friend-list.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import {FileUploadComponent} from "./file-upload/file-upload.component";
     SpielplanCsvComponent,
     LigaSeeComponent,
     ProfileComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    NutzerSearchComponent,
+    FriendListComponent
   ],
   imports: [
     BrowserModule,

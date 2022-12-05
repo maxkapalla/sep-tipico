@@ -16,6 +16,8 @@ import {SpielplanCsvComponent} from "./spielplan-csv/spielplan-csv.component";
 import {LigaSeeComponent} from "./liga-see/liga-see.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {FileUploadComponent} from "./file-upload/file-upload.component";
+import {NutzerSearchComponent} from "./nutzer-search/nutzer-search.component";
+import {FriendListComponent} from "./friend-list/friend-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -33,7 +35,9 @@ const routes: Routes = [
   {path: 'csv', component:SpielplanCsvComponent},
   {path: 'liga-see', component:LigaSeeComponent},
   {path: 'profile', component: ProfileComponent, canActivate:[AuthService]},
-  {path: 'fileupload', component: FileUploadComponent}
+  {path: 'fileupload', component: FileUploadComponent},
+  {path: 'search', component: NutzerSearchComponent, canActivate:[AuthService]},
+  {path: 'friends', component: FriendListComponent}
 ];
 
 @NgModule({

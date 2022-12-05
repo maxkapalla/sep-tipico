@@ -3,6 +3,7 @@ package com.example.septipico.nutzer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,5 +28,10 @@ public class NutzerController {
     public Nutzer loginNutzer(@PathVariable("email") String email, @PathVariable("password") String password){
        //System.out.println(email);
        return nutzerrepo.findNutzerByEmailAndPassword(email, password);
+    }
+
+    @GetMapping("/nutzer/search/{fn}/{ln}")
+    public List<Nutzer> searchNutzer(@PathVariable("fn") String firstName, @PathVariable("ln") String lastName){
+        return nutzerrepo.findAllByFirstNameOrLastName(firstName,lastName);
     }
 }

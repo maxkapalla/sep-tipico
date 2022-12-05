@@ -1,19 +1,29 @@
 package com.example.septipico.nutzer;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Friends {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     @Id
     private Long id;
-    @Column(name="Sender")
+    @Column(name="Nutzer1")
     private Long sender;
-    @Column(name="Reciever")
-    private Long reciever;
+    @Column(name="Nutzer2")
+    private Long receiver;
     @Column(name="Accepted")
     private boolean accepted;
+
+
+    public Friends(Long sender, Long receiver, boolean accepted){
+        this.sender= sender;
+        this.receiver= receiver;
+        this.accepted = accepted;
+    }
+
+    public Friends() {
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -29,11 +39,11 @@ public class Friends {
         this.sender = sender;
     }
 
-    public Long getReciever() {
-        return reciever;
+    public Long getReceiver() {
+        return receiver;
     }
-    public void setReciever(Long reciever) {
-        this.reciever = reciever;
+    public void setReceiver(Long reciever) {
+        this.receiver = reciever;
     }
 
     public boolean isAccepted() {

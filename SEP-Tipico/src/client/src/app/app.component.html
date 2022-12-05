@@ -39,6 +39,12 @@
             <li class="list-inline-item">
               <a routerLink="/csv" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">CSV einlesen</a>
             </li>
+            <li class="list-inline-item">
+              <a routerLink="/search" class="btn btn-info" *ngIf="loggedIn!== null">Nutzer suchen</a>
+            </li>
+            <li class="list-inline-item">
+              <a routerLink="/friends" class="btn btn-info" *ngIf="loggedIn!== null">Freundesliste</a>
+            </li>
           </ul>
         </div>
       </div>

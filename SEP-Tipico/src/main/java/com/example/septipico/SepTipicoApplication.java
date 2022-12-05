@@ -2,6 +2,7 @@ package com.example.septipico;
 
 import com.example.septipico.liga.LigaRepository;
 import com.example.septipico.liga.TeamRepository;
+import com.example.septipico.nutzer.FriendsRepository;
 import com.example.septipico.nutzer.NutzerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,11 +27,13 @@ public class SepTipicoApplication {
     }
 
 
+
     @Bean
-    CommandLineRunner init(LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo) {
+    CommandLineRunner init(LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo, FriendsRepository friendrepo) {
         return args -> {
-/*
-            int max = 1000;
+//            friendrepo.save(new Friends(21L, 4408L, true));
+//            friendrepo.save(new Friends(22L, 4408L,true));
+/*            int max = 1000;
             int min = 0;
 
             List<Liga> ligaList = new ArrayList<Liga>();
