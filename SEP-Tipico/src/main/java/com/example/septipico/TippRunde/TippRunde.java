@@ -33,4 +33,41 @@ public class TippRunde {
         this.besitzer= besitzer;
         this.liga= liga;
     }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id=id;
+    }
+    public String getTipprundeName() {
+        return tipprundeName;
+    }
+    public void setTipprundeName(String tipprundeName) {
+        this.tipprundeName= tipprundeName;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password= password;
+    }
+    public String getZugang() {
+        return zugang;
+    }
+    public void setZugang(String zugang) {
+        this.zugang= zugang;
+    }
+    public Long getBesitzer() {
+        return besitzer;
+    }
+    public void setBesitzer(Long besitzer) {
+        this.besitzer= besitzer;
+    }
+    public Long getLiga() {
+        return liga;
+    }
+    public void setLiga(Long liga) {
+        this.liga= liga;
+    }
 }
