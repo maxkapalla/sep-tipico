@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface TippRundeRepository extends JpaRepository<TippRunde, Long> {
 
-    
+
 }
