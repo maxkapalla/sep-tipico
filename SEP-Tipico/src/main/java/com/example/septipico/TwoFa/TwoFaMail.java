@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class TwoFaMail {
 
-    public void sendMail(String mailAdress, String code) throws MessagingException {
+    public void sendMail(String mailAdress, String message) throws MessagingException {
         Properties properties = new Properties();
 
         properties.put("mail.stmp.user" , "septipico@hotmail.com");
@@ -37,7 +37,7 @@ public class TwoFaMail {
         mail.setSubject("SEP Tipico 2FA");
 
         MimeBodyPart body = new MimeBodyPart();
-        body.setContent("Dein 2FA Code: " + code, "text/html; charset=utf-8");
+        body.setContent(message, "text/html; charset=utf-8");
 
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(body);

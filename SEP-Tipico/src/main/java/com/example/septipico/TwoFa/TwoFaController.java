@@ -17,7 +17,7 @@ public class TwoFaController {
         //System.out.println("mail adress: " + email + " " + code);
 
         try {
-            mailSender.sendMail(email, code);
+            mailSender.sendMail(email, "Dein 2FA Code: " + code);
         } catch (javax.mail.MessagingException e) {
             System.out.println("mail versenden fehlgeschlagen");
         }
