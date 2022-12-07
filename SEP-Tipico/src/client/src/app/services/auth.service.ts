@@ -11,6 +11,7 @@ export class AuthService implements CanActivate{
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean>{
     return new Promise((resolve, reject)=> {
+
       if(!sessionStorage.getItem('isLoggedIn')){
         this.router.navigate(['/login']);
         return resolve(false);

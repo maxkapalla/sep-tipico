@@ -27,11 +27,12 @@ export class NutzerSearchComponent implements OnInit {
         var splitStr = this.nutzerName.split(' ')
         firsName = splitStr[0]
         lastName = splitStr[1]
+        this.service.searchUser(firsName,lastName).subscribe((data: any) => this.nutzers = data)
       }else{
         firsName = this.nutzerName
+        this.service.searchUserByOneNameOnly(firsName).subscribe((data: any) => this.nutzers = data)
       }
     }
-    this.service.searchUser(firsName,lastName).subscribe((data: any) => this.nutzers = data)
   }
 
 }

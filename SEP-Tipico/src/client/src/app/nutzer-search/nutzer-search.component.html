@@ -10,17 +10,25 @@
              placeholder="Name"
              required #name="ngModel"
              (keyup.enter)="onSubmit()">
-      <div style = "color: red" *ngIf="name.invalid && name.touched">Ungültiger Name!</div>
     </div>
   </form>
 </div>
 
 <div class="container">
   <div class="showNutzerList">
+    <div class="noNutzer" *ngIf="nutzers.length < 1 && name.touched">Keine Nutzer gefunden</div>
     <div *ngFor="let nutzer of nutzers">
-      <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
+      <div class="card"  *ngIf ="nutzer.email !== email">
+        <div>
+          <img src="{{nutzer.imageURL}}">
+          <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<br>
+<br>
 
 

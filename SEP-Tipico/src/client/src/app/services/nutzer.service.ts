@@ -31,6 +31,10 @@ export class NutzerService {
     return this.http.get<Nutzer[]>("http://localhost:8080/nutzer/search/"+firstName+"/"+lastName)
   }
 
+  public searchUserByOneNameOnly(name: string): Observable<Nutzer[]>{
+    return this.http.get<Nutzer[]>("http://localhost:8080/nutzer/search/"+name)
+  }
+
   public getFriends(id: number): Observable<Nutzer[]>{
     return this.http.get<Nutzer[]>("http://localhost:8080/friends/list/"+id)
   }

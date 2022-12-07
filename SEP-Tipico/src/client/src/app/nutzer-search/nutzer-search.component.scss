@@ -2,4 +2,31 @@ h2{
   font-size: 40px;
 }
 
+.card{
+  background-color: lightgrey;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
+a{
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.noNutzer{
+  margin-top: 5px;
+  margin-left: 10px;
+  color: red;
+  size: 18px;
+}
+img{
+  height: 50px;
+  width: 50px;
+  float: top;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}

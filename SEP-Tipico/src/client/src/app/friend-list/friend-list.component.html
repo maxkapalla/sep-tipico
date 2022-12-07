@@ -1,8 +1,18 @@
 <h2>Freundesliste</h2>
 <div class="container">
+  <div class="noNutzer" *ngIf="nutzers.length < 1">Keine Freunde gefunden</div>
   <div class="showNutzerList">
     <div *ngFor="let nutzer of nutzers">
-      <a> {{nutzer.firstName+" "+nutzer.lastName}}</a>
+      <div class="card">
+        <div>
+          <img src="{{nutzer.imageURL}}">
+          <a>{{nutzer.firstName+" "+nutzer.lastName}}</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<br>
+<br>
+
