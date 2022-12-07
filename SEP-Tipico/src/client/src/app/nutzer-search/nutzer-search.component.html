@@ -14,6 +14,20 @@
   </form>
 </div>
 
+<div class="tipprundeSelectForm">
+  <form #ligaSelectForm="ngForm">
+    <div class="form-group">
+      <label for="tippRunde">tippRunde</label>
+      <select [(ngModel)]="tippRunde.id" [(ngModel)]="tippRunde.tipprundeName" id="tippRunde" name="tippRunde" required>
+        <option *ngFor="let tippRunde of tippRunden" value="{{ tippRunde.id }}">{{ tippRunde.tipprundeName }}</option>
+      </select>
+    </div>
+    <button class="btn btn-info"
+            type="button">Liga laden
+    </button>
+  </form>
+</div>
+
 <div class="container">
   <div class="showNutzerList">
     <div class="noNutzer" *ngIf="nutzers.length < 1 && name.touched">Keine Nutzer gefunden</div>
@@ -57,9 +71,8 @@ border-color: darkseagreen; margin-left: 200px;"
                   border-color: darkgrey;"
                   class="btn btn-info">share Liga</button>
              <div class = "dropdown-cont">
-               <a href *ngFor="let tippRunde of tippRunden"> id={{tippRunde.id}}
-               <a href onclick="shareTippRunde(id)">Runde</a>
-                 </a>
+               <a *ngFor="let tippRunde of tippRunden" onclick="shareTippRunde(id)"> {{tippRunde.tipprundeName}} id={{tippRunde.id}}
+               </a>
                  <a href="#">test</a>
              </div>
           </div>

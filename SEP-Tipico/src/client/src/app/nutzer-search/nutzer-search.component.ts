@@ -14,10 +14,12 @@ export class NutzerSearchComponent implements OnInit {
   nutzerName: string|undefined;
   nutzers: Nutzer[];
   tippRunden: TippRunde[];
+  tippRunde: TippRunde;
   email =""
   constructor(private service: NutzerService, private tippRundeService: TippRundeService) {
     this.nutzers = []
     this.tippRunden = []
+    this.tippRunde = new TippRunde();
   }
 
 
