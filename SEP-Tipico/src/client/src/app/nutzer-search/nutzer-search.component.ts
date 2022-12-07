@@ -14,19 +14,16 @@ export class NutzerSearchComponent implements OnInit {
   nutzerName: string|undefined;
   nutzers: Nutzer[];
   tippRunden: TippRunde[];
-  tippRunde: TippRunde;
   email =""
   constructor(private service: NutzerService, private tippRundeService: TippRundeService) {
     this.nutzers = []
     this.tippRunden = []
-    this.tippRunde = new TippRunde();
   }
 
 
   ngOnInit(): void {
     this.email = sessionStorage.getItem('email')+"";
     this.tippRundeService.getTippRundenByOwner(sessionStorage.getItem("id")+"").subscribe((data: any) => this.tippRunden = data);
-    console.log(this.tippRunden + " " + sessionStorage.getItem("id"));
   }
 
   onSubmit(){
@@ -49,7 +46,7 @@ export class NutzerSearchComponent implements OnInit {
 
   }
 
-  shareTippRunde(tippRundeId: bigint) {
+  shareTippRunde(tippRundeId: bigint, userMail: string) {
 
   }
 
