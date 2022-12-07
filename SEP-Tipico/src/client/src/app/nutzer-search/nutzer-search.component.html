@@ -22,6 +22,48 @@
         <div>
           <img src="{{nutzer.imageURL}}">
           <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
+
+          <li class="list-inline-item">
+          <button (click)='addFriend()'
+                  style="background-color: darkseagreen;
+border-color: darkseagreen; margin-left: 200px;"
+                  class="btn btn-info">add Friend</button>
+          </li>
+
+          <style>
+            .dropdown {
+              position: relative;
+              display: inline-block;
+            }
+            .dropdown-cont {
+              display: none;
+              position: fixed;
+              background-color: ghostwhite;
+              min-width: 300px;
+              z-index: 1;
+            }
+            .dropdown-cont a {
+              color:grey;
+              display:block;
+            }
+            .dropdown:hover .dropdown-cont {display: block}
+            .dropdown-cont a:hover {color:black}
+
+          </style>
+          <li class="list-inline-item">
+           <div class = "dropdown">
+              <button
+                  style="background-color: darkgrey;
+                  border-color: darkgrey;"
+                  class="btn btn-info">share Liga</button>
+             <div class = "dropdown-cont">
+               <a href *ngFor="let tippRunde of tippRunden"> id={{tippRunde.id}}
+               <a href onclick="shareTippRunde(id)">Runde</a>
+                 </a>
+                 <a href="#">test</a>
+             </div>
+          </div>
+          </li>
         </div>
       </div>
     </div>

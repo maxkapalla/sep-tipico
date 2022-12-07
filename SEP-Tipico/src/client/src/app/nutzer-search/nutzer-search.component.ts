@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {NutzerService} from "../services/nutzer.service";
 import {Nutzer} from "../Models/Nutzer";
+import {TippRunde} from "../Models/TippRunde";
+import {TippRundeService} from "../services/tipp-runde.service";
 
 @Component({
   selector: 'app-nutzer-search',
@@ -11,12 +13,18 @@ export class NutzerSearchComponent implements OnInit {
 
   nutzerName: string|undefined;
   nutzers: Nutzer[];
+  tippRunden: TippRunde[];
   email =""
-  constructor(private service: NutzerService) {this.nutzers = [] }
+  constructor(private service: NutzerService, private tippRundeService: TippRundeService) {
+    this.nutzers = []
+    this.tippRunden = []
+  }
 
 
   ngOnInit(): void {
-    this.email = sessionStorage.getItem('email')+""
+    this.email = sessionStorage.getItem('email')+"";
+    this.tippRundeService.getTippRundenByOwner(sessionStorage.getItem("id")+"").subscribe((data: any) => this.tippRunden = data);
+    console.log(this.tippRunden + " " + sessionStorage.getItem("id"));
   }
 
   onSubmit(){
@@ -34,5 +42,14 @@ export class NutzerSearchComponent implements OnInit {
       }
     }
   }
+
+  addFriend() {
+
+  }
+
+  shareTippRunde(tippRundeId: bigint) {
+
+  }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.septipico;
 
+import com.example.septipico.TippRunde.TippRundeRepository;
 import com.example.septipico.liga.LigaRepository;
 import com.example.septipico.liga.TeamRepository;
 import com.example.septipico.nutzer.FriendsRepository;
@@ -29,7 +30,7 @@ public class SepTipicoApplication {
 
 
     @Bean
-    CommandLineRunner init(LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo, FriendsRepository friendrepo) {
+    CommandLineRunner init(LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo, FriendsRepository friendrepo, TippRundeRepository tippRundeRepo) {
         return args -> {
 //            friendrepo.save(new Friends(21L, 4408L, true));
 //            friendrepo.save(new Friends(22L, 4408L,true));
