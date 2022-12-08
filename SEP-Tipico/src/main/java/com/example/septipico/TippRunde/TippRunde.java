@@ -24,14 +24,28 @@ public class TippRunde {
     @Column(name= "Liga")
     private Long liga;
 
+    @Column(name= "GewTore")
+    private String gewTore;
+
+    @Column(name= "GewDiff")
+    private String gewDiff;
+
+    @Column(name= "GewGewinner")
+    private String gewGewinner;
+
     public TippRunde() {
+
     }
-    public TippRunde(String tipprundeName, String password, String zugang, Long besitzer, Long liga) {
+    public TippRunde(String tipprundeName, String password, String zugang, Long besitzer,
+                     Long liga, String gewTore, String gewDiff, String gewGewinner) {
         this.tipprundeName= tipprundeName;
         this.password= password;
         this.zugang= zugang;
         this.besitzer= besitzer;
         this.liga= liga;
+        this.gewTore= gewTore;
+        this.gewDiff= gewDiff;
+        this.gewGewinner= gewGewinner;
     }
 
     public Long getId() {
@@ -69,5 +83,24 @@ public class TippRunde {
     }
     public void setLiga(Long liga) {
         this.liga= liga;
+    }
+
+    public String getGewTore(String gewTore) {
+        return gewTore;
+    }
+    public void setGewTore(String gewTore) {
+        this.gewTore=gewTore;
+    }
+    public String getGewDiff(String gewDiff) {
+        return gewDiff;
+    }
+    public void setGewDiff(String gewDiff) {
+        this.gewDiff=gewDiff;
+    }
+    public String getGewGewinner(String gewGewinner) {
+        return gewTore;
+    }
+    public void setGewGewinner(String gewGewinner) {
+        this.gewGewinner=gewGewinner;
     }
 }
