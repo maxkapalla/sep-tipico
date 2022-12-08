@@ -51,7 +51,7 @@ public class FriendsController {
 
         List<Friends> friendRelations = friendrepo.findAllByReceiverOrSender(receiverID, senderID);
 
-        System.out.println(friendRelations.size()+ " " + receiverID + " " + senderID);
+        System.out.println(friendRelations.isEmpty() + " " + friendRelations.size()+ " " + receiverID + " " + senderID);
 
         return friendRelations.isEmpty();
     }

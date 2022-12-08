@@ -59,6 +59,7 @@ export class NutzerSearchComponent implements OnInit {
   getRelations(nutzerID: string|undefined, sucherID: string): boolean {
     this.service.searchFriendRelations(nutzerID+"", sucherID+"").subscribe((data: any) => this.hasRelations = data)
 
+    console.log(this.hasRelations)
     return this.hasRelations;
   }
 
