@@ -26,6 +26,7 @@ public class TippRunde {
 
     public TippRunde() {
     }
+
     public TippRunde(String tipprundeName, String password, String zugang, Long besitzer, Long liga) {
         this.tipprundeName= tipprundeName;
         this.password= password;
