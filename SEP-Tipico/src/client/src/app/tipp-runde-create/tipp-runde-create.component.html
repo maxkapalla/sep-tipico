@@ -12,7 +12,7 @@
              required type="text">
     </div>
     <div class="form-group">
-      <label for="password">Passwort</label>
+      <label for="password">Optionales Passwort</label>
       <input type="password" [(ngModel)]="createTippRunde.password"
              class="form-control"
              id="password"
@@ -22,10 +22,27 @@
              required #password="ngModel">
       <div style = "color: red" *ngIf="password.invalid && password.touched">Passwort muss mindestens 6 Zeichen haben!</div>
     </div>
+    <div class="ligaSelectForm">
+        <div class="form-group">
+          <label for="liga">Liga </label>
+          <select [(ngModel)]="liga.id" id="liga" name="liga" required>
+            <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+          </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label for="gewTore">Richtiges Ergebnis:</label>
+      <input #ligaName="ngModel" [(ngModel)]="createTippRunde.gewTore"
+             class="form-control"
+             id="gewTore"
+             name="name"
+             placeholder="Wähle deine Gewichtung aus!"
+             required type="text">
+    </div>
 
     <button [disabled]="!tippRundeCreateForm.form.valid" class="btn btn-info"
-            type="Erstellen">Submit
-
+            type="Erstellen">Tipprunde erstellen
     </button>
   </form>
   <br>
