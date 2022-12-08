@@ -24,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {FileUploadComponent} from "./file-upload/file-upload.component";
 import { NutzerSearchComponent } from './nutzer-search/nutzer-search.component';
 import { FriendListComponent } from './friend-list/friend-list.component';
+import { TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { FriendListComponent } from './friend-list/friend-list.component';
     ProfileComponent,
     FileUploadComponent,
     NutzerSearchComponent,
-    FriendListComponent
+    FriendListComponent,
+    TippAbgebenComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {FileUploadComponent} from "./file-upload/file-upload.component";
 import {NutzerSearchComponent} from "./nutzer-search/nutzer-search.component";
 import {FriendListComponent} from "./friend-list/friend-list.component";
+import {TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -37,7 +38,8 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate:[AuthService]},
   {path: 'fileupload', component: FileUploadComponent},
   {path: 'search', component: NutzerSearchComponent, canActivate:[AuthService]},
-  {path: 'friends', component: FriendListComponent}
+  {path: 'friends', component: FriendListComponent},
+  {path: 'tipp-abgeben', component: TippAbgebenComponent}
 ];
 
 @NgModule({

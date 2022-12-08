@@ -5,11 +5,11 @@ import com.example.septipico.liga.LigaRepository;
 import com.example.septipico.liga.TeamRepository;
 import com.example.septipico.nutzer.FriendsRepository;
 import com.example.septipico.nutzer.NutzerRepository;
+import com.example.septipico.tippN.TippNRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 
 
 @SpringBootApplication
@@ -28,13 +28,12 @@ public class SepTipicoApplication {
     }
 
 
-
     @Bean
-    CommandLineRunner init(LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo, FriendsRepository friendrepo, TippRundeRepository tippRundeRepo) {
+    CommandLineRunner init(LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo, FriendsRepository friendrepo, TippRundeRepository tippRundeRepo, TippNRepository tippNRepository) {
         return args -> {
 //            friendrepo.save(new Friends(21L, 4408L, true));
 //            friendrepo.save(new Friends(22L, 4408L,true));
-/*            int max = 1000;
+/*            int max = 1000;, Ti
             int min = 0;
 
             List<Liga> ligaList = new ArrayList<Liga>();

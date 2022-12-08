@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {NewLiga} from "../Models/NewLiga";
 import {Match} from "../Models/Match";
 import {Observable} from "rxjs";
-import {Team} from "../Models/Team";
 import {Liga} from "../Models/Liga";
 
 const httpOptions = {

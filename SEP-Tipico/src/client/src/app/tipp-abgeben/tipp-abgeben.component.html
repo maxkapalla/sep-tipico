@@ -1,0 +1,34 @@
+<div class="ligaSelectForm">
+  <form #matchCreateForm="ngForm">
+    <div class="form-group">
+      <label for="liga">Liga</label>
+      <select [(ngModel)]="liga.id" [(ngModel)]="match.liga" id="liga" name="liga" required>
+        <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+      </select>
+    </div>
+    <button (click)="onShowMatchesInLiga()" class="btn btn-info"
+            type="button">Liga laden
+    </button>
+  </form>
+</div>
+
+<table class="minimalistBlack">
+  <thead>
+  <tr>
+    <th>Matchday</th>
+    <th>Playdate</th>
+    <th>Team 1</th>
+    <th>FT</th>
+    <th>Team 2</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let match of matches;">
+    <td><span>{{match.id}}</span></td>
+    <td><span>{{match.spieltag}}</span></td>
+    <td><span>{{match.scoreTeamA}}</span></td>
+    <td><span>{{match.scoreTeamB}}</span></td>
+    <td><span>{{match.teamA}}</span></td>
+  </tr>
+  </tbody>
+</table>
