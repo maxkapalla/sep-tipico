@@ -62,4 +62,31 @@ public class FriendsController {
 
         return friendRelations.isEmpty();
     }
+
+    @GetMapping("/friends/friendrequest/{sucherID}")
+    public List<Nutzer> getFriendRequests(@PathVariable("sucherID") String sucherID) {
+        long receiver = Integer.parseInt(sucherID);
+
+        List<Nutzer> friendRequestList = new ArrayList<Nutzer>();
+
+        for(Friends x: friendrepo.findAllByReceiverAndAccepted(receiver, false)) {
+            Nutzer friendUser = nutzerrepo.findNutzerById(x.getSender());
+            friendRequestList.add(friendUser);
+        }
+
+        return friendRequestList;
+    }
+    @GetMapping("/friends/remove/{nutzerID}/{sucherID}")
+    public boolean removeFriend(@PathVariable("nutzerID") String nutzerID, @PathVariable("sucherID") String sucherID) {
+        long receiver = Integer.parseInt(nutzerID);
+        long sender = Integer.parseInt(sucherID);
+
+        List<Friends> friendList = friendrepo.findAllByReceiverAndSender(receiver, sender);
+
+        for(Friends x: friendList) {
+            friendrepo.delete(x);
+        }
+
+        return true;
+    }
 }

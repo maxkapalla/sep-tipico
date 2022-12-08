@@ -1,6 +1,29 @@
+<h2>Freundschaftsanfragen</h2>
+<div class="noNutzer" *ngIf="openRequests.length < 1">Keine offenen Freundschaftsanfragen</div>
+<div class="showFriendRequests">
+  <div *ngFor="let user of openRequests">
+    <div class="card">
+      <div>
+        <a>{{user.firstName+ " " + user.lastName}}</a>
+        <li class="list-inline-item">
+          <button (click)='acceptFriend(user.id+"")'
+                  style="background-color: darkseagreen;
+border-color: darkseagreen; margin-left: 200px;"
+                  class="btn btn-info">accept</button>
+        </li>
+        <li class="list-inline-item">
+        <button (click)='removeFriend(user.id+"")'
+                style="background-color: indianred;
+border-color: indianred;"
+                class="btn btn-info">decline</button>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
 <h2>Freundesliste</h2>
 <div class="container">
-  <div class="noNutzer" *ngIf="nutzers.length < 1">Keine Freunde gefunden</div>
+  <div class="noNutzer" *ngIf="nutzers.length < 1 ">Keine Freunde gefunden</div>
   <div class="showNutzerList">
     <div *ngFor="let nutzer of nutzers">
       <div class="card">
@@ -9,9 +32,9 @@
           <a>{{nutzer.firstName+" "+nutzer.lastName}}</a>
 
           <li class="list-inline-item">
-            <button (click)='removeFriend()'
+            <button (click)='removeFriend(nutzer.id+"")'
                     style="background-color: indianred;
-border-color: darkseagreen; margin-left: 200px;"
+border-color: indianred; margin-left: 200px;"
                     class="btn btn-info">Remove Friend</button>
           </li>
         </div>
