@@ -5,6 +5,7 @@ import {TippRunde} from "../Models/TippRunde";
 import {TippRundeMail} from "../Models/TippRundeMail";
 import {Liga} from "../Models/Liga";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,7 @@ export class TippRundeService {
   constructor(private http: HttpClient) {this.tippRundeURL = 'http://localhost:8080/tippRunde', this.tippRundeMail = new TippRundeMail()}
 
   create(tippRunde: TippRunde): Observable<TippRunde> {
-
+    console.log(tippRunde);
     return this.http.post<TippRunde>(this.tippRundeURL + "/save", tippRunde);
   }
 

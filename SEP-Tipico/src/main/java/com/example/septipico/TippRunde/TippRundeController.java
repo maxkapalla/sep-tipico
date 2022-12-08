@@ -21,11 +21,11 @@ public class TippRundeController {
         tippRundeRepository.deleteById(TippRunde.getId());
     }
 
-    @PostMapping("/save")
+    @PostMapping("/tippRunde/save")
     public void saveTippRunde(@RequestBody TippRunde tippRunde) {
         tippRundeRepository.save(tippRunde);
     }
-    @PostMapping("/save/new")
+    @PostMapping("/tippRunde/save/new")
     public void newTippRunde(@RequestBody String tippRunde) {
 
         TippRunde t = new TippRunde();
@@ -34,13 +34,13 @@ public class TippRundeController {
         tippRundeRepository.save(t);
     }
 
-    @PostMapping("/name")
+    @PostMapping("/tippRunde/name")
     public List<TippRunde> getTippRunde(@RequestBody String name) {
         List<TippRunde> t = new ArrayList<TippRunde>();
         t.add(tippRundeRepository.findTippRundeByTipprundeName(name));
         return t;
     }
-    @GetMapping("/all")
+    @GetMapping("/tippRunde/all")
     public List<TippRunde> getTippRunden() {
         return tippRundeRepository.findAll();
     }

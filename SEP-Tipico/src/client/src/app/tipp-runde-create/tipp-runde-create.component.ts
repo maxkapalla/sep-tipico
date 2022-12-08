@@ -27,6 +27,7 @@ export class TippRundeCreateComponent implements OnInit {
 
   CreateTippRunde() {
     this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(),this.errorWithSubmit);
+    console.log();
   }
 
   DeleteTippRunde() {
@@ -35,9 +36,11 @@ export class TippRundeCreateComponent implements OnInit {
 
   gotoTippRunde() {
     alert("Tipprunde erfolgreich erstellt!")
+    this.router.navigate(['/tipp-runde']);
   }
 
   errorWithSubmit(){
     alert("Etwas ist schief gelaufen")
+
   }
 }
