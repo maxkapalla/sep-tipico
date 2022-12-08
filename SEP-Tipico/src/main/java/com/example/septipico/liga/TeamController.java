@@ -1,6 +1,7 @@
 package com.example.septipico.liga;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Service
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/team")
 public class TeamController {
