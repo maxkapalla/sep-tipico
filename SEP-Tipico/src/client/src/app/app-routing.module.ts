@@ -19,6 +19,8 @@ import {FileUploadComponent} from "./file-upload/file-upload.component";
 import {NutzerSearchComponent} from "./nutzer-search/nutzer-search.component";
 import {FriendListComponent} from "./friend-list/friend-list.component";
 import {TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
+import {TippRundeComponent} from "./tipp-runde/tipp-runde.component";
+import {TippRundeCreateComponent} from "./tipp-runde-create/tipp-runde-create.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -39,7 +41,9 @@ const routes: Routes = [
   {path: 'fileupload', component: FileUploadComponent},
   {path: 'search', component: NutzerSearchComponent, canActivate:[AuthService]},
   {path: 'friends', component: FriendListComponent},
-  {path: 'tipp-abgeben', component: TippAbgebenComponent}
+  {path: 'tipp-abgeben', component: TippAbgebenComponent},
+  {path: 'tipp-runde', component:TippRundeComponent},
+  {path: 'tipp-runde-create', component:TippRundeCreateComponent}
 ];
 
 @NgModule({

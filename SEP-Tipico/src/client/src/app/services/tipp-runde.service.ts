@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeMail} from "../Models/TippRundeMail";
+import {Liga} from "../Models/Liga";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,21 @@ export class TippRundeService {
   tippRundeURL: string
 
   constructor(private http: HttpClient) {this.tippRundeURL = 'http://localhost:8080/tippRunde', this.tippRundeMail = new TippRundeMail()}
+
+  create(tippRunde: TippRunde): Observable<TippRunde> {
+
+    return this.http.post<TippRunde>(this.tippRundeURL + "/save", tippRunde);
+  }
+
+  getAll(): Observable<TippRunde[]> {
+
+    return this.http.get<TippRunde[]>(this.tippRundeURL + "/all");
+  }
+
+  delete(tippRunde: TippRunde): Observable<TippRunde> {
+
+    return this.http.post<TippRunde>(this.tippRundeURL + "/delete", tippRunde);
+  }
 
   getTippRundenByOwner(ownerID: string): Observable<TippRunde[]> {
     return this.http.post<TippRunde[]>(this.tippRundeURL + "/owner", ownerID);

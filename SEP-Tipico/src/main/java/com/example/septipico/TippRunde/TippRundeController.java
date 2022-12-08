@@ -1,6 +1,8 @@
 package com.example.septipico.TippRunde;
 
 import com.example.septipico.TwoFa.TwoFaMail;
+import com.example.septipico.liga.Liga;
+import com.example.septipico.tipp.Tipp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,31 @@ public class TippRundeController {
 
         tippRundeRepository.deleteById(TippRunde.getId());
     }
+
+    @PostMapping("/save")
+    public void saveTippRunde(@RequestBody TippRunde tippRunde) {
+        tippRundeRepository.save(tippRunde);
+    }
+    @PostMapping("/save/new")
+    public void newTippRunde(@RequestBody String tippRunde) {
+
+        TippRunde t = new TippRunde();
+        t.setId(null);
+        t.setTipprundeName(tippRunde);
+        tippRundeRepository.save(t);
+    }
+
+    @PostMapping("/name")
+    public List<TippRunde> getTippRunde(@RequestBody String name) {
+        List<TippRunde> t = new ArrayList<TippRunde>();
+        t.add(tippRundeRepository.findTippRundeByTipprundeName(name));
+        return t;
+    }
+    @GetMapping("/all")
+    public List<TippRunde> getTippRunden() {
+        return tippRundeRepository.findAll();
+    }
+
 
     @PostMapping("/tippRunde/owner")
     public List<TippRunde> getByOwner(@RequestBody String ownerID){

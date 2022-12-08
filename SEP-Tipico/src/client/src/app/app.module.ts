@@ -25,6 +25,8 @@ import {FileUploadComponent} from "./file-upload/file-upload.component";
 import { NutzerSearchComponent } from './nutzer-search/nutzer-search.component';
 import { FriendListComponent } from './friend-list/friend-list.component';
 import { TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
+import { TippRundeComponent } from './tipp-runde/tipp-runde.component';
+import { TippRundeCreateComponent } from './tipp-runde-create/tipp-runde-create.component';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
     FileUploadComponent,
     NutzerSearchComponent,
     FriendListComponent,
-    TippAbgebenComponent
+    TippAbgebenComponent,
+    TippRundeComponent,
+    TippRundeCreateComponent
   ],
   imports: [
     BrowserModule,
