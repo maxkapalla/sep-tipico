@@ -18,7 +18,7 @@ public class NutzerController {
     public void addAdmin(@RequestBody Nutzer nutzer) {
         nutzer.setRole("admin");
         nutzer.setFirstName(nutzer.getFirstName().substring(0,1).toUpperCase()+ nutzer.getFirstName().substring(1));
-        nutzer.setLastName(nutzer.getFirstName().substring(0,1).toUpperCase()+ nutzer.getFirstName().substring(1));
+        nutzer.setLastName(nutzer.getLastName().substring(0,1).toUpperCase()+ nutzer.getLastName().substring(1));
         nutzerrepo.save(nutzer);
     }
 
