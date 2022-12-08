@@ -21,6 +21,7 @@ import {FriendListComponent} from "./friend-list/friend-list.component";
 import {TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
 import {TippRundeComponent} from "./tipp-runde/tipp-runde.component";
 import {TippRundeCreateComponent} from "./tipp-runde-create/tipp-runde-create.component";
+import {TopthreeComponent} from "./topthree/topthree.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -43,7 +44,8 @@ const routes: Routes = [
   {path: 'friends', component: FriendListComponent},
   {path: 'tipp-abgeben', component: TippAbgebenComponent},
   {path: 'tipp-runde', component:TippRundeComponent},
-  {path: 'tipp-runde-create', component:TippRundeCreateComponent}
+  {path: 'tipp-runde-create', component:TippRundeCreateComponent},
+  {path: 'top-three', component:TopthreeComponent}
 ];
 
 @NgModule({

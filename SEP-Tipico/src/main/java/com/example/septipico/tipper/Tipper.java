@@ -12,9 +12,8 @@ public class Tipper {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="nutzer")
-    private Nutzer nutzer;
+    @Column(name="nutzerid")
+    private Long nutzerid;
 
     @Column(name = "TipprundenID")
     private Long tipprundenID;
@@ -22,12 +21,12 @@ public class Tipper {
     @Column(name = "Points")
     private Long Points;
 
-    public Nutzer getNutzer() {
-        return nutzer;
+    public Long getNutzerid() {
+        return nutzerid;
     }
 
-    public void setNutzer(Nutzer nutzer) {
-        this.nutzer = nutzer;
+    public void setNutzerid(Long nutzerid) {
+        this.nutzerid = nutzerid;
     }
 
     public Long getId() {

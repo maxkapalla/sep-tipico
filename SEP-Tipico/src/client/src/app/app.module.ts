@@ -27,6 +27,7 @@ import { FriendListComponent } from './friend-list/friend-list.component';
 import { TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
 import { TippRundeComponent } from './tipp-runde/tipp-runde.component';
 import { TippRundeCreateComponent } from './tipp-runde-create/tipp-runde-create.component';
+import { TopthreeComponent } from './topthree/topthree.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { TippRundeCreateComponent } from './tipp-runde-create/tipp-runde-create.
     FriendListComponent,
     TippAbgebenComponent,
     TippRundeComponent,
-    TippRundeCreateComponent
+    TippRundeCreateComponent,
+    TopthreeComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 
 public interface TipperRepository extends JpaRepository<Tipper, Long> {
-    Tipper findTipperByNutzerAndTipprundenID(Nutzer nutzer, Long tipprundenID);
+    Tipper findTipperByNutzeridAndTipprundenID(Long nutzerid, Long tipprundenID);
 
     List<Tipper> findAllByTipprundenID(Long tipprundenID);
 }

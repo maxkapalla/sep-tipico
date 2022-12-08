@@ -20,8 +20,8 @@ public class TipperController {
 
     @PostMapping("/save")
     public void saveTipper(@RequestBody Tipper tipper){
-        System.out.println(tipper.getNutzer().getId() + " " + tipper.getTipprundenID());
-        if(tipperRepo.findTipperByNutzerAndTipprundenID(tipper.getNutzer(), tipper.getTipprundenID()) == null){
+        System.out.println(tipper.getNutzerid() + " " + tipper.getTipprundenID());
+        if(tipperRepo.findTipperByNutzeridAndTipprundenID(tipper.getNutzerid(), tipper.getTipprundenID()) == null){
             tipperRepo.save(tipper);
         }
     }
@@ -35,7 +35,7 @@ public class TipperController {
             for(Tipper tpr: tprs){
                 int i = 0;
                 for(Tipper t: tipper){
-                    if(tpr.getNutzer().getId().equals(t.getNutzer().getId())){
+                    if(tpr.getNutzerid().equals(t.getNutzerid())){
                        t.setPoints(tpr.getPoints()+ t.getPoints());
                        i++;
                     }

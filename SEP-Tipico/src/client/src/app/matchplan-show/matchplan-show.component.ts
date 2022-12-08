@@ -48,8 +48,6 @@ export class MatchPlanShowComponent implements OnInit {
 
   onLoadLiga(): void {
     this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
-
-
   }
 
   compileTeamNames() {

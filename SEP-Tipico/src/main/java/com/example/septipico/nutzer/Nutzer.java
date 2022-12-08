@@ -1,6 +1,9 @@
 package com.example.septipico.nutzer;
 
+import com.example.septipico.tipper.Tipper;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Nutzer {
