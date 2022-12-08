@@ -32,6 +32,7 @@ export class LigaCreateComponent implements OnInit {
 
     this.LigaService.getAll().subscribe((data: any) => this.ligen = data);
     return this.ligen
+
   }
 
   onChangeName() {
