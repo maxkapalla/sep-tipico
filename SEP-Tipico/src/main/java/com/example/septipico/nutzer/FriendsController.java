@@ -19,29 +19,22 @@ public class FriendsController {
     @Autowired
     private NutzerRepository nutzerrepo;
 
-    List<Nutzer> friendsNutzer = new ArrayList<>();
     @GetMapping("/friends/list/{id}")
     public List<Nutzer> friendslist(@PathVariable("id") Long id){
-        friendsNutzer.clear();
-        goOverList(friendrepo.findAllBySender(id), id);
-        goOverList(friendrepo.findAllByReceiver(id), id);
-
-        return this.friendsNutzer;
+        return goOverList(friendrepo.findAllByAccepted(true), id);
     }
 
-    private void goOverList(List<Friends> all, Long id){
+    private List<Nutzer> goOverList(List<Friends> all, Long id){
+        List<Nutzer> friendlist = new ArrayList<>();
         for(Friends temp: all){
-            System.out.println(temp.getId());
-            if(!temp.isAccepted()){
-                all.remove(temp);
-            }else{
-                if(temp.getReceiver() == id){
-                    this.friendsNutzer.add(nutzerrepo.findNutzerById(temp.getReceiver()));
-                }else{
-                    this.friendsNutzer.add(nutzerrepo.findNutzerById(temp.getSender()));
-                }
+            if(temp.getSender().equals(id)){
+                friendlist.add(nutzerrepo.findNutzerById(temp.getReceiver()));
+            } else if (temp.getReceiver().equals(id)) {
+                friendlist.add(nutzerrepo.findNutzerById(temp.getSender()));
             }
         }
+
+        return friendlist;
     }
 
     @GetMapping("/friends/search/{nutzerID}/{sucherID}")

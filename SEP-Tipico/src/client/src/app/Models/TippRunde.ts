@@ -5,4 +5,7 @@ export class TippRunde {
   besitzer: string|undefined;
   liga: string|undefined;
   zugang: string|undefined;
+  gewTore: string|undefined;
+  gewDiff: string|undefined;
+  gewGewinner: string|undefined;
 }
