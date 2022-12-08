@@ -71,14 +71,13 @@ export class TippAbgebenComponent implements OnInit {
   onSubmitTip(): void {
 
     for (let m of this.matches) {
-      if (m.id != null) {
-        this.matchesMap.set(m.id, m);
+      if (m.id == this.matchid) {
+        this.tipp.match = m;
+        this.TippService.save(this.tipp).subscribe();
       }
     }
 
-    this.tipp.match = this.matchesMap.get(this.matchid);
-
-    alert(this.tipp.match)
+    console.log(this.tipp)
     //his.matches.this.TippService.save(this.tipp).subscribe();
 
   }
