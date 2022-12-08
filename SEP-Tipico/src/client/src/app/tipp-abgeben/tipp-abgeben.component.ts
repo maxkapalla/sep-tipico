@@ -17,12 +17,14 @@ export class TippAbgebenComponent implements OnInit {
 
   ligen: Liga[];
   matches: Match[];
+  matchesMap: Map<bigint, Match>;
   match: Match;
   ligaNamen: Map<bigint, String>;
   liga: Liga;
 
   tipp: Tipp;
 
+  matchid: bigint;
 
   constructor(private route: ActivatedRoute, private router: Router, private LigaService: LigaService, private TeamService: TeamService, private MatchService: MatchService, private TippService: TippService) {
     this.ligen = [];
@@ -31,6 +33,9 @@ export class TippAbgebenComponent implements OnInit {
     this.liga = new Liga();
     this.match = new Match();
     this.tipp = new Tipp();
+    this.matchid = BigInt("0");
+    this.matchesMap = new Map<bigint, Match>;
+
 
   }
 
@@ -60,6 +65,21 @@ export class TippAbgebenComponent implements OnInit {
       this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
 
     }
+
+  }
+
+  onSubmitTip(): void {
+
+    for (let m of this.matches) {
+      if (m.id != null) {
+        this.matchesMap.set(m.id, m);
+      }
+    }
+
+    this.tipp.match = this.matchesMap.get(this.matchid);
+
+    alert(this.tipp.match)
+    //his.matches.this.TippService.save(this.tipp).subscribe();
 
   }
 

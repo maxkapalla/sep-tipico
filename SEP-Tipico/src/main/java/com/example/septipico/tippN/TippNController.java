@@ -12,8 +12,11 @@ public class TippNController {
     @Autowired
     private TippNRepository tippNRepository;
 
-    @PostMapping
+    @PostMapping("/save")
     public void saveTipp(@RequestBody TippN tipp) {
+
+        System.out.println(tipp.getId() + "  " + tipp.getTippA() + " ");
+
         tippNRepository.save(tipp);
     }
 
