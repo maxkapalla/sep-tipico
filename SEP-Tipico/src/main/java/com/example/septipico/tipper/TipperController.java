@@ -44,21 +44,27 @@ public class TipperController {
             }
         }
         List<Tipper> topThree = new ArrayList<>(3) ;
-
+        for(int i= 0; i < tipper.size(); i++)
+            System.out.println(tipper.get(i).getNutzerid()+ " " + tipper.get(i).getPoints());
         for(Tipper t : tipper){
-            if(topThree.size()==0){
-                topThree.add(t);
-            }
-            if(t.getPoints() >= topThree.get(0).getPoints()){
-                topThree.add(0, t);
-            } else if (t.getPoints()>= topThree.get(1).getPoints()) {
-                topThree.add(1,t);
-            } else if (t.getPoints()>= topThree.get(2).getPoints()) {
-                topThree.add(2,t);
+            try {
+                if (topThree.size() == 0) {
+                    topThree.add(t);
+                } else if (t.getPoints() >= topThree.get(0).getPoints()) {
+                    topThree.add(0, t);
+                } else if (t.getPoints() >= topThree.get(1).getPoints()) {
+                    topThree.add(1, t);
+                } else if (t.getPoints() >= topThree.get(2).getPoints()) {
+                    topThree.add(2, t);
+                }
+            }catch (Exception e){
+                topThree.add(2, t);
             }
             if(topThree.size()>3) topThree.remove(3);
 
         }
+        for(int i= 0; i < topThree.size(); i++)
+            System.out.println(topThree.get(i).getPoints());
        return topThree;
     }
 

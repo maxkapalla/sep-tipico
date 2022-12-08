@@ -3,6 +3,8 @@ package com.example.septipico.nutzer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,5 +49,13 @@ public class NutzerController {
         List<Nutzer> all = nutzerrepo.findAllByFirstNameContaining(name);
         all.addAll(nutzerrepo.findAllByLastNameContaining(name));
         return all;
+    }
+    @GetMapping("/nutzer/{id1}/{id2}/{id3}")
+    public List<Nutzer> getNutzerById(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2, @PathVariable("id3") Long id3){
+        List<Nutzer> nutzer = new ArrayList<>(3);
+        nutzer.add(0,nutzerrepo.findNutzerById(id1));
+        nutzer.add(1,nutzerrepo.findNutzerById(id2));
+        nutzer.add(2,nutzerrepo.findNutzerById(id3));
+        return nutzer;
     }
 }

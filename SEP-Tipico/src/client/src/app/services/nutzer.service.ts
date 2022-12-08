@@ -48,4 +48,9 @@ export class NutzerService {
   public sendFriendRequest(nutzerID: string, sucherID: string): Observable<boolean> {
     return this.http.get<boolean>("http://localhost:8080/friends/add/"+nutzerID+"/"+sucherID)
   }
+
+  public getNutzersByIds(nutzerid1: bigint, nutzerid2: bigint, nutzerid3: bigint): Observable<Nutzer[]>{
+    return this.http.get<Nutzer[]>('http://localhost:8080/nutzer/'+ nutzerid1+'/' + nutzerid2+'/'+nutzerid3)
+  }
+
 }
