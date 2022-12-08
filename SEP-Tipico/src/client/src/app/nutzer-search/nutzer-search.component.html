@@ -57,7 +57,8 @@ border-color: darkseagreen; margin-left: 200px;"
                   border-color: darkgrey;"
                   class="btn btn-info">share Liga</button>
              <div class = "dropdown-cont">
-               <a *ngFor="let tippRunde of tippRunden" onclick="shareTippRunde(id, nutzer.email)"> {{tippRunde.tipprundeName}} ({{tippRunde.id}})
+               <a *ngFor="let tippRunde of tippRunden"
+               (click)="shareTippRunde(tippRunde, nutzer.email)">{{tippRunde.tipprundeName}} ({{tippRunde.id}})
                </a>
              </div>
           </div>
