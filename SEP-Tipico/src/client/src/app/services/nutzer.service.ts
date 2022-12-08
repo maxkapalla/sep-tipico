@@ -38,4 +38,8 @@ export class NutzerService {
   public getFriends(id: number): Observable<Nutzer[]>{
     return this.http.get<Nutzer[]>("http://localhost:8080/friends/list/"+id)
   }
+
+  public searchFriendRelations(nutzerID: string, sucherID: string): Observable<boolean> {
+    return this.http.get<boolean>("http://localhost:8080/friends/search/"+nutzerID+"/"+sucherID)
+  }
 }

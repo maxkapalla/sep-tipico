@@ -24,7 +24,7 @@
           <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
 
           <li class="list-inline-item">
-          <button (click)='addFriend()'
+          <button (click)='addFriend(nutzer.id)'
                   style="background-color: darkseagreen;
 border-color: darkseagreen; margin-left: 200px;"
                   class="btn btn-info">add Friend</button>

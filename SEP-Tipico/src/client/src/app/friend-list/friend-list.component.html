@@ -7,6 +7,13 @@
         <div>
           <img src="{{nutzer.imageURL}}">
           <a>{{nutzer.firstName+" "+nutzer.lastName}}</a>
+
+          <li class="list-inline-item">
+            <button (click)='removeFriend()'
+                    style="background-color: indianred;
+border-color: darkseagreen; margin-left: 200px;"
+                    class="btn btn-info">add Friend</button>
+          </li>
         </div>
       </div>
     </div>

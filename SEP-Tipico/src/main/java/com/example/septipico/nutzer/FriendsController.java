@@ -43,4 +43,16 @@ public class FriendsController {
             }
         }
     }
+
+    @GetMapping("/friends/search/{nutzerID}/{sucherID}")
+    public boolean searchFriendRequests(@PathVariable("nutzerID") String nutzerID, @PathVariable("sucherID") String sucherID) {
+        long receiverID = Integer.parseInt(nutzerID);
+        long senderID = Integer.parseInt(sucherID);
+
+        List<Friends> friendRelations = friendrepo.findAllByReceiverOrSender(receiverID, senderID);
+
+        System.out.println(friendRelations.isEmpty() + " " + friendRelations.size()+ " " + receiverID + " " + senderID);
+
+        return friendRelations.isEmpty();
+    }
 }
