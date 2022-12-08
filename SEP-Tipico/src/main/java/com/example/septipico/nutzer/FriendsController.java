@@ -75,6 +75,7 @@ public class FriendsController {
         long sender = Integer.parseInt(sucherID);
 
         List<Friends> friendList = friendrepo.findAllByReceiverAndSender(receiver, sender);
+        friendList.addAll(friendrepo.findAllByReceiverAndSender(sender, receiver));
 
         for(Friends x: friendList) {
             friendrepo.delete(x);
