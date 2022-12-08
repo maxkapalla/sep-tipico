@@ -20,4 +20,8 @@ export class FriendListComponent implements OnInit {
     this.service.getFriends(this.id).subscribe((data: any) => this.nutzers = data)
   }
 
+  removeFriend() {
+
+  }
+
 }

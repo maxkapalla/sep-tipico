@@ -17,10 +17,12 @@ export class NutzerSearchComponent implements OnInit {
   tippRunden: TippRunde[];
   email =""
   tippRundeMail: TippRundeMail|undefined;
+  hasRelations: boolean;
 
   constructor(private service: NutzerService, private tippRundeService: TippRundeService) {
     this.nutzers = []
     this.tippRunden = []
+    this.hasRelations = false;
   }
 
 
@@ -45,8 +47,19 @@ export class NutzerSearchComponent implements OnInit {
     }
   }
 
-  addFriend() {
+  addFriend(nutzerID: string|undefined) {
+    let sucherID = sessionStorage.getItem("id");
+    if((this.getRelations(nutzerID+"", sucherID+""))) {
 
+    } else {
+      alert("Von oder zu diesem Nutzer besteht bereits eine Freundschaftsanfrage oder ihr seid bereits befreundet.")
+    }
+  }
+
+  getRelations(nutzerID: string|undefined, sucherID: string): boolean {
+    this.service.searchFriendRelations(nutzerID+"", sucherID+"").subscribe((data: any) => this.hasRelations = data)
+
+    return this.hasRelations;
   }
 
   shareTippRunde(tippRunde: TippRunde, userMail: string|undefined) {
