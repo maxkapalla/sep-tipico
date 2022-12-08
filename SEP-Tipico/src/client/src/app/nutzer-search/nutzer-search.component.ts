@@ -18,13 +18,11 @@ export class NutzerSearchComponent implements OnInit {
   email = ""
   tippRundeMail: TippRundeMail | undefined;
   hasRelations: boolean;
-  isdone: boolean;
 
   constructor(private service: NutzerService, private tippRundeService: TippRundeService) {
     this.nutzers = []
     this.tippRunden = []
     this.hasRelations = false;
-    this.isdone = false
 
   }
 
@@ -50,27 +48,29 @@ export class NutzerSearchComponent implements OnInit {
     }
   }
 
-  addFriend(nutzerID: string | undefined) {
+  async addFriend(nutzerID: string | undefined) {
     let sucherID = sessionStorage.getItem("id");
-    if ((this.getRelations(nutzerID + "", sucherID + ""))) {
+    if (await (this.getRelations(nutzerID + "", sucherID + ""))) {
+
+      alert("Freundschaftsanfrage versendet!")
 
     } else {
       alert("Von oder zu diesem Nutzer besteht bereits eine Freundschaftsanfrage oder ihr seid bereits befreundet.")
     }
   }
 
-  getRelations(nutzerID: string | undefined, sucherID: string): boolean {
-    this.service.searchFriendRelations(nutzerID + "", sucherID + "").subscribe((data: any) => {
-      this.hasRelations = data;
-      this.isdone = true;
-    })
+  async getRelations(nutzerID: string | undefined, sucherID: string): Promise<boolean> {
 
-    while (!this.isdone) {
-      console.log(this.hasRelations)
-      return this.hasRelations;
-    }
-    return false;
+    return new Promise((resolve) => {
+      this.service.searchFriendRelations(nutzerID + "", sucherID + "").subscribe(response => {
+        this.hasRelations = response
+        resolve(response)
+        console.log(this.hasRelations + " " + response)
+      })
+      }
+    );
   }
+
 
   shareTippRunde(tippRunde: TippRunde, userMail: string | undefined) {
     this.tippRundeService.sendTippRunde(tippRunde, userMail + "");

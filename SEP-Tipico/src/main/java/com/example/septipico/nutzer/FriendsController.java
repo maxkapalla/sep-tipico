@@ -52,6 +52,14 @@ public class FriendsController {
         List<Friends> friendRelations = friendrepo.findAllByReceiverAndSender(receiver, sender);
         friendRelations.addAll(friendrepo.findAllByReceiverAndSender(sender, receiver));
 
+        if(friendRelations.isEmpty()) {
+            Friends friends = new Friends();
+            friends.setReceiver(receiver);
+            friends.setSender(sender);
+            friends.setAccepted(false);
+            friendrepo.save(friends);
+        }
+
         return friendRelations.isEmpty();
     }
 }
