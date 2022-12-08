@@ -3,6 +3,7 @@ import {NutzerService} from "../services/nutzer.service";
 import {Nutzer} from "../Models/Nutzer";
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
+import {TippRundeMail} from "../Models/TippRundeMail";
 
 @Component({
   selector: 'app-nutzer-search',
@@ -15,6 +16,8 @@ export class NutzerSearchComponent implements OnInit {
   nutzers: Nutzer[];
   tippRunden: TippRunde[];
   email =""
+  tippRundeMail: TippRundeMail|undefined;
+
   constructor(private service: NutzerService, private tippRundeService: TippRundeService) {
     this.nutzers = []
     this.tippRunden = []
@@ -46,8 +49,8 @@ export class NutzerSearchComponent implements OnInit {
 
   }
 
-  shareTippRunde(tippRundeId: bigint, userMail: string) {
-
+  shareTippRunde(tippRunde: TippRunde, userMail: string|undefined) {
+    this.tippRundeService.sendTippRunde(tippRunde, userMail+"");
   }
 
 

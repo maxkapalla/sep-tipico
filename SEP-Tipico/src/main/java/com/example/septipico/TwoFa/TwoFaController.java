@@ -17,7 +17,7 @@ public class TwoFaController {
         //System.out.println("mail adress: " + email + " " + code);
 
         try {
-            mailSender.sendMail(email, "Dein 2FA Code: " + code);
+            mailSender.sendMail(email, "Dein 2FA Code: " + code, "SEP Tipico 2FA");
         } catch (javax.mail.MessagingException e) {
             System.out.println("mail versenden fehlgeschlagen");
         }

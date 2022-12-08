@@ -1,5 +1,6 @@
 package com.example.septipico.TippRunde;
 
+import com.example.septipico.TwoFa.TwoFaMail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +25,32 @@ public class TippRundeController {
         List<TippRunde> runden = new ArrayList<>();
         runden.addAll(tippRundeRepository.findAllByBesitzer(userID));
 
-        int k = 0;
-        for (TippRunde i : runden) {
-            System.out.println(runden.get(k).getBesitzer());
+        return runden;
+    }
+
+    @PostMapping("/tippRunde/mail")
+    public TippRundeMail sendTippRunde(@RequestBody TippRundeMail tippRundeMail) {
+        TwoFaMail rundeSender = new TwoFaMail();
+
+        String sender = tippRundeMail.senderName;
+        String mail = tippRundeMail.userMail;
+        TippRunde runde = tippRundeMail.tippRunde;
+        long rundeID = runde.getId();
+        String rundePw = runde.getPassword();
+        String rundeName = runde.getTipprundeName();
+
+        String link = "<a href="+"http://localhost:4200/tippRunde/RundenID/" + rundeID + "/" + rundePw + ">";
+
+        try {
+            rundeSender.sendMail(mail, sender +
+                    " Hat dich zur Tipprunde " + rundeName +" eingeladen." + "<html>" + "<br/>" + "</html>" +
+                    "Clicke auf diesen Link um die Tipprunde anzusehen: " +
+                    "<html>"+ link + rundeName + "</a></html>"
+                    , "Tipprunden Einladung von " + sender);
+        } catch (javax.mail.MessagingException e) {
+            System.out.println("mail versenden fehlgeschlagen");
         }
 
-        return runden;
+        return tippRundeMail;
     }
 }
