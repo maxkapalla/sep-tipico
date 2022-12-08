@@ -13,4 +13,6 @@ public interface TippRundeRepository extends JpaRepository<TippRunde, Long> {
 
 
     List<TippRunde> findAllByBesitzer(long besitzer);
+
+    List<TippRunde> findTippRundeByLiga(Long ligaid);
 }
