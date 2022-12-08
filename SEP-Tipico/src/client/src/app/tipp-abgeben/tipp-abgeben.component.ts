@@ -24,7 +24,7 @@ export class TippAbgebenComponent implements OnInit {
 
   tipp: Tipp;
 
-  matchid: BigInt;
+  matchid: bigint;
 
   constructor(private route: ActivatedRoute, private router: Router, private LigaService: LigaService, private TeamService: TeamService, private MatchService: MatchService, private TippService: TippService) {
     this.ligen = [];
@@ -71,8 +71,12 @@ export class TippAbgebenComponent implements OnInit {
   onSubmitTip(): void {
 
     for (let m of this.matches) {
-
+      if (m.id != null) {
+        this.matchesMap.set(m.id, m);
+      }
     }
+
+    this.tipp.match = this.matchesMap.get(this.matchid);
 
     alert(this.tipp.match)
     //his.matches.this.TippService.save(this.tipp).subscribe();

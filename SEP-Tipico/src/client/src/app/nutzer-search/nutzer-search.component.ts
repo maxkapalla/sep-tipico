@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NutzerService} from "../services/nutzer.service";
 import {Nutzer} from "../Models/Nutzer";
 import {TippRunde} from "../Models/TippRunde";
@@ -12,59 +12,68 @@ import {TippRundeMail} from "../Models/TippRundeMail";
 })
 export class NutzerSearchComponent implements OnInit {
 
-  nutzerName: string|undefined;
+  nutzerName: string | undefined;
   nutzers: Nutzer[];
   tippRunden: TippRunde[];
-  email =""
-  tippRundeMail: TippRundeMail|undefined;
+  email = ""
+  tippRundeMail: TippRundeMail | undefined;
   hasRelations: boolean;
+  isdone: boolean;
 
   constructor(private service: NutzerService, private tippRundeService: TippRundeService) {
     this.nutzers = []
     this.tippRunden = []
     this.hasRelations = false;
+    this.isdone = false
+
   }
 
 
   ngOnInit(): void {
-    this.email = sessionStorage.getItem('email')+"";
-    this.tippRundeService.getTippRundenByOwner(sessionStorage.getItem("id")+"").subscribe((data: any) => this.tippRunden = data);
+    this.email = sessionStorage.getItem('email') + "";
+    this.tippRundeService.getTippRundenByOwner(sessionStorage.getItem("id") + "").subscribe((data: any) => this.tippRunden = data);
   }
 
-  onSubmit(){
+  onSubmit() {
     var firsName = ""
     var lastName = ""
-    if(this.nutzerName != null){
-      if(this.nutzerName.includes(" ")){
+    if (this.nutzerName != null) {
+      if (this.nutzerName.includes(" ")) {
         var splitStr = this.nutzerName.split(' ')
         firsName = splitStr[0]
         lastName = splitStr[1]
-        this.service.searchUser(firsName,lastName).subscribe((data: any) => this.nutzers = data)
-      }else{
+        this.service.searchUser(firsName, lastName).subscribe((data: any) => this.nutzers = data)
+      } else {
         firsName = this.nutzerName
         this.service.searchUserByOneNameOnly(firsName).subscribe((data: any) => this.nutzers = data)
       }
     }
   }
 
-  addFriend(nutzerID: string|undefined) {
+  addFriend(nutzerID: string | undefined) {
     let sucherID = sessionStorage.getItem("id");
-    if((this.getRelations(nutzerID+"", sucherID+""))) {
+    if ((this.getRelations(nutzerID + "", sucherID + ""))) {
 
     } else {
       alert("Von oder zu diesem Nutzer besteht bereits eine Freundschaftsanfrage oder ihr seid bereits befreundet.")
     }
   }
 
-  getRelations(nutzerID: string|undefined, sucherID: string): boolean {
-    this.service.searchFriendRelations(nutzerID+"", sucherID+"").subscribe((data: any) => this.hasRelations = data)
+  getRelations(nutzerID: string | undefined, sucherID: string): boolean {
+    this.service.searchFriendRelations(nutzerID + "", sucherID + "").subscribe((data: any) => {
+      this.hasRelations = data;
+      this.isdone = true;
+    })
 
-    console.log(this.hasRelations)
-    return this.hasRelations;
+    while (!this.isdone) {
+      console.log(this.hasRelations)
+      return this.hasRelations;
+    }
+    return false;
   }
 
-  shareTippRunde(tippRunde: TippRunde, userMail: string|undefined) {
-    this.tippRundeService.sendTippRunde(tippRunde, userMail+"");
+  shareTippRunde(tippRunde: TippRunde, userMail: string | undefined) {
+    this.tippRundeService.sendTippRunde(tippRunde, userMail + "");
   }
 
 

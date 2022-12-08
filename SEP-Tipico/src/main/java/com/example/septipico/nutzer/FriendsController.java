@@ -13,15 +13,14 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class FriendsController {
 
+    List<Nutzer> friendsNutzer = new ArrayList<>();
     @Autowired
     private FriendsRepository friendrepo;
-
     @Autowired
     private NutzerRepository nutzerrepo;
 
-    List<Nutzer> friendsNutzer = new ArrayList<>();
     @GetMapping("/friends/list/{id}")
-    public List<Nutzer> friendslist(@PathVariable("id") Long id){
+    public List<Nutzer> friendslist(@PathVariable("id") Long id) {
         friendsNutzer.clear();
         goOverList(friendrepo.findAllBySender(id), id);
         goOverList(friendrepo.findAllByReceiver(id), id);
@@ -29,15 +28,15 @@ public class FriendsController {
         return this.friendsNutzer;
     }
 
-    private void goOverList(List<Friends> all, Long id){
-        for(Friends temp: all){
+    private void goOverList(List<Friends> all, Long id) {
+        for (Friends temp : all) {
             System.out.println(temp.getId());
-            if(!temp.isAccepted()){
+            if (!temp.isAccepted()) {
                 all.remove(temp);
-            }else{
-                if(temp.getReceiver() == id){
+            } else {
+                if (temp.getReceiver() == id) {
                     this.friendsNutzer.add(nutzerrepo.findNutzerById(temp.getReceiver()));
-                }else{
+                } else {
                     this.friendsNutzer.add(nutzerrepo.findNutzerById(temp.getSender()));
                 }
             }
@@ -51,7 +50,7 @@ public class FriendsController {
 
         List<Friends> friendRelations = friendrepo.findAllByReceiverOrSender(receiverID, senderID);
 
-        System.out.println(friendRelations.isEmpty() + " " + friendRelations.size()+ " " + receiverID + " " + senderID);
+        System.out.println(friendRelations.isEmpty() + " " + friendRelations.size() + " " + receiverID + " " + senderID);
 
         return friendRelations.isEmpty();
     }
