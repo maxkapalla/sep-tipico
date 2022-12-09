@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Nutzer} from "../Models/Nutzer";
 import {NutzerService} from "../services/nutzer.service";
+import {Tipp} from "../Models/TippN";
+import {TippService} from "../services/tipp.service";
 
 @Component({
   selector: 'app-friend-list',
@@ -13,8 +15,9 @@ export class FriendListComponent implements OnInit {
   openRequests: Nutzer[];
   friendDeleted: boolean;
   friendAccepted: boolean;
+  tipps: Tipp[];
 
-  constructor(private service: NutzerService) { this.nutzers = []; this.id = 0; this.openRequests = [], this.friendDeleted = false, this.friendAccepted = false}
+  constructor(private service: NutzerService, private tippService: TippService) { this.nutzers = []; this.id = 0; this.openRequests = [], this.friendDeleted = false, this.friendAccepted = false, this.tipps = []}
 
   ngOnInit(): void {
     var preID = sessionStorage.getItem('id')+""
@@ -22,6 +25,7 @@ export class FriendListComponent implements OnInit {
     console.log(preID)
     this.service.getFriends(this.id).subscribe((data: any) => this.nutzers = data)
     this.showFriendRequests();
+    this.tippService.getTippsByUser(sessionStorage.getItem("id")+"").subscribe((data: any) => this.tipps = data)
   }
 
 
@@ -40,6 +44,11 @@ export class FriendListComponent implements OnInit {
     this.service.acceptFriend(sessionStorage.getItem("id")+"", friendID).subscribe((data:any) => {
       this.friendAccepted = data; alert("Freundschaftsanfrage angenommen"); window.location.reload()})
 
+  }
+
+  shareTipp(tipp: Tipp, userMail: string|undefined) {
+    this.tippService.sendTipp(tipp, userMail + "");
+    alert("Tipp versendet");
   }
 
 

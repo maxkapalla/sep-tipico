@@ -2,7 +2,7 @@ import {Nutzer} from "./Nutzer";
 import {Team} from "./Team";
 import {Liga} from "./Liga";
 
-export class Tipp {
+export class TippAlt {
   tipper: Nutzer|undefined;
   team1: Team|undefined;
   team1Goals: bigint|undefined;

@@ -11,4 +11,6 @@ public interface TipperRepository extends JpaRepository<Tipper, Long> {
     Tipper findTipperByNutzeridAndTipprundenID(Long nutzerid, Long tipprundenID);
 
     List<Tipper> findAllByTipprundenID(Long tipprundenID);
+
+    List<Tipper> findAllByNutzerid(Long nutzerid);
 }
