@@ -47,7 +47,8 @@ const routes: Routes = [
   {path: 'tipp-runde', component: TippRundeComponent},
   {path: 'tipp-runde-create', component: TippRundeCreateComponent},
   {path: 'top-three', component: TopthreeComponent},
-  {path: "tipphilfe", component: TippHilfeComponent}
+  {path: "tipphilfe", component: TippHilfeComponent},
+  {path: 'tippRunde', loadChildren: () => import('./tippRunde.module').then(m => m.TippRundeModule), pathMatch: "prefix", canActivate: [AuthService]},
 ];
 
 @NgModule({
