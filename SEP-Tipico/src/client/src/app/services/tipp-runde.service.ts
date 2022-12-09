@@ -35,6 +35,13 @@ export class TippRundeService {
   getTippRundenByOwner(ownerID: string): Observable<TippRunde[]> {
     return this.http.post<TippRunde[]>(this.tippRundeURL + "/owner", ownerID);
   }
+  getTippRundeByName(input:String): Observable<TippRunde[]> {
+    return this.http.post<TippRunde[]>(this.tippRundeURL + "/name", input);
+  }
+  getTippRundeByBesitzer(input:String): Observable<TippRunde[]> {
+    return this.http.post<TippRunde[]>(this.tippRundeURL + "/owner", input);
+  }
+
 
   sendTippRunde(tippRunde: TippRunde, userMail: string): void{
     this.tippRundeMail.tippRunde = tippRunde;

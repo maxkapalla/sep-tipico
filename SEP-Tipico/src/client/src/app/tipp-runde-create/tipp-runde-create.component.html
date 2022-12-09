@@ -19,8 +19,7 @@
              name="password"
              minlength="6"
              placeholder="Wähle dein Passwort!"
-             required #password="ngModel">
-      <div style = "color: red" *ngIf="password.invalid && password.touched">Passwort muss mindestens 6 Zeichen haben!</div>
+             >
     </div>
     <div class="ligaSelectForm">
         <div class="form-group">
@@ -31,14 +30,32 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="gewichtForm">
       <label for="gewTore">Richtiges Ergebnis:</label>
       <input #ligaName="ngModel" [(ngModel)]="createTippRunde.gewTore"
              class="form-control"
              id="gewTore"
              name="name"
-             placeholder="Wähle deine Gewichtung aus!"
-             required type="text">
+             placeholder="Gib die Punkte ein!"
+             required type="number">
+    </div>
+    <div class="gewichtForm">
+      <label for="gewDiff">Richtige Differenz:</label>
+      <input #gewDiff="ngModel" [(ngModel)]="createTippRunde.gewDiff"
+             class="form-control"
+             id="gewDiff"
+             name="name"
+             placeholder="Gib die Punkte ein!"
+             required type="number">
+    </div>
+    <div class="gewichtForm">
+      <label for="gewDiff">Richtige Differenz:</label>
+      <input #gewGewinner="ngModel" [(ngModel)]="createTippRunde.gewGewinner"
+             class="form-control"
+             id="gewGewinner"
+             name="name"
+             placeholder="Gib die Punkte ein!"
+             required type="number">
     </div>
 
     <button [disabled]="!tippRundeCreateForm.form.valid" class="btn btn-info"

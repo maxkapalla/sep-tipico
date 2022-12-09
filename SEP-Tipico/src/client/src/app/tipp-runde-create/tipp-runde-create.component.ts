@@ -37,7 +37,6 @@ export class TippRundeCreateComponent implements OnInit {
 
   CreateTippRunde() {
     this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(),this.errorWithSubmit);
-
   }
 
   DeleteTippRunde() {

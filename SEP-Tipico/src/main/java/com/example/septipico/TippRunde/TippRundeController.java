@@ -26,11 +26,18 @@ public class TippRundeController {
         tippRundeRepository.save(tippRunde);
     }
     @PostMapping("/tippRunde/save/new")
-    public void newTippRunde(@RequestBody String tippRunde) {
+    public void newTippRunde(@RequestBody String tippRunde, String zugang, long besitzer,
+                             Long liga, String gewTore, String gewDiff, String gewGewinner) {
 
         TippRunde t = new TippRunde();
         t.setId(null);
         t.setTipprundeName(tippRunde);
+        t.setZugang(zugang);
+        t.setBesitzer(besitzer);
+        t.setLiga(liga);
+        t.setGewTore(gewTore);
+        t.setGewDiff(gewDiff);
+        t.setGewGewinner(gewGewinner);
         tippRundeRepository.save(t);
     }
 
