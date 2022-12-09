@@ -13,7 +13,7 @@ export class AuthService implements CanActivate{
     return new Promise((resolve, reject)=> {
 
       if(!sessionStorage.getItem('isLoggedIn')){
-        if(route.toString().includes("RundenID")) {
+        if(state.toString().includes("RundenID")) {
           let splitLink = route.toString().split("/")
           let rundenPw = splitLink[splitLink.length-1]
           let rundenID = splitLink[splitLink.length-2]
