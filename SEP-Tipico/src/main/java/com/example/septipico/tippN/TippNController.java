@@ -31,7 +31,7 @@ public class TippNController {
         tippNRepository.save(tipp);
     }
 
-    @PostMapping("/tippn/owner")
+    @PostMapping("/owner")
     public List<TippN> getByOwner(@RequestBody String ownerID){
         long userID = Integer.parseInt(ownerID);
 
@@ -41,13 +41,12 @@ public class TippNController {
 
         for(Tipper t: tippers) {
             tipps.addAll(tippNRepository.findAllByTipperID(t.getId()));
-            System.out.println(t.getId());
         }
 
         return tipps;
     }
 
-    @PostMapping("/tippn/mail")
+    @PostMapping("/mail")
     public TippMail sendTipp(@RequestBody TippMail tippMail) {
         TwoFaMail tippSender = new TwoFaMail();
 
