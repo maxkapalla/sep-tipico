@@ -1,11 +1,11 @@
 export class Tipp {
 
-  tipid: bigint | undefined;
+  id: bigint | undefined;
   tipprundenid: bigint | undefined;
   tipperid: bigint | undefined;
   match: bigint | undefined;
-  teamATip: bigint | undefined;
-  teamBTip: bigint | undefined;
+  tippA: bigint | undefined;
+  tippB: bigint | undefined;
   diff: boolean | undefined;
   gewinner: boolean | undefined;
 }
