@@ -14,9 +14,8 @@ public class TippN {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "nutzer_id")
-    private Nutzer nutzer;
+    @Column(name = "tipperID")
+    private Long tipperID;
 
     @JoinColumn(name = "spiel_id")
     @OneToOne
@@ -36,12 +35,12 @@ public class TippN {
         this.id = id;
     }
 
-    public Nutzer getNutzer() {
-        return nutzer;
+    public Long getTipperID() {
+        return tipperID;
     }
 
-    public void setNutzer(Nutzer nutzer) {
-        this.nutzer = nutzer;
+    public void setTipperID(Long tipperID) {
+        this.tipperID = tipperID;
     }
 
     public Spiel getSpiel() {
