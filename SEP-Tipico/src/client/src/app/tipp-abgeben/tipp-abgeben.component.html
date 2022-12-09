@@ -2,7 +2,7 @@
   <form #matchCreateForm="ngForm">
     <div class="form-group">
       <label for="liga">Liga</label>
-      <select [(ngModel)]="liga.id" [(ngModel)]="match.liga" id="liga" name="liga" required>
+      <select [(ngModel)]="ligaid" [(ngModel)]="match.liga" id="liga" name="liga" required>
         <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
       </select>
     </div>
@@ -38,7 +38,7 @@
   <form #tippAbgebenForm="ngForm">
     <div class="form-group">
       <label for="match">Spiel</label>
-      <input [(ngModel)]="matchid" class="form-control"
+      <input [(ngModel)]="tipp.match" class="form-control"
              id="match"
              name="match"
              placeholder="Spiel"

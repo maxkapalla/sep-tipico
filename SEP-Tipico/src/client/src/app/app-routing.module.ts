@@ -22,6 +22,7 @@ import {TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
 import {TippRundeComponent} from "./tipp-runde/tipp-runde.component";
 import {TippRundeCreateComponent} from "./tipp-runde-create/tipp-runde-create.component";
 import {TopthreeComponent} from "./topthree/topthree.component";
+import {TipphilfeComponent} from "./tipphilfe/tipphilfe.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -30,22 +31,23 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthService]},
   {path: 'date-change', component: DateChangeComponent, canActivate: [AuthService]},
   {path: 'two-fa', component: TwoFAComponent},
-  {path: 'liga-create', component: LigaCreateComponent,canActivate:[AuthService]},
-  {path: 'matchplan-create', component: MatchPlanCreateComponent,canActivate:[AuthService]},
-  {path: 'matchplan-show', component: MatchPlanShowComponent,canActivate:[AuthService]},
-  {path: 'team-show', component: TeamShowComponent,canActivate:[AuthService]},
-  {path: 'team-create', component: TeamCreateComponent,canActivate:[AuthService]},
-  {path: 'login', component:LoginComponent},
-  {path: 'csv', component:SpielplanCsvComponent},
-  {path: 'liga-see', component:LigaSeeComponent},
-  {path: 'profile', component: ProfileComponent, canActivate:[AuthService]},
+  {path: 'liga-create', component: LigaCreateComponent, canActivate: [AuthService]},
+  {path: 'matchplan-create', component: MatchPlanCreateComponent, canActivate: [AuthService]},
+  {path: 'matchplan-show', component: MatchPlanShowComponent, canActivate: [AuthService]},
+  {path: 'team-show', component: TeamShowComponent, canActivate: [AuthService]},
+  {path: 'team-create', component: TeamCreateComponent, canActivate: [AuthService]},
+  {path: 'login', component: LoginComponent},
+  {path: 'csv', component: SpielplanCsvComponent},
+  {path: 'liga-see', component: LigaSeeComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthService]},
   {path: 'fileupload', component: FileUploadComponent},
-  {path: 'search', component: NutzerSearchComponent, canActivate:[AuthService]},
+  {path: 'search', component: NutzerSearchComponent, canActivate: [AuthService]},
   {path: 'friends', component: FriendListComponent},
   {path: 'tipp-abgeben', component: TippAbgebenComponent},
-  {path: 'tipp-runde', component:TippRundeComponent},
-  {path: 'tipp-runde-create', component:TippRundeCreateComponent},
-  {path: 'top-three', component:TopthreeComponent}
+  {path: 'tipp-runde', component: TippRundeComponent},
+  {path: 'tipp-runde-create', component: TippRundeCreateComponent},
+  {path: 'top-three', component: TopthreeComponent},
+  {path: "tipphilfe", component: TipphilfeComponent}
 ];
 
 @NgModule({

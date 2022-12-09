@@ -17,17 +17,18 @@ import {MatchPlanCreateComponent} from './matchplan-create/matchplan-create.comp
 import {MatchPlanShowComponent} from './matchplan-show/matchplan-show.component';
 import {TeamCreateComponent} from "./team-create/team-create.component";
 import {TeamShowComponent} from "./team-show/team-show.component";
-import { LoginComponent } from './login/login.component';
+import {LoginComponent} from './login/login.component';
 import {SpielplanCsvComponent} from "./spielplan-csv/spielplan-csv.component";
 import {LigaSeeComponent} from "./liga-see/liga-see.component";
-import { ProfileComponent } from './profile/profile.component';
+import {ProfileComponent} from './profile/profile.component';
 import {FileUploadComponent} from "./file-upload/file-upload.component";
-import { NutzerSearchComponent } from './nutzer-search/nutzer-search.component';
-import { FriendListComponent } from './friend-list/friend-list.component';
-import { TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
-import { TippRundeComponent } from './tipp-runde/tipp-runde.component';
-import { TippRundeCreateComponent } from './tipp-runde-create/tipp-runde-create.component';
-import { TopthreeComponent } from './topthree/topthree.component';
+import {NutzerSearchComponent} from './nutzer-search/nutzer-search.component';
+import {FriendListComponent} from './friend-list/friend-list.component';
+import {TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
+import {TippRundeComponent} from './tipp-runde/tipp-runde.component';
+import {TippRundeCreateComponent} from './tipp-runde-create/tipp-runde-create.component';
+import {TopthreeComponent} from './topthree/topthree.component';
+import {TippHilfeService} from "./services/tipphilfe.service";
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { TopthreeComponent } from './topthree/topthree.component';
     TippAbgebenComponent,
     TippRundeComponent,
     TippRundeCreateComponent,
-    TopthreeComponent
+    TopthreeComponent,
+    TippHilfeService
   ],
   imports: [
     BrowserModule,
