@@ -99,6 +99,7 @@ export class TippAbgebenComponent implements OnInit {
 
   }
 
+
   onSubmitTip(): void {
 
     this.TippService.save(this.tipp).subscribe();

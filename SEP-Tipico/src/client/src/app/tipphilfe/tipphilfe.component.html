@@ -1,0 +1,32 @@
+<form #teamShowForm="ngForm" (ngSubmit)="onSelectLiga()">
+  <label for="liga">Liga</label>
+  <select [(ngModel)]="ligaid" id="liga" name="liga" required>
+
+    <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+
+  </select>
+
+  <div class="dangerButton">
+    <button class="btn btn-info"
+            type="submit">laden
+    </button>
+  </div>
+
+</form>
+<form (ngSubmit)="onShowTip()">
+  <label for="teamA">Team A</label>
+  <select [(ngModel)]="match.teamA" id="teamA" name="teamA" required>
+    <option *ngFor="let teamA of teams" value="{{ teamA.id }}">{{ teamA.name }}</option>
+  </select>
+  <label for="teamB">Team B</label>
+  <select [(ngModel)]="match.teamB" id="teamB" name="teamB" required>
+    <option *ngFor="let teamB of teams" value="{{ teamB.id }}">{{ teamB.name }}</option>
+  </select>
+  <br>
+  <button class="btn btn-info"
+          type="submit">Tipp anzeigen
+  </button>
+  <br>
+  <br>
+  Quote: 1:{{quote}}
+</form>

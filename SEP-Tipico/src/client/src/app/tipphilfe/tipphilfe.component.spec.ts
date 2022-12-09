@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TipphilfeComponent} from './tipphilfe.component';
+import {TippHilfeComponent} from './tipphilfe.component';
 
 describe('TeamCShowComponent', () => {
-  let component: TipphilfeComponent;
-  let fixture: ComponentFixture<TipphilfeComponent>;
+  let component: TippHilfeComponent;
+  let fixture: ComponentFixture<TippHilfeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TipphilfeComponent]
+      declarations: [TippHilfeComponent]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(TipphilfeComponent);
+    fixture = TestBed.createComponent(TippHilfeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

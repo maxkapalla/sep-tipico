@@ -28,7 +28,7 @@ import {TippAbgebenComponent} from "./tipp-abgeben/tipp-abgeben.component";
 import {TippRundeComponent} from './tipp-runde/tipp-runde.component';
 import {TippRundeCreateComponent} from './tipp-runde-create/tipp-runde-create.component';
 import {TopthreeComponent} from './topthree/topthree.component';
-import {TippHilfeService} from "./services/tipphilfe.service";
+import {TippHilfeComponent} from "./tipphilfe/tipphilfe.component";
 
 
 @NgModule({
@@ -58,7 +58,7 @@ import {TippHilfeService} from "./services/tipphilfe.service";
     TippRundeComponent,
     TippRundeCreateComponent,
     TopthreeComponent,
-    TippHilfeService
+    TippHilfeComponent
   ],
   imports: [
     BrowserModule,
