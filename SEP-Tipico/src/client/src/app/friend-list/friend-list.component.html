@@ -67,7 +67,7 @@ border-color: indianred; margin-left: 200px;"
               <div class = "dropdown-cont">
                 <a *ngFor="let tipp of tipps"
                    (click)="shareTipp(tipp, nutzer.email)">
-                  {{tipp.tipid + " " + tipp.teamATip + ":" + tipp.teamBTip}}
+                  {{tipp.id + " " + tipp.tippA + ":" + tipp.tippB}}
                 </a>
               </div>
             </div>
