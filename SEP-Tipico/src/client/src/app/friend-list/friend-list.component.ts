@@ -3,6 +3,7 @@ import {Nutzer} from "../Models/Nutzer";
 import {NutzerService} from "../services/nutzer.service";
 import {Tipp} from "../Models/TippN";
 import {TippService} from "../services/tipp.service";
+import {TippContainer} from "../Models/TippContainer";
 
 @Component({
   selector: 'app-friend-list',
@@ -15,7 +16,7 @@ export class FriendListComponent implements OnInit {
   openRequests: Nutzer[];
   friendDeleted: boolean;
   friendAccepted: boolean;
-  tipps: Tipp[];
+  tipps: TippContainer[];
 
   constructor(private service: NutzerService, private tippService: TippService) { this.nutzers = []; this.id = 0; this.openRequests = [], this.friendDeleted = false, this.friendAccepted = false, this.tipps = []}
 
@@ -46,7 +47,7 @@ export class FriendListComponent implements OnInit {
 
   }
 
-  shareTipp(tipp: Tipp, userMail: string|undefined) {
+  shareTipp(tipp: TippContainer, userMail: string|undefined) {
     this.tippService.sendTipp(tipp, userMail + "");
     alert("Tipp versendet");
   }

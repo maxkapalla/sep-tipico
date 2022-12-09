@@ -3,6 +3,10 @@ package com.example.septipico.tippN;
 import com.example.septipico.TippRunde.TippRunde;
 import com.example.septipico.TippRunde.TippRundeMail;
 import com.example.septipico.TwoFa.TwoFaMail;
+import com.example.septipico.liga.TeamRepository;
+import com.example.septipico.liga.spiel.Spiel;
+import com.example.septipico.liga.spiel.SpielRepository;
+import com.example.septipico.tipp.TippContainer;
 import com.example.septipico.tipper.Tipper;
 import com.example.septipico.tipper.TipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -23,6 +28,12 @@ public class TippNController {
     @Autowired
     private TipperRepository tipperRepository;
 
+    @Autowired
+    private TeamRepository teamRepository;
+
+    @Autowired
+    private SpielRepository spielRepository;
+
     @PostMapping("/save")
     public void saveTipp(@RequestBody TippN tipp) {
 
@@ -32,18 +43,35 @@ public class TippNController {
     }
 
     @PostMapping("/owner")
-    public List<TippN> getByOwner(@RequestBody String ownerID){
+    public List<TippContainer> getByOwner(@RequestBody String ownerID){
         long userID = Integer.parseInt(ownerID);
 
         List<Tipper> tippers = tipperRepository.findAllByNutzerid(userID);
 
         List<TippN> tipps = new ArrayList<>();
 
+        List<TippContainer> tippContainers = new ArrayList<>();
+
         for(Tipper t: tippers) {
             tipps.addAll(tippNRepository.findAllByTipperID(t.getId()));
         }
 
-        return tipps;
+        for(TippN tipp: tipps) {
+            TippContainer cont = new TippContainer();
+            Spiel spiel = tipp.getSpiel();
+
+            cont.setSpiel(spiel);
+            cont.setTipp(tipp);
+            cont.setTipp1(tipp.getTippA()+"");
+            cont.setTipp2(tipp.getTippB()+"");
+
+            cont.setTeam1(teamRepository.getReferenceById(spiel.getTeamA()).getName());
+            cont.setTeam2(teamRepository.getReferenceById(spiel.getTeamB()).getName());
+
+            tippContainers.add(cont);
+        }
+
+        return tippContainers;
     }
 
     @PostMapping("/mail")

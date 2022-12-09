@@ -2,7 +2,6 @@ package com.example.septipico.TippRunde;
 
 import com.example.septipico.TwoFa.TwoFaMail;
 import com.example.septipico.liga.Liga;
-import com.example.septipico.tipp.Tipp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -47,12 +47,13 @@ border-color: indianred; margin-left: 200px;"
               display: none;
               position: absolute;
               background-color: ghostwhite;
-              min-width: 300px;
+              min-width: max-content;
               z-index: 1;
             }
             .dropdown-cont a {
               color:grey;
               display:block;
+              padding-right: 10px;
             }
             .dropdown:hover .dropdown-cont {display: block}
             .dropdown-cont a:hover {color:black}
@@ -67,7 +68,7 @@ border-color: indianred; margin-left: 200px;"
               <div class = "dropdown-cont">
                 <a *ngFor="let tipp of tipps"
                    (click)="shareTipp(tipp, nutzer.email)">
-                  {{tipp.id + " " + tipp.tippA + ":" + tipp.tippB}}
+                  {{tipp.team1 + " | " + tipp.tipp1 + ":" + tipp.tipp2 + " | " + tipp.team2}}
                 </a>
               </div>
             </div>

@@ -7,6 +7,7 @@ import {Tipper} from "../Models/Tipper";
 import {TippRunde} from "../Models/TippRunde";
 import {TippMail} from "../Models/TippMail";
 import {TippRundeMail} from "../Models/TippRundeMail";
+import {TippContainer} from "../Models/TippContainer";
 
 
 const httpOptions = {
@@ -44,12 +45,12 @@ export class TippService {
     return this.http.get<Tipper[]>(this.tipperURL+"/topthree/" + liga.id)
   }
 
-  getTippsByUser(userID: string): Observable<Tipp[]> {
-    return this.http.post<Tipp[]>(this.tippURL + "/owner", userID);
+  getTippsByUser(userID: string): Observable<TippContainer[]> {
+    return this.http.post<TippContainer[]>(this.tippURL + "/owner", userID);
   }
 
-  sendTipp(tipp: Tipp, userMail: string): void {
-    this.tippMail.tipp = tipp;
+  sendTipp(tipp: TippContainer, userMail: string): void {
+    this.tippMail.tipp = tipp.tipp;
     this.tippMail.userMail = userMail;
     this.tippMail.senderName = sessionStorage.getItem("name") + ""
 
