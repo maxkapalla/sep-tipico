@@ -12,8 +12,9 @@ export class FriendListComponent implements OnInit {
   id: number;
   openRequests: Nutzer[];
   friendDeleted: boolean;
+  friendAccepted: boolean;
 
-  constructor(private service: NutzerService) { this.nutzers = []; this.id = 0; this.openRequests = [], this.friendDeleted = false}
+  constructor(private service: NutzerService) { this.nutzers = []; this.id = 0; this.openRequests = [], this.friendDeleted = false, this.friendAccepted = false}
 
   ngOnInit(): void {
     var preID = sessionStorage.getItem('id')+""
@@ -26,7 +27,8 @@ export class FriendListComponent implements OnInit {
 
 
   removeFriend(friendID: string) {
-    this.service.removeFriend(sessionStorage.getItem("id")+"", friendID).subscribe((data:any) => {this.friendDeleted = data; alert("removed")})
+    this.service.removeFriend(sessionStorage.getItem("id")+"", friendID).subscribe((data:any) => {
+      this.friendDeleted = data; alert("removed"); window.location.reload()})
 
   }
 
@@ -35,6 +37,8 @@ export class FriendListComponent implements OnInit {
   }
 
   acceptFriend(friendID: string) {
+    this.service.acceptFriend(sessionStorage.getItem("id")+"", friendID).subscribe((data:any) => {
+      this.friendAccepted = data; alert("Freundschaftsanfrage angenommen"); window.location.reload()})
 
   }
 

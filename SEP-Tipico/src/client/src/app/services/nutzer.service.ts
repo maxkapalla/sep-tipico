@@ -51,6 +51,10 @@ export class NutzerService {
     return this.http.get<boolean>("http://localhost:8080/friends/remove/"+nutzerID+"/"+sucherID)
   }
 
+  public acceptFriend(nutzerID: string, sucherID: string): Observable<boolean> {
+    return this.http.get<boolean>("http://localhost:8080/friends/accept/"+nutzerID+"/"+sucherID)
+  }
+
 
 
   public sendFriendRequest(nutzerID: string, sucherID: string): Observable<boolean> {

@@ -83,4 +83,22 @@ public class FriendsController {
 
         return true;
     }
+
+    @GetMapping("/friends/accept/{nutzerID}/{sucherID}")
+    public boolean acceptFriend(@PathVariable("nutzerID") String nutzerID, @PathVariable("sucherID") String sucherID) {
+        long receiver = Integer.parseInt(nutzerID);
+        long sender = Integer.parseInt(sucherID);
+
+        List<Friends> acceptableFriendRequests = friendrepo.findAllByReceiverAndSender(receiver, sender);
+
+        for(Friends f: acceptableFriendRequests) {
+            Friends acceptedFriend = f;
+            friendrepo.delete(f);
+
+            acceptedFriend.setAccepted(true);
+            friendrepo.save(acceptedFriend);
+        }
+
+        return true;
+    }
 }
