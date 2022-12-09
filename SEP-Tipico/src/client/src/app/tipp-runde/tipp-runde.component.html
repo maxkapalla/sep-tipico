@@ -1,4 +1,14 @@
 <h2>Tippspiele:</h2>
+<div class="search-tag-result">
+  <label for="searchInput">Suchen nach</label>
+  <select name="searchType" [(ngModel)]="searchType" id="searchType" >
+    <option value="TipprundeName" [defaultSelected]="searchInput">Name der Tipprunde</option>
+    <option value="Besitzer">Besitzer der Runde</option>
+  </select>
+  <input name="searchInput" [(ngModel)]="searchInput" id="searchInput" placeholder="Suchbegriff" type="text">
+  <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
+</div>
+
 <div class="container">
   <div class="showLigaList">
     <table>

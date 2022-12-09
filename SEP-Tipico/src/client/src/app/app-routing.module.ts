@@ -23,6 +23,8 @@ import {TippRundeComponent} from "./tipp-runde/tipp-runde.component";
 import {TippRundeCreateComponent} from "./tipp-runde-create/tipp-runde-create.component";
 import {TopthreeComponent} from "./topthree/topthree.component";
 import {TippHilfeComponent} from "./tipphilfe/tipphilfe.component";
+import {TipprundeJoinComponent} from "./tipprunde-join/tipprunde-join.component";
+import {TipprundeVorjoinComponent} from "./tipprunde-vorjoin/tipprunde-vorjoin.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -46,6 +48,8 @@ const routes: Routes = [
   {path: 'tipp-abgeben', component: TippAbgebenComponent},
   {path: 'tipp-runde', component: TippRundeComponent},
   {path: 'tipp-runde-create', component: TippRundeCreateComponent},
+  {path: 'tipprunde-join' , component: TipprundeJoinComponent},
+  {path: 'tipprunde-vorjoin' , component: TipprundeVorjoinComponent},
   {path: 'top-three', component: TopthreeComponent},
   {path: "tipphilfe", component: TippHilfeComponent},
   {path: 'tippRunde', loadChildren: () => import('./tippRunde.module').then(m => m.TippRundeModule), pathMatch: "prefix", canActivate: [AuthService]},
