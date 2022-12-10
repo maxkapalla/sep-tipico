@@ -1,14 +1,9 @@
-.container {
-  display: grid;
-  grid-template-rows: 200px 1fr 100px;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-auto-flow: column;
+.runden
+{
+  cursor:pointer;
 }
-.showLigaList {
-  background: white;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 5;
 
+.runden:hover
+{
+  background-color: lightblue;
 }

@@ -35,4 +35,7 @@ export class TippRundeComponent implements OnInit {
     }
   }
 
+  anschauen(Tipprunde:TippRunde) {
+    this.router.navigate(['/tipprunde-vorjoin']);
+  }
 }

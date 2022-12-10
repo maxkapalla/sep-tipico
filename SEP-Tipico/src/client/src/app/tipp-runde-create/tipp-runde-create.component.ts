@@ -17,7 +17,7 @@ export class TippRundeCreateComponent implements OnInit {
   tippRunden: TippRunde[];
   deleteTippRunde: TippRunde;
   createTippRunde: TippRunde;
-  name:string =""
+  name:string="";
 
   constructor(private ligaService: LigaService,private route: ActivatedRoute, private TippRundeService: TippRundeService, private router: Router) {
     this.ligen=[];
@@ -28,15 +28,13 @@ export class TippRundeCreateComponent implements OnInit {
 
   }
 
-  ngOnInit(): TippRunde[] {
+  ngOnInit(): void {
     this.ligaService.getAll().subscribe((data: any) => this.ligen = data);
-    this.TippRundeService.getAll().subscribe((data:any) => this.tippRunden=data);
-    return this.tippRunden;
-
   }
 
   CreateTippRunde() {
     this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(),this.errorWithSubmit);
+    this.name=sessionStorage.getItem("name")+"";
   }
 
   DeleteTippRunde() {

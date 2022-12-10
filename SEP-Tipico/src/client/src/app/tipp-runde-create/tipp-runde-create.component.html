@@ -2,9 +2,10 @@
 <div class="createLigaForm">
   <br>
   <form #tippRundeCreateForm="ngForm" (ngSubmit)="CreateTippRunde()">
+
     <div class="form-group">
       <label for="createTippRundeName">Name der Tipprunde</label>
-      <input #ligaName="ngModel" [(ngModel)]="createTippRunde.tipprundeName"
+      <input #TippRundeName="ngModel" [(ngModel)]="createTippRunde.tipprundeName"
              class="form-control"
              id="createTippRundeName"
              name="name"
@@ -32,28 +33,28 @@
 
     <div class="gewichtForm">
       <label for="gewTore">Richtiges Ergebnis:</label>
-      <input #ligaName="ngModel" [(ngModel)]="createTippRunde.gewTore"
+      <input #gewTore="ngModel" [(ngModel)]="createTippRunde.gewTore"
              class="form-control"
              id="gewTore"
-             name="name"
+             name="goal"
              placeholder="Gib die Punkte ein!"
-             required type="number">
+             required type="text">
     </div>
     <div class="gewichtForm">
       <label for="gewDiff">Richtige Differenz:</label>
       <input #gewDiff="ngModel" [(ngModel)]="createTippRunde.gewDiff"
              class="form-control"
              id="gewDiff"
-             name="name"
+             name="diff"
              placeholder="Gib die Punkte ein!"
              required type="number">
     </div>
     <div class="gewichtForm">
-      <label for="gewDiff">Richtige Differenz:</label>
+      <label for="gewDiff">Richtiger Gewinner:</label>
       <input #gewGewinner="ngModel" [(ngModel)]="createTippRunde.gewGewinner"
              class="form-control"
              id="gewGewinner"
-             name="name"
+             name="winner"
              placeholder="Gib die Punkte ein!"
              required type="number">
     </div>

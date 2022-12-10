@@ -9,33 +9,25 @@
   <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
 </div>
 
-<div class="container">
-  <div class="showLigaList">
-    <table>
-      <tr>
-        <th>
-          Name der Tipprunde
-        </th>
-        <th>
-          Besitzer
-        </th>
-        <th>
-          Liga
-        </th>
-        <th>
-          open/private
-        </th>
-
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr class="überschrift">
+        <th scope="col-name">Name der Tipprunde</th>
+        <th scope="col-owner">Besitzer</th>
+        <th scope="col-liga">Liga</th>
+        <th scope="col-access">Zugang</th>
       </tr>
-      <tr *ngFor="let Tipprunde of tippRunden">
-        <td> {{ Tipprunde.tipprundeName }} </td>
+      </thead>
+      <tbody>
+      <tr (click)="anschauen(Tipprunde)" class="runden" *ngFor="let Tipprunde of tippRunden">
+        <td>{{ Tipprunde.tipprundeName }}</td>
         <td>{{ Tipprunde.besitzer }}</td>
-        <td>{{Tipprunde.liga}}</td>
-        <td>{{Tipprunde.zugang}}</td>
-
+        <td>{{ Tipprunde.liga }}</td>
+        <td>{{ Tipprunde.gewTore }}</td>
       </tr>
+      </tbody>
     </table>
-
   </div>
-
 </div>
