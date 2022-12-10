@@ -82,9 +82,12 @@ public class TippNController {
         String mail = tippMail.userMail;
         TippN tipp = tippMail.tipp;
 
+        String team1 = tippMail.getTeam1Name();
+        String team2 = tippMail.getTeam2Name();
+
         try {
-            tippSender.sendMail(mail, sender + " Tippt beim Spiel " + tipp.getSpiel().getTeamA() + " gegen "
-                    + tipp.getSpiel().getTeamB() + " " + tipp.getTippA() + ":" + tipp.getTippB()
+            tippSender.sendMail(mail,
+                    sender + " Tippt beim Spiel " + team1 + " | " + tipp.getTippA() + ":" + tipp.getTippB() + " | " + team2
                     , "Tipp von " + sender);
         } catch (javax.mail.MessagingException e) {
             System.out.println("mail versenden fehlgeschlagen");

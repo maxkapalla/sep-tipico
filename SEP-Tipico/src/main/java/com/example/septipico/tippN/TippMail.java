@@ -9,6 +9,10 @@ public class TippMail {
     String userMail;
     String senderName;
 
+    String team1Name;
+
+    String team2Name;
+
     public TippMail(TippN tipp, String userMail, String senderName) {
         this.tipp = tipp;
         this.userMail = userMail;
@@ -39,5 +43,21 @@ public class TippMail {
 
     public void setSenderName(String senderName) {
         this.senderName = senderName;
+    }
+
+    public String getTeam1Name() {
+        return team1Name;
+    }
+
+    public void setTeam1Name(String team1Name) {
+        this.team1Name = team1Name;
+    }
+
+    public String getTeam2Name() {
+        return team2Name;
+    }
+
+    public void setTeam2Name(String team2Name) {
+        this.team2Name = team2Name;
     }
 }

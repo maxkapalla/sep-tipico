@@ -51,6 +51,8 @@ export class TippService {
 
   sendTipp(tipp: TippContainer, userMail: string): void {
     this.tippMail.tipp = tipp.tipp;
+    this.tippMail.team1Name = tipp.team1
+    this.tippMail.team2Name = tipp.team2
     this.tippMail.userMail = userMail;
     this.tippMail.senderName = sessionStorage.getItem("name") + ""
 
