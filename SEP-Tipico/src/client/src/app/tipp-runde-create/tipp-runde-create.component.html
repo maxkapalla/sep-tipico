@@ -12,6 +12,17 @@
              placeholder="Wähle einen Namen!"
              required type="text">
     </div>
+
+    <div class="accessdeclarer">
+      <div class="form-group">
+        <label for="access">Zugang </label>
+        <select [(ngModel)]="createTippRunde.zugang" id="access" name="access" required>
+          <option value="open">open</option>
+          <option value="private">private</option>
+        </select>
+      </div>
+    </div>
+
     <div class="form-group">
       <label for="password">Optionales Passwort</label>
       <input type="password" [(ngModel)]="createTippRunde.password"
@@ -23,9 +34,9 @@
              >
     </div>
     <div class="ligaSelectForm">
-        <div class="form-group">
+        <div class="form-group1">
           <label for="liga">Liga </label>
-          <select [(ngModel)]="liga.id" id="liga" name="liga" required>
+          <select [(ngModel)]="createTippRunde.liga" id="liga" name="liga" required>
             <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
           </select>
         </div>
@@ -37,8 +48,9 @@
              class="form-control"
              id="gewTore"
              name="goal"
-             placeholder="Gib die Punkte ein!"
-             required type="text">
+             pattern="([1-9])"
+             placeholder="Wähle 1-9 Punkte!"
+             required type="number">
     </div>
     <div class="gewichtForm">
       <label for="gewDiff">Richtige Differenz:</label>
@@ -46,7 +58,8 @@
              class="form-control"
              id="gewDiff"
              name="diff"
-             placeholder="Gib die Punkte ein!"
+             pattern="([1-9])"
+             placeholder="Wähle 1-9 Punkte!"
              required type="number">
     </div>
     <div class="gewichtForm">
@@ -55,7 +68,8 @@
              class="form-control"
              id="gewGewinner"
              name="winner"
-             placeholder="Gib die Punkte ein!"
+             pattern="([1-9])"
+             placeholder="Wähle 1-9 Punkte!"
              required type="number">
     </div>
 
