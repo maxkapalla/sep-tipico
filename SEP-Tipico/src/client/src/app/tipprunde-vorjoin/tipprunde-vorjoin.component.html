@@ -1,4 +1,43 @@
-<p>tipprunde-vorjoin works!</p>
 <h2>Diese Seite zeigt eine ausgewählte Tipprunde an. Evtl mit Mitgliedertabelle.
   Falls Passwort geschützt, soll hier das PW eingegeben werden,
   auf der nächsten seite folgt die Beitrittsseite</h2>
+
+<div class="container">
+  <header class="jumbotron">
+    <h3>
+       <strong>{{ tippRunde.tipprundeName }}</strong>
+    </h3>
+  </header>
+  <p>
+    <strong>Besitzer:</strong>
+    {{ tippRunde.besitzer }}
+  </p>
+
+  <p>
+    <strong>Liga:</strong>
+    {{ tippRunde.liga }}
+  </p>
+
+  <p >
+    <strong>Zugang:</strong>
+    {{tippRunde.zugang}}
+  </p>
+</div>
+
+
+<div class="card-body">
+  <form (ngSubmit)="onSubmit()" #adminForm="ngForm">
+    <div class="form-group">
+      <label for="password">Passwort</label>
+      <input type="password" [(ngModel)]="password"
+             class="form-control"
+             id="password"
+             name="password"
+             placeholder="Password"
+             required #lastname="ngModel">
+      <div style = "color: red" *ngIf="lastname.invalid && lastname.touched">Bitte Password eingeben!</div>
+    </div>
+    <button type="submit" [disabled]="!adminForm.form.valid"
+            class="btn btn-info">Anmelden</button>
+  </form>
+</div>

@@ -85,19 +85,19 @@ public class TippRunde {
         this.liga= liga;
     }
 
-    public String getGewTore(String gewTore) {
+    public String getGewTore() {
         return gewTore;
     }
     public void setGewTore(String gewTore) {
         this.gewTore=gewTore;
     }
-    public String getGewDiff(String gewDiff) {
+    public String getGewDiff() {
         return gewDiff;
     }
     public void setGewDiff(String gewDiff) {
         this.gewDiff=gewDiff;
     }
-    public String getGewGewinner(String gewGewinner) {
+    public String getGewGewinner() {
         return gewTore;
     }
     public void setGewGewinner(String gewGewinner) {

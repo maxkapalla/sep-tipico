@@ -31,6 +31,7 @@ import {TopthreeComponent} from './topthree/topthree.component';
 import {TippHilfeComponent} from "./tipphilfe/tipphilfe.component";
 import { TipprundeJoinComponent } from './tipprunde-join/tipprunde-join.component';
 import { TipprundeVorjoinComponent } from './tipprunde-vorjoin/tipprunde-vorjoin.component';
+import { TipprundeDrinneComponent } from './tipprunde-drinne/tipprunde-drinne.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { TipprundeVorjoinComponent } from './tipprunde-vorjoin/tipprunde-vorjoin
     TopthreeComponent,
     TippHilfeComponent,
     TipprundeJoinComponent,
-    TipprundeVorjoinComponent
+    TipprundeVorjoinComponent,
+    TipprundeDrinneComponent
   ],
   imports: [
     BrowserModule,

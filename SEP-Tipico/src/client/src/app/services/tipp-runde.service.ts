@@ -43,6 +43,7 @@ export class TippRundeService {
   }
 
 
+
   sendTippRunde(tippRunde: TippRunde, userMail: string): void{
     this.tippRundeMail.tippRunde = tippRunde;
     this.tippRundeMail.userMail = userMail;

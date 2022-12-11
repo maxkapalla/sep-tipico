@@ -2,6 +2,7 @@ package com.example.septipico.TippRunde;
 
 import com.example.septipico.TwoFa.TwoFaMail;
 import com.example.septipico.liga.Liga;
+import com.example.septipico.nutzer.Nutzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,12 +39,20 @@ public class TippRundeController {
         t.setGewDiff(gewDiff);
         t.setGewGewinner(gewGewinner);
         tippRundeRepository.save(t);
+        System.out.println(t);
+
     }
 
     @PostMapping("/tippRunde/name")
     public List<TippRunde> getTippRunde(@RequestBody String name) {
         List<TippRunde> t = new ArrayList<TippRunde>();
         t.add(tippRundeRepository.findTippRundeByTipprundeName(name));
+        return t;
+    }
+    @PostMapping("/tippRunde/id")
+    public List<TippRunde> getTippRundeByID(@RequestBody Long id) {
+        List<TippRunde> t = new ArrayList<>();
+        t.add(tippRundeRepository.findTippRundeById(id));
         return t;
     }
     @GetMapping("/tippRunde/all")

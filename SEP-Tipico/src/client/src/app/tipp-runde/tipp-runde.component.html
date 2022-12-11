@@ -14,6 +14,7 @@
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
       <tr class="überschrift">
+        <th scope="col-id">ID</th>
         <th scope="col-name">Name der Tipprunde</th>
         <th scope="col-owner">Besitzer</th>
         <th scope="col-liga">Liga</th>
@@ -22,6 +23,7 @@
       </thead>
       <tbody>
       <tr (click)="anschauen(Tipprunde)" class="runden" *ngFor="let Tipprunde of tippRunden">
+        <td>{{ Tipprunde.id }}</td>
         <td>{{ Tipprunde.tipprundeName }}</td>
         <td>{{ Tipprunde.besitzer }}</td>
         <td>{{ Tipprunde.liga }}</td>
