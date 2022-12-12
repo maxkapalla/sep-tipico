@@ -52,7 +52,7 @@ const routes: Routes = [
   {path: "tipphilfe", component: TippHilfeComponent, canActivate: [AuthService]},
   {path: "tipprunde-join", component: TipprundeJoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-vorjoin", component: TipprundeVorjoinComponent, canActivate: [AuthService]},
-  //{path: 'tippRunde/RundenID', loadChildren: () => import('').then(m => m.TippRundeModule)},
+  {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService] },
 ];
 
 @NgModule({
