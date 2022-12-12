@@ -1,8 +1,5 @@
 package com.example.septipico.tippN;
 
-import com.example.septipico.liga.spiel.Spiel;
-import com.example.septipico.nutzer.Nutzer;
-
 import javax.persistence.*;
 
 @Entity
@@ -70,18 +67,6 @@ public class TippN {
         this.tippB = tippB;
     }
 
-    public boolean getLiga() {
-        return diff;
-    }
-
-    public void setLiga(boolean diff) {
-        this.diff = diff;
-    }
-
-    public void setGewinner(boolean gewinner) {
-        this.gewinner = gewinner;
-    }
-
     public Long getTipprundenid() {
         return tipprundenid;
     }
@@ -100,5 +85,9 @@ public class TippN {
 
     public boolean isGewinner() {
         return gewinner;
+    }
+
+    public void setGewinner(boolean gewinner) {
+        this.gewinner = gewinner;
     }
 }

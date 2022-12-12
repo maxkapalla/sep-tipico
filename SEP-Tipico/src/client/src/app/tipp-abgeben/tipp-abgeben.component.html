@@ -1,42 +1,16 @@
-<div class="ligaSelectForm">
-  <form #matchCreateForm="ngForm">
-    <div class="form-group">
-      <label for="liga">Liga</label>
-      <select [(ngModel)]="ligaid" [(ngModel)]="match.liga" id="liga" name="liga" required>
-        <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
-      </select>
-    </div>
-    <button (click)="onShowMatchesInLiga()" class="btn btn-info"
-            type="button">Liga laden
-    </button>
-  </form>
-</div>
-
-<table class="minimalistBlack">
-  <thead>
-  <tr>
-    <th>Matchday</th>
-    <th>Playdate</th>
-    <th>Team 1</th>
-    <th>FT</th>
-    <th>Team 2</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let match of matches;">
-    <td><span>{{match.id}}</span></td>
-    <td><span>{{match.spieltag}}</span></td>
-    <td><span>{{match.scoreTeamA}}</span></td>
-    <td><span>{{match.scoreTeamB}}</span></td>
-    <td><span>{{match.teamA}}</span></td>
-  </tr>
-  </tbody>
-</table>
-
-
 <div class="tippAbgebenForm">
   <form #tippAbgebenForm="ngForm">
     <div class="form-group">
+      <label for="tipprunde">Tipprunde wählen</label>
+      <select [(ngModel)]="tipprundenid" id="tipprunde" name="Tipprunde" required>
+        <option *ngFor="let tippr of tipprunden" value="{{ tippr.id }}">{{ tippr.tipprundeName }}</option>
+      </select>
+      <br>
+      <button (click)="onLoadTipprunde()" class="btn btn-info"
+              type="button">Liga laden
+      </button>
+      <br>
+
       <label for="match">Spiel</label>
       <input [(ngModel)]="tipp.spiel" class="form-control"
              id="match"
@@ -58,6 +32,8 @@
              placeholder="Tore B"
              required
              type="text">
+      <label for="tipprunde">tipprunde</label>
+
 
     </div>
 
@@ -69,3 +45,26 @@
 
   </form>
 </div>
+
+
+<table *ngIf="loadtable" class="minimalistBlack">
+  <thead>
+  <tr>
+    <th>Matchday</th>
+    <th>Playdate</th>
+    <th>Team 1</th>
+    <th>FT</th>
+    <th>Team 2</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let match of matches;">
+    <td><span>{{match.id}}</span></td>
+    <td><span>{{match.spieltag}}</span></td>
+    <td><span>{{match.scoreTeamA}}</span></td>
+    <td><span>{{match.scoreTeamB}}</span></td>
+    <td><span>{{match.teamA}}</span></td>
+  </tr>
+  </tbody>
+</table>
+

@@ -32,6 +32,8 @@ export class TippAbgebenComponent implements OnInit {
   matchid: bigint;
 
   tipprunde: TippRunde;
+  tipprundenid: bigint;
+  loadtable: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private LigaService: LigaService, private TeamService: TeamService, private MatchService: MatchService, private TippService: TippService, private TippRundeService: TippRundeService) {
     this.ligen = [];
@@ -45,8 +47,8 @@ export class TippAbgebenComponent implements OnInit {
     this.matchid = BigInt("0");
     this.matchesMap = new Map<bigint, Match>;
     this.tipprunde = new TippRunde();
-
-
+    this.tipprundenid = BigInt("0");
+    this.loadtable = false;
   }
 
 
@@ -56,9 +58,25 @@ export class TippAbgebenComponent implements OnInit {
       this.ligen = data;
       this.compileLigen()
     })
+
+
     this.TippRundeService.getAll().subscribe((data: any) => {
       this.tipprunden = data;
     })
+
+  }
+
+  onLoadTipprunde() {
+    console.log(this.tipprundenid)
+
+    for (let t of this.tipprunden) {
+      if (this.tipprundenid == t.id && t.liga != null) {
+        this.ligaid = BigInt(t.liga);
+        this.tipp.tipprundenid = this.tipprundenid;
+      }
+    }
+    console.log(this.ligaid)
+    this.onShowMatchesInLiga();
 
   }
 
@@ -74,6 +92,7 @@ export class TippAbgebenComponent implements OnInit {
   onSelectTippRunde(): void {
     if (this.tipprunde.liga != null) {
       this.ligaid = BigInt(this.tipprunde.liga);
+
     }
 
 
@@ -96,6 +115,7 @@ export class TippAbgebenComponent implements OnInit {
       this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
 
     }
+    this.loadtable = true;
 
   }
 
@@ -105,6 +125,8 @@ export class TippAbgebenComponent implements OnInit {
     this.TippService.save(this.tipp).subscribe();
     console.log(this.tipp)
     //his.matches.this.TippService.save(this.tipp).subscribe();
+    this.tipp = new Tipp();
+    this.loadtable = false;
 
   }
 

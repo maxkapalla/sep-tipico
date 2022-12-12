@@ -34,13 +34,13 @@ public class TippNController {
     @PostMapping("/save")
     public void saveTipp(@RequestBody TippN tipp) {
 
-        System.out.println(tipp.getId() + "  " + tipp.getTippA() + " ");
+        System.out.println(" TippID " + tipp.getId() + " tippA: " + tipp.getTippA() + " Spiel: " + tipp.getSpiel() + " TippB: " + tipp.getTippB() + " TipprundenID: " + tipp.getTipprundenid() + " TipperID: " + tipp.getTipperID());
 
         tippNRepository.save(tipp);
     }
 
-  @PostMapping("/owner")
-    public List<TippContainer> getByOwner(@RequestBody String ownerID){
+    @PostMapping("/owner")
+    public List<TippContainer> getByOwner(@RequestBody String ownerID) {
         long userID = Integer.parseInt(ownerID);
 
         List<Tipper> tippers = tipperRepository.findAllByNutzerid(userID);
@@ -49,19 +49,19 @@ public class TippNController {
 
         List<TippContainer> tippContainers = new ArrayList<>();
 
-        for(Tipper t: tippers) {
+        for (Tipper t : tippers) {
             tipps.addAll(tippNRepository.findAllByTipperID(t.getId()));
         }
 
-        for(TippN tipp: tipps) {
+        for (TippN tipp : tipps) {
             TippContainer cont = new TippContainer();
             Long spielID = tipp.getSpiel();
             Spiel spiel = spielRepository.getReferenceById(spielID);
 
             //cont.setSpiel(spiel);
             cont.setTipp(tipp);
-            cont.setTipp1(tipp.getTippA()+"");
-            cont.setTipp2(tipp.getTippB()+"");
+            cont.setTipp1(tipp.getTippA() + "");
+            cont.setTipp2(tipp.getTippB() + "");
 
             cont.setTeam1(teamRepository.getReferenceById(spiel.getTeamA()).getName());
             cont.setTeam2(teamRepository.getReferenceById(spiel.getTeamB()).getName());
@@ -72,7 +72,7 @@ public class TippNController {
         return tippContainers;
     }
 
-    
+
     @PostMapping("/mail")
     public TippMail sendTipp(@RequestBody TippMail tippMail) {
         TwoFaMail tippSender = new TwoFaMail();
