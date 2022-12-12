@@ -16,5 +16,5 @@ public interface SpielRepository extends JpaRepository<Spiel, Long> {
 
      List<Spiel> findByLiga(Long liga);
 
-     Spiel findSpielByid(Long id);
+     List<Spiel> findAllByLigaOrderByDate(Long liga);
 }

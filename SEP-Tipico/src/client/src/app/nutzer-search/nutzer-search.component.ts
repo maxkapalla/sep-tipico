@@ -41,9 +41,11 @@ export class NutzerSearchComponent implements OnInit {
         firsName = splitStr[0]
         lastName = splitStr[1]
         this.service.searchUser(firsName, lastName).subscribe((data: any) => this.nutzers = data)
+        console.log(this.nutzers)
       } else {
         firsName = this.nutzerName
         this.service.searchUserByOneNameOnly(firsName).subscribe((data: any) => this.nutzers = data)
+        console.log(this.nutzers)
       }
     }
   }

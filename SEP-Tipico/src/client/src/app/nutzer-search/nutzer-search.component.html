@@ -2,7 +2,7 @@
 <div class="card-body">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="name">Vorname</label>
+      <label for="name">Name:</label>
       <input type="text" [(ngModel)]="nutzerName"
              class="form-control"
              id="name"
@@ -26,7 +26,8 @@
           <li class="list-inline-item">
           <button (click)='addFriend(nutzer.id)'
                   style="background-color: darkseagreen;
-border-color: darkseagreen; margin-left: 200px;"
+                  border-color: darkseagreen;
+                  margin-left: 200px;"
                   class="btn btn-info">add Friend</button>
           </li>
 

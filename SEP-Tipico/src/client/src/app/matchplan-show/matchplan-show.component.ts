@@ -1,11 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Liga} from "../Models/Liga";
 import {Match} from "../Models/Match";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {MatchService} from "../services/match.service";
 import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
 import {Team} from "../Models/Team";
+import {TippService} from "../services/tipp.service";
+import {Tipper} from "../Models/Tipper";
+import {NutzerService} from "../services/nutzer.service";
+import {Nutzer} from "../Models/Nutzer";
 
 @Component({
   selector: 'app-liga-change',
@@ -20,8 +24,12 @@ export class MatchPlanShowComponent implements OnInit {
   team: Team;
   teams: Team[];
   teamNamen: Map<bigint, String>;
+  topThree: Tipper[];
+  topThreeNames: Nutzer[];
 
-  constructor(private route: ActivatedRoute, private TeamService: TeamService, private LigaService: LigaService, private MatchService: MatchService, private router: Router) {
+  constructor(private route: ActivatedRoute, private TeamService: TeamService,
+              private LigaService: LigaService, private MatchService: MatchService,
+              private tippService: TippService, private nutzerService: NutzerService) {
     this.match = new Match;
     this.matches = [];
     this.liga = new Liga();
@@ -29,6 +37,8 @@ export class MatchPlanShowComponent implements OnInit {
     this.team = new Team();
     this.teams = [];
     this.teamNamen = new Map<bigint, String>;
+    this.topThree = [];
+    this.topThreeNames = [];
   }
 
   ngOnInit(): void {
@@ -38,16 +48,32 @@ export class MatchPlanShowComponent implements OnInit {
       this.teams = data;
       this.compileTeamNames()
     });
-
-
   }
 
-  onShow() {
-
+  markFutureMatches(date: string): boolean{
+    let datum = sessionStorage.getItem('datum')+""
+    date = date.slice(0,10)
+    let splitstr1 = date.split('-')
+    let splitstr2 = datum.split('.')
+    if(+splitstr1[0] <= +splitstr2[2]){
+      if(+splitstr1[1] <= +splitstr2[1]){
+        if(+splitstr1[2] <= +splitstr2[0]){
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   onLoadLiga(): void {
     this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
+
+    this.tippService.getTopThree(this.liga).subscribe((data:any) => this.topThree = data)
+    setTimeout( () => {
+      if(this.topThree.length != 0)
+        this.nutzerService.getNutzersByIds(this.topThree[0].nutzerid, this.topThree[1].nutzerid, this.topThree[2].nutzerid).subscribe((data: any) => this.topThreeNames = data)
+    },200);
+
   }
 
   compileTeamNames() {
@@ -69,4 +95,7 @@ export class MatchPlanShowComponent implements OnInit {
     return "kein Name"
   }
 
+  onLoadTopThree(){
+
+  }
 }

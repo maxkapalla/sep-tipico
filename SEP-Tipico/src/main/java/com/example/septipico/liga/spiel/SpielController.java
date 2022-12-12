@@ -54,10 +54,8 @@ public class SpielController {
     @PostMapping("/liga")
     public List<Spiel> getByLiga(@RequestBody Liga liga) {
         List<Spiel> results = new ArrayList<>();
-        results.addAll(spielRepository.findByLiga(liga.getId()));
-
-
-        return results;
+        results.addAll(spielRepository.findAllByLigaOrderByDate(liga.getId()));
+ return results;
 
     }
 
