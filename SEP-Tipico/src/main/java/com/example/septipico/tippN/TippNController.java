@@ -1,20 +1,11 @@
 package com.example.septipico.tippN;
 
-import com.example.septipico.TippRunde.TippRunde;
-import com.example.septipico.TippRunde.TippRundeMail;
 import com.example.septipico.TwoFa.TwoFaMail;
 import com.example.septipico.liga.TeamRepository;
-import com.example.septipico.liga.spiel.Spiel;
 import com.example.septipico.liga.spiel.SpielRepository;
-import com.example.septipico.tipp.TippContainer;
-import com.example.septipico.tipper.Tipper;
 import com.example.septipico.tipper.TipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -42,7 +33,7 @@ public class TippNController {
         tippNRepository.save(tipp);
     }
 
-    @PostMapping("/owner")
+  /*  @PostMapping("/owner")
     public List<TippContainer> getByOwner(@RequestBody String ownerID){
         long userID = Integer.parseInt(ownerID);
 
@@ -73,8 +64,9 @@ public class TippNController {
         }
 
         return tippContainers;
-    }
+    }*/
 
+    
     @PostMapping("/mail")
     public TippMail sendTipp(@RequestBody TippMail tippMail) {
         TwoFaMail tippSender = new TwoFaMail();

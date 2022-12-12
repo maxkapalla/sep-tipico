@@ -18,12 +18,18 @@ public class TippN {
     private Long tipperID;
     @Column(name = "spiel_id")
     private Long spiel;
+    @Column(name = "tipprundenid")
+    private Long tipprundenid;
+    @Column(name = "tipperid")
+    private Long match;
     @Column(name = "tippA")
     private Long tippA;
     @Column(name = "tippB")
     private Long tippB;
-    @Column(name = "Liga")
-    private Long liga;
+    @Column(name = "dfff")
+    private boolean diff;
+    @Column(name = "gewinner")
+    private boolean gewinner;
 
     public Long getId() {
         return id;
@@ -65,11 +71,15 @@ public class TippN {
         this.tippB = tippB;
     }
 
-    public Long getLiga() {
-        return liga;
+    public boolean getLiga() {
+        return diff;
     }
 
-    public void setLiga(Long liga) {
-        this.liga = liga;
+    public void setLiga(boolean diff) {
+        this.diff = diff;
+    }
+
+    public void setGewinner(boolean gewinner) {
+        this.gewinner = gewinner;
     }
 }

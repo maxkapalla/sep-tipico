@@ -53,8 +53,10 @@ const routes: Routes = [
   {path: "tipphilfe", component: TippHilfeComponent, canActivate: [AuthService]},
   {path: "tipprunde-join/:id", component: TipprundeJoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-vorjoin/:id", component: TipprundeVorjoinComponent, canActivate: [AuthService]},
-  {path: "tipprunde-drinne/:id", component:TipprundeDrinneComponent, canActivate: [AuthService]}
-  //{path: 'tippRunde/RundenID', loadChildren: () => import('').then(m => m.TippRundeModule)},
+  {path: "tipprunde-drinne/:id", component:TipprundeDrinneComponent, canActivate: [AuthService]},
+  {path: "tipprunde-join", component: TipprundeJoinComponent, canActivate: [AuthService]},
+  {path: "tipprunde-vorjoin", component: TipprundeVorjoinComponent, canActivate: [AuthService]},
+  {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService] },
 ];
 
 @NgModule({
