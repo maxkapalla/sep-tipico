@@ -56,7 +56,6 @@ public class TippNController {
         for(TippN tipp: tipps) {
             TippContainer cont = new TippContainer();
             Long spielID = tipp.getSpiel();
-            System.out.println(spielID);
             Spiel spiel = spielRepository.getReferenceById(spielID);
 
             //cont.setSpiel(spiel);
@@ -64,12 +63,8 @@ public class TippNController {
             cont.setTipp1(tipp.getTippA()+"");
             cont.setTipp2(tipp.getTippB()+"");
 
-            System.out.println(tipp.getTippA()+" "+tipp.getTippB()+" "+spiel.getId()+" "+spielID);
-
             cont.setTeam1(teamRepository.getReferenceById(spiel.getTeamA()).getName());
             cont.setTeam2(teamRepository.getReferenceById(spiel.getTeamB()).getName());
-
-            System.out.println(teamRepository.getReferenceById(spiel.getTeamA()).getName());
 
             tippContainers.add(cont);
         }
