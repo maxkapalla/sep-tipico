@@ -16,8 +16,9 @@ public class TippN {
 
     @Column(name = "tipperID")
     private Long tipperID;
-    @Column(name = "spiel_id")
+    @Column(name = "spielID")
     private Long spiel;
+
     @Column(name = "tipprundenid")
     private Long tipprundenid;
     @Column(name = "tippA")
@@ -79,5 +80,25 @@ public class TippN {
 
     public void setGewinner(boolean gewinner) {
         this.gewinner = gewinner;
+    }
+
+    public Long getTipprundenid() {
+        return tipprundenid;
+    }
+
+    public void setTipprundenid(Long tipprundenid) {
+        this.tipprundenid = tipprundenid;
+    }
+
+    public boolean isDiff() {
+        return diff;
+    }
+
+    public void setDiff(boolean diff) {
+        this.diff = diff;
+    }
+
+    public boolean isGewinner() {
+        return gewinner;
     }
 }
