@@ -15,6 +15,7 @@ export class TipprundeVorjoinComponent implements OnInit {
   constructor(private TippRundeService:TippRundeService, private router: Router) {this.tippRunde= new TippRunde(); }
 
   ngOnInit(): void {
+
     this.TippRundeService.getAll().subscribe((data:any) => this.tippRunde=data);
   }
   onSubmit() {

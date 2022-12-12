@@ -9,7 +9,6 @@ import java.util.List;
 public interface TippRundeRepository extends JpaRepository<TippRunde, Long> {
 
     TippRunde findTippRundeByTipprundeName(String name);
-    TippRunde findTippRundeByPassword(String password);
 
     TippRunde findTippRundeById(Long id);
     List<TippRunde> findAll();
