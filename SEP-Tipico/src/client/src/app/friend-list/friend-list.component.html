@@ -65,7 +65,8 @@ border-color: indianred; margin-left: 200px;"
                 style="background-color: darkgrey;
                   border-color: darkgrey;"
                 class="btn btn-info">share Tipp</button>
-              <div class = "dropdown-cont">
+              <div class = "dropdown-cont"
+              style="cursor: pointer">
                 <a *ngFor="let tipp of tipps"
                    (click)="shareTipp(tipp, nutzer.email)">
                   {{tipp.team1 + " | " + tipp.tipp1 + ":" + tipp.tipp2 + " | " + tipp.team2}}

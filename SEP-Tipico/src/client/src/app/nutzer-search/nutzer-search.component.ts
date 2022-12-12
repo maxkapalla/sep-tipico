@@ -74,6 +74,7 @@ export class NutzerSearchComponent implements OnInit {
 
   shareTippRunde(tippRunde: TippRunde, userMail: string | undefined) {
     this.tippRundeService.sendTippRunde(tippRunde, userMail + "");
+    alert("Tipprunde " + "'" + tippRunde.tipprundeName + "'" + " gesendet an " + userMail);
   }
 
 
