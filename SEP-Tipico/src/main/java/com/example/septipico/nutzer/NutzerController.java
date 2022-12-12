@@ -47,7 +47,12 @@ public class NutzerController {
     public List<Nutzer> searchNutzer(@PathVariable("n") String name){
         name = name.substring(0,1).toUpperCase() + name.substring(1);
         List<Nutzer> all = nutzerrepo.findAllByFirstNameContaining(name);
-        all.addAll(nutzerrepo.findAllByLastNameContaining(name));
+        List<Nutzer> lastnames = nutzerrepo.findAllByLastNameContaining(name);
+        if(all.size()== 0) return lastnames;
+        for(Nutzer nutzer : all)
+            for(Nutzer temp: lastnames)
+                if(temp.getId() != nutzer.getId())
+                    all.add(temp);
         return all;
     }
     @GetMapping("/nutzer/{id1}/{id2}/{id3}")
