@@ -55,6 +55,8 @@ public class TippRundeController {
         TippRunde t = tippRundeRepository.findTippRundeById(searchID);
         return t;
     }
+
+
     @GetMapping("/tippRunde/all")
     public List<TippRunde> getTippRunden() {
         return tippRundeRepository.findAll();
