@@ -10,5 +10,5 @@ public interface TippNRepository extends JpaRepository<TippN, Long> {
 
     List<TippN> findAll();
 
-    List<TippN> findAllByTipperID(Long tipperID);
+    // List<TippN> findAllByTipperID(Long tipperID);
 }

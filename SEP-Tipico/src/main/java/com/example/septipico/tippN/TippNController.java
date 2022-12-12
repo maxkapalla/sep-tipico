@@ -65,6 +65,7 @@ public class TippNController {
         return tippContainers;
     }*/
 
+    
     @PostMapping("/mail")
     public TippMail sendTipp(@RequestBody TippMail tippMail) {
         TwoFaMail tippSender = new TwoFaMail();
