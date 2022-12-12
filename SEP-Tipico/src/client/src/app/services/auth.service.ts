@@ -13,15 +13,14 @@ export class AuthService implements CanActivate{
     return new Promise((resolve, reject)=> {
 
       if(!sessionStorage.getItem('isLoggedIn')){
-        if(state.toString().includes("RundenID")) {
-          let splitLink = route.toString().split("/")
-          let rundenPw = splitLink[splitLink.length-1]
-          let rundenID = splitLink[splitLink.length-2]
+        if(route.toString().includes("RundenID")) {
+          let rundenPw = route.paramMap.get('id')
+          let rundenID = route.paramMap.get('password')
 
           console.log(rundenID);
 
-          sessionStorage.setItem("rundenPw", rundenPw)
-          sessionStorage.setItem("rundenID", rundenID)
+          sessionStorage.setItem("rundenPw", rundenPw+"")
+          sessionStorage.setItem("rundenID", rundenID+"")
         }
         this.router.navigate(['/login']);
         return resolve(false);
@@ -33,7 +32,11 @@ export class AuthService implements CanActivate{
 
   public checkLogged(){
     if(sessionStorage.getItem('isLoggedIn')){
-      this.router.navigate(['/home']);
+      if(sessionStorage.getItem('rundenID') != null) {
+        this.router.navigate(['/tipprunde-vorjoin']);
+      } else {
+        this.router.navigate(['/home']);
+      }
     }
   }
 }

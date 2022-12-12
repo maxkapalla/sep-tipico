@@ -50,11 +50,13 @@ public class TippRundeController {
         return t;
     }
     @PostMapping("/tippRunde/id")
-    public List<TippRunde> getTippRundeByID(@RequestBody Long id) {
-        List<TippRunde> t = new ArrayList<>();
-        t.add(tippRundeRepository.findTippRundeById(id));
+    public TippRunde getTippRundeByID(@RequestBody String id) {
+        long searchID = Integer.parseInt(id);
+        TippRunde t = tippRundeRepository.findTippRundeById(searchID);
         return t;
     }
+
+
     @GetMapping("/tippRunde/all")
     public List<TippRunde> getTippRunden() {
         return tippRundeRepository.findAll();

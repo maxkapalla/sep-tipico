@@ -138,7 +138,7 @@ export class TippHilfeComponent implements OnInit {
                 this.hilfe.set(m.teamA, valA);
                 this.hilfe.set(m.teamB, valB);
               }
-
+              console.log(this.hilfe)
 
             }
 
@@ -171,7 +171,7 @@ export class TippHilfeComponent implements OnInit {
         }
 
       })
-      
+
       this.quote = Number((a / b).toFixed(2));
 
 
