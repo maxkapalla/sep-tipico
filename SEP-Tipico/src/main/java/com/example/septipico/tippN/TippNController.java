@@ -58,7 +58,8 @@ public class TippNController {
 
         for(TippN tipp: tipps) {
             TippContainer cont = new TippContainer();
-            Spiel spiel = tipp.getSpiel();
+            Long spielID = tipp.getSpiel();
+            Spiel spiel = spielRepository.getReferenceById(spielID);
 
             cont.setSpiel(spiel);
             cont.setTipp(tipp);
