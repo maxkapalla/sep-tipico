@@ -49,11 +49,13 @@ public class TippRundeController {
         t.add(tippRundeRepository.findTippRundeByTipprundeName(name));
         return t;
     }
-
-    @GetMapping("/tippRunde/{id}")
-    public TippRunde getTippRundebyID(@PathVariable("id") Long id) {
-        return tippRundeRepository.findTippRundeById(id);
+    @PostMapping("/tippRunde/id")
+    public TippRunde getTippRundeByID(@RequestBody String id) {
+        long searchID = Integer.parseInt(id);
+        TippRunde t = tippRundeRepository.findTippRundeById(searchID);
+        return t;
     }
+
 
     @GetMapping("/tippRunde/all")
     public List<TippRunde> getTippRunden() {

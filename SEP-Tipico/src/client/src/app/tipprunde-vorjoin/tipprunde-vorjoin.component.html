@@ -26,7 +26,7 @@
 
 
 <div class="card-body">
-  <form (ngSubmit)="onSubmit()" #adminForm="ngForm">
+  <form (ngSubmit)="onSubmit(tippRunde)" #adminForm="ngForm">
     <div class="form-group">
       <label for="password">Passwort</label>
       <input type="password" [(ngModel)]="password"
@@ -38,6 +38,6 @@
       <div style = "color: red" *ngIf="lastname.invalid && lastname.touched">Bitte Password eingeben!</div>
     </div>
     <button type="submit" [disabled]="!adminForm.form.valid"
-            class="btn btn-info">Anmelden</button>
+            class="btn btn-info">Submit</button>
   </form>
 </div>
