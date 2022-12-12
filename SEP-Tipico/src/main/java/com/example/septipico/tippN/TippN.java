@@ -20,8 +20,6 @@ public class TippN {
     private Long spiel;
     @Column(name = "tipprundenid")
     private Long tipprundenid;
-    @Column(name = "tipperid")
-    private Long match;
     @Column(name = "tippA")
     private Long tippA;
     @Column(name = "tippB")
