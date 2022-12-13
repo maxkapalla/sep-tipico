@@ -15,11 +15,12 @@ export class TipprundeDrinneComponent implements OnInit {
   id:number;
 
   tippende:Tipper[];
+  tipper:Tipper;
   tippRunde: TippRunde;
   password:string="";
 
   constructor(private TippRundeService:TippRundeService,private TippService:TippService ,private router: Router, private route:ActivatedRoute)
-  {this.tippRunde= new TippRunde, this.id=0; this.tippende=[]; }
+  {this.tippRunde= new TippRunde, this.id=0; this.tippende=[];this.tipper=new Tipper() }
 
   ngOnInit(): Tipper[] {
     var x = sessionStorage.getItem('rundenID') + "";
@@ -29,5 +30,13 @@ export class TipprundeDrinneComponent implements OnInit {
     this.TippService.getAllTipperByRunde(this.id).subscribe((data:any) => this.tippende=data);
    return this.tippende;
   }
-
+  onSubmit() {
+    this.TippService.saveTipper(this.tipper).subscribe(result => this.goToRound(),this.errorHand)
+  }
+  goToRound() {
+    this.router.navigate(['/tipprunde-drinne',this.tippRunde.id,this.tippRunde.password])
+  }
+  errorHand() {
+    alert("a")
+  }
 }

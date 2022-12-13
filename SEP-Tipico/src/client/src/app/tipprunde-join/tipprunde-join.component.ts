@@ -28,20 +28,6 @@ export class TipprundeJoinComponent implements OnInit {
     this.id= +x;
     console.log(x);
     this.TippRundeService.getTippRundeByID(this.id).subscribe((data: any) => this.tippRunde = data)
+  }
 
-    setTimeout( ()=> {
-      if(this.tippRunde.password==null) {
-        this.router.navigate(['/tipprunde-join', this.tippRunde.id])
-      }
-    } ,100)
-  }
-  onSubmit() {
-    this.TippService.saveTipper(this.tipper).subscribe(result => this.goToRound(),this.errorHand)
-  }
-  goToRound() {
-    this.router.navigate(['/tipprunde-drinne',this.tippRunde.id])
-  }
-  errorHand() {
-    alert("a")
-  }
 }

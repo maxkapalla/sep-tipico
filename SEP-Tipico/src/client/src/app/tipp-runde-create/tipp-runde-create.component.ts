@@ -18,14 +18,16 @@ export class TippRundeCreateComponent implements OnInit {
   deleteTippRunde: TippRunde;
   createTippRunde: TippRunde;
   name:string="";
+  id:number;
 
-  constructor(private ligaService: LigaService,private route: ActivatedRoute, private TippRundeService: TippRundeService, private router: Router) {
+  constructor(private ligaService: LigaService,private route: ActivatedRoute,
+              private TippRundeService: TippRundeService, private router: Router) {
     this.ligen=[];
     this.liga = new Liga();
     this.tippRunden= [];
     this.deleteTippRunde= new TippRunde;
     this.createTippRunde= new TippRunde;
-
+  this.id=0;
   }
 
   ngOnInit(): void {
@@ -34,7 +36,10 @@ export class TippRundeCreateComponent implements OnInit {
 
   CreateTippRunde() {
     this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(),this.errorWithSubmit);
-    this.createTippRunde.besitzer=sessionStorage.getItem("id")+"";
+
+    var x= sessionStorage.getItem('name')+"";
+    this.id= +x;
+    this.createTippRunde.besitzer=x;
 
   }
 
@@ -49,6 +54,5 @@ export class TippRundeCreateComponent implements OnInit {
 
   errorWithSubmit(){
     alert("Etwas ist schief gelaufen")
-
   }
 }

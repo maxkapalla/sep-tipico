@@ -55,6 +55,7 @@ const routes: Routes = [
   {path: "tipprunde-join/:id/:password", component: TipprundeJoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-vorjoin/:id", component: TipprundeVorjoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-drinne/:id", component:TipprundeDrinneComponent, canActivate: [AuthService]},
+  {path: "tipprunde-drinne/:id/:password", component:TipprundeDrinneComponent, canActivate: [AuthService]},
   {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService] },
 ];
 

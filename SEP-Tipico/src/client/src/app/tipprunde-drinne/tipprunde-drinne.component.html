@@ -2,6 +2,20 @@
 <h2>Hier wird die Hauptseite einer Tipprunde angezeigt, von der aus dann auf Tippen oder Tipprunden versendet werden können.
 Explizit wird hier die Mitgliedertabelle angezeigt und eventuell kann direkt getippt werden</h2>
 
+<form (ngSubmit)="onSubmit()" #joinForm="ngForm">
+  <div class="form-group">
+    <label for="Nickname">Nickname</label>
+    <input type="text" [(ngModel)]="tipper.nickname"
+           class="form-control"
+           id="Nickname"
+           name="Nickname"
+           placeholder="Nickname"
+           required #nickname="ngModel">
+    <div style = "color: red" *ngIf="nickname.invalid && nickname.touched">Bitte Nickname eingeben!</div>
+
+  </div>
+</form>
+
 <div class="card my-5">
   <div class="card-body">
     <table class="table table-bordered table-striped">

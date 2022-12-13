@@ -28,7 +28,7 @@ export class TipprundeVorjoinComponent implements OnInit {
 
     setTimeout( ()=> {
       if(this.tippRunde.password==null) {
-        this.router.navigate(['/tipprunde-join', this.tippRunde.id])
+        this.router.navigate(['/tipprunde-drinne', this.tippRunde.id]);
       }
     } ,100)
   }
@@ -37,7 +37,7 @@ export class TipprundeVorjoinComponent implements OnInit {
 
     if(tippRunde==this.tippRunde.password) {
       sessionStorage.setItem('rundenPw', this.tippRunde.password + "");
-      this.router.navigate(['/tipprunde-join', this.tippRunde.id, this.tippRunde.password]);
+      this.router.navigate(['/tipprunde-drinne', this.tippRunde.id, this.tippRunde.password]);
     }
     else {
       alert("Falsches Password");
