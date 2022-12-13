@@ -7,49 +7,59 @@
           <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
           <ul class="text-center list-inline py-3">
             <li class="list-inline-item">
-              <a routerLink="/user" class="btn btn-info" *ngIf="loggedIn=== null">Als User registrieren</a>
+              <a *ngIf="loggedIn=== null" class="btn btn-info" routerLink="/user">Als User registrieren</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/login" class="btn btn-info" *ngIf="loggedIn=== null">Login</a>
+              <a *ngIf="loggedIn=== null" class="btn btn-info" routerLink="/login">Login</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/admin" class="btn btn-info" *ngIf="loggedIn=== null">Als Admin registrieren</a>
+              <a *ngIf="loggedIn=== null" class="btn btn-info" routerLink="/admin">Als Admin registrieren</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/date-change" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Date Change</a>
+              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/date-change">Date
+                Change</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/liga-see" class="btn btn-info" *ngIf="loggedIn!== null">Liga ansehen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/liga-see">Liga ansehen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/liga-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Liga ändern</a>
+              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/liga-create">Liga
+                ändern</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/matchplan-show" class="btn btn-info" *ngIf="loggedIn!== null">Spielplan anzeigen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/matchplan-show">Spielplan anzeigen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/matchplan-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Spielplan erstellen</a>
+              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/matchplan-create">Spielplan
+                erstellen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/team-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Team erstellen</a>
+              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/team-create">Team
+                erstellen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/team-show" class="btn btn-info" *ngIf="loggedIn!== null">Team ansehen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/team-show">Team ansehen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/csv" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">CSV einlesen</a>
+              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/csv">CSV einlesen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/search" class="btn btn-info" *ngIf="loggedIn!== null">Nutzer suchen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/search">Nutzer suchen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/friends" class="btn btn-info" *ngIf="loggedIn!== null">Freundesliste</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/friends">Freundesliste</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/tipp-runde" class="btn btn-info" *ngIf="loggedIn!== null">Tipprunden</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipp-runde">Tipprunden</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/tipp-runde-create" class="btn btn-info" *ngIf="loggedIn!== null">Tipprunde erstellen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipp-runde-create">Tipprunde erstellen</a>
+            </li>
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipphilfe">Tipphilfe</a>
+            </li>
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipp-abgeben">Tipp abgeben</a>
             </li>
           </ul>
         </div>

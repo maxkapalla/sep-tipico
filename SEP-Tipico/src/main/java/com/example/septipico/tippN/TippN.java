@@ -1,7 +1,6 @@
 package com.example.septipico.tippN;
 
-import com.example.septipico.liga.spiel.Spiel;
-import com.example.septipico.nutzer.Nutzer;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -25,7 +24,10 @@ public class TippN {
     private Long tippA;
     @Column(name = "tippB")
     private Long tippB;
+
+
     @Column(name = "dfff")
+    @ColumnDefault("false")
     private boolean diff;
     @Column(name = "gewinner")
     private boolean gewinner;
@@ -70,18 +72,6 @@ public class TippN {
         this.tippB = tippB;
     }
 
-    public boolean getLiga() {
-        return diff;
-    }
-
-    public void setLiga(boolean diff) {
-        this.diff = diff;
-    }
-
-    public void setGewinner(boolean gewinner) {
-        this.gewinner = gewinner;
-    }
-
     public Long getTipprundenid() {
         return tipprundenid;
     }
@@ -100,5 +90,9 @@ public class TippN {
 
     public boolean isGewinner() {
         return gewinner;
+    }
+
+    public void setGewinner(boolean gewinner) {
+        this.gewinner = gewinner;
     }
 }
