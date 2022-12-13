@@ -33,7 +33,7 @@ export class AuthService implements CanActivate{
   public checkLogged(){
     if(sessionStorage.getItem('isLoggedIn')){
       if(sessionStorage.getItem('rundenID') != null) {
-        this.router.navigate(['/tipprunde-vorjoin']);
+        this.router.navigate(['/tipprunde-join']);
       } else {
         this.router.navigate(['/home']);
       }

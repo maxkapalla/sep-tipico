@@ -39,6 +39,10 @@ export class TippService {
     return this.http.post<Tipp>(this.tippURL + "/save", tipp);
 
   }
+  saveTipper(nickname:Tipper): Observable<Tipper> {
+    console.log(nickname)
+    return this.http.post<Tipper>(this.tipperURL+"/save",nickname);
+  }
 
   getTopThree(liga: Liga): Observable<Tipper[]>{
     console.log("works")
@@ -47,6 +51,9 @@ export class TippService {
 
   getTippsByUser(userID: string): Observable<TippContainer[]> {
     return this.http.post<TippContainer[]>(this.tippURL + "/owner", userID);
+  }
+  getTipperByTippRunde(tippRunde:TippRunde):Observable<TippRunde[]> {
+    return this.http.post<TippRunde[]>(this.tipperURL+ "/tipp-runde",tippRunde);
   }
 
   sendTipp(tipp: TippContainer, userMail: string): void {

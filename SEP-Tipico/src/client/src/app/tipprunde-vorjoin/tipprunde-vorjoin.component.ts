@@ -10,11 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./tipprunde-vorjoin.component.scss']
 })
 export class TipprundeVorjoinComponent implements OnInit {
-  name:string="";
+
   id:number;
-  besitzer:string="";
-  liga:string="";
-  zugang:string="";
+
 
   tippRunde: TippRunde;
   password:string="";
@@ -27,11 +25,17 @@ export class TipprundeVorjoinComponent implements OnInit {
   this.id= +x;
     console.log(x);
     this.TippRundeService.getTippRundeByID(this.id).subscribe((data: any) => this.tippRunde = data)
+
+    setTimeout( ()=> {
+      if(this.tippRunde.password==null) {
+        this.router.navigate(['/tipprunde-join', this.tippRunde.id])
+      }
+    } ,100)
   }
 
   onSubmit(tippRunde : TippRunde) {
 
-    this.router.navigate(['/tipprunde-vorjoin', tippRunde.id,tippRunde.password]);
+    this.router.navigate(['/tipprunde-join', tippRunde.id, tippRunde.password]);
 
   }
 

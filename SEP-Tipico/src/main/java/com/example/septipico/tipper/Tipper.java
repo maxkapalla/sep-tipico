@@ -12,6 +12,9 @@ public class Tipper {
     @Column(name = "id")
     private Long id;
 
+    @Column(name="nickname")
+    private String nickname;
+
     @Column(name="nutzerid")
     private Long nutzerid;
 
@@ -29,6 +32,12 @@ public class Tipper {
         this.nutzerid = nutzerid;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+    public void setNickname(String nickname) {
+        this.nickname=nickname;
+    }
     public Long getId() {
         return id;
     }

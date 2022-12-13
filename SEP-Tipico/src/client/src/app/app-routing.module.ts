@@ -52,10 +52,9 @@ const routes: Routes = [
   {path: 'top-three', component: TopthreeComponent, canActivate: [AuthService]},
   {path: "tipphilfe", component: TippHilfeComponent, canActivate: [AuthService]},
   {path: "tipprunde-join/:id", component: TipprundeJoinComponent, canActivate: [AuthService]},
+  {path: "tipprunde-join/:id/:password", component: TipprundeJoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-vorjoin/:id", component: TipprundeVorjoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-drinne/:id", component:TipprundeDrinneComponent, canActivate: [AuthService]},
-  {path: "tipprunde-join", component: TipprundeJoinComponent, canActivate: [AuthService]},
-  {path: "tipprunde-vorjoin", component: TipprundeVorjoinComponent, canActivate: [AuthService]},
   {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService] },
 ];
 

@@ -34,7 +34,7 @@ export class TippRundeCreateComponent implements OnInit {
 
   CreateTippRunde() {
     this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(),this.errorWithSubmit);
-    this.createTippRunde.besitzer=sessionStorage.getItem("name")+"";
+    this.createTippRunde.besitzer=sessionStorage.getItem("id")+"";
 
   }
 
