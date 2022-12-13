@@ -22,7 +22,7 @@ export class TipprundeDrinneComponent implements OnInit {
   {this.tippRunde= new TippRunde, this.id=0; this.tippende=[]; }
 
   ngOnInit(): Tipper[] {
-    var x = sessionStorage.getItem('RundenID') + "";
+    var x = sessionStorage.getItem('rundenID') + "";
     this.id = +x;
     console.log(x);
    this.TippRundeService.getTippRundeByID(this.id).subscribe((data: any) => this.tippRunde = data)

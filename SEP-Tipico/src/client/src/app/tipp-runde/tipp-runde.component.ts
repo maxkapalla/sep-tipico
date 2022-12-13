@@ -37,7 +37,7 @@ export class TippRundeComponent implements OnInit {
 
   anschauen(tippRunde : TippRunde) {
     console.log(tippRunde);
-    sessionStorage.setItem('RundenID', tippRunde.id + "");
+    sessionStorage.setItem('rundenID', tippRunde.id + "");
 
     this.router.navigate(['/tipprunde-vorjoin', tippRunde.id]);
   }
