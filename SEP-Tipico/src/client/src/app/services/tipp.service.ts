@@ -58,6 +58,9 @@ export class TippService {
   getAllTipper(): Observable<Tipper[]> {
     return this.http.post<Tipper[]>(this.tipperURL + "/all", null);
   }
+  getAllTipperByRunde(rundenID:number): Observable<Tipper[]> {
+    return this.http.post<Tipper[]>(this.tipperURL+ "/all/tipprunden", rundenID )
+  }
 
   sendTipp(tipp: TippContainer, userMail: string): void {
     this.tippMail.tipp = tipp.tipp;

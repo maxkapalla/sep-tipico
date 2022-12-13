@@ -24,6 +24,13 @@ public class TipperController {
         return tipperRepo.findAll();
     }
 
+    @PostMapping("/all/tipprunden")
+    public List<Tipper> getAllByRunde(@RequestBody Long TipprundenID ) {
+        List<Tipper> tipper= new ArrayList<>();
+        tipper.addAll(tipperRepo.findAllByTipprundenID(TipprundenID));
+        return tipper;
+    }
+
     @PostMapping("/save")
     public void saveTipper(@RequestBody Tipper tipper) {
         System.out.println(tipper.getNutzerid() + " " + tipper.getTipprundenID());

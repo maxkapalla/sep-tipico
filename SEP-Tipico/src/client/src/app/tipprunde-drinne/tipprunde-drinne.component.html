@@ -1,3 +1,22 @@
 <p>tipprunde-drinne works!</p>
 <h2>Hier wird die Hauptseite einer Tipprunde angezeigt, von der aus dann auf Tippen oder Tipprunden versendet werden können.
 Explizit wird hier die Mitgliedertabelle angezeigt und eventuell kann direkt getippt werden</h2>
+
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr class="überschrift">
+        <th scope="col-id">Mitglieder</th>
+        <th scope="col-name">Punkte</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let Tipper of tippende">
+        <td>{{ Tipper.nickname }}</td>
+        <td>{{ Tipper.points }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
