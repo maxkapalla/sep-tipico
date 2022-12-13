@@ -33,9 +33,15 @@ export class TipprundeVorjoinComponent implements OnInit {
     } ,100)
   }
 
-  onSubmit(tippRunde : TippRunde) {
+  onSubmit(tippRunde :string) {
 
-    this.router.navigate(['/tipprunde-join', tippRunde.id, tippRunde.password]);
+    if(tippRunde==this.tippRunde.password) {
+      sessionStorage.setItem('rundenPw', this.tippRunde.password + "");
+      this.router.navigate(['/tipprunde-join', this.tippRunde.id, this.tippRunde.password]);
+    }
+    else {
+      alert("Falsches Password");
+    }
 
   }
 
