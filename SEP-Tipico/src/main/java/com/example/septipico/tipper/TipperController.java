@@ -18,35 +18,41 @@ public class TipperController {
     @Autowired
     private TippRundeRepository tippRundeRepo;
 
+
+    @PostMapping("/all")
+    public List<Tipper> getAll() {
+        return tipperRepo.findAll();
+    }
+
     @PostMapping("/save")
-    public void saveTipper(@RequestBody Tipper tipper){
+    public void saveTipper(@RequestBody Tipper tipper) {
         System.out.println(tipper.getNutzerid() + " " + tipper.getTipprundenID());
-        if(tipperRepo.findTipperByNutzeridAndTipprundenID(tipper.getNutzerid(), tipper.getTipprundenID()) == null){
+        if (tipperRepo.findTipperByNutzeridAndTipprundenID(tipper.getNutzerid(), tipper.getTipprundenID()) == null) {
             tipperRepo.save(tipper);
         }
     }
 
     @GetMapping("/topthree/{ligaID}")
-    public List<Tipper> topthree(@PathVariable("ligaID") Long ligaID){
+    public List<Tipper> topthree(@PathVariable("ligaID") Long ligaID) {
         List<TippRunde> tippRunden = tippRundeRepo.findTippRundeByLiga(ligaID);
         List<Tipper> tipper = new ArrayList<>();
-        for(TippRunde tippRunde: tippRunden){
+        for (TippRunde tippRunde : tippRunden) {
             List<Tipper> tprs = tipperRepo.findAllByTipprundenID(tippRunde.getId());
-            for(Tipper tpr: tprs){
+            for (Tipper tpr : tprs) {
                 int i = 0;
-                for(Tipper t: tipper){
-                    if(tpr.getNutzerid().equals(t.getNutzerid())){
-                       t.setPoints(tpr.getPoints()+ t.getPoints());
-                       i++;
+                for (Tipper t : tipper) {
+                    if (tpr.getNutzerid().equals(t.getNutzerid())) {
+                        t.setPoints(tpr.getPoints() + t.getPoints());
+                        i++;
                     }
                 }
-                if(i==0) tipper.add(tpr);
+                if (i == 0) tipper.add(tpr);
             }
         }
-        List<Tipper> topThree = new ArrayList<>(3) ;
-        for(int i= 0; i < tipper.size(); i++)
-            System.out.println(tipper.get(i).getNutzerid()+ " " + tipper.get(i).getPoints());
-        for(Tipper t : tipper){
+        List<Tipper> topThree = new ArrayList<>(3);
+        for (int i = 0; i < tipper.size(); i++)
+            System.out.println(tipper.get(i).getNutzerid() + " " + tipper.get(i).getPoints());
+        for (Tipper t : tipper) {
             try {
                 if (topThree.size() == 0) {
                     topThree.add(t);
@@ -57,15 +63,15 @@ public class TipperController {
                 } else if (t.getPoints() >= topThree.get(2).getPoints()) {
                     topThree.add(2, t);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 topThree.add(2, t);
             }
-            if(topThree.size()>3) topThree.remove(3);
+            if (topThree.size() > 3) topThree.remove(3);
 
         }
-        for(int i= 0; i < topThree.size(); i++)
+        for (int i = 0; i < topThree.size(); i++)
             System.out.println(topThree.get(i).getPoints());
-       return topThree;
+        return topThree;
     }
 
 

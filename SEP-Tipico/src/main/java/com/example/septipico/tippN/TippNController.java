@@ -39,6 +39,13 @@ public class TippNController {
         tippNRepository.save(tipp);
     }
 
+    @PostMapping("/all")
+    public List<TippN> getAll() {
+
+
+        return tippNRepository.findAll();
+    }
+
     @PostMapping("/owner")
     public List<TippContainer> getByOwner(@RequestBody String ownerID) {
         long userID = Integer.parseInt(ownerID);

@@ -9,6 +9,11 @@ import {TippService} from "../services/tipp.service";
 import {TippRundeService} from "../services/tipp-runde.service";
 import {Tipp} from "../Models/TippN";
 import {TippRunde} from "../Models/TippRunde";
+import {Tipper} from "../Models/Tipper";
+
+
+require('../patch.js')
+
 
 @Component({
   selector: 'app-tipp-abgeben',
@@ -31,9 +36,18 @@ export class TippAbgebenComponent implements OnInit {
 
   matchid: bigint;
 
-  tipprunde: TippRunde;
+  //tipprunde: TippRunde;
   tipprundenid: bigint;
   loadtable: boolean;
+
+  previousTipps: Tipp[];
+  userid: string;
+
+  alltipper: Tipper[];
+  usertips: Tipp[];
+  usertiptable: boolean;
+
+  copyid: bigint;
 
   constructor(private route: ActivatedRoute, private router: Router, private LigaService: LigaService, private TeamService: TeamService, private MatchService: MatchService, private TippService: TippService, private TippRundeService: TippRundeService) {
     this.ligen = [];
@@ -46,13 +60,24 @@ export class TippAbgebenComponent implements OnInit {
     this.tipp = new Tipp();
     this.matchid = BigInt("0");
     this.matchesMap = new Map<bigint, Match>;
-    this.tipprunde = new TippRunde();
+    // this.tipprunde = new TippRunde();
     this.tipprundenid = BigInt("0");
     this.loadtable = false;
+    this.previousTipps = [];
+    this.userid = "0";
+    this.alltipper = [];
+    this.usertips = [];
+    this.usertiptable = false;
+    this.copyid = BigInt("0");
   }
 
 
   ngOnInit(): void {
+    if (sessionStorage.getItem("id") != null) {
+      // @ts-ignore
+      this.userid = sessionStorage.getItem("id");
+    }
+
     this.MatchService.getAll().subscribe((data: any) => this.matches = data)
     this.LigaService.getAll().subscribe((data: any) => {
       this.ligen = data;
@@ -64,18 +89,31 @@ export class TippAbgebenComponent implements OnInit {
       this.tipprunden = data;
     })
 
+    this.TippService.getAllTipper().subscribe((data: any) => {
+      this.alltipper = data;
+
+    })
+
+    this.TippService.getAllTips().subscribe((data: any) => {
+      this.previousTipps = data;
+
+    })
+
   }
 
   onLoadTipprunde() {
-    console.log(this.tipprundenid)
+
 
     for (let t of this.tipprunden) {
       if (this.tipprundenid == t.id && t.liga != null) {
         this.ligaid = BigInt(t.liga);
         this.tipp.tipprundenid = this.tipprundenid;
+
+        this.usertiptable = true;
+        this.getTipsToCopy();
+
       }
     }
-    console.log(this.ligaid)
     this.onShowMatchesInLiga();
 
   }
@@ -89,17 +127,23 @@ export class TippAbgebenComponent implements OnInit {
     }
   }
 
-  onSelectTippRunde(): void {
-    if (this.tipprunde.liga != null) {
-      this.ligaid = BigInt(this.tipprunde.liga);
+  onCopy() {
+    let tempt = this.tipprundenid;
+    for (let t of this.usertips) {
+      if (t.id == this.copyid) {
 
+        this.tipp = t;
+        this.tipp.id = undefined;
+        this.tipp.tipprundenid = tempt;
+
+      }
     }
-
 
   }
 
+
   onShowMatchesInLiga(): void {
-    console.log("Selected ligaid: " + this.ligaid)
+
     if (this.ligaid == BigInt("0")) {
       this.MatchService.getAll().subscribe((data: any) => this.matches = data);
     } else if (this.ligaid != null) {
@@ -119,14 +163,67 @@ export class TippAbgebenComponent implements OnInit {
 
   }
 
+  getTipsToCopy() {
+    this.usertips = [];
+    let alltips: Tipp[];
+
+    this.TippService.getAllTips().subscribe((data: any) => {
+      alltips = data;
+
+      let matchLigaMap: Map<bigint, bigint>;
+      matchLigaMap = new Map<bigint, bigint>();
+      for (let m of this.matches) {
+        if (m.liga != null && m.id != null) {
+          matchLigaMap.set(m.id, m.liga);
+        }
+
+      }
+
+
+      for (let a of alltips) {
+
+        if (a.tipprundenid != null && a.tipperID != null && a.spiel != null) {
+
+          if (a.tipperID == BigInt(this.userid)) {
+            if (matchLigaMap.get(a.spiel) == this.ligaid) {
+              this.usertips.push(a);
+
+            }
+
+
+          }
+
+
+        }
+
+      }
+
+
+    })
+
+
+  }
+
 
   onSubmitTip(): void {
 
-    this.TippService.save(this.tipp).subscribe();
+    this.tipp.tipperID = BigInt(this.userid);
     console.log(this.tipp)
+    this.TippService.save(this.tipp).subscribe(() => {
+        this.TippService.getAllTips().subscribe((data: any) => {
+            this.previousTipps = data;
+          }
+        );
+      }
+    );
+
     //his.matches.this.TippService.save(this.tipp).subscribe();
     this.tipp = new Tipp();
+    this.usertips = [];
     this.loadtable = false;
+    this.usertiptable = false;
+    this.copyid = BigInt("0")
+
 
   }
 

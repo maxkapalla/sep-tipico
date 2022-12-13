@@ -1,5 +1,7 @@
 package com.example.septipico.tippN;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,7 +24,10 @@ public class TippN {
     private Long tippA;
     @Column(name = "tippB")
     private Long tippB;
+
+
     @Column(name = "dfff")
+    @ColumnDefault("false")
     private boolean diff;
     @Column(name = "gewinner")
     private boolean gewinner;

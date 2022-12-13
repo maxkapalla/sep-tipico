@@ -4,9 +4,7 @@ import {Observable} from "rxjs";
 import {Tipp} from "../Models/TippN";
 import {Liga} from "../Models/Liga";
 import {Tipper} from "../Models/Tipper";
-import {TippRunde} from "../Models/TippRunde";
 import {TippMail} from "../Models/TippMail";
-import {TippRundeMail} from "../Models/TippRundeMail";
 import {TippContainer} from "../Models/TippContainer";
 
 
@@ -29,7 +27,7 @@ export class TippService {
   constructor(private http: HttpClient) {
     this.tippMail = new TippMail();
     this.tippURL = 'http://localhost:8080/tippn'
-    this.tipperURL= 'http://localhost:8080/tipper'
+    this.tipperURL = 'http://localhost:8080/tipper'
   }
 
   save(tipp: Tipp): Observable<Tipp> {
@@ -40,13 +38,21 @@ export class TippService {
 
   }
 
-  getTopThree(liga: Liga): Observable<Tipper[]>{
+  getTopThree(liga: Liga): Observable<Tipper[]> {
     console.log("works")
-    return this.http.get<Tipper[]>(this.tipperURL+"/topthree/" + liga.id)
+    return this.http.get<Tipper[]>(this.tipperURL + "/topthree/" + liga.id)
   }
 
   getTippsByUser(userID: string): Observable<TippContainer[]> {
     return this.http.post<TippContainer[]>(this.tippURL + "/owner", userID);
+  }
+
+  getAllTips(): Observable<Tipp[]> {
+    return this.http.post<Tipp[]>(this.tippURL + "/all", null);
+  }
+
+  getAllTipper(): Observable<Tipper[]> {
+    return this.http.post<Tipper[]>(this.tipperURL + "/all", null);
   }
 
   sendTipp(tipp: TippContainer, userMail: string): void {

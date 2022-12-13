@@ -46,14 +46,85 @@
   </form>
 </div>
 
+<div *ngIf="usertiptable">
 
+  <h2>Übernehmbare Tips</h2>
+  <table *ngIf="usertiptable" class="minimalistBlack">
+    <thead>
+    <tr>
+      <th>tipID</th>
+      <th>tipperID</th>
+      <th>Tipprunden ID</th>
+      <th>Spiel ID</th>
+      <th>Tipp A</th>
+      <th>Tipp B</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let tip of usertips;">
+      <td><span>{{tip.id}}</span></td>
+      <td><span>{{tip.tipperID}}</span></td>
+      <td><span>{{tip.tipprundenid}}</span></td>
+      <td><span>{{tip.spiel}}</span></td>
+      <td><span>{{tip.tippA}}</span></td>
+      <td><span>{{tip.tippB}}</span></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+  <br>
+
+  <label for="tipid">Tip ID</label>
+  <input [(ngModel)]="copyid" class="form-control"
+         id="tipid"
+         name="tipid"
+         placeholder="Tip ID"
+         required
+         type="text">
+  <button (click)="onCopy()" class="btn btn-info"
+          type="button">Tipp laden
+  </button>
+
+</div>
+
+
+<h2>Alle Tips</h2>
+<table class="minimalistBlack">
+  <thead>
+  <tr>
+    <th>tipID</th>
+    <th>tipperID</th>
+    <th>Tipprunden ID</th>
+    <th>Spiel ID</th>
+    <th>Tipp A</th>
+    <th>Tipp B</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let tip of previousTipps;">
+    <td><span>{{tip.id}}</span></td>
+    <td><span>{{tip.tipperID}}</span></td>
+    <td><span>{{tip.tipprundenid}}</span></td>
+    <td><span>{{tip.spiel}}</span></td>
+    <td><span>{{tip.tippA}}</span></td>
+    <td><span>{{tip.tippB}}</span></td>
+  </tr>
+  </tbody>
+</table>
+
+<h2 *ngIf="loadtable">Spiele</h2>
 <table *ngIf="loadtable" class="minimalistBlack">
   <thead>
   <tr>
-    <th>Matchday</th>
-    <th>Playdate</th>
+
+    <th>Match ID</th>
+    <th>Spieltag</th>
+    <th>Team 1 Score</th>
+    <th>Team 2 Score</th>
     <th>Team 1</th>
-    <th>FT</th>
     <th>Team 2</th>
   </tr>
   </thead>
@@ -64,6 +135,7 @@
     <td><span>{{match.scoreTeamA}}</span></td>
     <td><span>{{match.scoreTeamB}}</span></td>
     <td><span>{{match.teamA}}</span></td>
+    <td><span>{{match.teamB}}</span></td>
   </tr>
   </tbody>
 </table>
