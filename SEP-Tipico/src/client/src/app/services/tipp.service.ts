@@ -50,9 +50,6 @@ export class TippService {
   getTippsByUser(userID: string): Observable<TippContainer[]> {
     return this.http.post<TippContainer[]>(this.tippURL + "/owner", userID);
   }
-  getTipperByTippRunde(tippRunde:TippRunde):Observable<TippRunde[]> {
-    return this.http.post<TippRunde[]>(this.tipperURL+ "/tipp-runde",tippRunde);
-  }
 
   getAllTips(): Observable<Tipp[]> {
     return this.http.post<Tipp[]>(this.tippURL + "/all", null);
