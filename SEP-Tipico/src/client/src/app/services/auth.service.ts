@@ -14,8 +14,8 @@ export class AuthService implements CanActivate{
 
       if(!sessionStorage.getItem('isLoggedIn')){
         if(route.toString().includes("RundenID")) {
-          let rundenPw = route.paramMap.get('id')
-          let rundenID = route.paramMap.get('password')
+          let rundenPw = route.paramMap.get('password')
+          let rundenID = route.paramMap.get('id')
 
           console.log(rundenID);
 
@@ -33,7 +33,7 @@ export class AuthService implements CanActivate{
   public checkLogged(){
     if(sessionStorage.getItem('isLoggedIn')){
       if(sessionStorage.getItem('rundenID') != null) {
-        this.router.navigate(['/tipprunde-join']);
+        this.router.navigate(['/tipprunde-join', sessionStorage.getItem("rundenID"), sessionStorage.getItem("rundenPw")]);
       } else {
         this.router.navigate(['/home']);
       }
