@@ -1,6 +1,5 @@
 package com.example.septipico.tippN;
 
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -24,13 +23,6 @@ public class TippN {
     private Long tippA;
     @Column(name = "tippB")
     private Long tippB;
-
-
-    @Column(name = "dfff")
-    @ColumnDefault("false")
-    private boolean diff;
-    @Column(name = "gewinner")
-    private boolean gewinner;
 
     public Long getId() {
         return id;
@@ -80,19 +72,4 @@ public class TippN {
         this.tipprundenid = tipprundenid;
     }
 
-    public boolean isDiff() {
-        return diff;
-    }
-
-    public void setDiff(boolean diff) {
-        this.diff = diff;
-    }
-
-    public boolean isGewinner() {
-        return gewinner;
-    }
-
-    public void setGewinner(boolean gewinner) {
-        this.gewinner = gewinner;
-    }
 }

@@ -4,8 +4,6 @@ export class Tipp {
   tipprundenid: bigint | undefined;
   tipperID: bigint | undefined;
   spiel: bigint | undefined;
-  tippA: bigint | undefined;
-  tippB: bigint | undefined;
-  diff: boolean | undefined;
-  gewinner: boolean | undefined;
+  tippA: number = 0;
+  tippB: number = 0;
 }

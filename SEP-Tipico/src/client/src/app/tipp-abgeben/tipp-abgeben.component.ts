@@ -49,7 +49,10 @@ export class TippAbgebenComponent implements OnInit {
 
   copyid: bigint;
 
-  constructor(private route: ActivatedRoute, private router: Router, private LigaService: LigaService, private TeamService: TeamService, private MatchService: MatchService, private TippService: TippService, private TippRundeService: TippRundeService) {
+  constructor(private route: ActivatedRoute, private router: Router,
+              private LigaService: LigaService, private TeamService: TeamService,
+              private MatchService: MatchService, private TippService: TippService,
+              private TippRundeService: TippRundeService) {
     this.ligen = [];
     this.matches = [];
     this.tipprunden = [];
@@ -206,8 +209,15 @@ export class TippAbgebenComponent implements OnInit {
 
 
   onSubmitTip(): void {
+    let tipperid;
+    for(let tipper of this.alltipper) {
+      if (tipper.nutzerid == BigInt(this.userid) && tipper.tipprundenID == this.tipp.tipprundenid) {
+        // @ts-ignore
+        tipperid = BigInt(tipper.id);
+      }
+    }
 
-    this.tipp.tipperID = BigInt(this.userid);
+    this.tipp.tipperID = tipperid;
     console.log(this.tipp)
     this.TippService.save(this.tipp).subscribe(() => {
         this.TippService.getAllTips().subscribe((data: any) => {

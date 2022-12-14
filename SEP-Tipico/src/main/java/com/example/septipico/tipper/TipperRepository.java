@@ -1,5 +1,4 @@
 package com.example.septipico.tipper;
-import com.example.septipico.nutzer.Nutzer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +8,8 @@ import java.util.List;
 
 public interface TipperRepository extends JpaRepository<Tipper, Long> {
     Tipper findTipperByNutzeridAndTipprundenID(Long nutzerid, Long tipprundenID);
+
+   void deleteById(Long id);
 
     List<Tipper> findAllByTipprundenID(Long tipprundenID);
 

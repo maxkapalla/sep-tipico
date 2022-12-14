@@ -13,7 +13,6 @@ export class DatumService {
     window.location.reload();
   }
 
-  getDate(): string{
-    return this.datum;
-  }
+
+
 }

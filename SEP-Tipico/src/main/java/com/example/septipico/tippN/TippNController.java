@@ -41,8 +41,11 @@ public class TippNController {
 
     @PostMapping("/all")
     public List<TippN> getAll() {
+        return tippNRepository.findAll();
+    }
 
-
+    @GetMapping("/all")
+    public List<TippN> getAllTipps(){
         return tippNRepository.findAll();
     }
 

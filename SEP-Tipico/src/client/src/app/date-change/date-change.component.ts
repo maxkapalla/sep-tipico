@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {DatumService} from "../services/datum.service";
+import {TippService} from "../services/tipp.service";
 
 @Component({
   selector: 'app-date-change',
@@ -9,7 +10,7 @@ import {DatumService} from "../services/datum.service";
 })
 export class DateChangeComponent implements OnInit {
   newDate="";
-  constructor(private router: Router, private datumService: DatumService) { }
+  constructor(private router: Router, private datumService: DatumService, private tippService: TippService) { }
 
   ngOnInit(): void {
     if(sessionStorage.getItem('role')=="user"){ //falls user dann route zu home
@@ -19,6 +20,7 @@ export class DateChangeComponent implements OnInit {
 
   onSubmit(){
     this.datumService.datumChange(this.newDate)
+    this.tippService.giveTippPoints();
   }
 
 

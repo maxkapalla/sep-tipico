@@ -24,6 +24,9 @@ public class TipperController {
         return tipperRepo.findAll();
     }
 
+    @GetMapping("/all")
+    public List<Tipper> getAllTipper(){return tipperRepo.findAll();}
+
     @PostMapping("/all/tipprunden")
     public List<Tipper> getAllByRunde(@RequestBody Long TipprundenID ) {
         List<Tipper> tipper= new ArrayList<>();
@@ -82,4 +85,11 @@ public class TipperController {
     }
 
 
+    @PutMapping("/givePoints")
+    public void givePoints(@RequestBody Tipper[] tippers){
+        for(Tipper tipper: tippers){
+//            tipperRepo.deleteById(tipper.getId());
+//            tipperRepo.save(tipper);
+        }
+    }
 }
