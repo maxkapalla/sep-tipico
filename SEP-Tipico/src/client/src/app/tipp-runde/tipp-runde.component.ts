@@ -67,5 +67,10 @@ export class TippRundeComponent implements OnInit {
 
   gotoRunde(tippRundeID: string, tippRundePw: string, inputPw: string) {
 
+    if(tippRundePw != inputPw) {
+      alert("falsches Passwort")
+    } else {
+      alert("hier redirect zu tipprunde-drinne einfügen")
+    }
   }
 }
