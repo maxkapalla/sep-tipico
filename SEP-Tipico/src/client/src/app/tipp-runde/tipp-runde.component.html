@@ -31,7 +31,7 @@
               class="btn btn-info">Join Tipprunde</button>
         </div>
         <div class="passField" id={{Tipprunde.id}} style="display: none">
-          <input name="rundePassword" (keyup.enter)="gotoRunde(Tipprunde.password+'', rundePassword+'')" [(ngModel)]="rundePassword" id={{Tipprunde.id}}p placeholder="Password" type="text"
+          <input name="rundePassword" (keyup.enter)="gotoRunde(Tipprunde.id+'',Tipprunde.password+'', rundePassword+'')" [(ngModel)]="rundePassword" id={{Tipprunde.id}}p placeholder="Password" type="text"
                  (focusout)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', true)">
         </div>
       </div>

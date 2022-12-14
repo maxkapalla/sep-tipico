@@ -49,7 +49,6 @@ export class TippRundeComponent implements OnInit {
       var y = document.getElementById(idB)
       var z = document.getElementById(idP)
       if (x != null && y != null && z != null) {
-        console.log(x.style.display)
         if (x.style.display == "none") {
           x.style.display = "inline"
           y.style.display = "none"
@@ -62,11 +61,11 @@ export class TippRundeComponent implements OnInit {
         }
       }
     } else if(!focusout) {
-      this.gotoRunde("", "");
+      this.gotoRunde(id,"", "");
     }
   }
 
-  gotoRunde(tippRundePw: string, inputPw: string) {
+  gotoRunde(tippRundeID: string, tippRundePw: string, inputPw: string) {
 
   }
 }
