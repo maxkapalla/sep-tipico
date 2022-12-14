@@ -10,6 +10,7 @@ import {TippRundeService} from "../services/tipp-runde.service";
 })
 export class TippRundeComponent implements OnInit {
 
+  rundePassword:String ="";
   searchInput:String ="";
   searchType:String="TipprundeName";
   tippRunden: TippRunde[];
@@ -40,5 +41,32 @@ export class TippRundeComponent implements OnInit {
     sessionStorage.setItem('rundenID', tippRunde.id + "");
 
     this.router.navigate(['/tipprunde-vorjoin', tippRunde.id]);
+  }
+
+  showPasswordField(id: string, idB: string,idP: string, password: string, focusout: boolean) {
+    if (password != "") {
+      var x = document.getElementById(id)
+      var y = document.getElementById(idB)
+      var z = document.getElementById(idP)
+      if (x != null && y != null && z != null) {
+        console.log(x.style.display)
+        if (x.style.display == "none") {
+          x.style.display = "inline"
+          y.style.display = "none"
+          if(!focusout) {
+            z.focus()
+          }
+        } else {
+          x.style.display = "none";
+          y.style.display = "inline"
+        }
+      }
+    } else if(!focusout) {
+      this.gotoRunde("", "");
+    }
+  }
+
+  gotoRunde(tippRundePw: string, inputPw: string) {
+
   }
 }

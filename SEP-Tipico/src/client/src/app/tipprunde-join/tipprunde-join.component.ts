@@ -28,6 +28,23 @@ export class TipprundeJoinComponent implements OnInit {
     this.id= +x;
     console.log(x);
     this.TippRundeService.getTippRundeByID(this.id).subscribe((data: any) => this.tippRunde = data)
+
+
+    setTimeout( ()=> {
+      console.log(this.tippRunde.password + " " + sessionStorage.getItem("rundenPw"))
+      if(this.tippRunde.password == null || this.tippRunde.password == sessionStorage.getItem("rundenPw")) {
+        console.log("ich bin hier")
+        this.router.navigate(['/tipprunde-drinne', this.tippRunde.id])
+      } else {
+        this.router.navigate(['/tipp-runde'])
+      }
+    } ,1000)
+  }
+  onSubmit() {
+    this.TippService.saveTipper(this.tipper).subscribe(result => this.goToRound())
+  }
+  goToRound() {
+    this.router.navigate(['/tipprunde-drinne',this.tippRunde.id])
   }
 
 }

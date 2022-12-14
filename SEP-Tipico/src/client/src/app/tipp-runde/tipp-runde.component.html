@@ -9,6 +9,38 @@
   <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
 </div>
 
+<div class="showTippRunden">
+  <div *ngFor="let Tipprunde of tippRunden" class="row">
+    <a class="list-inline-item" style="font-size: larger; ">{{Tipprunde.tipprundeName}}</a>
+    <a class="list-inline-item">Liga: {{Tipprunde.liga}}</a>
+
+    <div class="list-inline-item">
+      <div class="form-group">
+        <style>
+        .passField {
+          position: center;
+          background-color: ghostwhite;
+          padding-left: 10px;
+        }
+        </style>
+        <div class = "joinTippRunde" id={{Tipprunde.id}}d>
+            <button
+              (click)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', false)"
+              style="background-color: darkgrey;
+                    border-color: darkgrey;"
+              class="btn btn-info">Join Tipprunde</button>
+        </div>
+        <div class="passField" id={{Tipprunde.id}} style="display: none">
+          <input name="rundePassword" (keyup.enter)="gotoRunde(Tipprunde.password+'', rundePassword+'')" [(ngModel)]="rundePassword" id={{Tipprunde.id}}p placeholder="Password" type="text"
+                 (focusout)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', true)">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="card my-5">
   <div class="card-body">
     <table class="table table-bordered table-striped">
@@ -19,6 +51,7 @@
         <th scope="col-owner">Besitzer</th>
         <th scope="col-liga">Liga</th>
         <th scope="col-access">Zugang</th>
+        <th scope="col-password">Passwort</th>
       </tr>
       </thead>
       <tbody>
@@ -29,6 +62,8 @@
         <td>{{ Tipprunde.liga }}</td>
         <td>{{ Tipprunde.zugang }}</td>
         <a [routerLink]="['/tipprunde-vorjoin',Tipprunde.id]"></a>
+
+
       </tr>
       </tbody>
     </table>
