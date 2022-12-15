@@ -9,37 +9,6 @@
   <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
 </div>
 
-<div class="showTippRunden">
-  <div *ngFor="let Tipprunde of tippRunden" class="row">
-    <a class="list-inline-item" style="font-size: larger; ">{{Tipprunde.tipprundeName}}</a>
-    <a class="list-inline-item">Liga: {{Tipprunde.liga}}</a>
-
-    <div class="list-inline-item">
-      <div class="form-group">
-        <style>
-        .passField {
-          position: center;
-          background-color: ghostwhite;
-          padding-left: 10px;
-        }
-        </style>
-        <div class = "joinTippRunde" id={{Tipprunde.id}}d>
-            <button
-              (click)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', false)"
-              style="background-color: darkgrey;
-                    border-color: darkgrey;"
-              class="btn btn-info">Join Tipprunde</button>
-        </div>
-        <div class="passField" id={{Tipprunde.id}} style="display: none">
-          <input name="rundePassword" (keyup.enter)="gotoRunde(Tipprunde.id+'',Tipprunde.password+'', rundePassword+'')" [(ngModel)]="rundePassword" id={{Tipprunde.id}}p placeholder="Password" type="text"
-                 (focusout)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', true)">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 
 <div class="card my-5">
   <div class="card-body">
@@ -55,13 +24,35 @@
       </tr>
       </thead>
       <tbody>
-      <tr (click)="anschauen(Tipprunde)" class="runden" *ngFor="let Tipprunde of tippRunden">
+      <tr *ngFor="let Tipprunde of tippRunden">
         <td>{{ Tipprunde.id }}</td>
         <td>{{ Tipprunde.tipprundeName }}</td>
         <td>{{ Tipprunde.besitzer }}</td>
-        <td>{{ Tipprunde.liga }}</td>
+        <td>{{getLigaName(Tipprunde.liga)}}</td>
         <td>{{ Tipprunde.zugang }}</td>
-        <a [routerLink]="['/tipprunde-vorjoin',Tipprunde.id]"></a>
+        <div class="list-inline-item">
+          <div class="form-group">
+            <style>
+              .passField {
+                position: center;
+                background-color: ghostwhite;
+                padding-left: 20px;
+                padding-right: 20px;
+              }
+            </style>
+            <div class = "joinTippRunde" id={{Tipprunde.id}}d>
+              <button
+                (click)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', false)"
+                style="background-color: darkgrey;
+                    border-color: darkgrey;"
+                class="btn btn-info">Join Tipprunde</button>
+            </div>
+            <div class="passField" id={{Tipprunde.id}} style="display: none">
+              <input name="rundePassword" (keyup.enter)="gotoRunde(Tipprunde.id+'',Tipprunde.password+'', rundePassword+'')" [(ngModel)]="rundePassword" id={{Tipprunde.id}}p placeholder="Password" type="text"
+                     (focusout)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', true)">
+            </div>
+          </div>
+        </div>
 
 
       </tr>
