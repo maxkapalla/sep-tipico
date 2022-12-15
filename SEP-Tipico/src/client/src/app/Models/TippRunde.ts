@@ -3,7 +3,7 @@ export class TippRunde {
   tipprundeName: string | undefined;
   password: string | undefined;
   besitzer: string | undefined;
-  liga: string | undefined;
+  liga: bigint | undefined;
   zugang: string | undefined;
   gewTore: string | undefined;
   gewDiff: string | undefined;

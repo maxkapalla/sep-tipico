@@ -19,11 +19,17 @@ export class TipprundeDrinneComponent implements OnInit {
   tippRunde: TippRunde;
   password:string="";
 
-  constructor(private TippRundeService:TippRundeService,private TippService:TippService ,private router: Router, private route:ActivatedRoute)
-  {this.tippRunde= new TippRunde, this.id=0; this.tippende=[];this.tipper=new Tipper() }
+  searchInput:String ="";
+  searchType:String="TipperName";
+
+  constructor(private TippRundeService:TippRundeService, private TippService:TippService ,private router: Router, private route:ActivatedRoute)
+  { this.tippRunde= new TippRunde,
+    this.id=0;
+    this.tippende=[];
+    this.tipper=new Tipper() }
 
   ngOnInit(): Tipper[] {
-    this.checkPW()
+
     var x = sessionStorage.getItem('rundenID') + "";
     this.id = +x;
     console.log(x);
@@ -36,10 +42,26 @@ export class TipprundeDrinneComponent implements OnInit {
     this.TippService.saveTipper(this.tipper).subscribe(result => this.goToRound(),this.errorHand)
   }
   goToRound() {
-    this.router.navigate(['/tipprunde-drinne',this.tippRunde.id,this.tippRunde.password])
+    window.location.reload();
   }
   errorHand() {
     alert("a")
+  }
+
+  anschaueProfil(tipper : Tipper) {
+    console.log(tipper);
+    sessionStorage.setItem("TipperID", tipper.id+"");
+    this.router.navigate(['/tipper-profile', tipper.id]);
+  }
+
+  submitSearch(input:String)
+  {
+    switch (this.searchType)
+    {
+      case "TipperName":
+        this.TippService.getTipperByNickname(input).subscribe(data=>{this.tippende=data});
+        break;
+    }
   }
 
   async checkPW() {

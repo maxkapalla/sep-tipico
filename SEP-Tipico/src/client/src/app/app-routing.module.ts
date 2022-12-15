@@ -26,6 +26,7 @@ import {TippHilfeComponent} from "./tipphilfe/tipphilfe.component";
 import {TipprundeJoinComponent} from "./tipprunde-join/tipprunde-join.component";
 import {TipprundeVorjoinComponent} from "./tipprunde-vorjoin/tipprunde-vorjoin.component";
 import {TipprundeDrinneComponent} from "./tipprunde-drinne/tipprunde-drinne.component";
+import {TipperProfileComponent} from "./tipper-profile/tipper-profile.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -57,6 +58,7 @@ const routes: Routes = [
   {path: "tipprunde-drinne/:id", component:TipprundeDrinneComponent, canActivate: [AuthService]},
   {path: "tipprunde-drinne/:id/:password", component:TipprundeDrinneComponent, canActivate: [AuthService]},
   {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService] },
+  {path: 'tipper-profile/:id', component:TipperProfileComponent, canActivate: [AuthService]}
 ];
 
 @NgModule({

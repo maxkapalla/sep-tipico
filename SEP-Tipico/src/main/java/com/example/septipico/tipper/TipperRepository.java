@@ -9,6 +9,8 @@ import java.util.List;
 public interface TipperRepository extends JpaRepository<Tipper, Long> {
     Tipper findTipperByNutzeridAndTipprundenID(Long nutzerid, Long tipprundenID);
 
+    Tipper findTipperById(Long id);
+
    void deleteById(Long id);
 
     List<Tipper> findAllByTipprundenID(Long tipprundenID);
@@ -16,4 +18,6 @@ public interface TipperRepository extends JpaRepository<Tipper, Long> {
     List<Tipper> findAllByNutzerid(Long nutzerid);
 
     Tipper findTipperByTipperid(Long tipperid);
+
+    Tipper findTipperByNickname(String name);
 }

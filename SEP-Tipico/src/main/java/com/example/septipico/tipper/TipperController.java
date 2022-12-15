@@ -33,6 +33,18 @@ public class TipperController {
         tipper.addAll(tipperRepo.findAllByTipprundenID(TipprundenID));
         return tipper;
     }
+    @PostMapping("/name")
+    public List<Tipper> getTipperByName(@RequestBody String name) {
+        List<Tipper> t = new ArrayList<Tipper>();
+        t.add(tipperRepo.findTipperByNickname(name));
+        return t;
+    }
+    @PostMapping("/id")
+    public Tipper getTipperByID(@RequestBody String id) {
+        long searchID = Integer.parseInt(id);
+        Tipper t = tipperRepo.findTipperById(searchID);
+        return t;
+    }
 
     @PostMapping("/save")
     public void saveTipper(@RequestBody Tipper tipper) {

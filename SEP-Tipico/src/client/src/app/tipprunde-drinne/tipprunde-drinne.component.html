@@ -1,6 +1,30 @@
-<p>tipprunde-drinne works!</p>
-<h2>Hier wird die Hauptseite einer Tipprunde angezeigt, von der aus dann auf Tippen oder Tipprunden versendet werden können.
-Explizit wird hier die Mitgliedertabelle angezeigt und eventuell kann direkt getippt werden</h2>
+<div class="container">
+  <header class="jumbotron">
+    <h3>
+      <strong>{{ tippRunde.tipprundeName }}</strong>
+    </h3>
+  </header>
+  <p>
+    <strong>Besitzer:</strong>
+    {{ tippRunde.besitzer }}
+  </p>
+
+  <p>
+    <strong>Liga:</strong>
+    {{ tippRunde.liga }}
+  </p>
+
+  <p >
+    <strong>Zugang:</strong>
+    {{tippRunde.zugang}}
+  </p>
+</div>
+
+<div class="search-tag-result">
+  <label for="searchInput">Suche nach Nickname:  </label>
+  <input name="searchInput" [(ngModel)]="searchInput" id="searchInput" placeholder="Suchbegriff" type="text">
+  <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
+</div>
 
 <form (ngSubmit)="onSubmit()" #joinForm="ngForm">
   <div class="form-group">
@@ -26,9 +50,11 @@ Explizit wird hier die Mitgliedertabelle angezeigt und eventuell kann direkt get
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let Tipper of tippende">
+      <tr (click)="anschaueProfil(Tipper)" class="Tipper"  *ngFor="let Tipper of tippende">
         <td>{{ Tipper.nickname }}</td>
         <td>{{ Tipper.points }}</td>
+
+        <a [routerLink]="['/tipprunde-vorjoin']"></a>
       </tr>
       </tbody>
     </table>
