@@ -13,7 +13,7 @@ import {Tipper} from "../Models/Tipper";
 })
 export class TipprundeDrinneComponent implements OnInit {
   id:number;
-
+  nutzerid:number|undefined;
   tippende:Tipper[];
   tipper:Tipper;
   tippRunde: TippRunde;
@@ -26,11 +26,12 @@ export class TipprundeDrinneComponent implements OnInit {
   { this.tippRunde= new TippRunde,
     this.id=0;
     this.tippende=[];
-    this.tipper=new Tipper() }
+    this.tipper=new Tipper()
+    }
 
   ngOnInit(): Tipper[] {
-    this.checkPW()
 
+    this.checkPW()
     var x = sessionStorage.getItem('rundenID') + "";
     this.id = +x;
     console.log(x);
@@ -40,6 +41,11 @@ export class TipprundeDrinneComponent implements OnInit {
    return this.tippende;
   }
   onSubmit() {
+    var z = sessionStorage.getItem('id')+"";
+    this.nutzerid=+z;
+
+    this.tipper.nutzerid=BigInt(z);
+    this.tipper.tipprundenID=this.tippRunde.id;
     this.TippService.saveTipper(this.tipper).subscribe(result => this.goToRound(),this.errorHand)
   }
   goToRound() {
