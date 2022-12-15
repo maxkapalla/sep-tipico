@@ -65,7 +65,8 @@ export class TippRundeComponent implements OnInit {
           if(!focusout) {
             z.focus()
           }
-        } else {
+        }
+        else {
           x.style.display = "none";
           y.style.display = "inline"
         }
