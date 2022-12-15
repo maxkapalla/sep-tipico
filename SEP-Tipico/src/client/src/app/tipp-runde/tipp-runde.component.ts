@@ -77,7 +77,12 @@ export class TippRundeComponent implements OnInit {
 
   gotoRunde(tippRundeID: string, tippRundePw: string, inputPw: string) {
     sessionStorage.setItem("rundenID", tippRundeID)
-    sessionStorage.setItem("rundenPw", tippRundePw)
+    if(tippRundePw == null) {
+      sessionStorage.setItem("rundenPw", "")
+    } else {
+      sessionStorage.setItem("rundenPw", tippRundePw)
+    }
+
 
     if(tippRundePw != inputPw) {
       alert("falsches Passwort")

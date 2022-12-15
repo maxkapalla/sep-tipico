@@ -71,10 +71,14 @@ export class TipprundeDrinneComponent implements OnInit {
     console.log("y: " + y)
     await this.TippRundeService.getTippRundeByID(y).subscribe(response => {
       this.tippRunde = response
-      if(!(this.tippRunde.password == sessionStorage.getItem("rundenPw"))) {
+      let pwToCheck = this.tippRunde.password
+      if(pwToCheck == null) {
+        pwToCheck = ""
+      }
+      if(!(pwToCheck == sessionStorage.getItem("rundenPw"))) {
         this.router.navigate(['/home'])
       }
-      sessionStorage.removeItem("rundenPw")
+      //sessionStorage.removeItem("rundenPw")
     })
   }
 }
