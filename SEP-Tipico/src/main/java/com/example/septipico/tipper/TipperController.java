@@ -38,6 +38,8 @@ public class TipperController {
     public void saveTipper(@RequestBody Tipper tipper) {
         System.out.println(tipper.getNutzerid() + " " + tipper.getTipprundenID());
         if (tipperRepo.findTipperByNutzeridAndTipprundenID(tipper.getNutzerid(), tipper.getTipprundenID()) == null) {
+            tipper.setTipperid((long)tipperRepo.findAll().toArray().length+1);
+            tipper.setPoints(0L);
             tipperRepo.save(tipper);
         }
     }
@@ -86,10 +88,12 @@ public class TipperController {
 
 
     @PutMapping("/givePoints")
-    public void givePoints(@RequestBody Tipper[] tippers){
+    public void givePoints(@RequestBody List<Tipper> tippers){
         for(Tipper tipper: tippers){
-//            tipperRepo.deleteById(tipper.getId());
-//            tipperRepo.save(tipper);
+            tipperRepo.delete(tipperRepo.findTipperByTipperid(tipper.getTipperid()));
+            tipperRepo.save(tipper);
+            System.out.println(tipper.getNickname());
         }
     }
+
 }

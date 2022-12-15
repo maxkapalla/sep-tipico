@@ -56,7 +56,9 @@ export class MatchPlanShowComponent implements OnInit {
     let splitstr1 = date.split('-')
     let splitstr2 = datum.split('.')
     if(+splitstr1[0] <= +splitstr2[2]){
-      if(+splitstr1[1] <= +splitstr2[1]){
+      if(+splitstr1[1] < +splitstr2[1]){
+          return true;
+      }else if(+splitstr1[1] == +splitstr2[1]){
         if(+splitstr1[2] <= +splitstr2[0]){
           return true;
         }

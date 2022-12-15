@@ -73,4 +73,8 @@ public class SpielController {
     }
 
 
+    @GetMapping("/all")
+    public List<Spiel> getAllGames(){
+        return spielRepository.findAll();
+    }
 }

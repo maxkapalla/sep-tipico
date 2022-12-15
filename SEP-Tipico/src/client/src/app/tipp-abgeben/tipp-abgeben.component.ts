@@ -111,7 +111,6 @@ export class TippAbgebenComponent implements OnInit {
       if (this.tipprundenid == t.id && t.liga != null) {
         this.ligaid = BigInt(t.liga);
         this.tipp.tipprundenid = this.tipprundenid;
-
         this.usertiptable = true;
         this.getTipsToCopy();
 
@@ -211,13 +210,15 @@ export class TippAbgebenComponent implements OnInit {
   onSubmitTip(): void {
     let tipperid;
     for(let tipper of this.alltipper) {
+      console.log(tipper.nutzerid +"="+ this.userid)
       if (tipper.nutzerid == BigInt(this.userid) && tipper.tipprundenID == this.tipp.tipprundenid) {
         // @ts-ignore
-        tipperid = BigInt(tipper.id);
+        tipperid = BigInt(tipper.tipperid);
       }
     }
 
     this.tipp.tipperID = tipperid;
+    this.tipp.tipprundenid = this.tipprundenid;
     console.log(this.tipp)
     this.TippService.save(this.tipp).subscribe(() => {
         this.TippService.getAllTips().subscribe((data: any) => {

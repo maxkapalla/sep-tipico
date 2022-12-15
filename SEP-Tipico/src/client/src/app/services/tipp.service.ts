@@ -94,13 +94,15 @@ export class TippService {
     this.http.get<Tipper[]>(this.tipperURL+"/all").subscribe((data: any) => this.tippers= data)
     this.http.get<Match[]>(this.matchURl+"/all").subscribe((data: any) => this.matches = data)
     this.http.get<TippRunde[]>(this.rundenURL+"/all").subscribe((data:any) => this.tippRunden = data)
-    let date = sessionStorage.getItem('datum')
+    let date = sessionStorage.getItem('datum')+""
     let points = 0;
-    let tipperWPoints: Tipper[]
+    let tipperWPoints = new Array<Tipper>()
     setTimeout(()=> {
       for(let tipp of this.tipps){
         for(let match of this.matches){
-          if(tipp.spiel == match.id && this.checkDate(match.date, date+"")){
+          console.log(match.id +"="+tipp.spiel)
+          if(tipp.spiel == match.id && this.checkDate(match.date, date)){
+            console.log("hier bin ich")
             let bewertungen = this.getBewertungen(tipp)
             if(tipp.tippA == match.scoreTeamA && tipp.tippB == match.scoreTeamB){
               points += bewertungen[0]
@@ -116,13 +118,16 @@ export class TippService {
         }
         if(points != 0){
           for(let tipper of this.tippers){
-            if(tipp.tipperID == tipper.id){
+            if(tipp.tipperID == tipper.tipperid){
               tipper.points = points;
+              console.log(tipper.nickname +" "+ tipper.points)
               tipperWPoints.push(tipper)
+              console.log(tipperWPoints)
             }
           }
         }
       }
+      // tipperWPoints.push(this.tippers[0])
       this.http.put<Tipper[]>(this.tipperURL+"/givePoints", tipperWPoints).subscribe(result => this.worked,this.didntwork)
     },1000)
   }
@@ -150,10 +155,15 @@ export class TippService {
     date1 = date1.slice(0,10)
     let splitstr1 = date1.split('-')
     let splitstr2 = date2.split('.')
+    console.log(date2 + "<>"+ splitstr1[2]+"."+splitstr1[1]+"."+splitstr1[0])
     if(+splitstr1[0] <= +splitstr2[2]){
       if(+splitstr1[1] <= +splitstr2[1]){
-        if(+splitstr1[2] <= +splitstr2[0]){
+        if(+splitstr1[1] < +splitstr2[1]){
           return true;
+        }else if(+splitstr1[1] == +splitstr2[1]){
+          if(+splitstr1[2] <= +splitstr2[0]){
+            return true;
+          }
         }
       }
     }

@@ -1,7 +1,5 @@
 package com.example.septipico.tipper;
 
-import com.example.septipico.nutzer.Nutzer;
-
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +9,9 @@ public class Tipper {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+
+    @Column(name="tipperid")
+    private Long tipperid;
 
     @Column(name="nickname")
     private String nickname;
@@ -44,6 +45,14 @@ public class Tipper {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getTipperid() {
+        return tipperid;
+    }
+
+    public void setTipperid(Long tipperid) {
+        this.tipperid = tipperid;
     }
 
     public Long getTipprundenID() {
