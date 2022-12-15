@@ -19,7 +19,7 @@
         <th scope="col-owner">Besitzer</th>
         <th scope="col-liga">Liga</th>
         <th scope="col-access">Zugang</th>
-        <th scope="col-password">Passwort</th>
+        <th scope="col-password"></th>
       </tr>
       </thead>
       <tbody>
@@ -31,19 +31,12 @@
         <td>{{ Tipprunde.zugang }}</td>
         <div class="column 6" style="width: 20%; border: none; text-align: left; background-color: unset">
           <div class="form-group">
-            <style>
-              .passField {
-                position: center;
-                background-color: ghostwhite;
-                padding-right: 20px;
-                line-height: normal;
-              }
-            </style>
             <div class = "joinTippRunde" id={{Tipprunde.id}}d>
               <button
                 (click)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', false)"
                 style="background-color: darkgrey;
-                    border-color: darkgrey;"
+                       border-color: darkgrey;
+                       "
                 class="btn btn-info">View Tipprunde</button>
             </div>
             <div class="passField" id={{Tipprunde.id}} style="display: none">
