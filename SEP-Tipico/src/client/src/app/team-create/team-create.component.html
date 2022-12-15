@@ -2,8 +2,8 @@
 <div class="changeLigaNameForm">
   <form #teamSelectForm="ngForm">
     <label for="name">id</label>
-    <select [(ngModel)]="team.id" name="id" id="id" required>
-      <option *ngFor="let team of teams" value="{{ team.id }}">{{ team.name }}</option>
+    <select [(ngModel)]="team.teamid" name="id" id="id" required>
+      <option *ngFor="let team of teams" value="{{ team.teamid }}">{{ team.name }}</option>
     </select>
     <br>
 

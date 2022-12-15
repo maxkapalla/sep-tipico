@@ -80,8 +80,8 @@ export class MatchPlanShowComponent implements OnInit {
 
   compileTeamNames() {
     for (let team of this.teams) {
-      if (team.id != null && team.name != null) {
-        this.teamNamen.set(team.id, team.name);
+      if (team.teamid != null && team.name != null) {
+        this.teamNamen.set(team.teamid, team.name);
       }
     }
   }

@@ -73,8 +73,8 @@ export class MatchPlanCreateComponent implements OnInit {
 
   compileTeamNames() {
     for (let team of this.teamsNamen) {
-      if (team.id != null && team.name != null) {
-        this.teamNamen.set(team.id, team.name);
+      if (team.teamid != null && team.name != null) {
+        this.teamNamen.set(team.teamid, team.name);
       }
     }
   }

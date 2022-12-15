@@ -10,6 +10,9 @@ public class Team {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name="teamid")
+    private Long teamid;
+
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
@@ -55,6 +58,14 @@ public class Team {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getTeamid() {
+        return teamid;
+    }
+
+    public void setTeamid(Long teamid) {
+        this.teamid = teamid;
     }
 
     public String getName() {
