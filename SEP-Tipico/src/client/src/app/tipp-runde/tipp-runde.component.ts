@@ -54,7 +54,7 @@ export class TippRundeComponent implements OnInit {
   }
 
   showPasswordField(id: string, idB: string,idP: string, password: string, focusout: boolean) {
-    if (password != "") {
+    if (password != "null") {
       var x = document.getElementById(id)
       var y = document.getElementById(idB)
       var z = document.getElementById(idP)
