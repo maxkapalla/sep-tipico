@@ -1,42 +1,51 @@
 <h2>Freundschaftsanfragen</h2>
 <div class="noNutzer" *ngIf="openRequests.length < 1">Keine offenen Freundschaftsanfragen</div>
+
 <div class="showFriendRequests">
-  <div *ngFor="let user of openRequests">
-    <div class="card">
-      <div>
+  <div class="line" *ngFor="let user of openRequests"
+       style="border-radius: 15px; background-color: lightgrey; margin: 20px">
+    <div class="colm" style="width: 50%; float:left; margin: 20px">
         <a>{{user.firstName+ " " + user.lastName}}</a>
-        <li class="list-inline-item">
-          <button (click)='acceptFriend(user.id+"")'
-                  style="background-color: darkseagreen;
-border-color: darkseagreen; margin-left: 200px;"
-                  class="btn btn-info">accept</button>
-        </li>
-        <li class="list-inline-item">
-        <button (click)='removeFriend(user.id+"")'
-                style="background-color: indianred;
-border-color: indianred;"
-                class="btn btn-info">decline</button>
-        </li>
-      </div>
+    </div>
+    <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+      <button (click)='removeFriend(user.id+"")'
+              style="background-color: indianred; border-color: indianred;"
+              class="btn btn-info">decline</button>
+    </div>
+    <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+      <button (click)='acceptFriend(user.id+"")'
+              style="background-color: darkseagreen; border-color: darkseagreen;"
+              class="btn btn-info">accept</button>
     </div>
   </div>
 </div>
+
 <h2>Freundesliste</h2>
 <div class="container">
   <div class="noNutzer" *ngIf="nutzers.length < 1 ">Keine Freunde gefunden</div>
-  <div class="showNutzerList">
-    <div *ngFor="let nutzer of nutzers">
-      <div class="card">
-        <div>
-          <img src="{{nutzer.imageURL}}">
-          <a>{{nutzer.firstName+" "+nutzer.lastName}}</a>
 
-          <li class="list-inline-item">
-            <button (click)='removeFriend(nutzer.id+"")'
-                    style="background-color: indianred;
-border-color: indianred; margin-left: 200px;"
-                    class="btn btn-info">Remove Friend</button>
-          </li>
+  <div class="showNutzerList">
+    <style>
+      .line:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
+    <div class="line" *ngFor="let nutzer of nutzers" style="border-radius: 15px;
+        background-color: lightgrey; margin: 5px">
+        <div class="colm" style="width: 50%; float:left; margin: 5px">
+          <div>
+            <img src="{{nutzer.imageURL}}">
+            <a>{{nutzer.firstName+" "+nutzer.lastName}}</a>
+          </div>
+        </div>
+
+        <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+          <button (click)='removeFriend(nutzer.id+"")'
+                  style="background-color: indianred; border-color: indianred;"
+                  class="btn btn-info">Remove Friend</button>
+        </div>
 
           <style>
             .dropdown {
@@ -57,9 +66,9 @@ border-color: indianred; margin-left: 200px;"
             }
             .dropdown:hover .dropdown-cont {display: block}
             .dropdown-cont a:hover {color:black}
-
           </style>
-          <li class="list-inline-item">
+
+          <div class="colm" style="width: auto; float:right; margin-right: 20px; transform: translateY(43%)">
             <div class = "dropdown">
               <button
                 style="background-color: darkgrey;
@@ -73,9 +82,10 @@ border-color: indianred; margin-left: 200px;"
                 </a>
               </div>
             </div>
-          </li>
-        </div>
-      </div>
+          </div>
+
+
+
     </div>
   </div>
 </div>

@@ -21,9 +21,11 @@
     border-style: solid;
     border-color: lightgrey;
     padding-left: 10px;
+    padding-right: 10px;
     text-align: center;
     line-height: 50px;
     background-color: ghostwhite;
+    width: max-content;
   }
 </style>
 <div class="tabelle">
@@ -45,28 +47,27 @@
 </div>
 
 <div class="tabelle" *ngFor="let Tipprunde of tippRunden">
-  <div class="column 1" style="width: 10%; border-right: none;">
+  <div class="column 1" style=" border-right: none; color: grey">
       {{Tipprunde.id}}
   </div>
-  <div class="column 2" style="width: 20%; border-right: none;">
+  <div class="column 2" style=" border-right: none;">
     {{Tipprunde.tipprundeName}}
   </div>
-  <div class="column 3" style="width: 15%; border-right: none;">
+  <div class="column 3" style=" border-right: none;">
     {{Tipprunde.besitzer}}
   </div>
-  <div class="column 4" style="width: 20%; border-right: none;">
-    {{Tipprunde.liga}}
+  <div class="column 4" style=" border-right: none;">
+    {{getLigaName(Tipprunde.liga)}}
   </div>
-  <div class="column 5" style="width: 10%;">
+  <div class="column 5" style="color: grey">
     {{Tipprunde.zugang}}
   </div>
-  <div class="column 6" style="width: 20%; border: none; text-align: left; background-color: unset">
+  <div class="column 6" style=" border: none; text-align: left; background-color: unset">
       <div class="form-group">
         <style>
           .passField {
             position: center;
             background-color: ghostwhite;
-            padding-right: 20px;
             line-height: normal;
           }
         </style>
