@@ -29,6 +29,7 @@ export class TipprundeDrinneComponent implements OnInit {
     this.tipper=new Tipper() }
 
   ngOnInit(): Tipper[] {
+    this.checkPW()
 
     var x = sessionStorage.getItem('rundenID') + "";
     this.id = +x;
@@ -73,7 +74,6 @@ export class TipprundeDrinneComponent implements OnInit {
       if(!(this.tippRunde.password == sessionStorage.getItem("rundenPw"))) {
         this.router.navigate(['/home'])
       }
-      sessionStorage.removeItem("rundenID")
       sessionStorage.removeItem("rundenPw")
     })
   }
