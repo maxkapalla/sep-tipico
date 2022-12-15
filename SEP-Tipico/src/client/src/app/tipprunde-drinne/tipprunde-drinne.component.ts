@@ -23,10 +23,12 @@ export class TipprundeDrinneComponent implements OnInit {
   {this.tippRunde= new TippRunde, this.id=0; this.tippende=[];this.tipper=new Tipper() }
 
   ngOnInit(): Tipper[] {
+    this.checkPW()
     var x = sessionStorage.getItem('rundenID') + "";
     this.id = +x;
     console.log(x);
    this.TippRundeService.getTippRundeByID(this.id).subscribe((data: any) => this.tippRunde = data)
+    console.log(this.tippRunde.id)
     this.TippService.getAllTipperByRunde(this.id).subscribe((data:any) => this.tippende=data);
    return this.tippende;
   }
@@ -38,5 +40,19 @@ export class TipprundeDrinneComponent implements OnInit {
   }
   errorHand() {
     alert("a")
+  }
+
+  async checkPW() {
+    var z = sessionStorage.getItem("rundenID")+""
+    let y:number = +z
+    console.log("y: " + y)
+    await this.TippRundeService.getTippRundeByID(y).subscribe(response => {
+      this.tippRunde = response
+      if(!(this.tippRunde.password == sessionStorage.getItem("rundenPw"))) {
+        this.router.navigate(['/home'])
+      }
+      sessionStorage.removeItem("rundenID")
+      sessionStorage.removeItem("rundenPw")
+    })
   }
 }

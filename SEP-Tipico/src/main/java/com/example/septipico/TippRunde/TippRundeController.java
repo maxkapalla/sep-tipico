@@ -83,7 +83,7 @@ public class TippRundeController {
         String rundePw = runde.getPassword();
         String rundeName = runde.getTipprundeName();
 
-        String link = "<a href="+"http://localhost:4200/tippRunde/RundenID/" + rundeID + "/" + rundePw + ">";
+        String link = "<a href="+"http://localhost:4200/tipprunde-drinne/" + rundeID + "/" + rundePw + ">";
 
         try {
             rundeSender.sendMail(mail, sender +

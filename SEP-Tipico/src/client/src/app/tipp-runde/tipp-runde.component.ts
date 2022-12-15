@@ -66,11 +66,13 @@ export class TippRundeComponent implements OnInit {
   }
 
   gotoRunde(tippRundeID: string, tippRundePw: string, inputPw: string) {
+    sessionStorage.setItem("rundenID", tippRundeID)
+    sessionStorage.setItem("rundenPw", tippRundePw)
 
     if(tippRundePw != inputPw) {
       alert("falsches Passwort")
     } else {
-      alert("hier redirect zu tipprunde-drinne einfügen")
+      this.router.navigate(['/tipprunde-drinne', tippRundeID, tippRundePw])
     }
   }
 }
