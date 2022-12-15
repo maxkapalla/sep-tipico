@@ -54,7 +54,7 @@ export class TippRundeComponent implements OnInit {
   }
 
   showPasswordField(id: string, idB: string,idP: string, password: string, focusout: boolean) {
-    if (password != "") {
+    if (password != "null") {
       var x = document.getElementById(id)
       var y = document.getElementById(idB)
       var z = document.getElementById(idP)
@@ -65,7 +65,8 @@ export class TippRundeComponent implements OnInit {
           if(!focusout) {
             z.focus()
           }
-        } else {
+        }
+        else {
           x.style.display = "none";
           y.style.display = "inline"
         }

@@ -20,25 +20,27 @@
   </p>
 </div>
 
-<div class="search-tag-result">
-  <label for="searchInput">Suche nach Nickname:  </label>
-  <input name="searchInput" [(ngModel)]="searchInput" id="searchInput" placeholder="Suchbegriff" type="text">
-  <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
-</div>
-
-<form (ngSubmit)="onSubmit()" #joinForm="ngForm">
+<form #tipperAddform="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="Nickname">Nickname</label>
     <input type="text" [(ngModel)]="tipper.nickname"
            class="form-control"
            id="Nickname"
            name="Nickname"
-           placeholder="Nickname"
+           placeholder="Wähle deinen Nickname aus"
            required #nickname="ngModel">
     <div style = "color: red" *ngIf="nickname.invalid && nickname.touched">Bitte Nickname eingeben!</div>
-
   </div>
+  <button [disabled]="!tipperAddform.form.valid" class="btn btn-info"
+          type="Beitreten">Tipprunde beitreten
+  </button>
 </form>
+
+<div class="search-tag-result">
+  <label for="searchInput">Suche nach Nickname:  </label>
+  <input name="searchInput" [(ngModel)]="searchInput" id="searchInput" placeholder="Suchbegriff" type="text">
+  <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
+</div>
 
 <div class="card my-5">
   <div class="card-body">

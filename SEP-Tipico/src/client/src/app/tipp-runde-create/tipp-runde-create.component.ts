@@ -20,6 +20,7 @@ export class TippRundeCreateComponent implements OnInit {
   name:string="";
   id:number;
 
+
   constructor(private ligaService: LigaService,private route: ActivatedRoute,
               private TippRundeService: TippRundeService, private router: Router) {
     this.ligen=[];
@@ -27,6 +28,7 @@ export class TippRundeCreateComponent implements OnInit {
     this.tippRunden= [];
     this.deleteTippRunde= new TippRunde;
     this.createTippRunde= new TippRunde;
+
 
   this.id=0;
   }
@@ -36,8 +38,8 @@ export class TippRundeCreateComponent implements OnInit {
   }
 
   CreateTippRunde() {
+    this.createTippRunde.besitzer= sessionStorage.getItem('id') + "";
     this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(),this.errorWithSubmit);
-    this.createTippRunde.besitzer=sessionStorage.getItem("name")+"";
   }
 
   DeleteTippRunde() {
