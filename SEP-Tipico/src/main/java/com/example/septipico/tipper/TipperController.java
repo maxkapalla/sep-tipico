@@ -52,7 +52,7 @@ public class TipperController {
     public void saveTipper(@RequestBody Tipper tipper) {
         System.out.println(tipper.getNutzerid() + " " + tipper.getTipprundenID());
         if (tipperRepo.findTipperByNutzeridAndTipprundenID(tipper.getNutzerid(), tipper.getTipprundenID()) == null) {
-            tipper.setTipperid(ran.nextLong());
+            tipper.setTipperid(ran.nextLong(999999999));
             tipper.setPoints(0L);
             tipperRepo.save(tipper);
         }
