@@ -5,6 +5,9 @@ import {TippService} from "../services/tipp.service";
 import {Tipper} from "../Models/Tipper";
 import {Nutzer} from "../Models/Nutzer";
 import {NutzerService} from "../services/nutzer.service";
+import {TeamService} from "../services/team.service";
+import {Team} from "../Models/Team";
+
 
 @Component({
   selector: 'app-topthree',

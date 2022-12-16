@@ -3,7 +3,8 @@
   <label for="searchInput">Suchen nach</label>
   <select name="searchType" [(ngModel)]="searchType" id="searchType" >
     <option value="TipprundeName" [defaultSelected]="searchInput">Name der Tipprunde</option>
-    <option value="Besitzer">Besitzer der Runde</option>
+    <option value="Besitzer">Besitzer der Tipprunde</option>
+
   </select>
   <input name="searchInput" [(ngModel)]="searchInput" id="searchInput" placeholder="Suchbegriff" type="text">
   <button name="searchButton" (click)="submitSearch(searchInput)">Suche</button>
@@ -26,7 +27,7 @@
       <tr *ngFor="let Tipprunde of tippRunden">
         <td>{{ Tipprunde.id }}</td>
         <td>{{ Tipprunde.tipprundeName }}</td>
-        <td>{{ Tipprunde.besitzer }}</td>
+        <td>{{umwandelnName(Tipprunde.besitzer) }}</td>
         <td>{{getLigaName(Tipprunde.liga)}}</td>
         <td>{{ Tipprunde.zugang }}</td>
         <div class="column 6" style="width: 20%; border: none; text-align: left; background-color: unset;">

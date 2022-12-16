@@ -4,6 +4,8 @@ import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
+import {Nutzer} from "../Models/Nutzer";
+import {NutzerService} from "../services/nutzer.service";
 
 @Component({
   selector: 'app-tipp-runde',
@@ -16,25 +18,51 @@ export class TippRundeComponent implements OnInit {
   ligen: Liga[];
   ligaNamen: Map<bigint, String>;
 
+  x:String|undefined;
+  nutzer:String;
+  nutzers:Nutzer[];
+  besitzerNamen:Map<String,String>;
+
   rundePassword: String = "";
   searchInput: String = "";
   searchType: String = "TipprundeName";
   tippRunden: TippRunde[];
 
-  constructor(private ligaService: LigaService, private TippRundeService: TippRundeService, private router: Router) {
+  constructor(private ligaService: LigaService, private TippRundeService: TippRundeService, private NutzerService:NutzerService, private router: Router) {
     this.tippRunden = [];
+
     this.liga = BigInt("0");
+    this.nutzer = "";
+
     this.ligen = [];
+    this.nutzers=[];
+
     this.ligaNamen = new Map<bigint, String>;
+    this.besitzerNamen = new Map<String, String>;
   }
 
   ngOnInit(): TippRunde[] {
     this.ligaService.getAll().subscribe((data: any) => {
       this.ligen = data;
-      this.compileLigen()
-    })
+      this.compileLigen()});
+
+    this.NutzerService.getAllNutzer().subscribe((data:any) => {
+      this.nutzers=data;
+      ;})
+
     this.TippRundeService.getAll().subscribe((data: any) => this.tippRunden = data);
     return this.tippRunden;
+  }
+
+  umwandelnName(nutzerid: String | undefined) {
+
+    for (let nutzer of this.nutzers) {
+        if(nutzer.id==nutzerid) {
+          this.x= nutzer.firstName+" "+nutzer.lastName;
+          console.log(this.x);
+        }
+    }
+    return this.x;
   }
 
   submitSearch(input: String) {
@@ -52,12 +80,6 @@ export class TippRundeComponent implements OnInit {
     }
   }
 
-  anschauen(tippRunde: TippRunde) {
-    console.log(tippRunde);
-    sessionStorage.setItem('rundenID', tippRunde.id + "");
-
-    this.router.navigate(['/tipprunde-vorjoin', tippRunde.id]);
-  }
 
   showPasswordField(id: string, idB: string, idP: string, password: string, focusout: boolean) {
     if (password != "null") {
@@ -98,7 +120,6 @@ export class TippRundeComponent implements OnInit {
   }
 
   getLigaName(ligaid: bigint | undefined): String {
-
     if (ligaid != null) {
 
       let result = this.ligaNamen.get(ligaid);
@@ -106,7 +127,6 @@ export class TippRundeComponent implements OnInit {
         return result;
       }
     }
-
 
     return "kein Name"
   }
@@ -119,4 +139,8 @@ export class TippRundeComponent implements OnInit {
       }
     }
   }
+
 }
+
+
+
