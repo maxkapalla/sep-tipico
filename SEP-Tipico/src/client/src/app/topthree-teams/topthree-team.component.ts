@@ -9,18 +9,18 @@ import {Team} from "../Models/Team";
 
 
 @Component({
-  selector: 'app-topthree',
-  templateUrl: './topthree.component.html',
-  styleUrls: ['./topthree.component.scss']
+  selector: 'app-topthree-team',
+  templateUrl: './topthree-team.component.html',
+  styleUrls: ['./topthree-team.component.spec.ts']
 })
-export class TopthreeComponent implements OnInit {
+export class TopthreeTeamComponent implements OnInit {
   liga: Liga;
   ligen: Liga[];
   topThree: Team[];
   topThreeNames: Nutzer[];
   alert: string;
 
-  constructor(private teamService: TeamService,private ligaService: LigaService, private tippService: TippService) {
+  constructor(private teamService: TeamService, private ligaService: LigaService, private tippService: TippService) {
     this.ligen = [];
     this.liga = new Liga();
     this.topThree = [];
@@ -32,7 +32,7 @@ export class TopthreeComponent implements OnInit {
     this.ligaService.getAll().subscribe((data: any) => this.ligen = data);
   }
 
-  onLoadTopThree() {
+  onLoadTopThreeteams() {
     this.tippService.getTopThreeTeams(this.liga).subscribe((data: any) => this.topThree = data)
     console.log(this.topThree.length)
     setTimeout(() => {

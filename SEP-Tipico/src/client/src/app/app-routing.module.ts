@@ -27,7 +27,7 @@ import {TipprundeJoinComponent} from "./tipprunde-join/tipprunde-join.component"
 import {TipprundeVorjoinComponent} from "./tipprunde-vorjoin/tipprunde-vorjoin.component";
 import {TipprundeDrinneComponent} from "./tipprunde-drinne/tipprunde-drinne.component";
 import {TipperProfileComponent} from "./tipper-profile/tipper-profile.component";
-import {TopthreeteamComponent} from "./topthree-teams/topthree-team.component";
+import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -52,7 +52,7 @@ const routes: Routes = [
   {path: 'tipp-runde', component: TippRundeComponent, canActivate: [AuthService]},
   {path: 'tipp-runde-create', component: TippRundeCreateComponent, canActivate: [AuthService]},
   {path: 'top-three', component: TopthreeComponent, canActivate: [AuthService]},
-  {path: 'top-three-team', component: TopthreeteamComponent, canActivate: [AuthService]},
+  {path: 'top-three-team', component: TopthreeTeamComponent, canActivate: [AuthService]},
   {path: "tipphilfe", component: TippHilfeComponent, canActivate: [AuthService]},
   {path: "tipprunde-join/:id", component: TipprundeJoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-join/:id/:password", component: TipprundeJoinComponent, canActivate: [AuthService]},

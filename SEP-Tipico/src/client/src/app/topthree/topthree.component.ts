@@ -5,13 +5,16 @@ import {TippService} from "../services/tipp.service";
 import {Tipper} from "../Models/Tipper";
 import {Nutzer} from "../Models/Nutzer";
 import {NutzerService} from "../services/nutzer.service";
+import {TeamService} from "../services/team.service";
+import {Team} from "../Models/Team";
+
 
 @Component({
-  selector: 'app-topthreeteams',
-  templateUrl: './topthree-team.component.html',
-  styleUrls: ['./topthree-team.component.scss']
+  selector: 'app-topthree',
+  templateUrl: './topthree.component.html',
+  styleUrls: ['./topthree.component.scss']
 })
-export class TopthreeteamComponent implements OnInit {
+export class TopthreeComponent implements OnInit {
   liga: Liga;
   ligen: Liga[];
   topThree: Tipper[];
@@ -30,7 +33,7 @@ export class TopthreeteamComponent implements OnInit {
     this.ligaService.getAll().subscribe((data: any) => this.ligen = data);
   }
 
-  onLoadTopThreeteams() {
+  onLoadTopThree() {
     this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
     console.log(this.topThree.length)
     setTimeout(() => {
