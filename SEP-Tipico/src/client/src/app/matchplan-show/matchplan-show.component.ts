@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Liga} from "../Models/Liga";
 import {Match} from "../Models/Match";
-import {ActivatedRoute} from "@angular/router";
 import {MatchService} from "../services/match.service";
 import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
@@ -27,7 +26,7 @@ export class MatchPlanShowComponent implements OnInit {
   topThree: Tipper[];
   topThreeNames: Nutzer[];
 
-  constructor(private route: ActivatedRoute, private TeamService: TeamService,
+  constructor(private TeamService: TeamService,
               private LigaService: LigaService, private MatchService: MatchService,
               private tippService: TippService, private nutzerService: NutzerService) {
     this.match = new Match;
@@ -50,16 +49,16 @@ export class MatchPlanShowComponent implements OnInit {
     });
   }
 
-  markFutureMatches(date: string): boolean{
-    let datum = sessionStorage.getItem('datum')+""
-    date = date.slice(0,10)
+  markFutureMatches(date: string): boolean {
+    let datum = sessionStorage.getItem('datum') + ""
+    date = date.slice(0, 10)
     let splitstr1 = date.split('-')
     let splitstr2 = datum.split('.')
-    if(+splitstr1[0] <= +splitstr2[2]){
-      if(+splitstr1[1] < +splitstr2[1]){
-          return true;
-      }else if(+splitstr1[1] == +splitstr2[1]){
-        if(+splitstr1[2] <= +splitstr2[0]){
+    if (+splitstr1[0] <= +splitstr2[2]) {
+      if (+splitstr1[1] < +splitstr2[1]) {
+        return true;
+      } else if (+splitstr1[1] == +splitstr2[1]) {
+        if (+splitstr1[2] <= +splitstr2[0]) {
           return true;
         }
       }
@@ -70,11 +69,11 @@ export class MatchPlanShowComponent implements OnInit {
   onLoadLiga(): void {
     this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
 
-    this.tippService.getTopThree(this.liga).subscribe((data:any) => this.topThree = data)
-    setTimeout( () => {
-      if(this.topThree.length != 0)
+    this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
+    setTimeout(() => {
+      if (this.topThree.length != 0)
         this.nutzerService.getNutzersByIds(this.topThree[0].nutzerid, this.topThree[1].nutzerid, this.topThree[2].nutzerid).subscribe((data: any) => this.topThreeNames = data)
-    },200);
+    }, 200);
 
   }
 
@@ -97,7 +96,7 @@ export class MatchPlanShowComponent implements OnInit {
     return "kein Name"
   }
 
-  onLoadTopThree(){
+  onLoadTopThree() {
 
   }
 }

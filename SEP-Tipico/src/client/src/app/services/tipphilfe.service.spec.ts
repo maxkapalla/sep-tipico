@@ -1,12 +1,18 @@
 import {TestBed} from '@angular/core/testing';
 import {TippHilfeService} from "./tipphilfe.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('TippRundeService', () => {
+describe('TippHilfeService', () => {
   let service: TippHilfeService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      declarations: [TippHilfeService]
+      , imports: [HttpClientTestingModule]
+
+    });
     service = TestBed.inject(TippHilfeService);
+
   });
 
   it('should be created', () => {

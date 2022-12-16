@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TippAbgebenComponent} from './tipp-abgeben.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('TeamCShowComponent', () => {
   let component: TippAbgebenComponent;
@@ -8,7 +9,8 @@ describe('TeamCShowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TippAbgebenComponent]
+      declarations: [TippAbgebenComponent],
+      imports: [HttpClientTestingModule]
     })
       .compileComponents();
 
