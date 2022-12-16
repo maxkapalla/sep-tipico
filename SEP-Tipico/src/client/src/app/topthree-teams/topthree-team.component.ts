@@ -11,7 +11,7 @@ import {Team} from "../Models/Team";
 @Component({
   selector: 'app-topthree-team',
   templateUrl: './topthree-team.component.html',
-  styleUrls: ['./topthree-team.component.spec.ts']
+  styleUrls: ['./topthree-team.component.scss']
 })
 export class TopthreeTeamComponent implements OnInit {
   liga: Liga;

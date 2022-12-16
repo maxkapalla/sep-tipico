@@ -4,7 +4,7 @@ import {TopthreeTeamComponent} from './topthree-team.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-describe('TopthreeteamComponent', () => {
+describe('TopthreeTeamComponent', () => {
   let component: TopthreeTeamComponent;
   let fixture: ComponentFixture<TopthreeTeamComponent>;
 
