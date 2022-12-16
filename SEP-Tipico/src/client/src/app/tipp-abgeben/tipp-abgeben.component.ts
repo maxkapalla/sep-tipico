@@ -48,6 +48,7 @@ export class TippAbgebenComponent implements OnInit {
   usertiptable: boolean;
 
   copyid: bigint;
+  tipprundenraw: TippRunde[];
 
   constructor(private router: Router,
               private LigaService: LigaService, private TeamService: TeamService,
@@ -56,6 +57,7 @@ export class TippAbgebenComponent implements OnInit {
     this.ligen = [];
     this.matches = [];
     this.tipprunden = [];
+    this.tipprundenraw = [];
     this.ligaNamen = new Map<bigint, String>;
     this.ligaid = BigInt("0")
     this.liga = new Liga();
@@ -72,6 +74,7 @@ export class TippAbgebenComponent implements OnInit {
     this.usertips = [];
     this.usertiptable = false;
     this.copyid = BigInt("0");
+
   }
 
 
@@ -89,18 +92,50 @@ export class TippAbgebenComponent implements OnInit {
 
 
     this.TippRundeService.getAll().subscribe((data: any) => {
-      this.tipprunden = data;
+      this.tipprundenraw = data;
+
+      this.TippService.getAllTipper().subscribe((data: any) => {
+        this.alltipper = data;
+
+        console.log(this.tipprundenraw)
+        console.log(this.alltipper)
+
+        let tippRundenIds: bigint[] = [];
+
+        for (let ti of this.alltipper) {
+          if (ti.nutzerid == BigInt((sessionStorage.getItem("id") + ""))) {
+            if (ti.tipprundenID != null) {
+              tippRundenIds.push(ti.tipprundenID);
+            }
+          }
+
+        }
+
+
+        for (let runde of this.tipprundenraw) {
+          for (let id of tippRundenIds) {
+            if (runde.id == id) {
+              this.tipprunden.push(runde);
+            }
+
+          }
+        }
+
+      })
+
     })
 
-    this.TippService.getAllTipper().subscribe((data: any) => {
-      this.alltipper = data;
 
-    })
+    /* this.TippRundeService.getTippRundeByUserID(sessionStorage.getItem("id") + "").subscribe((data: any) => {
+       this.tipprunden = data;
+     })*/
+
 
     this.TippService.getAllTips().subscribe((data: any) => {
       this.previousTipps = data;
 
     })
+
 
   }
 
@@ -188,7 +223,10 @@ export class TippAbgebenComponent implements OnInit {
 
           if (a.tipperID == BigInt(this.userid)) {
             if (matchLigaMap.get(a.spiel) == this.ligaid) {
+
+
               this.usertips.push(a);
+
 
             }
 
