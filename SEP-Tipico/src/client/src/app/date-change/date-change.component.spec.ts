@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DateChangeComponent} from './date-change.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('DateChangeComponent', () => {
   let component: DateChangeComponent;
@@ -10,7 +11,7 @@ describe('DateChangeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DateChangeComponent],
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule]
     })
       .compileComponents();
 

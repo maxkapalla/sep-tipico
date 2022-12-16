@@ -9,11 +9,13 @@ import {Team} from "../Models/Team";
 
 
 @Component({
-  selector: 'app-liga-change',
+  selector: 'matchplan-create',
   templateUrl: './matchplan-create.component.html',
   styleUrls: ['./matchplan-create.component.scss']
 })
 export class MatchPlanCreateComponent implements OnInit {
+
+
   match: Match;
   matches: Match[];
   liga: Liga;

@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TipprundeVorjoinComponent} from './tipprunde-vorjoin.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('TipprundeVorjoinComponent', () => {
   let component: TipprundeVorjoinComponent;
@@ -11,7 +12,7 @@ describe('TipprundeVorjoinComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TipprundeVorjoinComponent],
-      imports: [HttpClientTestingModule, RouterTestingModule]
+      imports: [HttpClientTestingModule, RouterTestingModule, FormsModule, ReactiveFormsModule]
     })
       .compileComponents();
 

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
 
@@ -15,7 +14,7 @@ export class LigaSeeComponent implements OnInit {
   ligen: Liga[];
 
 
-  constructor(private LigaService: LigaService, private router: Router) {
+  constructor(private LigaService: LigaService) {
     this.ligen = [];
   }
 
