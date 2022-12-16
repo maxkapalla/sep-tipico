@@ -47,7 +47,7 @@ export class TeamService {
     return this.http.post<Team>(this.teamURL + "/id", team);
   }
 
-  public getTeamByIDs(teamid1: bigint | undefined, teamid2: bigint | undefined, teamid3: bigint | undefined): Observable<Team[]> {
+  public getTeamByIDs(teamid1: bigint | undefined, teamid2: bigint | undefined, teamid3: bigint | undefined):Observable <Team[]> {
     return this.http.get<Team[]>('http://localhost:8080/team/' + teamid1 + '/' + teamid2 + '/' + teamid3)
   }
 

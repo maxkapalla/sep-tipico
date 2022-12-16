@@ -4,6 +4,8 @@ import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
+import {Nutzer} from "../Models/Nutzer";
+import {NutzerService} from "../services/nutzer.service";
 
 @Component({
   selector: 'app-tipp-runde',
@@ -16,23 +18,37 @@ export class TippRundeComponent implements OnInit {
   ligen: Liga[];
   ligaNamen: Map<bigint, String>;
 
+  nutzer:bigint;
+  nutzers:Nutzer[];
+  besitzerNamen:Map<String,String>;
+
   rundePassword: String = "";
   searchInput: String = "";
   searchType: String = "TipprundeName";
   tippRunden: TippRunde[];
 
-  constructor(private ligaService: LigaService, private TippRundeService: TippRundeService, private router: Router) {
+  constructor(private ligaService: LigaService, private TippRundeService: TippRundeService, private NutzerService:NutzerService, private router: Router) {
     this.tippRunden = [];
+
     this.liga = BigInt("0");
+    this.nutzer = BigInt("0");
+
     this.ligen = [];
+    this.nutzers=[];
+
     this.ligaNamen = new Map<bigint, String>;
+    this.besitzerNamen = new Map<String, String>;
   }
 
   ngOnInit(): TippRunde[] {
     this.ligaService.getAll().subscribe((data: any) => {
       this.ligen = data;
-      this.compileLigen()
-    })
+      this.compileLigen()});
+
+    this.NutzerService.getAllNutzer().subscribe((data:any) => {
+      this.nutzers=data;
+      this.compileBesitzerName();})
+
     this.TippRundeService.getAll().subscribe((data: any) => this.tippRunden = data);
     return this.tippRunden;
   }
@@ -119,4 +135,30 @@ export class TippRundeComponent implements OnInit {
       }
     }
   }
+
+  getBesitzerName(nutzerid: String | undefined): String {
+
+    if (nutzerid != null) {
+
+      let result = this.besitzerNamen.get(nutzerid);
+      if (result != null) {
+        return result;
+      }
+    }
+
+
+    return "kein Name"
+  }
+
+  compileBesitzerName() {
+    for (let nutzer of this.nutzers) {
+      if (nutzer.id != null && nutzer.firstName != null) {
+        this.besitzerNamen.set(nutzer.id, nutzer.firstName);
+        console.log(nutzer.id);
+      }
+    }
+  }
 }
+
+
+
