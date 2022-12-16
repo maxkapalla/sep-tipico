@@ -60,7 +60,7 @@ public class TippNController {
         List<TippContainer> tippContainers = new ArrayList<>();
 
         for (Tipper t : tippers) {
-            tipps.addAll(tippNRepository.findAllByTipperID(t.getId()));
+            tipps.addAll(tippNRepository.findAllByTipperID(t.getTipperid()));
         }
 
         for (TippN tipp : tipps) {
