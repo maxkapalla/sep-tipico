@@ -66,6 +66,6 @@ export class NutzerService {
     return this.http.get<Nutzer[]>('http://localhost:8080/nutzer/' + nutzerid1 + '/' + nutzerid2 + '/' + nutzerid3)
   }
   public getAllNutzer(): Observable<Nutzer[]> {
-    return this.http.get<Nutzer[]>("http://localhost:8080/nutzer/all")
+    return this.http.get<Nutzer[]>('http://localhost:8080/nutzer/alle')
   }
 }

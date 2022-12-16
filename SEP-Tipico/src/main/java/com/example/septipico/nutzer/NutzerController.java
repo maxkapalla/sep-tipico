@@ -63,6 +63,6 @@ public class NutzerController {
         nutzer.add(2,nutzerrepo.findNutzerById(id3));
         return nutzer;
     }
-    @PostMapping("/nutzer/all")
+    @GetMapping("/nutzer/alle")
     public List<Nutzer> getAllNutzer() { return nutzerrepo.findAll();}
 }

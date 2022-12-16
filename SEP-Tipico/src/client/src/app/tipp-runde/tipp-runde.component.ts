@@ -18,7 +18,8 @@ export class TippRundeComponent implements OnInit {
   ligen: Liga[];
   ligaNamen: Map<bigint, String>;
 
-  nutzer:bigint;
+  x:String|undefined;
+  nutzer:String;
   nutzers:Nutzer[];
   besitzerNamen:Map<String,String>;
 
@@ -31,7 +32,7 @@ export class TippRundeComponent implements OnInit {
     this.tippRunden = [];
 
     this.liga = BigInt("0");
-    this.nutzer = BigInt("0");
+    this.nutzer = "";
 
     this.ligen = [];
     this.nutzers=[];
@@ -47,10 +48,21 @@ export class TippRundeComponent implements OnInit {
 
     this.NutzerService.getAllNutzer().subscribe((data:any) => {
       this.nutzers=data;
-      this.compileBesitzerName();})
+      ;})
 
     this.TippRundeService.getAll().subscribe((data: any) => this.tippRunden = data);
     return this.tippRunden;
+  }
+
+  umwandelnName(nutzerid: String | undefined) {
+
+    for (let nutzer of this.nutzers) {
+        if(nutzer.id==nutzerid) {
+          this.x= nutzer.firstName+" "+nutzer.lastName;
+          console.log(this.x);
+        }
+    }
+    return this.x;
   }
 
   submitSearch(input: String) {
@@ -68,12 +80,6 @@ export class TippRundeComponent implements OnInit {
     }
   }
 
-  anschauen(tippRunde: TippRunde) {
-    console.log(tippRunde);
-    sessionStorage.setItem('rundenID', tippRunde.id + "");
-
-    this.router.navigate(['/tipprunde-vorjoin', tippRunde.id]);
-  }
 
   showPasswordField(id: string, idB: string, idP: string, password: string, focusout: boolean) {
     if (password != "null") {
@@ -114,7 +120,6 @@ export class TippRundeComponent implements OnInit {
   }
 
   getLigaName(ligaid: bigint | undefined): String {
-
     if (ligaid != null) {
 
       let result = this.ligaNamen.get(ligaid);
@@ -122,7 +127,6 @@ export class TippRundeComponent implements OnInit {
         return result;
       }
     }
-
 
     return "kein Name"
   }
@@ -136,28 +140,6 @@ export class TippRundeComponent implements OnInit {
     }
   }
 
-  getBesitzerName(nutzerid: String | undefined): String {
-
-    if (nutzerid != null) {
-
-      let result = this.besitzerNamen.get(nutzerid);
-      if (result != null) {
-        return result;
-      }
-    }
-
-
-    return "kein Name"
-  }
-
-  compileBesitzerName() {
-    for (let nutzer of this.nutzers) {
-      if (nutzer.id != null && nutzer.firstName != null) {
-        this.besitzerNamen.set(nutzer.id, nutzer.firstName);
-        console.log(nutzer.id);
-      }
-    }
-  }
 }
 
 
