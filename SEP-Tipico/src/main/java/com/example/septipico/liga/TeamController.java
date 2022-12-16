@@ -1,6 +1,5 @@
 package com.example.septipico.liga;
 
-import com.example.septipico.tipper.Tipper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +20,7 @@ public class TeamController {
     LigaRepository ligaRepository;
 
     Random ran = new Random();
+
     @PostMapping("/name")
     public List<Team> findByName(@RequestBody Team team) {
 
@@ -42,7 +42,7 @@ public class TeamController {
     @PostMapping("/id")
     public Optional<Team> getTeam(@RequestBody Team team) {
 
-        Optional<Team> t = teamRepository.findById(team.getId());
+        Optional<Team> t = teamRepository.findById(team.getTeamid());
         return t;
     }
 
@@ -55,7 +55,7 @@ public class TeamController {
 
     @PostMapping("/save")
     public void saveTeam(@RequestBody Team team) {
-        team.setTeamid((long)teamRepository.findAll().toArray().length+1);
+        team.setTeamid((long) teamRepository.findAll().toArray().length + 1);
         team.setPoints(0);
         teamRepository.save(team);
     }
@@ -95,8 +95,8 @@ public class TeamController {
         return teamRepository.findAll();
     }
 
-    @GetMapping ("/all")
-    List<Team> getAll(){
+    @GetMapping("/all")
+    List<Team> getAll() {
         return teamRepository.findAll();
     }
 
@@ -164,12 +164,12 @@ public class TeamController {
 
 
     @PutMapping("/givePoints")
-    public void givePoints(@RequestBody List<Team> teams){
+    public void givePoints(@RequestBody List<Team> teams) {
         List<Team> teamsDB = teamRepository.findAll();
-        for(Team team: teams){
-            for(Team team2: teamsDB){
-                System.out.println("team" + team.getTeamid() +" "+ team2.getTeamid());
-                if(team.getTeamid().equals(team2.getTeamid())){
+        for (Team team : teams) {
+            for (Team team2 : teamsDB) {
+                System.out.println("team" + team.getTeamid() + " " + team2.getTeamid());
+                if (team.getTeamid().equals(team2.getTeamid())) {
                     teamRepository.delete(team2);
                     System.out.println("Team points: " + team.getPoints());
                     teamRepository.save(team);
