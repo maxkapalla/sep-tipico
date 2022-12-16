@@ -54,13 +54,14 @@ public class TippNController {
         long userID = Integer.parseInt(ownerID);
 
         List<Tipper> tippers = tipperRepository.findAllByNutzerid(userID);
+        System.out.println("tipperid: "+tippers.get(0).getTipperid());
 
         List<TippN> tipps = new ArrayList<>();
-
         List<TippContainer> tippContainers = new ArrayList<>();
 
         for (Tipper t : tippers) {
-            tipps.addAll(tippNRepository.findAllByTipperID(t.getId()));
+            tipps.addAll(tippNRepository.findAllByTipperID(t.getTipperid()));
+            System.out.println("tippid: "+tipps.get(0).getId());
         }
 
         for (TippN tipp : tipps) {
