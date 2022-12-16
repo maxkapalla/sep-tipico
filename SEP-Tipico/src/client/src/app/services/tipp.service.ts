@@ -114,82 +114,6 @@ export class TippService {
     let date = sessionStorage.getItem('datum')
     let splitstr = date?.split(".")
     this.http.get(this.tippURL + "/givePoints/"+ splitstr).subscribe(result => this.worked(), this.didntwork)
-    // this.http.get<Tipp[]>(this.tippURL+"/all").subscribe((data: any) => this.tipps= data)
-    // this.http.get<Tipper[]>(this.tipperURL+"/all").subscribe((data: any) => this.tippers= data)
-    // this.http.get<Match[]>(this.matchURl+"/all").subscribe((data: any) => this.matches = data)
-    // this.http.get<TippRunde[]>(this.rundenURL+"/all").subscribe((data:any) => this.tippRunden = data)
-    // this.http.get<Team[]>(this.teamURL+"/all").subscribe((data:any) => this.teams = data)
-    // let date = sessionStorage.getItem('datum')+""
-    // let points = 0;
-    // let tipperWPoints = new Array<Tipper>()
-    // let teamsWPoints = new Array<Team>()
-    //
-    // setTimeout(()=> {
-    //   for(let tipp of this.tipps){
-    //     let gewinner: bigint|undefined;
-    //     for(let match of this.matches){
-    //       // console.log(match.id +"="+tipp.spiel)
-    //       if(tipp.spiel == match.id && this.checkDate(match.date, date)){
-    //         console.log("hier bin ich")
-    //         let bewertungen = this.getBewertungen(tipp)
-    //         if(tipp.tippA == match.scoreTeamA && tipp.tippB == match.scoreTeamB){
-    //           points += bewertungen[0]
-    //         }
-    //         if(tipp.tippA>tipp.tippB && match.scoreTeamA>match.scoreTeamB){
-    //           points += bewertungen[1]
-    //           gewinner = match.teamA
-    //         }else if(tipp.tippA<tipp.tippB && match.scoreTeamA<match.scoreTeamB){
-    //           points += bewertungen[1]
-    //           gewinner = match.teamB
-    //         }
-    //         if((tipp.tippA - tipp.tippB) == (match.scoreTeamA - match.scoreTeamB)){
-    //           points += bewertungen[2]
-    //         }
-    //         break;
-    //       }
-    //     }
-    //     if(points != 0){
-    //       for(let tipper of this.tippers){
-    //         if(tipp.tipperID == tipper.tipperid){
-    //           tipper.points = points;
-    //           if(tipperWPoints.length == 0){
-    //             tipperWPoints.push(tipper)
-    //           }else {
-    //             for (let tipper2 of tipperWPoints)
-    //               if(tipper2.id == tipper.id){
-    //                 // @ts-ignore
-    //                 tipper.points += tipper2.points;
-    //               }else{
-    //                 tipperWPoints.push(tipper)
-    //               }
-    //           }
-    //         }
-    //       }
-    //       for(let team of this.teams){
-    //         console.log(team.teamid + " == " + gewinner);
-    //         if(team.teamid == gewinner){
-    //           console.log(team.name)
-    //           team.points = points;
-    //           if(teamsWPoints.length == 0){
-    //             teamsWPoints.push(team)
-    //           }else {
-    //             for (let team2 of teamsWPoints)
-    //               if(team2.id == team.id){
-    //                 // @ts-ignore
-    //                 team.points += team2.points;
-    //               }else{
-    //                 teamsWPoints.push(team)
-    //               }
-    //           }
-    //           break
-    //         }
-    //       }
-    //     }
-    //   }
-    //   console.log(tipperWPoints)
-    //   this.http.put<Tipper[]>(this.tipperURL+"/givePoints", tipperWPoints).subscribe(result => this.worked,this.didntwork)
-    //   this.http.put<Team[]>(this.teamURL+"/givePoints", teamsWPoints).subscribe(result =>this.worked(), this.didntwork)
-    // },1000)
   }
 
   worked(){
@@ -198,33 +122,4 @@ export class TippService {
   didntwork(){
     console.log("didnt Work")
   }
-
-  // getBewertungen(tipp: Tipp): number[]{
-  //   let bewertungen: number[] = [0,0,0]
-  //   for(let runde of this.tippRunden){
-  //     if(tipp.tipprundenid == runde.id){
-  //       bewertungen[0] = +(runde.gewTore+"")
-  //       bewertungen[1] = +(runde.gewGewinner+"")
-  //       bewertungen[2] = +(runde.gewDiff+"")
-  //     }
-  //   }
-  //   return bewertungen
-  // }
-  //
-  // checkDate(date1: string, date2: string): boolean{
-  //   date1 = date1.slice(0,10)
-  //   let splitstr1 = date1.split('-')
-  //   let splitstr2 = date2.split('.')
-  //   console.log(date2 + "<>"+ splitstr1[2]+"."+splitstr1[1]+"."+splitstr1[0])
-  //   if(+splitstr1[0] <= +splitstr2[2]){
-  //       if(+splitstr1[1] < +splitstr2[1]){
-  //         return true;
-  //       }else if(+splitstr1[1] == +splitstr2[1]){
-  //         if(+splitstr1[2] <= +splitstr2[0]){
-  //           return true;
-  //         }
-  //       }
-  //   }
-  //   return false;
-  // }
 }

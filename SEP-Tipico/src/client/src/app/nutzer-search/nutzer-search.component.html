@@ -30,7 +30,7 @@
       <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
     </div>
 
-    <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+    <div class="colm" *ngIf ="nutzer.email !== email" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
       <button (click)='addFriend(nutzer.id)'
               style="background-color: darkseagreen;
               border-color: darkseagreen;"
@@ -59,13 +59,13 @@
       .dropdown-cont a:hover {color:black}
     </style>
 
-    <div class="colm" style="width: auto; float:right; margin-right: 20px; transform: translateY(43%)">
+    <div class="colm" *ngIf ="nutzer.email !== email" style="width: auto; float:right; margin-right: 20px; transform: translateY(43%)">
       <div class = "dropdown">
         <button
             style="background-color: darkgrey;
             border-color: darkgrey;"
             class="btn btn-info">share Tipprunde</button>
-        <div class = "dropdown-cont">
+        <div class = "dropdown-cont" style="border-radius: 5px">
          <a *ngFor="let tippRunde of tippRunden"
          (click)="shareTippRunde(tippRunde, nutzer.email)">{{tippRunde.tipprundeName}} ({{tippRunde.id}})
          </a>
