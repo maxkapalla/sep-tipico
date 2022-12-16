@@ -130,13 +130,13 @@ export class SpielplanCsvComponent implements OnInit {
         teamsLiga = data;
         for (let a of teamsLiga) {
           if (a.name?.includes(csvR.team1)) {
-            m.teamA = a.id;
+            m.teamA = a.teamid;
           }
         }
 
         for (let b of teamsLiga) {
           if (b.name?.includes(csvR.team2)) {
-            m.teamB = b.id;
+            m.teamB = b.teamid;
           }
         }
         m.spieltag = csvR.matchday;

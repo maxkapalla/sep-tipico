@@ -13,5 +13,5 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
      List<Team> findByLiga(Long liga);
     
-
+     Team findTeamByTeamid(Long teamid);
 }

@@ -16,11 +16,11 @@
 <form (ngSubmit)="onShowTip()">
   <label for="teamA">Team A</label>
   <select [(ngModel)]="match.teamA" id="teamA" name="teamA" required>
-    <option *ngFor="let teamA of teams" value="{{ teamA.id }}">{{ teamA.name }}</option>
+    <option *ngFor="let teamA of teams" value="{{ teamA.teamid }}">{{ teamA.name }}</option>
   </select>
   <label for="teamB">Team B</label>
   <select [(ngModel)]="match.teamB" id="teamB" name="teamB" required>
-    <option *ngFor="let teamB of teams" value="{{ teamB.id }}">{{ teamB.name }}</option>
+    <option *ngFor="let teamB of teams" value="{{ teamB.teamid }}">{{ teamB.name }}</option>
   </select>
   <br>
   <button class="btn btn-info"

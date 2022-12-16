@@ -8,6 +8,8 @@ import {TippMail} from "../Models/TippMail";
 import {TippContainer} from "../Models/TippContainer";
 import {Match} from "../Models/Match";
 import {TippRunde} from "../Models/TippRunde";
+import {Team} from "../Models/Team";
+import * as Console from "console";
 
 
 const httpOptions = {
@@ -26,21 +28,25 @@ export class TippService {
   tippers: Tipper[];
   matches: Match[];
   tippRunden: TippRunde[];
+  teams: Team[];
 
   private tippURL: string;
   private tipperURL: string;
   private matchURl: string;
   private rundenURL: string;
+  private teamURL: string;
   constructor(private http: HttpClient) {
     this.tippMail = new TippMail();
     this.tippURL = 'http://localhost:8080/tippn'
     this.tipperURL = 'http://localhost:8080/tipper'
     this.matchURl = 'http://localhost:8080/spiel'
     this.rundenURL = 'http://localhost:8080/tippRunde'
+    this.teamURL = 'http://localhost:8080/team'
     this.tipps = [];
     this.tippers= [];
     this.matches = [];
     this.tippRunden= [];
+    this.teams= [];
   }
 
   save(tipp: Tipp): Observable<Tipp> {
@@ -100,21 +106,30 @@ export class TippService {
     this.http.get<Tipper[]>(this.tipperURL+"/all").subscribe((data: any) => this.tippers= data)
     this.http.get<Match[]>(this.matchURl+"/all").subscribe((data: any) => this.matches = data)
     this.http.get<TippRunde[]>(this.rundenURL+"/all").subscribe((data:any) => this.tippRunden = data)
+    this.teams = [];
+    this.http.get<Team[]>(this.teamURL+"/all").subscribe((data:any) => this.teams = data)
     let date = sessionStorage.getItem('datum')+""
     let points = 0;
     let tipperWPoints = new Array<Tipper>()
+    let teamsWPoints = new Array<Team>()
+
     setTimeout(()=> {
       for(let tipp of this.tipps){
+        let gewinner: bigint|undefined;
         for(let match of this.matches){
-          console.log(match.id +"="+tipp.spiel)
+          // console.log(match.id +"="+tipp.spiel)
           if(tipp.spiel == match.id && this.checkDate(match.date, date)){
             console.log("hier bin ich")
             let bewertungen = this.getBewertungen(tipp)
             if(tipp.tippA == match.scoreTeamA && tipp.tippB == match.scoreTeamB){
               points += bewertungen[0]
             }
-            if((tipp.tippA>tipp.tippB && match.scoreTeamA>match.scoreTeamB) || (tipp.tippA<tipp.tippB && match.scoreTeamA<match.scoreTeamB)){
+            if(tipp.tippA>tipp.tippB && match.scoreTeamA>match.scoreTeamB){
               points += bewertungen[1]
+              gewinner = match.teamA
+            }else if(tipp.tippA<tipp.tippB && match.scoreTeamA<match.scoreTeamB){
+              points += bewertungen[1]
+              gewinner = match.teamB
             }
             if((tipp.tippA - tipp.tippB) == (match.scoreTeamA - match.scoreTeamB)){
               points += bewertungen[2]
@@ -126,15 +141,43 @@ export class TippService {
           for(let tipper of this.tippers){
             if(tipp.tipperID == tipper.tipperid){
               tipper.points = points;
-              console.log(tipper.nickname +" "+ tipper.points)
-              tipperWPoints.push(tipper)
-              console.log(tipperWPoints)
+              if(tipperWPoints.length == 0){
+                tipperWPoints.push(tipper)
+              }else {
+                for (let tipper2 of tipperWPoints)
+                  if(tipper2.id == tipper.id){
+                    // @ts-ignore
+                    tipper.points += tipper2.points;
+                  }else{
+                    tipperWPoints.push(tipper)
+                  }
+              }
+            }
+          }
+          for(let team of this.teams){
+            console.log(team.teamid + " == " + gewinner);
+            if(team.teamid == gewinner){
+              console.log(team.name)
+              team.points = points;
+              if(teamsWPoints.length == 0){
+                teamsWPoints.push(team)
+              }else {
+                for (let team2 of teamsWPoints)
+                  if(team2.id == team.id){
+                    // @ts-ignore
+                    team.points += team2.points;
+                  }else{
+                    teamsWPoints.push(team)
+                  }
+              }
+              break
             }
           }
         }
       }
-      // tipperWPoints.push(this.tippers[0])
+      console.log(tipperWPoints)
       this.http.put<Tipper[]>(this.tipperURL+"/givePoints", tipperWPoints).subscribe(result => this.worked,this.didntwork)
+      this.http.put<Team[]>(this.teamURL+"/givePoints", teamsWPoints).subscribe(result =>this.worked(), this.didntwork)
     },1000)
   }
 

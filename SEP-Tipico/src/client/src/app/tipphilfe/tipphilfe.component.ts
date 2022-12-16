@@ -100,8 +100,8 @@ export class TippHilfeComponent implements OnInit {
 
 
           for (let t of this.teams) {
-            if (t.id != null) {
-              this.hilfe.set(t.id, 0)
+            if (t.teamid != null) {
+              this.hilfe.set(t.teamid, 0)
             }
           }
 

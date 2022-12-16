@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,6 +19,7 @@ public class TipperController {
     @Autowired
     private TippRundeRepository tippRundeRepo;
 
+    Random ran = new Random();
 
     @PostMapping("/all")
     public List<Tipper> getAll() {
@@ -50,7 +52,7 @@ public class TipperController {
     public void saveTipper(@RequestBody Tipper tipper) {
         System.out.println(tipper.getNutzerid() + " " + tipper.getTipprundenID());
         if (tipperRepo.findTipperByNutzeridAndTipprundenID(tipper.getNutzerid(), tipper.getTipprundenID()) == null) {
-            tipper.setTipperid((long)tipperRepo.findAll().toArray().length+1);
+            tipper.setTipperid(ran.nextLong());
             tipper.setPoints(0L);
             tipperRepo.save(tipper);
         }
@@ -101,10 +103,16 @@ public class TipperController {
 
     @PutMapping("/givePoints")
     public void givePoints(@RequestBody List<Tipper> tippers){
+        List<Tipper> tippersDB = tipperRepo.findAll();
         for(Tipper tipper: tippers){
-            tipperRepo.delete(tipperRepo.findTipperByTipperid(tipper.getTipperid()));
-            tipperRepo.save(tipper);
-            System.out.println(tipper.getNickname());
+            for(Tipper tipper2: tippersDB){
+                System.out.println(tipper.getTipperid() +" "+ tipper2.getTipperid());
+                if(tipper.getTipperid().equals(tipper2.getTipperid())){
+                    tipperRepo.delete(tipper2);
+                    System.out.println(tipper.getPoints());
+                    tipperRepo.save(tipper);
+                }
+            }
         }
     }
 
