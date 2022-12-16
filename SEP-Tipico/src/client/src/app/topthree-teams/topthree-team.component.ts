@@ -34,7 +34,5 @@ export class TopthreeTeamComponent implements OnInit {
 
   onLoadTopThreeteams() {
     this.teamService.topTeamOrdered().subscribe((data: any) => this.topThree = data)
-    console.log(this.topThree.length)
-
   }
 }
