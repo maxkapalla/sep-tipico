@@ -18,13 +18,12 @@ export class TippRundeComponent implements OnInit {
   ligen: Liga[];
   ligaNamen: Map<bigint, String>;
 
-  x:String|undefined;
-  nutzer:String;
+  nutzerName:String|undefined;
   nutzers:Nutzer[];
-  besitzerNamen:Map<String,String>;
+
 
   rundePassword: String = "";
-  searchInput: String = "";
+  searchInput: string = "";
   searchType: String = "TipprundeName";
   tippRunden: TippRunde[];
 
@@ -32,13 +31,13 @@ export class TippRundeComponent implements OnInit {
     this.tippRunden = [];
 
     this.liga = BigInt("0");
-    this.nutzer = "";
+
 
     this.ligen = [];
     this.nutzers=[];
 
     this.ligaNamen = new Map<bigint, String>;
-    this.besitzerNamen = new Map<String, String>;
+
   }
 
   ngOnInit(): TippRunde[] {
@@ -58,14 +57,14 @@ export class TippRundeComponent implements OnInit {
 
     for (let nutzer of this.nutzers) {
         if(nutzer.id==nutzerid) {
-          this.x= nutzer.firstName+" "+nutzer.lastName;
-          console.log(this.x);
+          this.nutzerName= nutzer.firstName+" "+nutzer.lastName;
+         // console.log(this.nutzerName);
         }
     }
-    return this.x;
+    return this.nutzerName;
   }
 
-  submitSearch(input: String) {
+  submitSearch(input: string) {
     switch (this.searchType) {
       case "TipprundeName":
         this.TippRundeService.getTippRundeByName(input).subscribe(data => {
@@ -73,7 +72,7 @@ export class TippRundeComponent implements OnInit {
         });
         break;
       case "Besitzer":
-        this.TippRundeService.getTippRundeByBesitzer(input).subscribe(data => {
+        this.TippRundeService.getTippRundenByOwner(input).subscribe(data => {
           this.tippRunden = data
         });
         break;

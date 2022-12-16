@@ -1,18 +1,3 @@
-<form #tipperAddform="ngForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="Nickname">Nickname</label>
-    <input type="text" [(ngModel)]="tipper.nickname"
-           class="form-control"
-           id="Nickname"
-           name="Nickname"
-           placeholder="Wähle deinen Nickname aus"
-           required #nickname="ngModel">
-    <div style = "color: red" *ngIf="nickname.invalid && nickname.touched">Bitte Nickname eingeben!</div>
-  </div>
-  <button [disabled]="!tipperAddform.form.valid" class="btn btn-info"
-          type="Beitreten">Tipprunde beitreten
-  </button>
-</form>
 
 <div class="container">
   <header class="jumbotron">
@@ -62,3 +47,18 @@
     </table>
   </div>
 </div>
+<form #tipperAddform="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="Nickname">Nickname</label>
+    <input type="text" [(ngModel)]="tipper.nickname"
+           class="form-control"
+           id="Nickname"
+           name="Nickname"
+           placeholder="Wähle deinen Nickname aus"
+           required #nickname="ngModel">
+    <div style = "color: red" *ngIf="nickname.invalid && nickname.touched">Bitte Nickname eingeben!</div>
+  </div>
+  <button [disabled]="!tipperAddform.form.valid" class="btn btn-info"
+          type="Beitreten">Tipprunde beitreten
+  </button>
+</form>
