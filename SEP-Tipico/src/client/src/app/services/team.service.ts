@@ -43,6 +43,10 @@ export class TeamService {
     return this.http.post<Team[]>(this.teamURL + "/all", null);
   }
 
+  topTeamOrdered(): Observable<Team> {
+    return this.http.get<Team>(this.teamURL + "/allorderpoints");
+  }
+
   getTeamByID(team: Team): Observable<Team> {
     return this.http.post<Team>(this.teamURL + "/id", team);
   }

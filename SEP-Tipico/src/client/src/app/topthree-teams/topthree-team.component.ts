@@ -33,12 +33,6 @@ export class TopthreeTeamComponent implements OnInit {
   }
 
   onLoadTopThreeteams() {
-    this.ligaService.getAll().subscribe((data: any) => this.topThree = data)
-    console.log(this.topThree.length)
-    setTimeout(() => {
-      if (this.topThree.length != 0)
-        this.teamService.getTeamByIDs(this.topThree[0].teamid, this.topThree[1].teamid, this.topThree[2].teamid).subscribe((data: any) => this.topThreeNames = data)
-    }, 200);
-
+    this.teamService.topTeamOrdered().subscribe((data: any) => this.topThree = data)
   }
 }
