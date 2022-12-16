@@ -31,6 +31,11 @@ public class TeamController {
         return teamRepository.findByName(team.getName());
     }
 
+    @GetMapping("/allorderpoints")
+    public List<Team> findTeambyIDPoints(){
+        return teamRepository.findbyIDOrderedbyPoints();
+    }
+
 
     @PostMapping("/ids")
     public List<Team> getTeams(@RequestBody List<Long> ids) {
