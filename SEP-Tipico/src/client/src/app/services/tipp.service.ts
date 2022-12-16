@@ -67,6 +67,11 @@ export class TippService {
     return this.http.get<Tipper[]>(this.tipperURL + "/topthree/" + liga.id)
   }
 
+  getTopThreeTeams(liga: Liga): Observable<Tipper[]> {
+    console.log("works")
+    return this.http.get<Tipper[]>(this.tipperURL + "/topthreeteams/" + liga.id)
+  }
+
   getTippsByUser(userID: string): Observable<TippContainer[]> {
     return this.http.post<TippContainer[]>(this.tippURL + "/owner", userID);
   }

@@ -5,17 +5,17 @@ import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('TopthreeteamComponent', () => {
-  let component: TopthreeteamsComponent;
-  let fixture: ComponentFixture<TopthreeteamsComponent>;
+  let component: TopthreeteamComponent;
+  let fixture: ComponentFixture<TopthreeteamComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TopthreeteamsComponent],
+      declarations: [TopthreeteamComponent],
       imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(TopthreeteamsComponent);
+    fixture = TestBed.createComponent(TopthreeteamComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
