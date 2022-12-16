@@ -29,18 +29,18 @@
         <td>{{ Tipprunde.besitzer }}</td>
         <td>{{getLigaName(Tipprunde.liga)}}</td>
         <td>{{ Tipprunde.zugang }}</td>
-        <div class="column 6" style="width: 20%; border: none; text-align: left; background-color: unset">
+        <div class="column 6" style="width: 20%; border: none; text-align: left; background-color: unset;">
           <div class="form-group">
             <div class = "joinTippRunde" id={{Tipprunde.id}}d>
               <button
                 (click)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', false)"
                 style="background-color: darkgrey;
                        border-color: darkgrey;
-                       "
+                       transform: translate(20%, 20%)"
                 class="btn btn-info">View Tipprunde</button>
             </div>
-            <div class="passField" id={{Tipprunde.id}} style="display: none">
-              <input name="rundePassword" (keyup.enter)="gotoRunde(Tipprunde.id+'',Tipprunde.password+'', rundePassword+'')" [(ngModel)]="rundePassword" id={{Tipprunde.id}}p placeholder="Password" type="text"
+            <div class="passField" id={{Tipprunde.id}} style="display: none;">
+              <input style="width: 130px; transform: translate(20%, 50%); margin-left: 5px" name="rundePassword" (keyup.enter)="gotoRunde(Tipprunde.id+'',Tipprunde.password+'', rundePassword+'')" [(ngModel)]="rundePassword" id={{Tipprunde.id}}p placeholder="Password" type="text"
                      (focusout)="showPasswordField(Tipprunde.id+'', Tipprunde.id+'d', Tipprunde.id+'p', Tipprunde.password+'', true)">
             </div>
           </div>

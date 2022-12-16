@@ -49,7 +49,7 @@ export class FriendListComponent implements OnInit {
 
   shareTipp(tipp: TippContainer, userMail: string|undefined) {
     this.tippService.sendTipp(tipp, userMail + "");
-    alert("Tipp versendet");
+    alert("Tipp versendet an " + userMail);
   }
 
 
