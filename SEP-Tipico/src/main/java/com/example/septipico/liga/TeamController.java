@@ -68,7 +68,7 @@ public class TeamController {
 
         if (teamRepository.findByName(team.getName()).isEmpty()) {
             System.out.println("empty");
-            team.setTeamid(ran.nextLong());
+            team.setTeamid(ran.nextLong(999999999));
             teamRepository.save(team);
         } else {
             List<Team> teamList = teamRepository.findByName(team.getName());
@@ -80,7 +80,7 @@ public class TeamController {
                 }
             }
             if (!exisits) {
-                team.setTeamid(ran.nextLong());
+                team.setTeamid(ran.nextLong(999999999));
                 teamRepository.save(team);
             }
 
