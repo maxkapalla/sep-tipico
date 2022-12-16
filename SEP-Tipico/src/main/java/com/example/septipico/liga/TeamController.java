@@ -1,6 +1,5 @@
 package com.example.septipico.liga;
 
-import com.example.septipico.tipper.Tipper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -55,7 +54,7 @@ public class TeamController {
 
     @PostMapping("/save")
     public void saveTeam(@RequestBody Team team) {
-        team.setTeamid((long)teamRepository.findAll().toArray().length+1);
+        team.setTeamid(ran.nextLong(9999999999L));
         team.setPoints(0);
         teamRepository.save(team);
     }
@@ -68,7 +67,7 @@ public class TeamController {
 
         if (teamRepository.findByName(team.getName()).isEmpty()) {
             System.out.println("empty");
-            team.setTeamid(ran.nextLong());
+            team.setTeamid(ran.nextLong(9999999999L));
             teamRepository.save(team);
         } else {
             List<Team> teamList = teamRepository.findByName(team.getName());
@@ -80,7 +79,7 @@ public class TeamController {
                 }
             }
             if (!exisits) {
-                team.setTeamid(ran.nextLong());
+                team.setTeamid(ran.nextLong(9999999999L));
                 teamRepository.save(team);
             }
 
@@ -162,20 +161,4 @@ public class TeamController {
         teamRepository.saveAll(newTeamList);
     }
 
-
-    @PutMapping("/givePoints")
-    public void givePoints(@RequestBody List<Team> teams){
-        List<Team> teamsDB = teamRepository.findAll();
-        for(Team team: teams){
-            for(Team team2: teamsDB){
-                System.out.println("team" + team.getTeamid() +" "+ team2.getTeamid());
-                if(team.getTeamid().equals(team2.getTeamid())){
-                    teamRepository.delete(team2);
-                    System.out.println("Team points: " + team.getPoints());
-                    teamRepository.save(team);
-                    break;
-                }
-            }
-        }
-    }
 }
