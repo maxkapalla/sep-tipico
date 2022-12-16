@@ -14,63 +14,67 @@
   </form>
 </div>
 
-<div class="container">
-  <div class="showNutzerList">
-    <div class="noNutzer" *ngIf="nutzers.length < 1 && name.touched">Keine Nutzer gefunden</div>
-    <div *ngFor="let nutzer of nutzers">
-      <div class="card"  *ngIf ="nutzer.email !== email">
-        <div>
-          <img src="{{nutzer.imageURL}}">
-          <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
+<div class="noNutzer" *ngIf="nutzers.length < 1 && name.touched">Keine Nutzer gefunden</div>
 
-          <li class="list-inline-item">
-          <button (click)='addFriend(nutzer.id)'
-                  style="background-color: darkseagreen;
-                  border-color: darkseagreen;
-                  margin-left: 200px;"
-                  class="btn btn-info">add Friend</button>
-          </li>
+<div class="showNutzerList">
+  <style>
+    .line:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+  <div class="line" *ngFor="let nutzer of nutzers" style="border-radius: 15px; background-color: lightgrey; margin: 20px">
+    <div class="colm" *ngIf ="nutzer.email !== email" style="width: 50%; float:left; margin: 5px">
+      <img src="{{nutzer.imageURL}}">
+      <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
+    </div>
 
-          <style>
-            .dropdown {
-              position: relative;
-              display: inline-block;
-            }
-            .dropdown-cont {
-              display: none;
-              position: absolute;
-              background-color: ghostwhite;
-              min-width: max-content;
-              z-index: 1;
-            }
-            .dropdown-cont a {
-              color:grey;
-              display:block;
-              padding-right: 10px;
-              cursor: pointer;
-            }
-            .dropdown:hover .dropdown-cont {display: block}
-            .dropdown-cont a:hover {color:black}
+    <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+      <button (click)='addFriend(nutzer.id)'
+              style="background-color: darkseagreen;
+              border-color: darkseagreen;"
+              class="btn btn-info">add Friend</button>
+    </div>
 
-          </style>
-          <li class="list-inline-item">
-           <div class = "dropdown">
-              <button
-                  style="background-color: darkgrey;
-                  border-color: darkgrey;"
-                  class="btn btn-info">share Tipprunde</button>
-             <div class = "dropdown-cont">
-               <a *ngFor="let tippRunde of tippRunden"
-               (click)="shareTippRunde(tippRunde, nutzer.email)">{{tippRunde.tipprundeName}} ({{tippRunde.id}})
-               </a>
-             </div>
-          </div>
-          </li>
+    <style>
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .dropdown-cont {
+        display: none;
+        position: absolute;
+        background-color: ghostwhite;
+        min-width: max-content;
+        z-index: 1;
+      }
+      .dropdown-cont a {
+        color:grey;
+        display:block;
+        padding-right: 10px;
+        cursor: pointer;
+      }
+      .dropdown:hover .dropdown-cont {display: block}
+      .dropdown-cont a:hover {color:black}
+    </style>
+
+    <div class="colm" style="width: auto; float:right; margin-right: 20px; transform: translateY(43%)">
+      <div class = "dropdown">
+        <button
+            style="background-color: darkgrey;
+            border-color: darkgrey;"
+            class="btn btn-info">share Tipprunde</button>
+        <div class = "dropdown-cont">
+         <a *ngFor="let tippRunde of tippRunden"
+         (click)="shareTippRunde(tippRunde, nutzer.email)">{{tippRunde.tipprundeName}} ({{tippRunde.id}})
+         </a>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <br>
 <br>

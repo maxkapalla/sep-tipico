@@ -1,12 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {FileUploadService} from "./file-upload.service";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('LigaService', () => {
+describe('FileUploadService', () => {
   let service: FileUploadService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      declarations: [FileUploadService],
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(FileUploadService);
   });
 

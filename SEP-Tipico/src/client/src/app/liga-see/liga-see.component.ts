@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
-import {map, Observable} from "rxjs";
 
 //mport {Liga} from Liga;
 
@@ -16,7 +14,7 @@ export class LigaSeeComponent implements OnInit {
   ligen: Liga[];
 
 
-  constructor(private route: ActivatedRoute, private LigaService: LigaService, private router: Router) {
+  constructor(private LigaService: LigaService) {
     this.ligen = [];
   }
 

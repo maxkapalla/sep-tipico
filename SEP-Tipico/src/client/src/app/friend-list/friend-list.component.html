@@ -2,6 +2,13 @@
 <div class="noNutzer" *ngIf="openRequests.length < 1">Keine offenen Freundschaftsanfragen</div>
 
 <div class="showFriendRequests">
+  <style>
+    .line:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
   <div class="line" *ngFor="let user of openRequests"
        style="border-radius: 15px; background-color: lightgrey; margin: 20px">
     <div class="colm" style="width: 50%; float:left; margin: 20px">
@@ -63,6 +70,7 @@
               color:grey;
               display:block;
               padding-right: 10px;
+              cursor: pointer;
             }
             .dropdown:hover .dropdown-cont {display: block}
             .dropdown-cont a:hover {color:black}

@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TipperProfileComponent } from './tipper-profile.component';
+import {TipperProfileComponent} from './tipper-profile.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('TipperProfileComponent', () => {
   let component: TipperProfileComponent;
@@ -8,9 +9,10 @@ describe('TipperProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TipperProfileComponent ]
+      declarations: [TipperProfileComponent],
+      imports: [HttpClientTestingModule]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TipperProfileComponent);
     component = fixture.componentInstance;

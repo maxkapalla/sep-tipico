@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @RestController
@@ -20,6 +19,7 @@ public class TeamController {
     LigaRepository ligaRepository;
 
     Random ran = new Random();
+
     @PostMapping("/name")
     public List<Team> findByName(@RequestBody Team team) {
 
@@ -39,9 +39,11 @@ public class TeamController {
     }
 
     @PostMapping("/id")
-    public Optional<Team> getTeam(@RequestBody Team team) {
+    public Team getTeam(@RequestBody Team team) {
 
-        Optional<Team> t = teamRepository.findById(team.getId());
+        Team t = teamRepository.findTeamByTeamid(team.getTeamid());
+        System.out.println("TeamIDs " + team.getTeamid());
+        System.out.println(t.getTeamid());
         return t;
     }
 
@@ -54,7 +56,7 @@ public class TeamController {
 
     @PostMapping("/save")
     public void saveTeam(@RequestBody Team team) {
-        team.setTeamid(ran.nextLong(9999999999L));
+        team.setTeamid((long) teamRepository.findAll().toArray().length + 1);
         team.setPoints(0);
         teamRepository.save(team);
     }
@@ -67,7 +69,7 @@ public class TeamController {
 
         if (teamRepository.findByName(team.getName()).isEmpty()) {
             System.out.println("empty");
-            team.setTeamid(ran.nextLong(9999999999L));
+            team.setTeamid(ran.nextLong(999999999));
             teamRepository.save(team);
         } else {
             List<Team> teamList = teamRepository.findByName(team.getName());
@@ -79,7 +81,7 @@ public class TeamController {
                 }
             }
             if (!exisits) {
-                team.setTeamid(ran.nextLong(9999999999L));
+                team.setTeamid(ran.nextLong(999999999));
                 teamRepository.save(team);
             }
 
@@ -94,8 +96,8 @@ public class TeamController {
         return teamRepository.findAll();
     }
 
-    @GetMapping ("/all")
-    List<Team> getAll(){
+    @GetMapping("/all")
+    List<Team> getAll() {
         return teamRepository.findAll();
     }
 

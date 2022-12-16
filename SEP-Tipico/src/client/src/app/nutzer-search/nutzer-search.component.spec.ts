@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NutzerSearchComponent } from './nutzer-search.component';
+import {NutzerSearchComponent} from './nutzer-search.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('NutzerSearchComponent', () => {
   let component: NutzerSearchComponent;
@@ -8,9 +10,10 @@ describe('NutzerSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NutzerSearchComponent ]
+      declarations: [NutzerSearchComponent],
+      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(NutzerSearchComponent);
     component = fixture.componentInstance;

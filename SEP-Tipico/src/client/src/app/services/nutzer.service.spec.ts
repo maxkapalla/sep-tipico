@@ -1,12 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { NutzerService } from './nutzer.service';
+import {NutzerService} from './nutzer.service';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('NutzerService', () => {
   let service: NutzerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      declarations: [NutzerService],
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(NutzerService);
   });
 

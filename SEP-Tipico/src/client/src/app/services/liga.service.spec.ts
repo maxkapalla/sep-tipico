@@ -1,12 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { LigaService } from './liga.service';
+import {LigaService} from './liga.service';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('LigaService', () => {
   let service: LigaService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      declarations: [LigaService],
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(LigaService);
   });
 

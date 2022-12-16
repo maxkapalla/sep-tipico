@@ -34,6 +34,7 @@ export class TippService {
   private matchURl: string;
   private rundenURL: string;
   private teamURL: string;
+
   constructor(private http: HttpClient) {
     this.tippMail = new TippMail();
     this.tippURL = 'http://localhost:8080/tippn'
@@ -42,10 +43,10 @@ export class TippService {
     this.rundenURL = 'http://localhost:8080/tippRunde'
     this.teamURL = 'http://localhost:8080/team'
     this.tipps = [];
-    this.tippers= [];
+    this.tippers = [];
     this.matches = [];
-    this.tippRunden= [];
-    this.teams= [];
+    this.tippRunden = [];
+    this.teams = [];
   }
 
   save(tipp: Tipp): Observable<Tipp> {
@@ -55,9 +56,10 @@ export class TippService {
     return this.http.post<Tipp>(this.tippURL + "/save", tipp);
 
   }
-  saveTipper(nickname:Tipper): Observable<Tipper> {
+
+  saveTipper(nickname: Tipper): Observable<Tipper> {
     console.log(nickname)
-    return this.http.post<Tipper>(this.tipperURL+"/save",nickname);
+    return this.http.post<Tipper>(this.tipperURL + "/save", nickname);
   }
 
   getTopThree(liga: Liga): Observable<Tipper[]> {
@@ -76,14 +78,17 @@ export class TippService {
   getAllTipper(): Observable<Tipper[]> {
     return this.http.post<Tipper[]>(this.tipperURL + "/all", null);
   }
-  getAllTipperByRunde(rundenID:number): Observable<Tipper[]> {
-    return this.http.post<Tipper[]>(this.tipperURL+ "/all/tipprunden", rundenID )
+
+  getAllTipperByRunde(rundenID: number): Observable<Tipper[]> {
+    return this.http.post<Tipper[]>(this.tipperURL + "/all/tipprunden", rundenID)
   }
-  getTipperByID(tipperID:number): Observable<Tipper> {
-    return this.http.post<Tipper>(this.tipperURL+"/id",tipperID);
+
+  getTipperByID(tipperID: number): Observable<Tipper> {
+    return this.http.post<Tipper>(this.tipperURL + "/id", tipperID);
   }
-  getTipperByNickname(tipper:String):Observable<Tipper[]> {
-    return this.http.post<Tipper[]>(this.tipperURL+"/name",tipper);
+
+  getTipperByNickname(tipper: String): Observable<Tipper[]> {
+    return this.http.post<Tipper[]>(this.tipperURL + "/name", tipper);
   }
 
   sendTipp(tipp: TippContainer, userMail: string): void {
