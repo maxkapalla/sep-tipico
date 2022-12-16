@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {NewLiga} from "../Models/NewLiga";
 import {Liga} from "../Models/Liga";
 import {Observable} from "rxjs";
+import {Team} from "../Models/Team";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
