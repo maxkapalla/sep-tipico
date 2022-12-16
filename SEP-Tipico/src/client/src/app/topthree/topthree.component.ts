@@ -7,11 +7,11 @@ import {Nutzer} from "../Models/Nutzer";
 import {NutzerService} from "../services/nutzer.service";
 
 @Component({
-  selector: 'app-topthree',
-  templateUrl: './topthree.component.html',
-  styleUrls: ['./topthree.component.scss']
+  selector: 'app-topthreeteams',
+  templateUrl: './topthree-team.component.html',
+  styleUrls: ['./topthree-team.component.scss']
 })
-export class TopthreeComponent implements OnInit {
+export class TopthreeteamComponent implements OnInit {
   liga: Liga;
   ligen: Liga[];
   topThree: Tipper[];
@@ -30,7 +30,7 @@ export class TopthreeComponent implements OnInit {
     this.ligaService.getAll().subscribe((data: any) => this.ligen = data);
   }
 
-  onLoadTopThree() {
+  onLoadTopThreeteams() {
     this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
     console.log(this.topThree.length)
     setTimeout(() => {

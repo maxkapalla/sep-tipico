@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Team} from "../Models/Team";
+import {Nutzer} from "../Models/Nutzer";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -44,6 +45,10 @@ export class TeamService {
 
   getTeamByID(team: Team): Observable<Team> {
     return this.http.post<Team>(this.teamURL + "/id", team);
+  }
+
+  public getTeamByIDs(teamid1: bigint | undefined, teamid2: bigint | undefined, teamid3: bigint | undefined): <Team[] {
+    return this.http.get<Team[]>('http://localhost:8080/team/' + teamid1 + '/' + teamid2 + '/' + teamid3)
   }
 
   getTeamByName(team: Team): Observable<Team> {
