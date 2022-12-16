@@ -4,23 +4,21 @@ import {Liga} from "../Models/Liga";
 import {TippService} from "../services/tipp.service";
 import {Tipper} from "../Models/Tipper";
 import {Nutzer} from "../Models/Nutzer";
-import {TeamService} from "../services/team.service";
-import {Team} from "../Models/Team";
-
+import {NutzerService} from "../services/nutzer.service";
 
 @Component({
-  selector: 'app-topthree',
-  templateUrl: './topthree.component.html',
-  styleUrls: ['./topthree.component.scss']
+  selector: 'app-topthreeteams',
+  templateUrl: './topthree-team.component.html',
+  styleUrls: ['./topthree-team.component.scss']
 })
-export class TopthreeComponent implements OnInit {
+export class TopthreeteamComponent implements OnInit {
   liga: Liga;
   ligen: Liga[];
-  topThree: Team[];
+  topThree: Tipper[];
   topThreeNames: Nutzer[];
   alert: string;
 
-  constructor(private teamService: TeamService,private ligaService: LigaService, private tippService: TippService) {
+  constructor(private ligaService: LigaService, private tippService: TippService, private nutzerService: NutzerService) {
     this.ligen = [];
     this.liga = new Liga();
     this.topThree = [];
@@ -32,12 +30,12 @@ export class TopthreeComponent implements OnInit {
     this.ligaService.getAll().subscribe((data: any) => this.ligen = data);
   }
 
-  onLoadTopThree() {
-    this.tippService.getTopThreeTeams(this.liga).subscribe((data: any) => this.topThree = data)
+  onLoadTopThreeteams() {
+    this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
     console.log(this.topThree.length)
     setTimeout(() => {
       if (this.topThree.length != 0)
-        this.teamService.getTeamByIDs(this.topThree[0].teamid, this.topThree[1].teamid, this.topThree[2].teamid).subscribe((data: any) => this.topThreeNames = data)
+        this.nutzerService.getNutzersByIds(this.topThree[0].nutzerid, this.topThree[1].nutzerid, this.topThree[2].nutzerid).subscribe((data: any) => this.topThreeNames = data)
     }, 200);
 
   }
