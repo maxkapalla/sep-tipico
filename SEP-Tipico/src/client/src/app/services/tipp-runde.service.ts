@@ -48,6 +48,9 @@ export class TippRundeService {
   getTippRundeByID(input: number): Observable<TippRunde> {
     return this.http.post<TippRunde>(this.tippRundeURL + "/id", input);
   }
+  getTippRundeByLiga(input:number): Observable<TippRunde[]> {
+    return this.http.post<TippRunde[]>(this.tippRundeURL+ "/liga",input);
+  }
 
 
   sendTippRunde(tippRunde: TippRunde, userMail: string): void {

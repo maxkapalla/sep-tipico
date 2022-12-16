@@ -11,7 +11,10 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
      List<Team> findByName(String name);
 
+     List<Team> findAllByOrderByPointsDesc();
+
      List<Team> findByLiga(Long liga);
     
      Team findTeamByTeamid(Long teamid);
+
 }

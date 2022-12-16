@@ -31,6 +31,11 @@ public class TeamController {
         return teamRepository.findByName(team.getName());
     }
 
+    @GetMapping("/allorderpoints")
+    public List<Team> findTeambyIDPoints(){
+        return teamRepository.findAllByOrderByPointsDesc();
+    }
+
 
     @PostMapping("/ids")
     public List<Team> getTeams(@RequestBody List<Long> ids) {
@@ -163,20 +168,4 @@ public class TeamController {
         teamRepository.saveAll(newTeamList);
     }
 
-
-    @PutMapping("/givePoints")
-    public void givePoints(@RequestBody List<Team> teams) {
-        List<Team> teamsDB = teamRepository.findAll();
-        for (Team team : teams) {
-            for (Team team2 : teamsDB) {
-                System.out.println("team" + team.getTeamid() + " " + team2.getTeamid());
-                if (team.getTeamid().equals(team2.getTeamid())) {
-                    teamRepository.delete(team2);
-                    System.out.println("Team points: " + team.getPoints());
-                    teamRepository.save(team);
-                    break;
-                }
-            }
-        }
-    }
 }

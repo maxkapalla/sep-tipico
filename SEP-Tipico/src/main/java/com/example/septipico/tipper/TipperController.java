@@ -52,7 +52,7 @@ public class TipperController {
     public void saveTipper(@RequestBody Tipper tipper) {
         System.out.println(tipper.getNutzerid() + " " + tipper.getTipprundenID());
         if (tipperRepo.findTipperByNutzeridAndTipprundenID(tipper.getNutzerid(), tipper.getTipprundenID()) == null) {
-            tipper.setTipperid(ran.nextLong(999999999));
+            tipper.setTipperid(ran.nextLong(9999999999L));
             tipper.setPoints(0L);
             tipperRepo.save(tipper);
         }
@@ -98,22 +98,6 @@ public class TipperController {
         for (int i = 0; i < topThree.size(); i++)
             System.out.println(topThree.get(i).getPoints());
         return topThree;
-    }
-
-
-    @PutMapping("/givePoints")
-    public void givePoints(@RequestBody List<Tipper> tippers){
-        List<Tipper> tippersDB = tipperRepo.findAll();
-        for(Tipper tipper: tippers){
-            for(Tipper tipper2: tippersDB){
-                System.out.println(tipper.getTipperid() +" "+ tipper2.getTipperid());
-                if(tipper.getTipperid().equals(tipper2.getTipperid())){
-                    tipperRepo.delete(tipper2);
-                    System.out.println(tipper.getPoints());
-                    tipperRepo.save(tipper);
-                }
-            }
-        }
     }
 
 }

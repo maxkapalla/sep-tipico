@@ -15,7 +15,7 @@ public class TippRundeController {
     @Autowired
     private TippRundeRepository tippRundeRepository;
 
-    @PostMapping("/delete")
+    @PostMapping("/tippRunde/delete")
     public void deleteTippRunde(@RequestBody TippRunde TippRunde) {
 
         tippRundeRepository.deleteById(TippRunde.getId());
@@ -47,6 +47,12 @@ public class TippRundeController {
     public List<TippRunde> getTippRunde(@RequestBody String name) {
         List<TippRunde> t = new ArrayList<TippRunde>();
         t.add(tippRundeRepository.findTippRundeByTipprundeName(name));
+        return t;
+    }
+    @PostMapping("/tippRunde/liga")
+    public List<TippRunde> getTippRundeByLiga(@RequestBody Long ligaid) {
+        List<TippRunde> t = new ArrayList<TippRunde>();
+        t.addAll(tippRundeRepository.findTippRundeByLiga(ligaid));
         return t;
     }
     @PostMapping("/tippRunde/id")
