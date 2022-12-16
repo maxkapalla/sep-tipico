@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 import {TwoFaService} from "../services/two-fa.service";
 import {TwoFaCode} from "../Models/TwoFaCode";
 import {AuthService} from "../services/auth.service";
@@ -13,18 +13,18 @@ export class TwoFAComponent {
 
 
   twoFa: TwoFaCode;
-
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private twoFaService: TwoFaService,
-              private auth:AuthService) {this.twoFa = new TwoFaCode()}
-
   twofaAuth: any;
   TwoFaCode: any;
 
+  constructor(private router: Router,
+              private twoFaService: TwoFaService,
+              private auth: AuthService) {
+    this.twoFa = new TwoFaCode()
+  }
+
   ngOnInit(): void {
     this.auth.checkLogged();
-    if(!sessionStorage.getItem('email')){
+    if (!sessionStorage.getItem('email')) {
       this.router.navigate(['/login'])
     }
   }
@@ -44,7 +44,7 @@ export class TwoFAComponent {
 
   resendMail() {
     let mail = sessionStorage.getItem('email')
-    this.twoFaService.sendMail(mail+"")
+    this.twoFaService.sendMail(mail + "")
     alert("Dir wurde ein neuer Code zugesendet!" + "\n" +
       "Bitte überprüfe dein Email-Postfach")
   }

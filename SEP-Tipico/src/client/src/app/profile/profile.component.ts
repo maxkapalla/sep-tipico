@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -6,20 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  url: string=""
-  name:string =""
-  email:string=""
-  birthdate: string=""
-  role:string =""
+  url: string = ""
+  name: string = ""
+  email: string = ""
+  birthdate: string = ""
+  role: string = ""
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
-    this.url = sessionStorage.getItem('picURL')+""
-    this.name= sessionStorage.getItem('name')+""
-    this.email= sessionStorage.getItem('email')+""
-    this.birthdate = sessionStorage.getItem('birthday')+""
-    this.role = (sessionStorage.getItem('role')+"").toUpperCase()
+    this.url = sessionStorage.getItem('picURL') + ""
+    this.name = sessionStorage.getItem('name') + ""
+    this.email = sessionStorage.getItem('email') + ""
+    this.birthdate = sessionStorage.getItem('birthday') + ""
+    this.role = (sessionStorage.getItem('role') + "").toUpperCase()
   }
 
 }

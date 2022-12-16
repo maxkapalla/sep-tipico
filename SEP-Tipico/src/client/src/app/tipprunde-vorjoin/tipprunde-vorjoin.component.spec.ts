@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TipprundeVorjoinComponent } from './tipprunde-vorjoin.component';
+import {TipprundeVorjoinComponent} from './tipprunde-vorjoin.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('TipprundeVorjoinComponent', () => {
   let component: TipprundeVorjoinComponent;
@@ -8,9 +10,10 @@ describe('TipprundeVorjoinComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TipprundeVorjoinComponent ]
+      declarations: [TipprundeVorjoinComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TipprundeVorjoinComponent);
     component = fixture.componentInstance;

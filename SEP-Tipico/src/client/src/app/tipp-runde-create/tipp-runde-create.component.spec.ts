@@ -1,6 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TippRundeCreateComponent } from './tipp-runde-create.component';
+import {TippRundeCreateComponent} from './tipp-runde-create.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('TippRundeCreateComponent', () => {
   let component: TippRundeCreateComponent;
@@ -8,9 +10,10 @@ describe('TippRundeCreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TippRundeCreateComponent ]
+      declarations: [TippRundeCreateComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(TippRundeCreateComponent);
     component = fixture.componentInstance;

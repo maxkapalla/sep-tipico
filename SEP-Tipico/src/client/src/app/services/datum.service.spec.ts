@@ -1,12 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { DatumService } from './datum.service';
+import {DatumService} from './datum.service';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('DatumService', () => {
   let service: DatumService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      declarations: [DatumService],
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(DatumService);
   });
 

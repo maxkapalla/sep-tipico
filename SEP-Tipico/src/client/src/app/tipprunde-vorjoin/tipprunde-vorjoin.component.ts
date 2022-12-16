@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tipprunde-vorjoin',
@@ -11,35 +10,35 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TipprundeVorjoinComponent implements OnInit {
 
-  id:number;
+  id: number;
 
 
   tippRunde: TippRunde;
-  password:string="";
+  password: string = "";
 
-  constructor(private TippRundeService:TippRundeService, private router: Router, private route:ActivatedRoute)
-  {this.tippRunde= new TippRunde, this.id=0; }
+  constructor(private TippRundeService: TippRundeService, private router: Router) {
+    this.tippRunde = new TippRunde, this.id = 0;
+  }
 
   ngOnInit(): void {
-  var x= sessionStorage.getItem('rundenID')+"";
-  this.id= +x;
+    var x = sessionStorage.getItem('rundenID') + "";
+    this.id = +x;
     console.log(x);
     this.TippRundeService.getTippRundeByID(this.id).subscribe((data: any) => this.tippRunde = data)
 
-    setTimeout( ()=> {
-      if(this.tippRunde.password==null) {
+    setTimeout(() => {
+      if (this.tippRunde.password == null) {
         this.router.navigate(['/tipprunde-drinne', this.tippRunde.id]);
       }
-    } ,100)
+    }, 100)
   }
 
-  onSubmit(tippRunde :string) {
+  onSubmit(tippRunde: string) {
 
-    if(tippRunde==this.tippRunde.password) {
+    if (tippRunde == this.tippRunde.password) {
       sessionStorage.setItem('rundenPw', this.tippRunde.password + "");
       this.router.navigate(['/tipprunde-drinne', this.tippRunde.id, this.tippRunde.password]);
-    }
-    else {
+    } else {
       alert("Falsches Password");
     }
 

@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MatchPlanShowComponent} from './matchplan-show.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('MatchPlanShowComponent', () => {
   let component: MatchPlanShowComponent;
@@ -8,7 +9,8 @@ describe('MatchPlanShowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MatchPlanShowComponent]
+      declarations: [MatchPlanShowComponent],
+      imports: [HttpClientTestingModule]
     })
       .compileComponents();
 
