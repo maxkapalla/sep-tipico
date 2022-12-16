@@ -33,7 +33,7 @@ public class TeamController {
 
     @GetMapping("/allorderpoints")
     public List<Team> findTeambyIDPoints(){
-        return teamRepository.findbyIDOrderedbyPoints();
+        return teamRepository.findAllByOrderByPointsDesc();
     }
 
 
