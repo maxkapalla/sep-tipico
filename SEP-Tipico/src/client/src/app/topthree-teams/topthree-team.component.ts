@@ -33,7 +33,7 @@ export class TopthreeTeamComponent implements OnInit {
   }
 
   onLoadTopThreeteams() {
-    this.tippService.getTopThreeTeams(this.liga).subscribe((data: any) => this.topThree = data)
+    this.ligaService.getAll().subscribe((data: any) => this.topThree = data)
     console.log(this.topThree.length)
     setTimeout(() => {
       if (this.topThree.length != 0)
