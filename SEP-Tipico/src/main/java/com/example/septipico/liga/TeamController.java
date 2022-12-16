@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @RestController
@@ -40,9 +39,11 @@ public class TeamController {
     }
 
     @PostMapping("/id")
-    public Optional<Team> getTeam(@RequestBody Team team) {
+    public Team getTeam(@RequestBody Team team) {
 
-        Optional<Team> t = teamRepository.findById(team.getTeamid());
+        Team t = teamRepository.findTeamByTeamid(team.getTeamid());
+        System.out.println("TeamIDs " + team.getTeamid());
+        System.out.println(t.getTeamid());
         return t;
     }
 
