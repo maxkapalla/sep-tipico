@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
 import {Match} from "../Models/Match";
 import {MatchService} from "../services/match.service";
-import {TippService} from "../services/tipp.service";
 import {TippRunde} from "../Models/TippRunde";
 import {Team} from "../Models/Team";
 
@@ -35,7 +33,7 @@ export class TippHilfeComponent implements OnInit {
   quote: number;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private LigaService: LigaService, private TeamService: TeamService, private MatchService: MatchService, private TippService: TippService) {
+  constructor(private LigaService: LigaService, private TeamService: TeamService, private MatchService: MatchService) {
     this.ligen = [];
     this.matches = [];
     this.tipprunden = [];

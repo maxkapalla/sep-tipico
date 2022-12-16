@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Team} from "../Models/Team";
 import {TeamService} from "../services/team.service";
 import {LigaService} from "../services/liga.service";
@@ -17,7 +17,7 @@ export class TeamCreateComponent implements OnInit {
   ligen: Liga[];
   createButtonText: String;
 
-  constructor(private route: ActivatedRoute, private TeamService: TeamService, private LigaService: LigaService, private router: Router) {
+  constructor(private TeamService: TeamService, private LigaService: LigaService, private router: Router) {
     this.team = new Team;
     this.ligen = [];
     this.teams = [];
@@ -27,7 +27,7 @@ export class TeamCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('role')=="user"){ //falls user dann route zu home
+    if (sessionStorage.getItem('role') == "user") { //falls user dann route zu home
       this.router.navigate(['/home'])
     }
     this.LigaService.getAll().subscribe((data: any) => this.ligen = data);
@@ -40,9 +40,10 @@ export class TeamCreateComponent implements OnInit {
 
   }
 
-  onDeleteTeam(){
-this.TeamService.delete(this.team).subscribe(() => this.ngOnInit());
+  onDeleteTeam() {
+    this.TeamService.delete(this.team).subscribe(() => this.ngOnInit());
   }
+
   onLoadTeam(): Team {
 
     this.createButtonText = "Team ändern"

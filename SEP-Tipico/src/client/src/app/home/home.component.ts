@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TippService} from "../services/tipp.service";
 
 @Component({
@@ -7,7 +7,9 @@ import {TippService} from "../services/tipp.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private tippservice : TippService) { }
+  constructor(private tippservice: TippService) {
+  }
+
   ngOnInit(): void {
     this.tippservice.giveTippPoints();
   }

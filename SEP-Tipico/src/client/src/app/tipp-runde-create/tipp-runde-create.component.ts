@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute,Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
 import {Liga} from "../Models/Liga";
@@ -12,23 +12,22 @@ import {LigaService} from "../services/liga.service";
 })
 export class TippRundeCreateComponent implements OnInit {
 
-  liga:Liga;
+  liga: Liga;
   ligen: Liga[];
   tippRunden: TippRunde[];
   deleteTippRunde: TippRunde;
   createTippRunde: TippRunde;
-  name:string="";
-  id:number;
+  name: string = "";
+  id: number;
 
-  constructor(private ligaService: LigaService,private route: ActivatedRoute,
-              private TippRundeService: TippRundeService, private router: Router) {
-    this.ligen=[];
+  constructor(private ligaService: LigaService, private TippRundeService: TippRundeService, private router: Router) {
+    this.ligen = [];
     this.liga = new Liga();
-    this.tippRunden= [];
-    this.deleteTippRunde= new TippRunde;
-    this.createTippRunde= new TippRunde;
+    this.tippRunden = [];
+    this.deleteTippRunde = new TippRunde;
+    this.createTippRunde = new TippRunde;
 
-  this.id=0;
+    this.id = 0;
   }
 
   ngOnInit(): void {
@@ -36,15 +35,15 @@ export class TippRundeCreateComponent implements OnInit {
   }
 
   CreateTippRunde() {
-    this.createTippRunde.besitzer=sessionStorage.getItem("id")+"";
-    if(this.createTippRunde.password == "") {
+    this.createTippRunde.besitzer = sessionStorage.getItem("id") + "";
+    if (this.createTippRunde.password == "") {
       this.createTippRunde.password = undefined
     }
-    this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(),this.errorWithSubmit);
+    this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(), this.errorWithSubmit);
   }
 
   DeleteTippRunde() {
-    this.TippRundeService.delete(this.deleteTippRunde).subscribe(()=>this.ngOnInit());
+    this.TippRundeService.delete(this.deleteTippRunde).subscribe(() => this.ngOnInit());
   }
 
   gotoTippRunde() {
@@ -52,7 +51,7 @@ export class TippRundeCreateComponent implements OnInit {
     this.router.navigate(['/tipp-runde']);
   }
 
-  errorWithSubmit(){
+  errorWithSubmit() {
     alert("Etwas ist schief gelaufen")
   }
 }

@@ -9,7 +9,6 @@ import {TippContainer} from "../Models/TippContainer";
 import {Match} from "../Models/Match";
 import {TippRunde} from "../Models/TippRunde";
 import {Team} from "../Models/Team";
-import * as Console from "console";
 
 
 const httpOptions = {
@@ -35,6 +34,7 @@ export class TippService {
   private matchURl: string;
   private rundenURL: string;
   private teamURL: string;
+
   constructor(private http: HttpClient) {
     this.tippMail = new TippMail();
     this.tippURL = 'http://localhost:8080/tippn'
@@ -43,10 +43,10 @@ export class TippService {
     this.rundenURL = 'http://localhost:8080/tippRunde'
     this.teamURL = 'http://localhost:8080/team'
     this.tipps = [];
-    this.tippers= [];
+    this.tippers = [];
     this.matches = [];
-    this.tippRunden= [];
-    this.teams= [];
+    this.tippRunden = [];
+    this.teams = [];
   }
 
   save(tipp: Tipp): Observable<Tipp> {
@@ -56,9 +56,10 @@ export class TippService {
     return this.http.post<Tipp>(this.tippURL + "/save", tipp);
 
   }
-  saveTipper(nickname:Tipper): Observable<Tipper> {
+
+  saveTipper(nickname: Tipper): Observable<Tipper> {
     console.log(nickname)
-    return this.http.post<Tipper>(this.tipperURL+"/save",nickname);
+    return this.http.post<Tipper>(this.tipperURL + "/save", nickname);
   }
 
   getTopThree(liga: Liga): Observable<Tipper[]> {
@@ -77,14 +78,17 @@ export class TippService {
   getAllTipper(): Observable<Tipper[]> {
     return this.http.post<Tipper[]>(this.tipperURL + "/all", null);
   }
-  getAllTipperByRunde(rundenID:number): Observable<Tipper[]> {
-    return this.http.post<Tipper[]>(this.tipperURL+ "/all/tipprunden", rundenID )
+
+  getAllTipperByRunde(rundenID: number): Observable<Tipper[]> {
+    return this.http.post<Tipper[]>(this.tipperURL + "/all/tipprunden", rundenID)
   }
-  getTipperByID(tipperID:number): Observable<Tipper> {
-    return this.http.post<Tipper>(this.tipperURL+"/id",tipperID);
+
+  getTipperByID(tipperID: number): Observable<Tipper> {
+    return this.http.post<Tipper>(this.tipperURL + "/id", tipperID);
   }
-  getTipperByNickname(tipper:String):Observable<Tipper[]> {
-    return this.http.post<Tipper[]>(this.tipperURL+"/name",tipper);
+
+  getTipperByNickname(tipper: String): Observable<Tipper[]> {
+    return this.http.post<Tipper[]>(this.tipperURL + "/name", tipper);
   }
 
   sendTipp(tipp: TippContainer, userMail: string): void {
@@ -101,72 +105,72 @@ export class TippService {
     return this.http.post<TippMail>(this.tippURL + "/mail", this.tippMail);
   }
 
-  giveTippPoints(){
-    this.http.get<Tipp[]>(this.tippURL+"/all").subscribe((data: any) => this.tipps= data)
-    this.http.get<Tipper[]>(this.tipperURL+"/all").subscribe((data: any) => this.tippers= data)
-    this.http.get<Match[]>(this.matchURl+"/all").subscribe((data: any) => this.matches = data)
-    this.http.get<TippRunde[]>(this.rundenURL+"/all").subscribe((data:any) => this.tippRunden = data)
+  giveTippPoints() {
+    this.http.get<Tipp[]>(this.tippURL + "/all").subscribe((data: any) => this.tipps = data)
+    this.http.get<Tipper[]>(this.tipperURL + "/all").subscribe((data: any) => this.tippers = data)
+    this.http.get<Match[]>(this.matchURl + "/all").subscribe((data: any) => this.matches = data)
+    this.http.get<TippRunde[]>(this.rundenURL + "/all").subscribe((data: any) => this.tippRunden = data)
     this.teams = [];
-    this.http.get<Team[]>(this.teamURL+"/all").subscribe((data:any) => this.teams = data)
-    let date = sessionStorage.getItem('datum')+""
+    this.http.get<Team[]>(this.teamURL + "/all").subscribe((data: any) => this.teams = data)
+    let date = sessionStorage.getItem('datum') + ""
     let points = 0;
     let tipperWPoints = new Array<Tipper>()
     let teamsWPoints = new Array<Team>()
 
-    setTimeout(()=> {
-      for(let tipp of this.tipps){
-        let gewinner: bigint|undefined;
-        for(let match of this.matches){
+    setTimeout(() => {
+      for (let tipp of this.tipps) {
+        let gewinner: bigint | undefined;
+        for (let match of this.matches) {
           // console.log(match.id +"="+tipp.spiel)
-          if(tipp.spiel == match.id && this.checkDate(match.date, date)){
+          if (tipp.spiel == match.id && this.checkDate(match.date, date)) {
             console.log("hier bin ich")
             let bewertungen = this.getBewertungen(tipp)
-            if(tipp.tippA == match.scoreTeamA && tipp.tippB == match.scoreTeamB){
+            if (tipp.tippA == match.scoreTeamA && tipp.tippB == match.scoreTeamB) {
               points += bewertungen[0]
             }
-            if(tipp.tippA>tipp.tippB && match.scoreTeamA>match.scoreTeamB){
+            if (tipp.tippA > tipp.tippB && match.scoreTeamA > match.scoreTeamB) {
               points += bewertungen[1]
               gewinner = match.teamA
-            }else if(tipp.tippA<tipp.tippB && match.scoreTeamA<match.scoreTeamB){
+            } else if (tipp.tippA < tipp.tippB && match.scoreTeamA < match.scoreTeamB) {
               points += bewertungen[1]
               gewinner = match.teamB
             }
-            if((tipp.tippA - tipp.tippB) == (match.scoreTeamA - match.scoreTeamB)){
+            if ((tipp.tippA - tipp.tippB) == (match.scoreTeamA - match.scoreTeamB)) {
               points += bewertungen[2]
             }
             break;
           }
         }
-        if(points != 0){
-          for(let tipper of this.tippers){
-            if(tipp.tipperID == tipper.tipperid){
+        if (points != 0) {
+          for (let tipper of this.tippers) {
+            if (tipp.tipperID == tipper.tipperid) {
               tipper.points = points;
-              if(tipperWPoints.length == 0){
+              if (tipperWPoints.length == 0) {
                 tipperWPoints.push(tipper)
-              }else {
+              } else {
                 for (let tipper2 of tipperWPoints)
-                  if(tipper2.id == tipper.id){
+                  if (tipper2.id == tipper.id) {
                     // @ts-ignore
                     tipper.points += tipper2.points;
-                  }else{
+                  } else {
                     tipperWPoints.push(tipper)
                   }
               }
             }
           }
-          for(let team of this.teams){
+          for (let team of this.teams) {
             console.log(team.teamid + " == " + gewinner);
-            if(team.teamid == gewinner){
+            if (team.teamid == gewinner) {
               console.log(team.name)
               team.points = points;
-              if(teamsWPoints.length == 0){
+              if (teamsWPoints.length == 0) {
                 teamsWPoints.push(team)
-              }else {
+              } else {
                 for (let team2 of teamsWPoints)
-                  if(team2.id == team.id){
+                  if (team2.id == team.id) {
                     // @ts-ignore
                     team.points += team2.points;
-                  }else{
+                  } else {
                     teamsWPoints.push(team)
                   }
               }
@@ -176,41 +180,42 @@ export class TippService {
         }
       }
       console.log(tipperWPoints)
-      this.http.put<Tipper[]>(this.tipperURL+"/givePoints", tipperWPoints).subscribe(result => this.worked,this.didntwork)
-      this.http.put<Team[]>(this.teamURL+"/givePoints", teamsWPoints).subscribe(result =>this.worked(), this.didntwork)
-    },1000)
+      this.http.put<Tipper[]>(this.tipperURL + "/givePoints", tipperWPoints).subscribe(result => this.worked, this.didntwork)
+      this.http.put<Team[]>(this.teamURL + "/givePoints", teamsWPoints).subscribe(result => this.worked(), this.didntwork)
+    }, 1000)
   }
 
-  worked(){
+  worked() {
     console.log("worked")
   }
-  didntwork(){
+
+  didntwork() {
     console.log("didnt Work")
   }
 
-  getBewertungen(tipp: Tipp): number[]{
-    let bewertungen: number[] = [0,0,0]
-    for(let runde of this.tippRunden){
-      if(tipp.tipprundenid == runde.id){
-        bewertungen[0] = +(runde.gewTore+"")
-        bewertungen[1] = +(runde.gewGewinner+"")
-        bewertungen[2] = +(runde.gewDiff+"")
+  getBewertungen(tipp: Tipp): number[] {
+    let bewertungen: number[] = [0, 0, 0]
+    for (let runde of this.tippRunden) {
+      if (tipp.tipprundenid == runde.id) {
+        bewertungen[0] = +(runde.gewTore + "")
+        bewertungen[1] = +(runde.gewGewinner + "")
+        bewertungen[2] = +(runde.gewDiff + "")
       }
     }
     return bewertungen
   }
 
-  checkDate(date1: string, date2: string): boolean{
-    date1 = date1.slice(0,10)
+  checkDate(date1: string, date2: string): boolean {
+    date1 = date1.slice(0, 10)
     let splitstr1 = date1.split('-')
     let splitstr2 = date2.split('.')
-    console.log(date2 + "<>"+ splitstr1[2]+"."+splitstr1[1]+"."+splitstr1[0])
-    if(+splitstr1[0] <= +splitstr2[2]){
-      if(+splitstr1[1] <= +splitstr2[1]){
-        if(+splitstr1[1] < +splitstr2[1]){
+    console.log(date2 + "<>" + splitstr1[2] + "." + splitstr1[1] + "." + splitstr1[0])
+    if (+splitstr1[0] <= +splitstr2[2]) {
+      if (+splitstr1[1] <= +splitstr2[1]) {
+        if (+splitstr1[1] < +splitstr2[1]) {
           return true;
-        }else if(+splitstr1[1] == +splitstr2[1]){
-          if(+splitstr1[2] <= +splitstr2[0]){
+        } else if (+splitstr1[1] == +splitstr2[1]) {
+          if (+splitstr1[2] <= +splitstr2[0]) {
             return true;
           }
         }

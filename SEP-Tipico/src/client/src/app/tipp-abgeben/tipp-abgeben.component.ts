@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
@@ -49,7 +49,7 @@ export class TippAbgebenComponent implements OnInit {
 
   copyid: bigint;
 
-  constructor(private route: ActivatedRoute, private router: Router,
+  constructor(private router: Router,
               private LigaService: LigaService, private TeamService: TeamService,
               private MatchService: MatchService, private TippService: TippService,
               private TippRundeService: TippRundeService) {
@@ -209,8 +209,8 @@ export class TippAbgebenComponent implements OnInit {
 
   onSubmitTip(): void {
     let tipperid;
-    for(let tipper of this.alltipper) {
-      console.log(tipper.nutzerid +"="+ this.userid)
+    for (let tipper of this.alltipper) {
+      console.log(tipper.nutzerid + "=" + this.userid)
       if (tipper.nutzerid == BigInt(this.userid) && tipper.tipprundenID == this.tipp.tipprundenid) {
         // @ts-ignore
         tipperid = BigInt(tipper.tipperid);

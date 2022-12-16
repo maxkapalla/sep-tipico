@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
 
@@ -17,7 +17,7 @@ export class LigaCreateComponent implements OnInit {
   deleteliga: Liga;
   createLiga: Liga;
 
-  constructor(private route: ActivatedRoute, private LigaService: LigaService, private router: Router) {
+  constructor(private LigaService: LigaService, private router: Router) {
     this.ligen = [];
     this.changeliga = new Liga;
     this.deleteliga = new Liga;
@@ -26,7 +26,7 @@ export class LigaCreateComponent implements OnInit {
 
 
   ngOnInit(): Liga[] {
-    if(sessionStorage.getItem('role')=="user"){ //falls user dann route zu home
+    if (sessionStorage.getItem('role') == "user") { //falls user dann route zu home
       this.router.navigate(['/home'])
     }
 
