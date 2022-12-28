@@ -204,6 +204,15 @@ export class TippAbgebenComponent implements OnInit {
     this.usertips = [];
     let alltips: Tipp[];
 
+    let tipperids: bigint[] = [];
+
+    for (let ti of this.alltipper) {
+      if (ti.tipperid != null && BigInt(ti.nutzerid) == BigInt(this.userid)) {
+        tipperids.push(BigInt(ti.tipperid));
+      }
+
+    }
+
     this.TippService.getAllTips().subscribe((data: any) => {
       alltips = data;
 
@@ -221,16 +230,18 @@ export class TippAbgebenComponent implements OnInit {
 
         if (a.tipprundenid != null && a.tipperID != null && a.spiel != null) {
 
-          if (a.tipperID == BigInt(this.userid)) {
-            if (matchLigaMap.get(a.spiel) == this.ligaid) {
+          for (let id of tipperids) {
+            if (a.tipperID == id) {
+              if (matchLigaMap.get(a.spiel) == this.ligaid) {
 
 
-              this.usertips.push(a);
+                this.usertips.push(a);
+
+
+              }
 
 
             }
-
-
           }
 
 
