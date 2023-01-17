@@ -46,9 +46,9 @@ public class TeamController {
     @PostMapping("/id")
     public Team getTeam(@RequestBody Team team) {
 
-        Team t = teamRepository.findTeamByTeamid(team.getTeamid());
-        System.out.println("TeamIDs " + team.getTeamid());
-        System.out.println(t.getTeamid());
+        Team t = teamRepository.findTeamById(team.getId());
+        System.out.println("TeamIDs " + team.getId());
+        System.out.println(t.getId());
         return t;
     }
 
@@ -61,7 +61,6 @@ public class TeamController {
 
     @PostMapping("/save")
     public void saveTeam(@RequestBody Team team) {
-        team.setTeamid((long) teamRepository.findAll().toArray().length + 1);
         team.setPoints(0);
         teamRepository.save(team);
     }
@@ -74,7 +73,6 @@ public class TeamController {
 
         if (teamRepository.findByName(team.getName()).isEmpty()) {
             System.out.println("empty");
-            team.setTeamid(ran.nextLong(999999999));
             teamRepository.save(team);
         } else {
             List<Team> teamList = teamRepository.findByName(team.getName());
@@ -86,7 +84,6 @@ public class TeamController {
                 }
             }
             if (!exisits) {
-                team.setTeamid(ran.nextLong(999999999));
                 teamRepository.save(team);
             }
 

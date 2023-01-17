@@ -64,7 +64,7 @@ public class TippNController {
         List<TippContainer> tippContainers = new ArrayList<>();
 
         for (Tipper t : tippers) {
-            tipps.addAll(tippNRepository.findAllByTipperID(t.getTipperid()));
+            tipps.addAll(tippNRepository.findAllByTipperID(t.getId()));
         }
 
         for (TippN tipp : tipps) {
@@ -164,8 +164,8 @@ public class TippNController {
             if (points != 0) {
                 System.out.println("TipperList size = " + tippers.size());
                 for (Tipper tipper : tippers) {
-                    System.out.println(tipp.getTipperID() + " == " + tipper.getTipperid());
-                    if (tipp.getTipperID().equals(tipper.getTipperid())) {
+                    System.out.println(tipp.getTipperID() + " == " + tipper.getId());
+                    if (tipp.getTipperID().equals(tipper.getId())) {
                         System.out.println("Tipper:" + tipper.getNickname());
                         tipper.setPoints(points);
                         givePointsToTipper(tipper);
@@ -173,16 +173,16 @@ public class TippNController {
                 }
                 for (Team team : teams) {
                     if (gewinner == 0L) {
-                        if (team.getTeamid().equals(bothTeams[0])) {
+                        if (team.getId().equals(bothTeams[0])) {
                             team.setPoints((int) points / 2);
                             givePointsToTeam(team);
-                        } else if (team.getTeamid().equals(bothTeams[1])) {
+                        } else if (team.getId().equals(bothTeams[1])) {
                             team.setPoints((int) points / 2);
                             givePointsToTeam(team);
                         }
 
                     } else {
-                        if (team.getTeamid().equals(gewinner)) {
+                        if (team.getId().equals(gewinner)) {
                             System.out.println("Gewinner:" + team.getName());
                             team.setPoints((int) points);
                             System.out.println("Hier adde ich mein erstes Team");
@@ -227,7 +227,7 @@ public class TippNController {
 
     public void givePointsToTeam(Team team){
         for(Team teamdb: teamRepository.findAll()){
-            if(teamdb.getTeamid().equals(team.getTeamid())){
+            if(teamdb.getId().equals(team.getId())){
                 team.setPoints(team.getPoints()+teamdb.getPoints());
                 teamRepository.delete(teamdb);
                 System.out.println("deleted team: " + teamdb.getName());
@@ -240,7 +240,7 @@ public class TippNController {
 
     public void givePointsToTipper(Tipper tipper){
         for(Tipper tipperdb: tipperRepository.findAll()){
-            if(tipper.getTipperid().equals(tipperdb.getTipperid())){
+            if(tipper.getId().equals(tipperdb.getId())){
                 tipper.setPoints(tipper.getPoints()+tipperdb.getPoints());
                 tipperRepository.delete(tipperdb);
                 System.out.println("deleted tipper: " + tipperdb.getNickname());
