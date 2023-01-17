@@ -254,13 +254,11 @@ public class TippNController {
         List<Team> teamsDB = teamRepository.findAll();
         System.out.println("Reset all");
         for(Team teamdelete: teamsDB){
-            teamRepository.delete(teamdelete);
             teamdelete.setPoints(0);
             teamRepository.save(teamdelete);
         }
         List<Tipper> tippers = tipperRepository.findAll();
         for(Tipper tipperdelete: tippers){
-            tipperRepository.delete(tipperdelete);
             tipperdelete.setPoints(0L);
             tipperRepository.save(tipperdelete);
         }

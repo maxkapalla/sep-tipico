@@ -207,8 +207,8 @@ export class TippAbgebenComponent implements OnInit {
     let tipperids: bigint[] = [];
 
     for (let ti of this.alltipper) {
-      if (ti.tipperid != null && BigInt(ti.nutzerid) == BigInt(this.userid)) {
-        tipperids.push(BigInt(ti.tipperid));
+      if (ti.id != null && BigInt(ti.nutzerid) == BigInt(this.userid)) {
+        tipperids.push(BigInt(ti.id));
       }
 
     }
@@ -262,7 +262,7 @@ export class TippAbgebenComponent implements OnInit {
       console.log(tipper.nutzerid + "=" + this.userid)
       if (tipper.nutzerid == BigInt(this.userid) && tipper.tipprundenID == this.tipp.tipprundenid) {
         // @ts-ignore
-        tipperid = BigInt(tipper.tipperid);
+        tipperid = BigInt(tipper.id);
       }
     }
 

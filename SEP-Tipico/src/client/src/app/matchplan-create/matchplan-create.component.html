@@ -89,12 +89,12 @@
              type="text">
 
       <label for="teamA">Team A</label>
-      <select [(ngModel)]="teamA.teamid" [(ngModel)]="match.teamA" id="teamA" name="teamA" required>
-        <option *ngFor="let teamA of teams" value="{{ teamA.teamid }}">{{ teamA.name }}</option>
+      <select [(ngModel)]="teamA.id" [(ngModel)]="match.teamA" id="teamA" name="teamA" required>
+        <option *ngFor="let teamA of teams" value="{{ teamA.id }}">{{ teamA.name }}</option>
       </select>
       <label for="teamB">Team B</label>
-      <select [(ngModel)]="teamB.teamid" [(ngModel)]="match.teamB" id="teamB" name="teamB" required>
-        <option *ngFor="let teamB of teams" value="{{ teamB.teamid }}">{{ teamB.name }}</option>
+      <select [(ngModel)]="teamB.id" [(ngModel)]="match.teamB" id="teamB" name="teamB" required>
+        <option *ngFor="let teamB of teams" value="{{ teamB.id }}">{{ teamB.name }}</option>
       </select>
 
     </div>

@@ -1,7 +1,6 @@
 export class Team {
   id: bigint|undefined;
   name: string | undefined;
-  teamid: bigint | undefined;
   points: number | undefined;
   goals: number | undefined;
   winnings: number | undefined;
