@@ -1,9 +1,6 @@
 package com.example.septipico.nutzer;
 
-import com.example.septipico.tipper.Tipper;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Nutzer {
@@ -25,12 +22,14 @@ public class Nutzer {
     private String imageURL;
     @Column(name = "Role")
     private String role;
+    @Column(name = "kontostand")
+    private Integer kontostand;
 
 
     public Nutzer() {
     }
 
-    public Nutzer(String firstName, String lastName, String dateOfBirth, String email, String password,String imageURL, String role) {
+    public Nutzer(String firstName, String lastName, String dateOfBirth, String email, String password, String imageURL, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -102,5 +101,13 @@ public class Nutzer {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public Integer getKontostand() {
+        return kontostand;
+    }
+
+    public void setKontostand(Integer kontostand) {
+        this.kontostand = kontostand;
     }
 }
