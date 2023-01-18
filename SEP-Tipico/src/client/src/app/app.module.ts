@@ -34,6 +34,7 @@ import {TipprundeVorjoinComponent} from './tipprunde-vorjoin/tipprunde-vorjoin.c
 import {TipprundeDrinneComponent} from './tipprunde-drinne/tipprunde-drinne.component';
 import {TipperProfileComponent} from './tipper-profile/tipper-profile.component';
 import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
+import {MinigameComponent} from "./minigame/minigame.component";
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
     TipprundeJoinComponent,
     TipprundeVorjoinComponent,
     TipprundeDrinneComponent,
-    TipperProfileComponent
+    TipperProfileComponent,
+    MinigameComponent
   ],
   imports: [
     BrowserModule,

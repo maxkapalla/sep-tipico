@@ -75,10 +75,10 @@ public class NutzerController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @RequestMapping(path = "/nutzer/kontostand",
             method = RequestMethod.GET)
-    public ResponseEntity<?> getKontostand(Long id) {
+    public ResponseEntity<?> getKontostand(@RequestParam(name = "id") String id) {
         Integer kontostand;
         try {
-            kontostand = nutzerrepo.findNutzerById(id).getKontostand();
+            kontostand = nutzerrepo.findNutzerById(Long.parseLong(id)).getKontostand();
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
         }
@@ -88,10 +88,10 @@ public class NutzerController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @RequestMapping(path = "/nutzer/kontostand",
             method = RequestMethod.POST)
-    public ResponseEntity<?> setKontostand(Nutzer nutzer) {
-
+    public ResponseEntity<?> setKontostand(@RequestParam(name = "id") String id, @RequestBody String kontostand) {
+        System.out.println(id + " " + kontostand);
         try {
-            nutzerrepo.save(nutzer);
+            nutzerrepo.updateKontostandById(Long.parseLong(id), Integer.parseInt(kontostand));
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
         }

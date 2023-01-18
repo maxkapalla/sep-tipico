@@ -65,7 +65,18 @@ export class NutzerService {
   public getNutzersByIds(nutzerid1: bigint, nutzerid2: bigint, nutzerid3: bigint): Observable<Nutzer[]> {
     return this.http.get<Nutzer[]>('http://localhost:8080/nutzer/' + nutzerid1 + '/' + nutzerid2 + '/' + nutzerid3)
   }
+
   public getAllNutzer(): Observable<Nutzer[]> {
     return this.http.get<Nutzer[]>('http://localhost:8080/nutzer/alle')
   }
+
+  public getKontostand(): Observable<bigint> {
+    return this.http.get<bigint>('http://localhost:8080/nutzer/kontostand')
+  }
+
+  public setKontostand(id: String, kontostand: String): Observable<any> {
+    console.log(id, kontostand)
+    return this.http.post<Observable<any>>(`http://localhost:8080/nutzer/kontostand?id=${id}`, kontostand);
+  }
+
 }

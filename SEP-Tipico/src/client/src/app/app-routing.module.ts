@@ -28,6 +28,7 @@ import {TipprundeVorjoinComponent} from "./tipprunde-vorjoin/tipprunde-vorjoin.c
 import {TipprundeDrinneComponent} from "./tipprunde-drinne/tipprunde-drinne.component";
 import {TipperProfileComponent} from "./tipper-profile/tipper-profile.component";
 import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
+import {MinigameComponent} from "./minigame/minigame.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -57,10 +58,11 @@ const routes: Routes = [
   {path: "tipprunde-join/:id", component: TipprundeJoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-join/:id/:password", component: TipprundeJoinComponent, canActivate: [AuthService]},
   {path: "tipprunde-vorjoin/:id", component: TipprundeVorjoinComponent, canActivate: [AuthService]},
-  {path: "tipprunde-drinne/:id", component:TipprundeDrinneComponent, canActivate: [AuthService]},
-  {path: "tipprunde-drinne/:id/:password", component:TipprundeDrinneComponent, canActivate: [AuthService]},
-  {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService] },
-  {path: 'tipper-profile/:id', component:TipperProfileComponent, canActivate: [AuthService]}
+  {path: "tipprunde-drinne/:id", component: TipprundeDrinneComponent, canActivate: [AuthService]},
+  {path: "tipprunde-drinne/:id/:password", component: TipprundeDrinneComponent, canActivate: [AuthService]},
+  {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService]},
+  {path: 'tipper-profile/:id', component: TipperProfileComponent, canActivate: [AuthService]},
+  {path: 'minigame', component: MinigameComponent, canActivate: [AuthService]}
 ];
 
 @NgModule({
