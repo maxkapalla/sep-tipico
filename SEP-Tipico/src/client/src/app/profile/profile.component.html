@@ -1,7 +1,7 @@
 <div class="container">
   <header class="jumbotron">
     <h3>
-      <img src="{{url}}" *ngIf="url !== 'null'">
+      <img *ngIf="url !== 'null'" src="{{url}}">
       Profil von: <strong>{{ name }}</strong>
     </h3>
   </header>
@@ -18,5 +18,9 @@
   <p *ngIf="role==='USER'">
     <strong>Geburtstag:</strong>
     {{birthdate}}
+  </p>
+
+  <p>
+    Kontostand: {{konto}}
   </p>
 </div>

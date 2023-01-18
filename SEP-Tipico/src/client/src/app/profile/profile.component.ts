@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit {
   email: string = ""
   birthdate: string = ""
   role: string = ""
+  konto: string = "";
 
   constructor() {
   }
@@ -21,6 +22,7 @@ export class ProfileComponent implements OnInit {
     this.email = sessionStorage.getItem('email') + ""
     this.birthdate = sessionStorage.getItem('birthday') + ""
     this.role = (sessionStorage.getItem('role') + "").toUpperCase()
+    this.konto = sessionStorage.getItem('kontostand') + "";
   }
 
 }
