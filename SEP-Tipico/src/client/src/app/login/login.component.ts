@@ -29,28 +29,27 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.login(this.email, this.password).subscribe(data => this.nutzer = data);
-    setTimeout(() => {
-        try {
-          if (this.nutzer.firstName !== null) {
-            this.twofa.sendMail(this.email)
-            sessionStorage.setItem('email', this.nutzer.email + "")
-            sessionStorage.setItem('name', this.nutzer.firstName + " " + this.nutzer.lastName)
-            if (this.nutzer.role == 'user') {
-              sessionStorage.setItem('picURL', this.nutzer.imageURL + "")
-              sessionStorage.setItem('birthday', this.nutzer.dateOfBirth + "")
-            }
-            sessionStorage.setItem('role', this.nutzer.role + "")
-            sessionStorage.setItem('id', this.nutzer.id + "")
-
-            this.gotoTwoFa()
+    this.service.login(this.email, this.password).subscribe(data => {
+      this.nutzer = data;
+      try {
+        if (this.nutzer.firstName !== null) {
+          this.twofa.sendMail(this.email)
+          sessionStorage.setItem('email', this.nutzer.email + "")
+          sessionStorage.setItem('name', this.nutzer.firstName + " " + this.nutzer.lastName)
+          if (this.nutzer.role == 'user') {
+            sessionStorage.setItem('picURL', this.nutzer.imageURL + "")
+            sessionStorage.setItem('birthday', this.nutzer.dateOfBirth + "")
           }
-        } catch (e) {
-          this.errorWithSubmit()
-        }
+          sessionStorage.setItem('role', this.nutzer.role + "")
+          sessionStorage.setItem('id', this.nutzer.id + "")
+          sessionStorage.setItem('kontostand', this.nutzer.kontostand + "")
 
-      },
-      1000);
+          this.gotoTwoFa()
+        }
+      } catch (e) {
+        this.errorWithSubmit()
+      }
+    });
   }
 
   gotoTwoFa() {
