@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="showLigaTable">
+    <table>
+      <tr>
+        <th>
+          Team Name
+        </th>
+        <th>
+          Platzierung
+        </th>
+        <th>
+          Punkte
+        </th>
+        <th>
+          Tordifferenz
+        </th>
+        <th>
+          Siege
+        </th>
+        <th>
+          Unentschieden
+        </th>
+        <th>
+          Niederlagen
+        </th>
+
+      </tr>
+      <tr *ngFor="let team of teams">
+        <td> {{ team.name}} </td>
+        <td>{{ team.points }}</td>
+        <td><img height="50" src={{liga.url}}><a></a></td>
+      </tr>
+    </table>
+
+  </div>
+
+</div>
