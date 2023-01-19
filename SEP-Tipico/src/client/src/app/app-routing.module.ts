@@ -29,6 +29,7 @@ import {TipprundeDrinneComponent} from "./tipprunde-drinne/tipprunde-drinne.comp
 import {TipperProfileComponent} from "./tipper-profile/tipper-profile.component";
 import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
 import {MinigameComponent} from "./minigame/minigame.component";
+import {LigaTableComponent} from "./liga-table/liga-table.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -62,7 +63,8 @@ const routes: Routes = [
   {path: "tipprunde-drinne/:id/:password", component: TipprundeDrinneComponent, canActivate: [AuthService]},
   {path: 'tippRunde/RundenID/:id/:password', component: TippRundeComponent, canActivate: [AuthService]},
   {path: 'tipper-profile/:id', component: TipperProfileComponent, canActivate: [AuthService]},
-  {path: 'minigame', component: MinigameComponent, canActivate: [AuthService]}
+  {path: 'minigame', component: MinigameComponent, canActivate: [AuthService]},
+  {path: 'liga-table', component: LigaTableComponent, canActivate: [AuthService]}
 ];
 
 @NgModule({
