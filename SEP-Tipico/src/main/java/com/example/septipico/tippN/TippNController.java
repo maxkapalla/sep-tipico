@@ -167,27 +167,32 @@ public class TippNController {
                     System.out.println(tipp.getTipperID() + " == " + tipper.getId());
                     if (tipp.getTipperID().equals(tipper.getId())) {
                         System.out.println("Tipper:" + tipper.getNickname());
-                        tipper.setPoints(points);
-                        givePointsToTipper(tipper);
+                        tipper.setPoints(tipper.getPoints() + points);
+//                        givePointsToTipper(tipper);
+                        tipperRepository.save(tipper);
                     }
                 }
                 for (Team team : teams) {
                     if (gewinner == 0L) {
                         if (team.getId().equals(bothTeams[0])) {
-                            team.setPoints((int) points / 2);
-                            givePointsToTeam(team);
+                            team.setPoints(team.getPoints() +((int) points / 2));
+//                            givePointsToTeam(team);
+                            teamRepository.save(team);
                         } else if (team.getId().equals(bothTeams[1])) {
-                            team.setPoints((int) points / 2);
-                            givePointsToTeam(team);
+                            team.setPoints(team.getPoints() + ((int) points / 2));
+//                            givePointsToTeam(team);
+                            teamRepository.save(team);
                         }
 
                     } else {
                         if (team.getId().equals(gewinner)) {
                             System.out.println("Gewinner:" + team.getName());
-                            team.setPoints((int) points);
+                            team.setPoints(team.getPoints() + (int) points);
                             System.out.println("Hier adde ich mein erstes Team");
                             System.out.println(team.getName() + " hat " + team.getPoints() + " Punkte");
-                            givePointsToTeam(team);
+//                            givePointsToTeam(team);
+                            teamRepository.save(team);
+
                             break;
                         }
                     }
@@ -225,30 +230,30 @@ public class TippNController {
         return false;
     }
 
-    public void givePointsToTeam(Team team){
-        for(Team teamdb: teamRepository.findAll()){
-            if(teamdb.getId().equals(team.getId())){
-                team.setPoints(team.getPoints()+teamdb.getPoints());
-                teamRepository.delete(teamdb);
-                System.out.println("deleted team: " + teamdb.getName());
-                teamRepository.save(team);
-                System.out.println("saved team: " + team.getName());
-
-            }
-        }
-    }
-
-    public void givePointsToTipper(Tipper tipper){
-        for(Tipper tipperdb: tipperRepository.findAll()){
-            if(tipper.getId().equals(tipperdb.getId())){
-                tipper.setPoints(tipper.getPoints()+tipperdb.getPoints());
-                tipperRepository.delete(tipperdb);
-                System.out.println("deleted tipper: " + tipperdb.getNickname());
-                tipperRepository.save(tipper);
-                System.out.println("saved tipper: " + tipper.getNickname());
-            }
-        }
-    }
+//    public void givePointsToTeam(Team team){
+//        for(Team teamdb: teamRepository.findAll()){
+//            if(teamdb.getId().equals(team.getId())){
+//                team.setPoints(team.getPoints()+teamdb.getPoints());
+//                teamRepository.delete(teamdb);
+//                System.out.println("deleted team: " + teamdb.getName());
+//                teamRepository.save(team);
+//                System.out.println("saved team: " + team.getName());
+//
+//            }
+//        }
+//    }
+//
+//    public void givePointsToTipper(Tipper tipper){
+//        for(Tipper tipperdb: tipperRepository.findAll()){
+//            if(tipper.getId().equals(tipperdb.getId())){
+//                tipper.setPoints(tipper.getPoints()+tipperdb.getPoints());
+//                tipperRepository.delete(tipperdb);
+//                System.out.println("deleted tipper: " + tipperdb.getNickname());
+//                tipperRepository.save(tipper);
+//                System.out.println("saved tipper: " + tipper.getNickname());
+//            }
+//        }
+//    }
 
     private void resetdb(){
         List<Team> teamsDB = teamRepository.findAll();
