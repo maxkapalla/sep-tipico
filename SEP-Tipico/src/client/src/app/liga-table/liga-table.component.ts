@@ -26,3 +26,4 @@ export class LigaTableComponent implements OnInit {
     return this.teams
 
   }
+}
