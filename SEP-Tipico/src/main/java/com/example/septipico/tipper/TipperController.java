@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,8 +17,6 @@ public class TipperController {
     private TipperRepository tipperRepo;
     @Autowired
     private TippRundeRepository tippRundeRepo;
-
-    Random ran = new Random();
 
     @PostMapping("/all")
     public List<Tipper> getAll() {
@@ -59,6 +56,7 @@ public class TipperController {
 
     @GetMapping("/topthree/{ligaID}")
     public List<Tipper> topthree(@PathVariable("ligaID") Long ligaID) {
+        System.out.println(ligaID);
         List<TippRunde> tippRunden = tippRundeRepo.findTippRundeByLiga(ligaID);
         List<Tipper> tipper = new ArrayList<>();
         for (TippRunde tippRunde : tippRunden) {

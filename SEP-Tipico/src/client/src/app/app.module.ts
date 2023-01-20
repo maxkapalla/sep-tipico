@@ -36,6 +36,7 @@ import {TipperProfileComponent} from './tipper-profile/tipper-profile.component'
 import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
 import {MinigameComponent} from "./minigame/minigame.component";
 import {LigaTableComponent} from "./liga-table/liga-table.component";
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {LigaTableComponent} from "./liga-table/liga-table.component";
     TipprundeDrinneComponent,
     TipperProfileComponent,
     MinigameComponent,
-    LigaTableComponent
+    LigaTableComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

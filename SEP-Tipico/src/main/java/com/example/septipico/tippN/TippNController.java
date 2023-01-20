@@ -188,7 +188,6 @@ public class TippNController {
                         if (team.getId().equals(gewinner)) {
                             System.out.println("Gewinner:" + team.getName());
                             team.setPoints(team.getPoints() + (int) points);
-                            System.out.println("Hier adde ich mein erstes Team");
                             System.out.println(team.getName() + " hat " + team.getPoints() + " Punkte");
 //                            givePointsToTeam(team);
                             teamRepository.save(team);

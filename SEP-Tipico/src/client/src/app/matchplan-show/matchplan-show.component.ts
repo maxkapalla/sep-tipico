@@ -68,13 +68,12 @@ export class MatchPlanShowComponent implements OnInit {
 
   onLoadLiga(): void {
     this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
-
     this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
     setTimeout(() => {
       if (this.topThree.length != 0)
-        this.nutzerService.getNutzersByIds(this.topThree[0].nutzerid, this.topThree[1].nutzerid, this.topThree[2].nutzerid).subscribe((data: any) => this.topThreeNames = data)
-    }, 200);
+        this.nutzerService.getNutzersByIds(this.topThree[0].nutzerid, BigInt(0), BigInt(0)).subscribe((data: any) => this.topThreeNames = data)
 
+    }, 200);
   }
 
   compileTeamNames() {
