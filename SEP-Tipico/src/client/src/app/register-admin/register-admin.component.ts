@@ -22,6 +22,7 @@ export class RegisterAdminComponent implements OnInit {
   }
 
   onSubmit() {
+    this.nutzer.kontostand = BigInt("0");
     this.service.registerAdmin(this.nutzer).subscribe(result => this.gotoLogin(), this.errorWithSubmit);
 
   }

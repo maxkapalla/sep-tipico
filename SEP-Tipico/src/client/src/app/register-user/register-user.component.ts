@@ -29,6 +29,7 @@ export class RegisterUserComponent {
     var splitstr = this.datum.split('-')
     this.datum = splitstr[2] + "." + splitstr[1] + "." + splitstr[0];
     this.nutzer.dateOfBirth = this.datum;
+    this.nutzer.kontostand = BigInt("0");
     this.service.registerUser(this.nutzer).subscribe(result => this.gotoLogin(), this.errorWithSubmit);
   }
 
