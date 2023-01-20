@@ -9,10 +9,8 @@ import com.example.septipico.tippN.TippN;
 public class TippContainer {
 
     TippN tipp;
-    Spiel spiel;
     String team1;
     String team2;
-
     String tipp1;
     String tipp2;
 
@@ -40,14 +38,6 @@ public class TippContainer {
 
     public void setTipp(TippN tipp) {
         this.tipp = tipp;
-    }
-
-    public Spiel getSpiel() {
-        return spiel;
-    }
-
-    public void setSpiel(Spiel spiel) {
-        this.spiel = spiel;
     }
 
     public String getTipp1() {
