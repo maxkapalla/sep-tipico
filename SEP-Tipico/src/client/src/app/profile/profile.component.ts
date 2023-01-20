@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {GeldWetteService} from "../services/geld-wette.service";
 
 @Component({
   selector: 'app-profile',
@@ -12,8 +13,10 @@ export class ProfileComponent implements OnInit {
   birthdate: string = ""
   role: string = ""
   konto: string = "";
+  wettfreigabe: string= "";
+  age: number=0;
+  constructor(private geldWetteService: GeldWetteService) {
 
-  constructor() {
   }
 
   ngOnInit(): void {
@@ -23,6 +26,18 @@ export class ProfileComponent implements OnInit {
     this.birthdate = sessionStorage.getItem('birthday') + ""
     this.role = (sessionStorage.getItem('role') + "").toUpperCase()
     this.konto = sessionStorage.getItem('kontostand') + "";
+    this.wettfreigabe = sessionStorage.getItem('geldWette') +""
   }
 
+  requestBet() {
+    if(this.birthdate){
+      var timeDiff = Math.abs(Date.now()- Date.parse(this.birthdate));
+      this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    }
+    alert(this.age);
+  }
+  sendMail(userMail: string | undefined) {
+  this.geldWetteService.sendTipp(userMail + "");
+  alert("Anfrage versendet " + userMail);
+}
 }

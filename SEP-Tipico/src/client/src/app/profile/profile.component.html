@@ -21,6 +21,15 @@
   </p>
 
   <p>
-    Kontostand: {{konto}}
+    <strong> Kontostand:</strong> {{konto}}
   </p>
+
+  <p>
+    <strong>Geldwette freigeschaltet?:</strong>
+    {{wettfreigabe}}
+  </p>
+
+  <button *ngIf="wettfreigabe==='nein'" (click)="sendMail(email)" class="btn btn-info"
+          type="button">Geldwetten Funktion beantragen
+  </button>
 </div>

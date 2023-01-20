@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('role', this.nutzer.role + "")
           sessionStorage.setItem('id', this.nutzer.id + "")
           sessionStorage.setItem('kontostand', this.nutzer.kontostand + "")
+          sessionStorage.setItem('geldWette', this.nutzer.geldWette + "")
 
           this.gotoTwoFa()
         }

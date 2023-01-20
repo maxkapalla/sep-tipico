@@ -19,6 +19,7 @@ public class NutzerController {
     @PostMapping("/admin/signup")
     public void addAdmin(@RequestBody Nutzer nutzer) {
         nutzer.setRole("admin");
+        nutzer.setGeldWette("ja");
         nutzer.setFirstName(nutzer.getFirstName().substring(0, 1).toUpperCase() + nutzer.getFirstName().substring(1));
         nutzer.setLastName(nutzer.getLastName().substring(0, 1).toUpperCase() + nutzer.getLastName().substring(1));
         nutzerrepo.save(nutzer);
@@ -27,6 +28,7 @@ public class NutzerController {
     @PostMapping("/user/signup")
     public void addUser(@RequestBody Nutzer nutzer) {
         nutzer.setRole("user");
+        nutzer.setGeldWette("nein");
         nutzer.setFirstName(nutzer.getFirstName().substring(0, 1).toUpperCase() + nutzer.getFirstName().substring(1));
         nutzer.setLastName(nutzer.getLastName().substring(0, 1).toUpperCase() + nutzer.getLastName().substring(1));
         nutzerrepo.save(nutzer);

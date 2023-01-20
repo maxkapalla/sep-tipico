@@ -40,8 +40,6 @@
       <tr (click)="anschaueProfil(Tipper)" class="Tipper"  *ngFor="let Tipper of tippende">
         <td>{{ Tipper.nickname }}</td>
         <td>{{ Tipper.points }}</td>
-
-        <a [routerLink]="['/tipprunde-vorjoin']"></a>
       </tr>
       </tbody>
     </table>

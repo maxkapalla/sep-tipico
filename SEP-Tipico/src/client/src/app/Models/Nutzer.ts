@@ -9,4 +9,5 @@ export class Nutzer {
   role: string | undefined;
 
   kontostand: bigint | undefined;
+  geldWette: string | undefined;
 }

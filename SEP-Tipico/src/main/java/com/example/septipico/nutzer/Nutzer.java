@@ -25,11 +25,13 @@ public class Nutzer {
     @Column(name = "kontostand")
     private Integer kontostand;
 
+    @Column(name = "GeldWette")
+    private String geldWette;
 
     public Nutzer() {
     }
 
-    public Nutzer(String firstName, String lastName, String dateOfBirth, String email, String password, String imageURL, String role) {
+    public Nutzer(String firstName, String lastName, String dateOfBirth, String email, String password, String imageURL, String role, String geldWette) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -37,6 +39,7 @@ public class Nutzer {
         this.password = password;
         this.imageURL = imageURL;
         this.role = role;
+        this.geldWette=geldWette;
     }
 
     public Long getId() {
@@ -109,5 +112,13 @@ public class Nutzer {
 
     public void setKontostand(Integer kontostand) {
         this.kontostand = kontostand;
+    }
+
+    public String getGeldWette() {
+        return geldWette;
+    }
+
+    public void setGeldWette(String geldWette) {
+        this.geldWette = geldWette;
     }
 }
