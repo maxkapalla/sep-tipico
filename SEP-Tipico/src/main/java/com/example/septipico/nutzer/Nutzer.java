@@ -22,7 +22,7 @@ public class Nutzer {
     private String imageURL;
     @Column(name = "Role")
     private String role;
-    @Column(name = "kontostand")
+    @Column(name = "kontostand", columnDefinition = "integer default 0")
     private Integer kontostand;
 
     @Column(name = "GeldWette")
@@ -39,7 +39,7 @@ public class Nutzer {
         this.password = password;
         this.imageURL = imageURL;
         this.role = role;
-        this.geldWette=geldWette;
+        this.geldWette = geldWette;
     }
 
     public Long getId() {
