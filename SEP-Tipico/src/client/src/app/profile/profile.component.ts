@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeldWetteService} from "../services/geld-wette.service";
+import {Nutzer} from "../Models/Nutzer";
+import {NutzerService} from "../services/nutzer.service";
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +17,12 @@ export class ProfileComponent implements OnInit {
   konto: string = "";
   wettfreigabe: string= "";
   age: number=0;
-  constructor(private geldWetteService: GeldWetteService) {
+  adminemail: string|undefined;
+  nutzers:Nutzer[];
 
+  constructor(private geldWetteService: GeldWetteService, private nutzerService: NutzerService) {
+
+  this.nutzers=[];
   }
 
   ngOnInit(): void {
@@ -27,6 +33,10 @@ export class ProfileComponent implements OnInit {
     this.role = (sessionStorage.getItem('role') + "").toUpperCase()
     this.konto = sessionStorage.getItem('kontostand') + "";
     this.wettfreigabe = sessionStorage.getItem('geldWette') +""
+
+    this.nutzerService.getAllNutzer().subscribe((data:any) => {
+      this.nutzers=data;
+      ;})
   }
 
   requestBet() {
@@ -36,8 +46,19 @@ export class ProfileComponent implements OnInit {
     }
     alert(this.age);
   }
+
+  sendMailanAlleAdmins() {
+    for(let nutzer of this.nutzers) {
+      if (nutzer.role == "admin") {
+        this.adminemail=nutzer.email;
+        this.sendMail(this.adminemail)
+      }
+    }
+    alert("Anfrage versendet "+this.adminemail);
+  }
+
   sendMail(userMail: string | undefined) {
-  this.geldWetteService.sendTipp(userMail + "");
-  alert("Anfrage versendet " + userMail);
+        this.geldWetteService.sendTipp(userMail + "");
+        console.log(this.adminemail)
 }
 }
