@@ -15,34 +15,19 @@
             <li class="list-inline-item">
               <a *ngIf="loggedIn=== null" class="btn btn-info" routerLink="/admin">Als Admin registrieren</a>
             </li>
-            <li class="list-inline-item">
-              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/date-change">Date
-                Change</a>
-            </li>
+
             <li class="list-inline-item">
               <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/liga-see">Liga ansehen</a>
             </li>
-            <li class="list-inline-item">
-              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/liga-create">Liga
-                ändern</a>
-            </li>
+
             <li class="list-inline-item">
               <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/matchplan-show">Spielplan anzeigen</a>
             </li>
-            <li class="list-inline-item">
-              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/matchplan-create">Spielplan
-                erstellen</a>
-            </li>
-            <li class="list-inline-item">
-              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/team-create">Team
-                erstellen</a>
-            </li>
+
             <li class="list-inline-item">
               <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/team-show">Team ansehen</a>
             </li>
-            <li class="list-inline-item">
-              <a *ngIf="loggedIn!== null && role==='admin'" class="btn btn-info" routerLink="/csv">CSV einlesen</a>
-            </li>
+
             <li class="list-inline-item">
               <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/search">Nutzer suchen</a>
             </li>

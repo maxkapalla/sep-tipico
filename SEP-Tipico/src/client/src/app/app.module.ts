@@ -38,6 +38,7 @@ import {MinigameComponent} from "./minigame/minigame.component";
 import {LigaTableComponent} from "./liga-table/liga-table.component";
 import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
+import {ClickOutsideDirective} from "./clickOutside.directive";
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-
     MinigameComponent,
     LigaTableComponent,
     ChatComponent,
-    AnfragenOrganisierenComponent
+    AnfragenOrganisierenComponent,
+    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,
