@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Nutzer} from "../Models/Nutzer";
 import {HttpClient} from "@angular/common/http";
 
+
 const userURL = 'http://localhost:8080/user'
 const nutzerURL = 'http://localhost:8080/nutzer'
 const adminURL = 'http://localhost:8080/admin';
@@ -85,6 +86,9 @@ export class NutzerService {
   public setGeldStatus(id: String, status: String): Observable<any> {
     console.log(id, status)
     return this.http.post<Observable<any>>(`http://localhost:8080/nutzer/geldStatus?id=${id}`, status);
+  }
+  public getNutzersByWettstatus(status: string): Observable<Nutzer[]> {
+    return this.http.post<Nutzer[]>("http://localhost:8080/nutzer/Wettstatus/",status)
   }
 
 }

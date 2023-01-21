@@ -119,5 +119,11 @@ public class NutzerController {
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 
+    @PostMapping("/nutzer/Wettstatus")
+    public List<Nutzer> getNutzerByWettstatus(@RequestBody String status) {
+        List<Nutzer> x= new ArrayList<Nutzer>();
+        x.addAll(nutzerrepo.findAllByGeldWette(status));
+        return x;
+    }
 
 }

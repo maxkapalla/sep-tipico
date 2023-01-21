@@ -1,1 +1,32 @@
-<p>Admin schaut hier Anfragen von Usern für GEldwetten an</p>
+<h2>Anfragen für Geldwetten-Freischaltung</h2>
+
+<div class="noNutzer" *ngIf="nutzers.length < 1"
+>Keine offenen Anfragen</div>
+
+<div class="showUserRequests">
+  <style>
+    .line:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+  <div class="line" *ngFor="let nutzer of nutzers"
+       style="border-radius: 15px; background-color: lightgrey; margin: 20px">
+    <div class="colm" style="width: 50%; float:left; margin: 20px">
+      <a>{{nutzer.firstName+ " " + nutzer.lastName}}</a>
+    </div>
+    <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+      <button (click)='removeUser(nutzer.id+"")'
+              style="background-color: indianred; border-color: indianred;"
+              class="btn btn-info">decline</button>
+    </div>
+    <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+      <button (click)='acceptUser(nutzer.id+"")'
+              style="background-color: darkseagreen; border-color: darkseagreen;"
+              class="btn btn-info">accept</button>
+    </div>
+  </div>
+</div>
+
+
