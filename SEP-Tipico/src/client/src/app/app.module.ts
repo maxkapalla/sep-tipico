@@ -37,6 +37,7 @@ import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
 import {MinigameComponent} from "./minigame/minigame.component";
 import {LigaTableComponent} from "./liga-table/liga-table.component";
 import { ChatComponent } from './chat/chat.component';
+import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ChatComponent } from './chat/chat.component';
     TipperProfileComponent,
     MinigameComponent,
     LigaTableComponent,
-    ChatComponent
+    ChatComponent,
+    AnfragenOrganisierenComponent
   ],
   imports: [
     BrowserModule,

@@ -70,6 +70,10 @@ export class NutzerService {
     return this.http.get<Nutzer[]>('http://localhost:8080/nutzer/alle')
   }
 
+  public getNutzerByID(id: String): Observable<any> {
+    return this.http.get<Observable<any>>('http://localhost:8080/nutzer/'+id)
+  }
+
   public getKontostand(): Observable<bigint> {
     return this.http.get<bigint>('http://localhost:8080/nutzer/kontostand')
   }
@@ -77,6 +81,10 @@ export class NutzerService {
   public setKontostand(id: String, kontostand: String): Observable<any> {
     console.log(id, kontostand)
     return this.http.post<Observable<any>>(`http://localhost:8080/nutzer/kontostand?id=${id}`, kontostand);
+  }
+  public setGeldStatus(id: String, status: String): Observable<any> {
+    console.log(id, status)
+    return this.http.post<Observable<any>>(`http://localhost:8080/nutzer/geldStatus?id=${id}`, status);
   }
 
 }

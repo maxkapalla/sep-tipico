@@ -9,20 +9,21 @@ import {NutzerService} from "../services/nutzer.service";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+
+  id: number=0;
   url: string = ""
   name: string = ""
   email: string = ""
   birthdate: string = ""
   role: string = ""
   konto: string = "";
-  wettfreigabe: string= "";
+  wettfreigabe: string;
   age: number=0;
   adminemail: string|undefined;
-  nutzers:Nutzer[];
 
   constructor(private geldWetteService: GeldWetteService, private nutzerService: NutzerService) {
 
-  this.nutzers=[];
+  this.wettfreigabe = sessionStorage.getItem('geldWette')+"";
   }
 
   ngOnInit(): void {
@@ -33,10 +34,6 @@ export class ProfileComponent implements OnInit {
     this.role = (sessionStorage.getItem('role') + "").toUpperCase()
     this.konto = sessionStorage.getItem('kontostand') + "";
     this.wettfreigabe = sessionStorage.getItem('geldWette') +""
-
-    this.nutzerService.getAllNutzer().subscribe((data:any) => {
-      this.nutzers=data;
-      ;})
   }
 
   requestBet() {
@@ -47,18 +44,16 @@ export class ProfileComponent implements OnInit {
     alert(this.age);
   }
 
-  sendMailanAlleAdmins() {
-    for(let nutzer of this.nutzers) {
-      if (nutzer.role == "admin") {
-        this.adminemail=nutzer.email;
-        this.sendMail(this.adminemail)
-      }
-    }
-    alert("Anfrage versendet "+this.adminemail);
+  sendMail(userMail: string | undefined) {
+    this.geldWetteService.sendTipp(userMail + "");
+    this.onClick();
+    alert("Anfrage versendet. Bitte warten Sie auf die Nachricht des Admins");
   }
 
-  sendMail(userMail: string | undefined) {
-        this.geldWetteService.sendTipp(userMail + "");
-        console.log(this.adminemail)
-}
+  onClick(): void {
+    this.wettfreigabe = "Angefragt";
+    this.nutzerService.setGeldStatus(sessionStorage.getItem("id") + "", this.wettfreigabe).subscribe();
+    sessionStorage.setItem("geldWette", this.wettfreigabe);
+  }
+
 }

@@ -26,5 +26,10 @@ public interface NutzerRepository extends JpaRepository<Nutzer, Long> {
     @Query("UPDATE Nutzer SET kontostand = ?2 WHERE id = ?1")
     void updateKontostandById(Long id, Integer kontostand);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Nutzer SET geldWette = ?2 WHERE id = ?1")
+    void updateGeldStatusById(Long id, String geldWette );
+
 
 }

@@ -28,7 +28,7 @@ public class NutzerController {
     @PostMapping("/user/signup")
     public void addUser(@RequestBody Nutzer nutzer) {
         nutzer.setRole("user");
-        nutzer.setGeldWette("nein");
+        nutzer.setGeldWette("Nicht angefragt");
         nutzer.setFirstName(nutzer.getFirstName().substring(0, 1).toUpperCase() + nutzer.getFirstName().substring(1));
         nutzer.setLastName(nutzer.getLastName().substring(0, 1).toUpperCase() + nutzer.getLastName().substring(1));
         nutzerrepo.save(nutzer);
@@ -87,6 +87,7 @@ public class NutzerController {
         return new ResponseEntity<>(kontostand, HttpStatus.OK);
     }
 
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @RequestMapping(path = "/nutzer/kontostand",
             method = RequestMethod.POST)
@@ -94,6 +95,24 @@ public class NutzerController {
         System.out.println(id + " " + kontostand);
         try {
             nutzerrepo.updateKontostandById(Long.parseLong(id), Integer.parseInt(kontostand));
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+
+    @GetMapping("/nutzer/{id}")
+    public Nutzer getNutzerByID(@PathVariable("id") Long id) {
+        Nutzer x = nutzerrepo.findNutzerById(id);
+        return x;
+    }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @RequestMapping(path = "/nutzer/geldStatus",
+            method = RequestMethod.POST)
+    public ResponseEntity<?> setGeldStatus(@RequestParam(name = "id") String id, @RequestBody String geldWette) {
+        System.out.println(id + " " + geldWette);
+        try {
+            nutzerrepo.updateGeldStatusById(Long.parseLong(id), geldWette);
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
         }
