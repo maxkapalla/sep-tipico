@@ -36,6 +36,8 @@ import {TipperProfileComponent} from './tipper-profile/tipper-profile.component'
 import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
 import {MinigameComponent} from "./minigame/minigame.component";
 import {LigaTableComponent} from "./liga-table/liga-table.component";
+import { UserStatsComponent } from './user-stats/user-stats.component';
+import { AdminStatsComponent } from './admin-stats/admin-stats.component';
 import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
@@ -74,6 +76,9 @@ import {ClickOutsideDirective} from "./clickOutside.directive";
     TipprundeDrinneComponent,
     TipperProfileComponent,
     MinigameComponent,
+    LigaTableComponent,
+    UserStatsComponent,
+    AdminStatsComponent,
     LigaTableComponent,
     ChatComponent,
     AnfragenOrganisierenComponent,

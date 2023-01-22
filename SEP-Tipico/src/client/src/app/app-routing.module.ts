@@ -31,6 +31,8 @@ import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
 import {MinigameComponent} from "./minigame/minigame.component";
 import {LigaTableComponent} from "./liga-table/liga-table.component";
 import {AnfragenOrganisierenComponent} from "./anfragen-organisieren/anfragen-organisieren.component";
+import {AdminStatsComponent} from "./admin-stats/admin-stats.component";
+import {UserStatsComponent} from "./user-stats/user-stats.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -66,7 +68,9 @@ const routes: Routes = [
   {path: 'tipper-profile/:id', component: TipperProfileComponent, canActivate: [AuthService]},
   {path: 'minigame', component: MinigameComponent, canActivate: [AuthService]},
   {path: 'liga-table', component: LigaTableComponent, canActivate: [AuthService]},
-  {path: 'anfragen-organisieren', component: AnfragenOrganisierenComponent, canActivate: [AuthService]}
+  {path: 'anfragen-organisieren', component: AnfragenOrganisierenComponent, canActivate: [AuthService]},
+  {path: 'admin-stats', component: AdminStatsComponent, canActivate: [AuthService]},
+  {path: 'user-stats', component: UserStatsComponent, canActivate: [AuthService]},
 ];
 
 @NgModule({
