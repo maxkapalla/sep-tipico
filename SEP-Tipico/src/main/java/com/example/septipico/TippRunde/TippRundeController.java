@@ -3,6 +3,8 @@ package com.example.septipico.TippRunde;
 import com.example.septipico.TwoFa.TwoFaMail;
 import com.example.septipico.liga.Liga;
 import com.example.septipico.nutzer.Nutzer;
+import com.example.septipico.tipper.Tipper;
+import com.example.septipico.tipper.TipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ public class TippRundeController {
 
     @Autowired
     private TippRundeRepository tippRundeRepository;
+
+    @Autowired
+    private TipperRepository tipperRepository;
 
     @PostMapping("/tippRunde/delete")
     public void deleteTippRunde(@RequestBody TippRunde TippRunde) {
@@ -74,6 +79,24 @@ public class TippRundeController {
         long userID = Integer.parseInt(ownerID);
         List<TippRunde> runden = new ArrayList<>();
         runden.addAll(tippRundeRepository.findAllByBesitzer(userID));
+
+        return runden;
+    }
+
+    @PostMapping("/tippRunde/member")
+    public List<TippRunde> getByMember(@RequestBody String memberID){
+        long userID = Integer.parseInt(memberID);
+
+        List<Tipper> tippers = new ArrayList<>();
+        tippers.addAll(tipperRepository.findAllByNutzerid(userID));
+        System.out.println(tippers.size());
+
+        List<TippRunde> runden = new ArrayList<>();
+
+        for (int i = 0; i < tippers.size(); i++) {
+            runden.add(tippRundeRepository.findTippRundeById(tippers.get(i).getTipprundenID()));
+        }
+        System.out.println(runden.size());
 
         return runden;
     }

@@ -4,6 +4,7 @@ import {NewLiga} from "../Models/NewLiga";
 import {Liga} from "../Models/Liga";
 import {Observable} from "rxjs";
 import {Team} from "../Models/Team";
+import {AdminStats} from "../Models/AdminStats";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -52,9 +53,20 @@ export class LigaService {
     return this.http.get<Liga[]>(this.ligaURL + "/all");
   }
 
+  getAdminStats(): Observable<AdminStats[]> {
+
+    return this.http.get<AdminStats[]>(this.ligaURL + "/adminstats");
+  }
+
   delete(liga: Liga): Observable<Liga> {
 
     return this.http.post<Liga>(this.ligaURL + "/delete", liga);
+
+  }
+
+  remove(ligaID: bigint): Observable<any> {
+
+    return this.http.post<any>(this.ligaURL + "/remove", ligaID);
 
   }
 

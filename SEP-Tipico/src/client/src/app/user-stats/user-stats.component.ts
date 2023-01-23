@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TippRunde} from "../Models/TippRunde";
+import {TippRundeService} from "../services/tipp-runde.service";
 
 @Component({
   selector: 'app-user-stats',
@@ -10,16 +12,21 @@ export class UserStatsComponent implements OnInit {
   mannschaften: number[];
   colors: string[]
   maxValue
+  tippRunden: TippRunde[]
+  runde: TippRunde
 
 
-  constructor() {
+  constructor(private tippRundeService: TippRundeService) {
     this.mannschaften = [20, 30, 10, 20, 10, 10];
     this.colors = ["red", "green", "blue", "yellow", "orange", "purple"];
     this.maxValue = Math.max(...this.mannschaften);
+    this.tippRunden = []
+    this.runde = new TippRunde()
   }
 
   ngOnInit(): void {
     this.createPiechart();
+    this.tippRundeService.getTippRundenByMember(sessionStorage.getItem("id") + "").subscribe((data: any) => this.tippRunden = data);
 
   }
 

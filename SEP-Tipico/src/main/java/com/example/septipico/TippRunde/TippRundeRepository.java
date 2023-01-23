@@ -17,4 +17,6 @@ public interface TippRundeRepository extends JpaRepository<TippRunde, Long> {
 
     List<TippRunde> findTippRundeByLiga(Long ligaid);
 
+    void deleteAllByLiga(Long liga);
+
 }

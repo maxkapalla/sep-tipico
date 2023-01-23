@@ -19,4 +19,6 @@ public interface TipperRepository extends JpaRepository<Tipper, Long> {
 
 
     Tipper findTipperByNickname(String name);
+
+    void deleteAllByTipprundenID(Long TipprundenID);
 }
