@@ -18,11 +18,22 @@ header a, b{
 header a:hover{
   color: darkblue;
 }
+
+.menu-toggler:hover{
+  color: darkblue;
+  cursor: pointer;
+}
+
 .menu-item {
   background-color: lightgrey;
   margin-top: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
+  position: absolute;
+  width: 170px;
+  text-align: left;
+}
+.menu-item:hover{
+  color: darkblue;
+  cursor: pointer;
 }
 
 
