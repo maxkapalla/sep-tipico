@@ -39,6 +39,7 @@ import {LigaTableComponent} from "./liga-table/liga-table.component";
 import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -89,7 +90,7 @@ import {ClickOutsideDirective} from "./clickOutside.directive";
   exports: [
     FormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

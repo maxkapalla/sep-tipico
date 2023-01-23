@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeldWetteService} from "../services/geld-wette.service";
-import {Nutzer} from "../Models/Nutzer";
 import {NutzerService} from "../services/nutzer.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-profile',
@@ -10,19 +10,21 @@ import {NutzerService} from "../services/nutzer.service";
 })
 export class ProfileComponent implements OnInit {
 
+  datum: string | null;
   id: number=0;
   url: string = ""
   name: string = ""
   email: string = ""
-  birthdate: string = ""
+  birthdate: string;
   role: string = ""
   konto: string = "";
   wettfreigabe: string;
-  age: number=0;
   adminemail: string|undefined;
+  age: number=0;
 
-  constructor(private geldWetteService: GeldWetteService, private nutzerService: NutzerService) {
-
+  constructor(private geldWetteService: GeldWetteService, private nutzerService: NutzerService, private datePipe: DatePipe) {
+  this.birthdate="";
+  this.datum="";
   this.wettfreigabe = sessionStorage.getItem('geldWette')+"";
   }
 
@@ -36,18 +38,29 @@ export class ProfileComponent implements OnInit {
     this.wettfreigabe = sessionStorage.getItem('geldWette') +""
   }
 
+
   requestBet() {
-    if(this.birthdate){
-      var timeDiff = Math.abs(Date.now()- Date.parse(this.birthdate));
+    var splitstr = this.birthdate.split('.')+"";
+    this.datum = splitstr[1] + "." + splitstr[0] + "." + splitstr[2];
+    this.datum=this.datePipe.transform(this.datum, 'MM.dd.yyyy')
+
+    if(this.datum){
+      var timeDiff = Math.abs(Date.now()- Date.parse(this.datum));
       this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
     }
-    alert(this.age);
+    if(this.age<18) {
+      alert("Sie sind mit "+ this.age+ " nicht berechtigt mit Geld zu spielen")
+    }
+    else {
+      alert(this.age);
+    }
   }
 
   sendMail(userMail: string | undefined) {
     this.geldWetteService.sendTipp(userMail + "");
+   // this.requestBet();
     this.onClick();
-    alert("Anfrage versendet. Bitte warten Sie auf die Nachricht des Admins");
+   alert("Anfrage versendet. Bitte warten Sie auf die Nachricht des Admins");
   }
 
   onClick(): void {
@@ -55,5 +68,7 @@ export class ProfileComponent implements OnInit {
     this.nutzerService.setGeldStatus(sessionStorage.getItem("id") + "", this.wettfreigabe).subscribe();
     sessionStorage.setItem("geldWette", this.wettfreigabe);
   }
+
+
 
 }
