@@ -1,9 +1,17 @@
 package com.example.septipico.liga;
 
+import com.example.septipico.TippRunde.TippRunde;
+import com.example.septipico.TippRunde.TippRundeRepository;
+import com.example.septipico.liga.spiel.SpielRepository;
+import com.example.septipico.nutzer.NutzerRepository;
+import com.example.septipico.tippN.TippNRepository;
+import com.example.septipico.tipper.Tipper;
+import com.example.septipico.tipper.TipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +24,45 @@ public class LigaController {
     @Autowired
     private LigaRepository ligaRepository;
 
+    @Autowired
+    private TipperRepository tipperRepository;
+
+    @Autowired
+    private NutzerRepository nutzerRepository;
+
+    @Autowired
+    private TippNRepository tippNRepository;
+
+    @Autowired
+    TippRundeRepository tippRundeRepository;
+
+    @Autowired
+    SpielRepository spielRepository;
+
+    @Autowired
+    TeamRepository teamRepository;
+
 
     @PostMapping("/delete")
     public void deleteLiga(@RequestBody Liga liga) {
 
         ligaRepository.deleteById(liga.getId());
+    }
+
+    @Transactional
+    @PostMapping("/remove")
+    public void removeLiga(@RequestBody Long ligaID) {
+
+        List<TippRunde> runden = tippRundeRepository.findTippRundeByLiga(ligaID);
+        for(TippRunde r : runden) {
+            tippNRepository.deleteAllByTipprundenid(r.getId());
+            tipperRepository.deleteAllByTipprundenID(r.getId());
+        }
+
+        teamRepository.deleteAllByLiga(ligaID);
+        spielRepository.deleteAllByLiga(ligaID);
+        tippRundeRepository.deleteAllByLiga(ligaID);
+        ligaRepository.deleteById(ligaID);
     }
 
     @PostMapping("/save")
@@ -82,6 +124,38 @@ public class LigaController {
     @GetMapping("/all")
     public List<Liga> getLiga() {
         return ligaRepository.findAll();
+    }
+
+    @GetMapping("/adminstats")
+    public List<AdminStats> getAdminStats() {
+        List<AdminStats> adminStats = new ArrayList<>();
+        List<Liga> ligaList = ligaRepository.findAll();
+
+        for(Liga l : ligaList) {
+            AdminStats statsObj = new AdminStats();
+            statsObj.setLigaID(l.getId());
+            statsObj.setLigaName(l.getName());
+
+            List<TippRunde> runden = tippRundeRepository.findTippRundeByLiga(l.getId());
+
+            statsObj.setTippRundenCount(runden.size());
+
+            List<Tipper> tippers = new ArrayList<>();
+            for(TippRunde r : runden) {
+                tippers = tipperRepository.findAllByTipprundenID(r.getId());
+            }
+            List<Long> userIDs = new ArrayList<Long>();
+
+            for(Tipper t : tippers) {
+                if (!userIDs.contains(t.getId())) {
+                    userIDs.add(t.getId());
+                }
+            }
+            statsObj.setUserCount(userIDs.size());
+
+            adminStats.add(statsObj);
+        }
+        return adminStats;
     }
 
 

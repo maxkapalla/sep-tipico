@@ -4,22 +4,23 @@
   <a href='/profile' *ngIf="nutzer !== 'null'">{{nutzer}}</a>
   <b>{{datum}}</b>
 
-  <a class="menu-container" clickOutside (clickOutside)="clickedOutside()">
+  <b class="menu-container" clickOutside (clickOutside)="clickedOutside()">
     <div class="menu-toggler" *ngIf="nutzer !== 'null' && role ==='admin'" (click)="toggleMenu()">Admin Menü</div>
     <div class="menu" *ngIf="isMenuOpened">
       <div class="menu-item" routerLink="/date-change">Date
-        Change</div>
+        Change</div><br>
       <div class="menu-item" routerLink="/liga-create">Liga
-        ändern</div>
+        ändern</div><br>
       <div class="menu-item" routerLink="/matchplan-create">Spielplan
-        erstellen</div>
+        erstellen</div><br>
       <div class="menu-item" routerLink="/team-create">Team
-        erstellen</div>
+        erstellen</div><br>
       <div class="menu-item" routerLink="/csv">CSV
-        einlesen</div>
+        einlesen</div><br>
       <div class="menu-item" routerLink="/anfragen-organisieren">Anfragen
-        verwalten</div>
+        verwalten</div><br>
+      <div class="menu-item" routerLink="/admin-stats">Admin Stats</div>
     </div>
-  </a>
+  </b>
 </header>
 

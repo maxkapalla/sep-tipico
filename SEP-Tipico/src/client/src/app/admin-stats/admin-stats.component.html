@@ -1,0 +1,38 @@
+
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr class="überschrift">
+        <th scope="col-name">Name</th>
+        <th scope="col-sortRounds">
+          <button class="btn btn-info" (click)="sortByTippRunden()">sort by Rundenanzahl</button>
+        </th>
+        <th scope="col-sortTipper">
+          <button class="btn btn-info" (click)="sortByTipperCount()">sort by Tipperanzahl</button>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let stat of adminStats">
+        <td>{{ stat.ligaName }}</td>
+        <td>{{ stat.tippRundenCount }}</td>
+        <td>{{ stat.userCount }}</td>
+        <div class="column 6" style=" border: none; text-align: left; background-color: unset;">
+          <div class="form-group">
+              <button
+                (click)="removeLiga(stat.ligaID)"
+                style="background-color: darkgrey;
+                       border-color: darkgrey;
+                       transform: translate(20%, 20%)"
+                class="btn btn-info">remove</button>
+          </div>
+
+        </div>
+
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

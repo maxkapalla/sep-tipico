@@ -17,4 +17,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
      Team findTeamById(Long id);
 
+     void deleteAllByLiga(Long liga);
+
 }
