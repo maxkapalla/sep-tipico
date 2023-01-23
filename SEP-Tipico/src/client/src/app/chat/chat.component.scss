@@ -1,13 +1,15 @@
 footer{
-  background-color: white;
-  outline: black 2px;
+  //background-color: white;
+  //outline: black 2px;
   overflow: hidden;
   position: fixed;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid black;
+  //border-top: 1px solid black;
 }
 footer a{
+  background-color: white;
+  border-top: 1px solid black;
   border-left: 1px solid black;
   width: 200px;
   float: right;
