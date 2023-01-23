@@ -2,5 +2,17 @@ li{
   padding-top: 10px;
 }
 .container{
-  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  position: relative;
+}
+app-header{
+  z-index: 2000;
+  width: 100%;
+  position: fixed;
+}
+
+app-chat{
+  z-index: 2000;
+  position: fixed;
 }
