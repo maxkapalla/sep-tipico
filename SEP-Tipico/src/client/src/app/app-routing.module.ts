@@ -33,6 +33,7 @@ import {LigaTableComponent} from "./liga-table/liga-table.component";
 import {AnfragenOrganisierenComponent} from "./anfragen-organisieren/anfragen-organisieren.component";
 import {AdminStatsComponent} from "./admin-stats/admin-stats.component";
 import {UserStatsComponent} from "./user-stats/user-stats.component";
+import {ChatComponent} from "./chat/chat.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -71,6 +72,7 @@ const routes: Routes = [
   {path: 'anfragen-organisieren', component: AnfragenOrganisierenComponent, canActivate: [AuthService]},
   {path: 'admin-stats', component: AdminStatsComponent, canActivate: [AuthService]},
   {path: 'user-stats', component: UserStatsComponent, canActivate: [AuthService]},
+  {path: 'chat', component: ChatComponent}
 ];
 
 @NgModule({
