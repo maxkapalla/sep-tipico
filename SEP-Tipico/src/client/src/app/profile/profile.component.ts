@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeldWetteService} from "../services/geld-wette.service";
 import {NutzerService} from "../services/nutzer.service";
-import {DatePipe} from "@angular/common";
+
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   adminemail: string|undefined;
   age: number=0;
 
-  constructor(private geldWetteService: GeldWetteService, private nutzerService: NutzerService, private datePipe: DatePipe) {
+  constructor(private geldWetteService: GeldWetteService, private nutzerService: NutzerService) {
   this.birthdate="";
   this.datum="";
   this.wettfreigabe = sessionStorage.getItem('geldWette')+"";
@@ -39,10 +39,12 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  requestBet() {
+  requestBet(userMail: string | undefined) {
+    console.log(this.birthdate)
     var splitstr = this.birthdate.split('.')+"";
-    this.datum = splitstr[1] + "." + splitstr[0] + "." + splitstr[2];
-    this.datum=this.datePipe.transform(this.datum, 'MM.dd.yyyy')
+    this.datum = splitstr[3] + splitstr[4]+ "." + splitstr[0] +splitstr[1]+ "." + splitstr[6]+splitstr[7]+splitstr[8]+splitstr[9];
+    console.log(this.datum)
+    //this.datum=this.datePipe.transform(this.datum, 'MM.dd.yyyy')
 
     if(this.datum){
       var timeDiff = Math.abs(Date.now()- Date.parse(this.datum));
@@ -52,16 +54,13 @@ export class ProfileComponent implements OnInit {
       alert("Sie sind mit "+ this.age+ " nicht berechtigt mit Geld zu spielen")
     }
     else {
-      alert(this.age);
+      console.log(this.age);
+      this.geldWetteService.sendTipp(userMail + "");
+      this.onClick();
+      alert("Anfrage versendet. Bitte warten Sie auf die Nachricht des Admins");
     }
   }
 
-  sendMail(userMail: string | undefined) {
-    this.geldWetteService.sendTipp(userMail + "");
-   // this.requestBet();
-    this.onClick();
-   alert("Anfrage versendet. Bitte warten Sie auf die Nachricht des Admins");
-  }
 
   onClick(): void {
     this.wettfreigabe = "Angefragt";
