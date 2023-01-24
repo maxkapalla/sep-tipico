@@ -41,7 +41,7 @@ import { AdminStatsComponent } from './admin-stats/admin-stats.component';
 import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
-import {DatePipe} from "@angular/common";
+
 
 @NgModule({
   declarations: [
@@ -95,7 +95,7 @@ import {DatePipe} from "@angular/common";
   exports: [
     FormsModule
   ],
-  providers: [DatePipe],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
