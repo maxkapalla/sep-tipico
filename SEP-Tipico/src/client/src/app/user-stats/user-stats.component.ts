@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
 import {UserStats} from "../Models/UserStats";
+import {ErgebnisStats} from "../Models/ErgebnisStats";
 
 @Component({
   selector: 'app-user-stats',
@@ -17,21 +18,26 @@ export class UserStatsComponent implements OnInit {
   runde: TippRunde
 
   stats: UserStats[]
+  ergebnisStats: ErgebnisStats[]
+  ergebnisCounts: number[]
 
 
   constructor(private tippRundeService: TippRundeService) {
     this.mannschaften = [20, 30, 10, 20, 10, 10];
     this.colors = ["red", "green", "blue", "yellow", "orange", "purple"];
-    this.maxValue = Math.max(...this.mannschaften);
     this.tippRunden = []
     this.runde = new TippRunde()
     this.stats = []
+    this.ergebnisStats = []
+    this.ergebnisCounts = []
+    this.maxValue = 1
   }
 
   ngOnInit(): void {
     this.createPiechart();
     this.tippRundeService.getTippRundenByMember(sessionStorage.getItem("id") + "").subscribe((data: any) => {
       this.tippRunden = data
+
       if(this.tippRunden[0].id != null) {
         this.getStats(this.tippRunden[0].id.toString())
       }
@@ -40,8 +46,23 @@ export class UserStatsComponent implements OnInit {
   }
 
   getStats(rundenID: string) {
-    console.log("userid angefragt " + rundenID)
-    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => this.stats= data);
+    let date = sessionStorage.getItem("datum")
+    console.log("rundenid angefragt " + rundenID + " date: " + date)
+    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => this.stats= data);
+    this.tippRundeService.getErgebnisStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => {
+      this.ergebnisStats= data,
+        this.createErgebnisCounts(),
+        console.log(this.ergebnisStats),
+        this.maxValue = Math.max(...this.ergebnisCounts);
+    });
+  }
+
+  createErgebnisCounts() {
+    for(var stat of this.ergebnisStats) {
+      if(stat.count != undefined) {
+        this.ergebnisCounts.push(stat.count)
+      }
+    }
   }
 
   createPiechart() {
@@ -74,5 +95,12 @@ export class UserStatsComponent implements OnInit {
     return this.colors[no]
   }
 
-
+  generateColors() {
+    let c = []
+    for (let i = 0; i < 15; i++) {
+      c.push(Math.random().toString(16).slice(-6))
+    }
+    console.log(c.length)
+    return c;
+  }
 }

@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeMail} from "../Models/TippRundeMail";
 import {UserStats} from "../Models/UserStats";
+import {ErgebnisStats} from "../Models/ErgebnisStats";
 
 
 @Injectable({
@@ -72,6 +73,12 @@ export class TippRundeService {
     console.log("userstats gestartet " + userIDandTipprundeID)
 
     return this.http.post<UserStats[]>(this.tippRundeURL + "/userstats", userIDandTipprundeID);
+
+  }
+
+  getErgebnisStats(userIDandTipprundeID: string): Observable<ErgebnisStats[]> {
+
+    return this.http.post<ErgebnisStats[]>(this.tippRundeURL + "/ergebnisstats", userIDandTipprundeID);
 
   }
 
