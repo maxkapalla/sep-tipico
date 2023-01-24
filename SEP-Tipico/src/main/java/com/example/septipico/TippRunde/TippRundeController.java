@@ -2,7 +2,13 @@ package com.example.septipico.TippRunde;
 
 import com.example.septipico.TwoFa.TwoFaMail;
 import com.example.septipico.liga.Liga;
+import com.example.septipico.liga.Team;
+import com.example.septipico.liga.TeamRepository;
+import com.example.septipico.liga.spiel.Spiel;
+import com.example.septipico.liga.spiel.SpielRepository;
 import com.example.septipico.nutzer.Nutzer;
+import com.example.septipico.tippN.TippN;
+import com.example.septipico.tippN.TippNRepository;
 import com.example.septipico.tipper.Tipper;
 import com.example.septipico.tipper.TipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,15 @@ public class TippRundeController {
 
     @Autowired
     private TipperRepository tipperRepository;
+
+    @Autowired
+    private TippNRepository tippNRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
+
+    @Autowired
+    private SpielRepository spielRepository;
 
     @PostMapping("/tippRunde/delete")
     public void deleteTippRunde(@RequestBody TippRunde TippRunde) {
@@ -125,5 +140,89 @@ public class TippRundeController {
         }
 
         return tippRundeMail;
+    }
+
+    @PostMapping("/tippRunde/userstats")
+    public List<UserStats> getUserStats(@RequestBody String userIDandTipprundeID) {
+        System.out.println("userstats gestartet");
+        List<UserStats> userStatsList = new ArrayList<>();
+
+        String[] split = userIDandTipprundeID.split("-");
+        long userID = Integer.parseInt(split[0]);
+        long tipprundeID = Integer.parseInt(split[1]);
+
+        System.out.println(userID + "tipprundeid: " + tipprundeID);
+
+        TippRunde tippRunde = tippRundeRepository.findTippRundeById(tipprundeID);
+        Tipper tipper = tipperRepository.findTipperByNutzeridAndTipprundenID(userID, tipprundeID);
+
+        List<TippN> tippList = tippNRepository.findAllByTipperID(tipper.getId());
+
+        List<Team> teamList = teamRepository.findByLiga(tippRunde.getLiga());
+
+        System.out.println("teamlistlänge: " + teamList.size() + " tipplistlänge: " + tippList.size());
+
+        userStatsList = fillUserTable(userStatsList, teamList, tippList);
+
+        return userStatsList;
+    }
+
+    private List<UserStats> fillUserTable(List<UserStats> userStatsList, List<Team> teamList, List<TippN> tippList) {
+
+        for(Team team: teamList) {
+            UserStats stat = new UserStats();
+            stat.setTeamName(team.getName());
+            stat.setTeamID(team.getId());
+            userStatsList.add(stat);
+        }
+
+        for(TippN tipp: tippList) {
+            for(UserStats stat: userStatsList) {
+                Spiel spiel = spielRepository.findByid(tipp.getSpiel());
+                long teamAid = spiel.getTeamA();
+                long teamBid = spiel.getTeamB();
+
+                if(stat.getTeamID() == teamAid) {
+                    if(spiel.getScoreTeamA() > spiel.getScoreTeamB()) {
+                        stat.setWins(stat.getWins() + 1);
+                        stat.setPointsForTable(stat.getPointsForTable() + 3);
+
+                        int diff = spiel.getScoreTeamA() - spiel.getScoreTeamB();
+                        stat.setTordif(stat.getTordif() + diff);
+                    } else
+                        if(spiel.getScoreTeamA() == spiel.getScoreTeamB()) {
+                        stat.setDraws(stat.getDraws() + 1);
+                        stat.setPointsForTable(stat.getPointsForTable() + 1);
+                    } else
+                        if(spiel.getScoreTeamA() < spiel.getScoreTeamB()) {
+                            stat.setLoses(stat.getLoses() + 1);
+
+                            int diff = spiel.getScoreTeamA() - spiel.getScoreTeamB();
+                            stat.setTordif(stat.getTordif() + diff);
+                        }
+                } else
+                    if(stat.getTeamID() == teamBid) {
+                        if(spiel.getScoreTeamB() > spiel.getScoreTeamA()) {
+                            stat.setWins(stat.getWins() + 1);
+                            stat.setPointsForTable(stat.getPointsForTable() + 3);
+
+                            int diff = spiel.getScoreTeamB() - spiel.getScoreTeamA();
+                            stat.setTordif(stat.getTordif() + diff);
+                        } else
+                        if(spiel.getScoreTeamB() == spiel.getScoreTeamA()) {
+                            stat.setDraws(stat.getDraws() + 1);
+                            stat.setPointsForTable(stat.getPointsForTable() + 1);
+                        } else
+                        if(spiel.getScoreTeamB() < spiel.getScoreTeamA()) {
+                            stat.setLoses(stat.getLoses() + 1);
+
+                            int diff = spiel.getScoreTeamB() - spiel.getScoreTeamA();
+                            stat.setTordif(stat.getTordif() + diff);
+                        }
+                }
+            }
+        }
+
+        return userStatsList;
     }
 }

@@ -157,6 +157,4 @@ public class LigaController {
         }
         return adminStats;
     }
-
-
 }

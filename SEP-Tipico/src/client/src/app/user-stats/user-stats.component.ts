@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
+import {UserStats} from "../Models/UserStats";
 
 @Component({
   selector: 'app-user-stats',
@@ -15,6 +16,8 @@ export class UserStatsComponent implements OnInit {
   tippRunden: TippRunde[]
   runde: TippRunde
 
+  stats: UserStats[]
+
 
   constructor(private tippRundeService: TippRundeService) {
     this.mannschaften = [20, 30, 10, 20, 10, 10];
@@ -22,12 +25,23 @@ export class UserStatsComponent implements OnInit {
     this.maxValue = Math.max(...this.mannschaften);
     this.tippRunden = []
     this.runde = new TippRunde()
+    this.stats = []
   }
 
   ngOnInit(): void {
     this.createPiechart();
-    this.tippRundeService.getTippRundenByMember(sessionStorage.getItem("id") + "").subscribe((data: any) => this.tippRunden = data);
+    this.tippRundeService.getTippRundenByMember(sessionStorage.getItem("id") + "").subscribe((data: any) => {
+      this.tippRunden = data
+      if(this.tippRunden[0].id != null) {
+        this.getStats(this.tippRunden[0].id.toString())
+      }
+    });
 
+  }
+
+  getStats(rundenID: string) {
+    console.log("userid angefragt " + rundenID)
+    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => this.stats= data);
   }
 
   createPiechart() {

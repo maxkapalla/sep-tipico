@@ -1,7 +1,7 @@
 <div style="margin-left: 20px">
   <label for="runden">Tipprunden:</label>
-  <select name="runden" id="runden">
-    <option *ngFor="let runde of tippRunden" [value]="runde.tipprundeName">
+  <select #select (change)="getStats(select.value)" name="runden" id="runden">
+    <option *ngFor="let runde of tippRunden" [value]="runde.id">
       {{runde.tipprundeName}}
     </option>
   </select>
@@ -23,6 +23,32 @@
     </div>
   </div>
 </div>
+
+<div>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark" >
+    <tr class="überschrift" >
+      <th scope="col-name">Name</th>
+      <th scope="col-punkte">Punkte</th>
+      <th scope="col-wins">Wins</th>
+      <th scope="col-draws">Draws</th>
+      <th scope="col-loses">Loses</th>
+      <th scope="col-tordiff">TorDiff</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let stat of stats">
+      <td>{{ stat.teamName }}</td>
+      <td>{{ stat.pointsForTable }}</td>
+      <td>{{ stat.wins }}</td>
+      <td>{{ stat.draws}}</td>
+      <td>{{ stat.loses }}</td>
+      <td>{{ stat.tordif }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
 
 
 
