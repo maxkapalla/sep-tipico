@@ -8,4 +8,5 @@ export class TippRunde {
   gewTore: string | undefined;
   gewDiff: string | undefined;
   gewGewinner: string | undefined;
+  chatID: bigint | undefined;
 }

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {TippRundeService} from "../services/tipp-runde.service";
 import {TippService} from "../services/tipp.service";
 import {Tipper} from "../Models/Tipper";
+import {ChatService} from "../services/chat.service";
 
 
 @Component({
@@ -22,9 +23,9 @@ export class TipprundeDrinneComponent implements OnInit {
   searchInput: String = "";
   searchType: String = "TipperName";
 
-  constructor(private TippRundeService: TippRundeService, private TippService: TippService, private router: Router) {
-    this.tippRunde = new TippRunde,
-      this.id = 0;
+  constructor(private TippRundeService: TippRundeService, private TippService: TippService, private router: Router, private chatService: ChatService) {
+    this.tippRunde = new TippRunde;
+    this.id = 0;
     this.tippende = [];
     this.tipper = new Tipper()
   }
@@ -88,6 +89,13 @@ export class TipprundeDrinneComponent implements OnInit {
         this.router.navigate(['/home'])
       }
       //sessionStorage.removeItem("rundenPw")
+    })
+  }
+
+
+  joinTipprundenChat(){
+    this.chatService.joinTipprundenChat(BigInt(this.id),BigInt(+(sessionStorage.getItem('id')!))).subscribe((data)=>{
+        sessionStorage.setItem("Chat", data.id!.toString())
     })
   }
 }
