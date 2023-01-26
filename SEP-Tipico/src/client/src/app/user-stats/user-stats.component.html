@@ -9,9 +9,9 @@
 
 <div style="float: left; margin-left: 20px; background-color: lightgrey; padding: 20px; border-radius: 15px">
   <canvas id="pieChart" width="280" height="280" style="float: left"></canvas>
-  <ul id="pieValues" style="float: left; margin-left: 20px; height: 280px;" [style.line-height.px]="280/mannschaften.length">
-    <li *ngFor="let number of mannschaften, let i = index">
-      <div [ngStyle]="{'color':getColor(i)}">{{number}}</div>
+  <ul id="pieValues" style="float: left; margin-left: 20px; height: 280px;" [style.line-height.px]="280/stats.length">
+    <li *ngFor="let stat of stats, let i = index">
+      <div [ngStyle]="{'color':getColor(i)}">{{stat.teamName}}</div>
     </li>
   </ul>
 </div>
@@ -28,6 +28,7 @@
   <table class="table table-bordered table-striped">
     <thead class="thead-dark" >
     <tr class="überschrift" >
+      <th scope="col-platz">Platz</th>
       <th scope="col-name">Name</th>
       <th scope="col-punkte">Punkte</th>
       <th scope="col-wins">Wins</th>
@@ -37,7 +38,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let stat of stats">
+    <tr *ngFor="let stat of stats, let j = index">
+      <td>{{j+1}}</td>
       <td>{{ stat.teamName }}</td>
       <td>{{ stat.pointsForTable }}</td>
       <td>{{ stat.wins }}</td>

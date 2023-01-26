@@ -11,7 +11,6 @@ import {ErgebnisStats} from "../Models/ErgebnisStats";
 })
 export class UserStatsComponent implements OnInit {
 
-  mannschaften: number[];
   colors: string[]
   maxValue
   tippRunden: TippRunde[]
@@ -23,8 +22,7 @@ export class UserStatsComponent implements OnInit {
 
 
   constructor(private tippRundeService: TippRundeService) {
-    this.mannschaften = [20, 30, 10, 20, 10, 10];
-    this.colors = ["red", "green", "blue", "yellow", "orange", "purple"];
+    this.colors = ["#FF7F50", "#DE3163", "#40E0D0", "#6495ED", "#CCCCFF", "#FFBF00","#DFFF00",  "#9FE2BF", "#95A5A6", "#DC7633", "#E6B0AA", "#D7BDE2", "#A9CCE3", "#A3E4D7", "#F7DC6F", "#52BE80", "#7B241C", "#5B2C6F"];
     this.tippRunden = []
     this.runde = new TippRunde()
     this.stats = []
@@ -34,7 +32,6 @@ export class UserStatsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createPiechart();
     this.tippRundeService.getTippRundenByMember(sessionStorage.getItem("id") + "").subscribe((data: any) => {
       this.tippRunden = data
 
@@ -48,10 +45,12 @@ export class UserStatsComponent implements OnInit {
   getStats(rundenID: string) {
     let date = sessionStorage.getItem("datum")
     console.log("rundenid angefragt " + rundenID + " date: " + date)
-    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {this.stats= data,
+    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {
+      this.stats= data,
     console.log(this.stats),
       // @ts-ignore
-      this.stats.sort((a, b) => (a.pointsForTable < b.pointsForTable) ? 1 : -1);});
+      this.stats.sort((a, b) => (a.pointsForTable < b.pointsForTable) ? 1 : -1);
+      this.createPiechart();});
     this.tippRundeService.getErgebnisStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => {
       this.ergebnisStats= data,
         this.createErgebnisCounts(),
@@ -77,13 +76,16 @@ export class UserStatsComponent implements OnInit {
     let startAngle = 0;
 
 // Berechne den Gesamtwert aller Daten
-    for (let i = 0; i < this.mannschaften.length; i++) {
-      totalValue += this.mannschaften[i];
+    for (let i = 0; i < this.stats.length; i++) {
+      // @ts-ignore
+      totalValue += this.stats[i].pointsForUser;
     }
+    console.log("userpoints total: " + totalValue)
 
 // Zeichne das Diagramm
-    for (let i = 0; i < this.mannschaften.length; i++) {
-      let sliceAngle = 2 * Math.PI * this.mannschaften[i] / totalValue;
+    for (let i = 0; i < this.stats.length; i++) {
+      // @ts-ignore
+      let sliceAngle = 2 * Math.PI * this.stats[i].pointsForUser / totalValue;
       ctx.fillStyle = this.colors[i];
       ctx.beginPath();
       ctx.moveTo(canvas.width/2, canvas.height/2);
