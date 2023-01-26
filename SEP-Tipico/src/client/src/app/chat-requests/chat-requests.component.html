@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="noNutzer" *ngIf="requests.length < 1 ">Keine Anfragen gefunden</div>
+
+  <div class="showNutzerList">
+    <style>
+      .line:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
+    <div class="line" *ngFor="let request of requests" style="border-radius: 15px; height: 60px;
+        background-color: lightgrey; margin: 5px">
+      <div class="colm" style="float:left; padding-left: 10px; padding-top: 17px">
+          {{request.participants![0]}}
+      </div>
+
+      <div class="button" style="width: auto; float: right; margin-right: 20px; transform: translateY(27%)">
+        <button (click)="onAccept(+(request.id+''))"
+                style="background-color: mediumseagreen; border-color: mediumseagreen;"
+                class="btn btn-info">Annehmen</button>
+      </div>
+
+      <div class="button" style="width: auto; float: right; margin-right: 20px; transform: translateY(27%)">
+        <button (click)="onReject(+(request.id+''))"
+                style="background-color: indianred; border-color: indianred;"
+                class="btn btn-info">Ablehnen</button>
+      </div>
+
+    </div>
+  </div>
+</div>

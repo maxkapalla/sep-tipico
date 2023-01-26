@@ -41,6 +41,8 @@ import { AdminStatsComponent } from './admin-stats/admin-stats.component';
 import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
+import { ChatRequestsComponent } from './chat-requests/chat-requests.component';
+
 
 @NgModule({
   declarations: [
@@ -82,7 +84,8 @@ import {ClickOutsideDirective} from "./clickOutside.directive";
     LigaTableComponent,
     ChatComponent,
     AnfragenOrganisierenComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    ChatRequestsComponent
   ],
   imports: [
     BrowserModule,

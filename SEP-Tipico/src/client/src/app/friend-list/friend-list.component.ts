@@ -3,6 +3,7 @@ import {Nutzer} from "../Models/Nutzer";
 import {NutzerService} from "../services/nutzer.service";
 import {TippService} from "../services/tipp.service";
 import {TippContainer} from "../Models/TippContainer";
+import {ChatService} from "../services/chat.service";
 
 @Component({
   selector: 'app-friend-list',
@@ -17,10 +18,13 @@ export class FriendListComponent implements OnInit {
   friendAccepted: boolean;
   tipps: TippContainer[];
 
-  constructor(private service: NutzerService, private tippService: TippService) {
+  constructor(private service: NutzerService, private tippService: TippService, private chatService: ChatService) {
     this.nutzers = [];
     this.id = 0;
-    this.openRequests = [], this.friendDeleted = false, this.friendAccepted = false, this.tipps = []
+    this.openRequests = [];
+    this.friendDeleted = false;
+    this.friendAccepted = false;
+    this.tipps = []
   }
 
   ngOnInit(): void {
@@ -60,5 +64,21 @@ export class FriendListComponent implements OnInit {
     alert("Tipp versendet an " + userMail);
   }
 
+  sendChatRequest(friendID: string){
+    console.log("Request sent")
+    let myID = sessionStorage.getItem("id")+""
+    let notSent: boolean
+    this.chatService.checkForRequest(BigInt(myID)).subscribe(data => {
+      notSent = data
+      if(sessionStorage.getItem("Chat") == null && notSent){
+        this.chatService.sendRequest([BigInt(+friendID), BigInt(+myID)]).subscribe((data) => {
+        })
+        alert("Chat-Anfrage wurde gesendet!");
+        window.location.reload()
+      }else{
+        alert("Während einer aktiven Anfrage oder eines aktives Chats können keine Anfragen gesendet werden!")
+      }
+    })
 
+  }
 }

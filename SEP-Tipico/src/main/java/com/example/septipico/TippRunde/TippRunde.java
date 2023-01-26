@@ -33,6 +33,8 @@ public class TippRunde {
     @Column(name= "GewGewinner")
     private String gewGewinner;
 
+    private Long chatID;
+
     public TippRunde() {
 
     }
@@ -102,5 +104,13 @@ public class TippRunde {
     }
     public void setGewGewinner(String gewGewinner) {
         this.gewGewinner=gewGewinner;
+    }
+
+    public Long getChatID() {
+        return chatID;
+    }
+
+    public void setChatID(Long chatID) {
+        this.chatID = chatID;
     }
 }

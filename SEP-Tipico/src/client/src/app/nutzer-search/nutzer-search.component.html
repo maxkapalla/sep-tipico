@@ -26,7 +26,7 @@
   </style>
   <div class="line" *ngFor="let nutzer of nutzers" style="border-radius: 15px; background-color: lightgrey; margin: 20px">
     <div class="colm" *ngIf ="nutzer.email !== email" style="width: 50%; float:left; margin: 5px">
-      <img src="{{nutzer.imageURL}}">
+      <img  src="{{nutzer.imageURL}}">
       <a *ngIf ="nutzer.email !== email"> {{nutzer.firstName+" "+nutzer.lastName}} ({{nutzer.email}}) </a>
     </div>
 

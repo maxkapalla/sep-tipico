@@ -1,3 +1,32 @@
 <footer>
-  <div class="chat">chat1</div>
+
+  <div class="chat-minimized" *ngIf="chatActive  && clicked == false" (click)="onOpen()">
+   {{name}}
+  </div>
+
+
+  <div class="chat-open" *ngIf="clicked == true && chatActive">
+    <div class="name-box">
+      <b>{{name}}</b>
+      <b class="openclose">
+        <b class="close" (click)="onExit()">x</b>
+        <b class="minimize" (click)="onMinimize()">_</b>
+      </b>
+    </div>
+    <div class="chat-room">
+      <div class="chat-msgs" *ngFor="let message of messages">
+        <div class="msg-partner" *ngIf=" message.sender!= myID">
+          <b>{{message.name}}</b>
+          <p>{{message.content}}      {{message.time}}</p>
+        </div>
+        <div class="msg-me" *ngIf="message.sender == myID">
+          <b>{{myName}}</b>
+          <p>{{message.content}}      {{message.time}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-input" (keyup.enter)="sendmsg.value=''">
+      <input #sendmsg class="field"  type="text" (keyup.enter)="send(sendmsg.value)">
+    </div>
+  </div>
 </footer>
