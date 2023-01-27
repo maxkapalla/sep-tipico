@@ -10,9 +10,9 @@
 
 <div style="float: left; margin-left: 20px; background-color: lightgrey; padding: 20px; border-radius: 15px">
   <canvas id="pieChart" width="280" height="280" style="float: left"></canvas>
-  <ul id="pieValues" style="float: left; margin-left: 20px; height: 280px;" [style.line-height.px]="280/stats.length">
-    <li *ngFor="let stat of stats, let i = index">
-      <div [ngStyle]="{'color':getColor(i)}">{{stat.teamName}}</div>
+  <ul id="pieValues" style="float: left; margin-left: 20px; height: 280px;" [style.line-height.px]="280/pieStats.length">
+    <li *ngFor="let stat of pieStats, let i = index">
+      <div [ngStyle]="{'color':getColor(i)}">{{stat.teamName}} ({{stat.pointsForUser}})</div>
     </li>
   </ul>
 </div>

@@ -16,19 +16,21 @@ export class UserStatsComponent implements OnInit {
   tippRunden: TippRunde[]
   runde: TippRunde
 
+  pieStats: UserStats[]
   stats: UserStats[]
   ergebnisStats: ErgebnisStats[]
   ergebnisCounts: number[]
 
 
   constructor(private tippRundeService: TippRundeService) {
-    this.colors = ["#FF7F50", "#DE3163", "#40E0D0", "#6495ED", "#CCCCFF", "#FFBF00","#DFFF00",  "#9FE2BF", "#95A5A6", "#DC7633", "#E6B0AA", "#D7BDE2", "#A9CCE3", "#A3E4D7", "#F7DC6F", "#52BE80", "#7B241C", "#5B2C6F"];
+    this.colors = ["#FF7F50", "#DE3163", "#40E0D0", "#6495ED", "#FFBF00", "#95A5A6", "#DC7633", "#E6B0AA", "#D7BDE2", "#A9CCE3", "#A3E4D7", "#F7DC6F", "#52BE80", "#7B241C", "#5B2C6F", "#CCCCFF","#DFFF00", "#9FE2BF"];
     this.tippRunden = []
     this.runde = new TippRunde()
     this.stats = []
     this.ergebnisStats = []
     this.ergebnisCounts = []
     this.maxValue = 1
+    this.pieStats = []
   }
 
   ngOnInit(): void {
@@ -44,12 +46,13 @@ export class UserStatsComponent implements OnInit {
 
   getStats(rundenID: string) {
     let date = sessionStorage.getItem("datum")
-    console.log("rundenid angefragt " + rundenID + " date: " + date)
     this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {
       this.stats= data,
     console.log(this.stats),
-        this.stats = this.sortStats(this.stats)
-      this.createPiechart();});
+        this.sortStats(),
+      this.createPiechart();
+    });
+
     this.tippRundeService.getErgebnisStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => {
       this.ergebnisStats= data,
         this.createErgebnisCounts(),
@@ -58,9 +61,8 @@ export class UserStatsComponent implements OnInit {
     });
   }
 
-  sortStats(stats: UserStats[]) {
-    let userStats = stats;
-    userStats.sort((a: UserStats, b: UserStats) => {
+  sortStats() {
+    this.stats.sort((a: UserStats, b: UserStats) => {
       if (a.pointsForTable !== b.pointsForTable) {
         // @ts-ignore
         return a.pointsForTable - b.pointsForTable;
@@ -72,8 +74,7 @@ export class UserStatsComponent implements OnInit {
         return a.wins < b.wins ? -1 : 1;
       }
     });
-    userStats.reverse()
-    return userStats
+    this.stats.reverse()
   }
 
   createErgebnisCounts() {
@@ -85,6 +86,11 @@ export class UserStatsComponent implements OnInit {
   }
 
   createPiechart() {
+    for (var st of this.stats) {
+      if (st.pointsForUser != 0) {
+        this.pieStats.push(st)
+      }
+    }
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pieChart");
 
     let ctx: any = canvas.getContext("2d");
@@ -92,17 +98,14 @@ export class UserStatsComponent implements OnInit {
     let totalValue: number = 0;
     let startAngle = 0;
 
-// Berechne den Gesamtwert aller Daten
-    for (let i = 0; i < this.stats.length; i++) {
+    for (let i = 0; i < this.pieStats.length; i++) {
       // @ts-ignore
-      totalValue += this.stats[i].pointsForUser;
+      totalValue += this.pieStats[i].pointsForUser;
     }
-    console.log("userpoints total: " + totalValue)
 
-// Zeichne das Diagramm
-    for (let i = 0; i < this.stats.length; i++) {
+    for (let i = 0; i < this.pieStats.length; i++) {
       // @ts-ignore
-      let sliceAngle = 2 * Math.PI * this.stats[i].pointsForUser / totalValue;
+      let sliceAngle = 2 * Math.PI * this.pieStats[i].pointsForUser / totalValue;
       ctx.fillStyle = this.colors[i];
       ctx.beginPath();
       ctx.moveTo(canvas.width/2, canvas.height/2);
@@ -111,12 +114,23 @@ export class UserStatsComponent implements OnInit {
       ctx.fill();
       startAngle += sliceAngle;
     }
+    if(this.stats.length == 0) {
+      let angle = 360
+      ctx.fillStyle = 'grey'
+      ctx.beginPath();
+      ctx.moveTo(canvas.width/2, canvas.height/2);
+      ctx.arc(canvas.width/2, canvas.height/2, canvas.height/2, 0, 360);
+      ctx.lineTo(canvas.width/2, canvas.height/2);
+      ctx.fill();
+      alert("Diese Tipprunde enthält keine Daten"!)
+    }
   }
 
   getColor(no: number) {
     return this.colors[no]
   }
 
+  //experimentell
   generateColors() {
     let c = []
     for (let i = 0; i < 15; i++) {

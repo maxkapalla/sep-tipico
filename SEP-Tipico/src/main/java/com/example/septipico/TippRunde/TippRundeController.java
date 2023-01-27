@@ -254,6 +254,7 @@ public class TippRundeController {
     private List<UserStats> insertTeamPoints(List<UserStats> userStatsList, Long teamID, int points) {
         UserStats userStat = getStatByTeamID(userStatsList, teamID);
         userStatsList.remove(userStat);
+        System.out.println("Team: " + userStat.getTeamName() + " + " + points + " Punkte");
         userStat.setPointsForUser(userStat.getPointsForUser() + points);
         userStatsList.add(userStat);
         return userStatsList;
