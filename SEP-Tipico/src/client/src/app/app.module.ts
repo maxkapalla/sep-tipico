@@ -41,6 +41,7 @@ import { AdminStatsComponent } from './admin-stats/admin-stats.component';
 import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
+import { GeldWetteAbgebenComponent } from './geld-wette-abgeben/geld-wette-abgeben.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import {ClickOutsideDirective} from "./clickOutside.directive";
     LigaTableComponent,
     ChatComponent,
     AnfragenOrganisierenComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    GeldWetteAbgebenComponent
   ],
   imports: [
     BrowserModule,

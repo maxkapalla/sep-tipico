@@ -9,4 +9,5 @@ export class AppComponent {
   title = 'Willkommen auf SEP-Tipico!';
   loggedIn = sessionStorage.getItem('isLoggedIn')
   role = sessionStorage.getItem('role')
+  geldwette= sessionStorage.getItem('geldWette')
 }

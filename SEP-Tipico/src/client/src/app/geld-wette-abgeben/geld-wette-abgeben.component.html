@@ -1,0 +1,48 @@
+<h2>Wetten mit Geld!</h2>
+<div class="tippAbgebenForm">
+  <form #tippAbgebenForm="ngForm">
+    <div class="form-group">
+      <label for="tipprunde">Tipprunde wählen</label>
+      <select [(ngModel)]="tipprundenid" id="tipprunde" name="Tipprunde" required>
+        <option *ngFor="let tippr of tipprunden" value="{{ tippr.id }}">{{ tippr.tipprundeName }}</option>
+      </select>
+      <br>
+      <button (click)="onLoadTipprunde()" class="btn btn-info"
+              type="button">Liga laden
+      </button>
+      <br>
+
+      <label for="match">Spiel</label>
+      <input [(ngModel)]="tipp.spiel" class="form-control"
+             id="match"
+             name="match"
+             placeholder="Spiel"
+             required
+             type="text">
+      <label for="teamATip">Tore A</label>
+      <input [(ngModel)]="tipp.tippA" class="form-control"
+             id="teamATip"
+             name="teamATip"
+             placeholder="Tore A"
+             required
+             type="text">
+      <label for="teamBTip">Tore B</label>
+      <input [(ngModel)]="tipp.tippB" class="form-control"
+             id="teamBTip"
+             name="teamBTip"
+             placeholder="Tore B"
+             required
+             type="text">
+      <label for="tipprunde">tipprunde</label>
+
+
+    </div>
+
+    <div class="dangerButton">
+      <button (click)="onSubmitTip()" [disabled]="!tippAbgebenForm.form.valid" class="btn btn-info"
+              type="button">Tipp abgeben
+      </button>
+    </div>
+
+  </form>
+</div>
