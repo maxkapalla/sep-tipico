@@ -4,7 +4,6 @@ import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
 import {Team} from "../Models/Team";
 import {UserStats} from "../Models/UserStats";
-import {ErgebnisStats} from "../Models/ErgebnisStats";
 import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
 
@@ -20,15 +19,11 @@ export class LigaTableComponent implements OnInit {
   maxValue
   teams: Team[];
   stats: UserStats[];
-  ergebnisSt: ErgebnisStats[]
-  ergebnisC: number[]
 
   constructor(private LigaService: LigaService, private TeamService: TeamService, private tippRundeService: TippRundeService) {
     this.ligen = [];
     this.teams = [];
     this.ergebnisse = [];
-    this.ergebnisC = [];
-    this.ergebnisSt = [];
     this.stats = [];
     this.maxValue = 1;
   }
@@ -51,20 +46,8 @@ export class LigaTableComponent implements OnInit {
       this.stats= data,
         // @ts.ignore
         this.stats.sort((a, b) => (a.pointsForTable < b.pointsForTable) ? 1 : -1);
-      ;});
-    this.tippRundeService.getErgebnisStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => {
-      this.ergebnisSt= data,
-        this.createErgebnisC(),
-        this.maxValue = Math.max(...this.ergebnisC);
-    });
+      ;});;
   }
 
-  createErgebnisC() {
-    for(var stat of this.ergebnisSt) {
-      if(stat.count != undefined) {
-        this.ergebnisC.push(stat.count)
-      }
-    }
-  }
 
 }
