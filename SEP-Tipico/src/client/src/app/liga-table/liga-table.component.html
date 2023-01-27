@@ -1,4 +1,11 @@
-
+<div style="margin-left: 20px">
+  <label for="ligen">Ergebnisse:</label>
+  <select #select (change)="getStats(select.value)" name="ligen" id="ligen">
+    <option *ngFor="let ligen of ergebnisse" [value]="ligen.id">
+      {{ligen.tipprundeName}}
+    </option>
+  </select>
+</div>
 <div>
   <table class="table table-bordered table-striped">
     <thead class="thead-dark" >
@@ -13,10 +20,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let team of teams, let i = index">
+    <tr *ngFor="let stat of stats, let i = index" [ngClass]="{'first': i === 0, 'last': i >= stats.length -2}">
       <td>{{i+1}}</td>
-      <td> {{ team.name}} </td>
-      <td>{{ team.points }}</td>
+      <td> {{ stat.teamName}} </td>
+      <td>{{ stat.pointsForTable }}</td>
+      <td>{{ stat.wins }}</td>
+      <td>{{ stat.draws }}</td>
+      <td>{{ stat.loses }}</td>
+      <td>{{ stat.tordif }}</td>
+
       <td><img height="50" src=><a></a></td>
     </tr>
     </tbody>

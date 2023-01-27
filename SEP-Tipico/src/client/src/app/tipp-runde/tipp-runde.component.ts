@@ -117,7 +117,7 @@ export class TippRundeComponent implements OnInit {
       this.router.navigate(['/tipprunde-drinne', tippRundeID, tippRundePw])
     }
   }
-
+x
   getLigaName(ligaid: bigint | undefined): String {
     if (ligaid != null) {
 
