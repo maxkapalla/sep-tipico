@@ -1,37 +1,24 @@
-<div class="container">
-  <div class="showLigaTable">
-    <table>
-      <tr>
-        <th>
-          Team Name
-        </th>
-        <th>
-          Platzierung
-        </th>
-        <th>
-          Punkte
-        </th>
-        <th>
-          Tordifferenz
-        </th>
-        <th>
-          Siege
-        </th>
-        <th>
-          Unentschieden
-        </th>
-        <th>
-          Niederlagen
-        </th>
 
-      </tr>
-      <tr *ngFor="let team of teams">
-        <td> {{ team.name}} </td>
-        <td>{{ team.points }}</td>
-        <td><img height="50" src=><a></a></td>
-      </tr>
-    </table>
-
-  </div>
-
+<div>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark" >
+    <tr class="überschrift" >
+      <th scope="col-platz">Platz</th>
+      <th scope="col-name">Name</th>
+      <th scope="col-punkte">Punkte</th>
+      <th scope="col-wins">Wins</th>
+      <th scope="col-draws">Draws</th>
+      <th scope="col-loses">Loses</th>
+      <th scope="col-tordiff">TorDiff</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let team of teams, let i = index">
+      <td>{{i+1}}</td>
+      <td> {{ team.name}} </td>
+      <td>{{ team.points }}</td>
+      <td><img height="50" src=><a></a></td>
+    </tr>
+    </tbody>
+  </table>
 </div>
