@@ -48,6 +48,7 @@
           </div>
         </div>
 
+
         <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
           <button (click)='removeFriend(nutzer.id+"")'
                   style="background-color: indianred; border-color: indianred;"
@@ -91,6 +92,11 @@
               </div>
             </div>
           </div>
+      <div class="colm" style="width: auto; float: right; margin-right: 20px; transform: translateY(43%)">
+        <button (click)='sendChatRequest(nutzer.id+"")'
+                style="background-color: dimgrey; border-color: dimgrey;"
+                class="btn btn-info">Chat</button>
+      </div>
     </div>
   </div>
 </div>

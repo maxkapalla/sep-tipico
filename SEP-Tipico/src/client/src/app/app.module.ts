@@ -41,6 +41,7 @@ import { AdminStatsComponent } from './admin-stats/admin-stats.component';
 import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
+import { ChatRequestsComponent } from './chat-requests/chat-requests.component';
 import { GeldWetteAbgebenComponent } from './geld-wette-abgeben/geld-wette-abgeben.component';
 
 
@@ -85,6 +86,7 @@ import { GeldWetteAbgebenComponent } from './geld-wette-abgeben/geld-wette-abgeb
     ChatComponent,
     AnfragenOrganisierenComponent,
     ClickOutsideDirective,
+    ChatRequestsComponent,
     GeldWetteAbgebenComponent
   ],
   imports: [

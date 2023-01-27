@@ -3,6 +3,12 @@ header {
   background-color: cornflowerblue;
 }
 
+:root {
+  --football-size: 100px;
+  --pos-top: 50;
+  --pos-left: 50;
+}
+
 .logo {
   height: 50px;
   margin-left: 20px;
@@ -39,16 +45,24 @@ header a:hover {
   }
 }
 
-.football {
-  font-size: 100px;
-  box-sizing: content-box;
+.football-div {
   position: relative;
-  display: block;
   transform: scale(var(--ggs, 1));
+}
+
+.football {
+  font-size: var(--football-size);
+  box-sizing: content-box;
+
+  display: block;
+
   border: 0px solid black;
   padding: 0px;
   border-radius: 100px;
   text-align: center;
-  animation: blink 5s steps(2, start) infinite;
+  position: absolute;
+  top: var(--pos-top);
+  left: var(--pos-left);
+  transform: translate(-50%, -50%);
 }
 

@@ -194,7 +194,7 @@ public class TippRundeController {
 
         List<Team> teamList = teamRepository.findByLiga(tippRunde.getLiga());
 
-        List<Spiel> spielList = spielRepository.findByLiga(tippRunde.getId());
+        List<Spiel> spielList = spielRepository.findByLiga(tippRunde.getLiga());
 
         System.out.println("teamlistlänge: " + teamList.size() + " tipplistlänge: " + tippList.size());
 
@@ -210,33 +210,65 @@ public class TippRundeController {
         int dif = Integer.parseInt(tippRunde.getGewDiff());
         int gew = Integer.parseInt(tippRunde.getGewGewinner());
 
+        System.out.println(spielList.size());
         for(Spiel spiel: spielList) {
             if(!checkDate(spiel.getDate().toString(), date)) {
                 spielList.remove(spiel);
             }
         }
+        System.out.println(spielList.size());
 
         for(Spiel spiel: spielList) {
             for (TippN tipp : tippList) {
-                if (tipp.getSpiel() == spiel.getId()) {
-                    for (UserStats stat : userStatsList) {
 
-                        if (tipp.getTippA().intValue() == spiel.getScoreTeamA() && tipp.getTippB().intValue() == spiel.getScoreTeamB()) {
-                            stat.setPointsForUser(stat.getPointsForUser() + erg);
-                        } else if (tipp.getTippA().intValue() - spiel.getScoreTeamA() == tipp.getTippB().intValue() - spiel.getScoreTeamB()) {
-                            stat.setPointsForUser(stat.getPointsForUser() + dif);
-                        } else if (tipp.getTippA() > tipp.getTippB() && spiel.getScoreTeamA() > spiel.getScoreTeamB()) {
-                            stat.setPointsForUser(stat.getPointsForUser() + gew);
-                        } else if (tipp.getTippA() < tipp.getTippB() && spiel.getScoreTeamA() < spiel.getScoreTeamB()) {
-                            stat.setPointsForUser(stat.getPointsForUser() + gew);
-                        } else if (tipp.getTippA() == tipp.getTippB() && spiel.getScoreTeamA() == spiel.getScoreTeamB()) {
-                            stat.setPointsForUser(stat.getPointsForUser() + gew);
-                        }
+                if ((long)tipp.getSpiel() == spiel.getId()) {
+
+                    System.out.println("in der inneren for schleife");
+                    if (tipp.getTippA().intValue() == spiel.getScoreTeamA() && tipp.getTippB().intValue() == spiel.getScoreTeamB()) {
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamA(), erg);
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamB(), erg);
+                        System.out.println("punkte für ergebnis");
+                    } else if (tipp.getTippA().intValue() - spiel.getScoreTeamA() == tipp.getTippB().intValue() - spiel.getScoreTeamB()) {
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamA(), dif);
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamB(), dif);
+                        System.out.println("punkte für differenz");
+                    } else if (tipp.getTippA() > tipp.getTippB() && spiel.getScoreTeamA() > spiel.getScoreTeamB()) {
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamA(), gew);
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamB(), gew);
+                        System.out.println("punkte für gewinn");
+                    } else if (tipp.getTippA() < tipp.getTippB() && spiel.getScoreTeamA() < spiel.getScoreTeamB()) {
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamA(), gew);
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamB(), gew);
+                        System.out.println("punkte für gewinn");
+                    } else if (tipp.getTippA() == tipp.getTippB() && spiel.getScoreTeamA() == spiel.getScoreTeamB()) {
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamA(), gew);
+                        userStatsList = insertTeamPoints(userStatsList, spiel.getTeamB(), gew);
+                        System.out.println("punkte für gewinn");
                     }
                 }
             }
         }
         return userStatsList;
+    }
+
+    private List<UserStats> insertTeamPoints(List<UserStats> userStatsList, Long teamID, int points) {
+        UserStats userStat = getStatByTeamID(userStatsList, teamID);
+        userStatsList.remove(userStat);
+        System.out.println("Team: " + userStat.getTeamName() + " + " + points + " Punkte");
+        userStat.setPointsForUser(userStat.getPointsForUser() + points);
+        userStatsList.add(userStat);
+        return userStatsList;
+    }
+
+    private UserStats getStatByTeamID(List<UserStats> userStatsList, long teamID) {
+        UserStats userStat = null;
+        for (UserStats stat : userStatsList) {
+            if (stat.getTeamID() == teamID) {
+                userStat = stat;
+                break;
+            }
+        }
+        return userStat;
     }
 
     private boolean checkDate(String date1, String date2){

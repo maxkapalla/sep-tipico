@@ -142,7 +142,7 @@ public class LigaController {
 
             List<Tipper> tippers = new ArrayList<>();
             for(TippRunde r : runden) {
-                tippers = tipperRepository.findAllByTipprundenID(r.getId());
+                tippers.addAll(tipperRepository.findAllByTipprundenID(r.getId()));
             }
             List<Long> userIDs = new ArrayList<Long>();
 

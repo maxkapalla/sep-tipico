@@ -1,6 +1,7 @@
 package com.example.septipico;
 
 import com.example.septipico.TippRunde.TippRundeRepository;
+import com.example.septipico.chat.ChatRepository;
 import com.example.septipico.liga.LigaRepository;
 import com.example.septipico.liga.TeamRepository;
 import com.example.septipico.nutzer.FriendsRepository;
@@ -10,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
 
 
 @SpringBootApplication
@@ -29,8 +31,10 @@ public class SepTipicoApplication {
 
 
     @Bean
-    CommandLineRunner init(LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo, FriendsRepository friendrepo, TippRundeRepository tippRundeRepo, TippNRepository tippNRepository) {
+    CommandLineRunner init(ChatRepository chatRepo, LigaRepository ligaRepository, TeamRepository teamRepository, NutzerRepository nutzerrepo, FriendsRepository friendrepo, TippRundeRepository tippRundeRepo, TippNRepository tippNRepository) {
         return args -> {
+
+//            chatRepo.save(new Chats(1L, Arrays.asList(4689L,4692L),true));
 //            friendrepo.save(new Friends(21L, 4408L, true));
 //            friendrepo.save(new Friends(22L, 4408L,true));
 /*            int max = 1000;, Ti

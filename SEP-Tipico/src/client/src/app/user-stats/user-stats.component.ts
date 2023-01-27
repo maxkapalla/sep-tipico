@@ -11,30 +11,29 @@ import {ErgebnisStats} from "../Models/ErgebnisStats";
 })
 export class UserStatsComponent implements OnInit {
 
-  mannschaften: number[];
   colors: string[]
   maxValue
   tippRunden: TippRunde[]
   runde: TippRunde
 
+  pieStats: UserStats[]
   stats: UserStats[]
   ergebnisStats: ErgebnisStats[]
   ergebnisCounts: number[]
 
 
   constructor(private tippRundeService: TippRundeService) {
-    this.mannschaften = [20, 30, 10, 20, 10, 10];
-    this.colors = ["red", "green", "blue", "yellow", "orange", "purple"];
+    this.colors = ["#FF7F50", "#DE3163", "#40E0D0", "#6495ED", "#FFBF00", "#95A5A6", "#DC7633", "#E6B0AA", "#D7BDE2", "#A9CCE3", "#A3E4D7", "#F7DC6F", "#52BE80", "#7B241C", "#5B2C6F", "#CCCCFF","#DFFF00", "#9FE2BF"];
     this.tippRunden = []
     this.runde = new TippRunde()
     this.stats = []
     this.ergebnisStats = []
     this.ergebnisCounts = []
     this.maxValue = 1
+    this.pieStats = []
   }
 
   ngOnInit(): void {
-    this.createPiechart();
     this.tippRundeService.getTippRundenByMember(sessionStorage.getItem("id") + "").subscribe((data: any) => {
       this.tippRunden = data
 
@@ -47,17 +46,35 @@ export class UserStatsComponent implements OnInit {
 
   getStats(rundenID: string) {
     let date = sessionStorage.getItem("datum")
-    console.log("rundenid angefragt " + rundenID + " date: " + date)
-    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {this.stats= data,
+    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {
+      this.stats= data,
     console.log(this.stats),
-      // @ts-ignore
-      this.stats.sort((a, b) => (a.pointsForTable < b.pointsForTable) ? 1 : -1);});
+        this.sortStats(),
+      this.createPiechart();
+    });
+
     this.tippRundeService.getErgebnisStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => {
       this.ergebnisStats= data,
         this.createErgebnisCounts(),
         console.log(this.ergebnisStats),
         this.maxValue = Math.max(...this.ergebnisCounts);
     });
+  }
+
+  sortStats() {
+    this.stats.sort((a: UserStats, b: UserStats) => {
+      if (a.pointsForTable !== b.pointsForTable) {
+        // @ts-ignore
+        return a.pointsForTable - b.pointsForTable;
+      } else if (a.tordif !== b.tordif) {
+        // @ts-ignore
+        return a.tordif < b.tordif ? -1 : 1;
+      } else {
+        // @ts-ignore
+        return a.wins < b.wins ? -1 : 1;
+      }
+    });
+    this.stats.reverse()
   }
 
   createErgebnisCounts() {
@@ -69,6 +86,11 @@ export class UserStatsComponent implements OnInit {
   }
 
   createPiechart() {
+    for (var st of this.stats) {
+      if (st.pointsForUser != 0) {
+        this.pieStats.push(st)
+      }
+    }
     let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("pieChart");
 
     let ctx: any = canvas.getContext("2d");
@@ -76,14 +98,14 @@ export class UserStatsComponent implements OnInit {
     let totalValue: number = 0;
     let startAngle = 0;
 
-// Berechne den Gesamtwert aller Daten
-    for (let i = 0; i < this.mannschaften.length; i++) {
-      totalValue += this.mannschaften[i];
+    for (let i = 0; i < this.pieStats.length; i++) {
+      // @ts-ignore
+      totalValue += this.pieStats[i].pointsForUser;
     }
 
-// Zeichne das Diagramm
-    for (let i = 0; i < this.mannschaften.length; i++) {
-      let sliceAngle = 2 * Math.PI * this.mannschaften[i] / totalValue;
+    for (let i = 0; i < this.pieStats.length; i++) {
+      // @ts-ignore
+      let sliceAngle = 2 * Math.PI * this.pieStats[i].pointsForUser / totalValue;
       ctx.fillStyle = this.colors[i];
       ctx.beginPath();
       ctx.moveTo(canvas.width/2, canvas.height/2);
@@ -92,12 +114,23 @@ export class UserStatsComponent implements OnInit {
       ctx.fill();
       startAngle += sliceAngle;
     }
+    if(this.stats.length == 0) {
+      let angle = 360
+      ctx.fillStyle = 'grey'
+      ctx.beginPath();
+      ctx.moveTo(canvas.width/2, canvas.height/2);
+      ctx.arc(canvas.width/2, canvas.height/2, canvas.height/2, 0, 360);
+      ctx.lineTo(canvas.width/2, canvas.height/2);
+      ctx.fill();
+      alert("Diese Tipprunde enthält keine Daten"!)
+    }
   }
 
   getColor(no: number) {
     return this.colors[no]
   }
 
+  //experimentell
   generateColors() {
     let c = []
     for (let i = 0; i < 15; i++) {
