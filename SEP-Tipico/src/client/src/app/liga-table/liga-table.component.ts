@@ -16,7 +16,6 @@ export class LigaTableComponent implements OnInit {
 
   ergebnisse: TippRunde[]
   ligen: Liga[];
-  maxValue
   teams: Team[];
   stats: UserStats[];
 
@@ -25,7 +24,6 @@ export class LigaTableComponent implements OnInit {
     this.teams = [];
     this.ergebnisse = [];
     this.stats = [];
-    this.maxValue = 1;
   }
 
 
@@ -44,9 +42,26 @@ export class LigaTableComponent implements OnInit {
     let date = sessionStorage.getItem("datum")
     this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {
       this.stats= data,
-        // @ts.ignore
-        this.stats.sort((a, b) => (b.pointsForTable - a.pointsForTable));
-      ;});;
+        this.stats = this.sortStats(this.stats)
+      });
+  }
+
+  sortStats(stats: UserStats[]) {
+    let userStats = stats;
+    userStats.sort((a: UserStats, b: UserStats) => {
+      if (a.pointsForTable !== b.pointsForTable) {
+        // @ts-ignore
+        return a.pointsForTable - b.pointsForTable;
+      } else if (a.tordif !== b.tordif) {
+        // @ts-ignore
+        return a.tordif < b.tordif ? -1 : 1;
+      } else {
+        // @ts-ignore
+        return a.wins < b.wins ? -1 : 1;
+      }
+    });
+    userStats.reverse()
+    return userStats
   }
 
 

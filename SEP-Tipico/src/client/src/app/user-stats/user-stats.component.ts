@@ -48,8 +48,7 @@ export class UserStatsComponent implements OnInit {
     this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {
       this.stats= data,
     console.log(this.stats),
-      // @ts-ignore
-      this.stats.sort((a, b) => (a.pointsForTable < b.pointsForTable) ? 1 : -1);
+        this.stats = this.sortStats(this.stats)
       this.createPiechart();});
     this.tippRundeService.getErgebnisStats(sessionStorage.getItem("id") + "-" + rundenID).subscribe((data: any) => {
       this.ergebnisStats= data,
@@ -57,6 +56,24 @@ export class UserStatsComponent implements OnInit {
         console.log(this.ergebnisStats),
         this.maxValue = Math.max(...this.ergebnisCounts);
     });
+  }
+
+  sortStats(stats: UserStats[]) {
+    let userStats = stats;
+    userStats.sort((a: UserStats, b: UserStats) => {
+      if (a.pointsForTable !== b.pointsForTable) {
+        // @ts-ignore
+        return a.pointsForTable - b.pointsForTable;
+      } else if (a.tordif !== b.tordif) {
+        // @ts-ignore
+        return a.tordif < b.tordif ? -1 : 1;
+      } else {
+        // @ts-ignore
+        return a.wins < b.wins ? -1 : 1;
+      }
+    });
+    userStats.reverse()
+    return userStats
   }
 
   createErgebnisCounts() {
