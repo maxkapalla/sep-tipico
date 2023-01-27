@@ -45,7 +45,7 @@ export class LigaTableComponent implements OnInit {
     this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {
       this.stats= data,
         // @ts.ignore
-        this.stats.sort((a, b) => (a.pointsForTable < b.pointsForTable) ? 1 : -1);
+        this.stats.sort((a, b) => (b.pointsForTable - a.pointsForTable));
       ;});;
   }
 
