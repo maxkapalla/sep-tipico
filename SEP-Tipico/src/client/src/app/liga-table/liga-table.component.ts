@@ -30,6 +30,7 @@ export class LigaTableComponent implements OnInit {
     this.ergebnisC = [];
     this.ergebnisSt = [];
     this.stats = [];
+    this.maxValue = 1;
   }
 
 
