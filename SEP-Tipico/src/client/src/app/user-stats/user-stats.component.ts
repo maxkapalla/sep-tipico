@@ -86,6 +86,7 @@ export class UserStatsComponent implements OnInit {
   }
 
   createPiechart() {
+    this.pieStats = []
     for (var st of this.stats) {
       if (st.pointsForUser != 0) {
         this.pieStats.push(st)
