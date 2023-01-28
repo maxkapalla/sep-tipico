@@ -10,7 +10,7 @@ import {TippRundeService} from "../services/tipp-runde.service";
 import {Tipp} from "../Models/TippN";
 import {TippRunde} from "../Models/TippRunde";
 import {Tipper} from "../Models/Tipper";
-
+import {NutzerService} from "../services/nutzer.service";
 
 require('../patch.js')
 
@@ -47,13 +47,16 @@ export class GeldWetteAbgebenComponent implements OnInit {
   usertips: Tipp[];
   usertiptable: boolean;
 
+  kontostand: bigint;
+
   copyid: bigint;
   tipprundenraw: TippRunde[];
 
   constructor(private router: Router,
               private LigaService: LigaService, private TeamService: TeamService,
               private MatchService: MatchService, private TippService: TippService,
-              private TippRundeService: TippRundeService) {
+              private TippRundeService: TippRundeService,
+              private nutzerService: NutzerService) {
     this.ligen = [];
     this.matches = [];
     this.tipprunden = [];
@@ -75,6 +78,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.usertiptable = false;
     this.copyid = BigInt("0");
 
+    this.kontostand= BigInt(sessionStorage.getItem("kontostand") + "");
   }
 
 
@@ -270,13 +274,24 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.tipp.tipprundenid = this.tipprundenid;
     this.tipp.quote=2;
     console.log(this.tipp)
-    this.TippService.save(this.tipp).subscribe(() => {
-        this.TippService.getAllTips().subscribe((data: any) => {
-            this.previousTipps = data;
-          }
-        );
-      }
-    );
+
+    if((this.kontostand - BigInt(this.tipp.betGeld)>=0)) {
+
+      this.TippService.save(this.tipp).subscribe(() => {
+          this.TippService.getAllTips().subscribe((data: any) => {
+              this.previousTipps = data;
+            }
+          );
+        }
+      );
+      this.kontostand = this.kontostand - BigInt(this.tipp.betGeld);
+      this.nutzerService.setKontostand(sessionStorage.getItem("id") + "", String(this.kontostand)).subscribe();
+      sessionStorage.setItem("kontostand", String(this.kontostand));
+      alert("Viel Erfolg bei deiner Wette!")
+    }
+    else {
+      alert("Du wettest mit mehr Geld als du besitzt mein Freund!")
+    }
 
     //his.matches.this.TippService.save(this.tipp).subscribe();
     this.tipp = new Tipp();
