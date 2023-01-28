@@ -43,7 +43,8 @@ import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-
 import {ClickOutsideDirective} from "./clickOutside.directive";
 import { ChatRequestsComponent } from './chat-requests/chat-requests.component';
 import { GeldWetteAbgebenComponent } from './geld-wette-abgeben/geld-wette-abgeben.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -94,7 +95,9 @@ import { GeldWetteAbgebenComponent } from './geld-wette-abgeben/geld-wette-abgeb
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonToggleModule
   ],
   exports: [
     FormsModule

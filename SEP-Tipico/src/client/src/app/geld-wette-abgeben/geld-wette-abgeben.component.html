@@ -19,13 +19,17 @@
              placeholder="Spiel"
              required
              type="text">
-      <label for="teamATip">Sieger Heim</label>
-      <input [(ngModel)]="tipp.moneyTipp" class="form-control"
-             id="teamATip"
-             name="teamATip"
-             placeholder=""
-             required
-             type="text">
+
+      <section>
+        <h5 class="header">Ereignis</h5>
+        <mat-button-toggle-group  aria-label="Font Style" class="mat-form-field-appearance-fill">
+          <mat-button-toggle value="SiegerA" (change)="onChange($event.value)" >Heimsieg</mat-button-toggle>
+          <mat-button-toggle value="Draw" (change)="onChange($event.value)">Unentschieden</mat-button-toggle>
+          <mat-button-toggle value="SiegerB" (change)="onChange($event.value)">Auswärtssieg</mat-button-toggle>
+        </mat-button-toggle-group>
+        <p>Ausgewähltes Ergebnis {{tipp.moneyTipp}}</p>
+      </section>
+
       <label for="teamBTip">Einsatz</label>
       <input [(ngModel)]="tipp.betGeld" class="form-control"
              id="teamBTip"
@@ -45,58 +49,61 @@
   </form>
 </div>
 
-<h2>Alle Tips</h2>
-<table class="minimalistBlack">
-  <thead>
-  <tr>
-    <th>tipID</th>
-    <th>tipperID</th>
-    <th>Tipprunden ID</th>
-    <th>Spiel ID</th>
-    <th>Tipp A</th>
-    <th>Tipp B</th>
-    <th>Ereignis</th>
-    <th>Quote</th>
-    <th>Einsatz €</th>
+<h2 id="überschriftAlle" style="text-align: center">Alle Tipps</h2>
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr class="überschrift">
+        <th scope="col-id">TippID</th>
+        <th scope="col-tipperid">Tipper ID</th>
+        <th scope="col-roundid">Tipprunden ID</th>
+        <th scope="col-gameid">Spiel ID</th>
+        <th scope="col-result">Ergebnis</th>
+        <th scope="col-quote">Quote</th>
+        <th scope="col-einsatz">Einsatz €</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tip of previousTipps">
+        <td><span>{{tip.id}}</span></td>
+        <td><span>{{tip.tipperID}}</span></td>
+        <td><span>{{tip.tipprundenid}}</span></td>
+        <td><span>{{tip.spiel}}</span></td>
 
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let tip of previousTipps;">
-    <td><span>{{tip.id}}</span></td>
-    <td><span>{{tip.tipperID}}</span></td>
-    <td><span>{{tip.tipprundenid}}</span></td>
-    <td><span>{{tip.spiel}}</span></td>
-    <td><span>{{tip.tippA}}</span></td>
-    <td><span>{{tip.tippB}}</span></td>
-    <td><span>{{tip.moneyTipp}}</span></td>
-    <td><span>{{tip.quote}}</span></td>
-    <td><span>{{tip.betGeld}}</span></td>
-  </tr>
-  </tbody>
-</table>
+        <td><span>{{tip.moneyTipp}}</span></td>
+        <td><span>{{tip.quote}}</span></td>
+        <td><span>{{tip.betGeld}}</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<h2 *ngIf="loadtable">Spiele</h2>
-<table *ngIf="loadtable" class="minimalistBlack">
-  <thead>
-  <tr>
-
-    <th>Match ID</th>
-    <th>Spieltag</th>
-    <th>Team 1 Score</th>
-    <th>Team 2 Score</th>
-    <th>Team 1</th>
-    <th>Team 2</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let match of matches;">
-    <td><span>{{match.id}}</span></td>
-    <td><span>{{match.spieltag}}</span></td>
-    <td><span>{{match.scoreTeamA}}</span></td>
-    <td><span>{{match.scoreTeamB}}</span></td>
-    <td><span>{{match.teamA}}</span></td>
-    <td><span>{{match.teamB}}</span></td>
-  </tr>
-  </tbody>
-</table>
+<h2 id="überschriftSpiele" style="text-align: center">Alle Spiele</h2>
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-blue">
+      <tr class="überschrift">
+        <th scope="col-gid">Spiel ID</th>
+        <th scope="col-tag">Spieltag</th>
+        <th scope="col-heim">Heim</th>
+        <th scope="col-torea">ToreHeim</th>
+        <th scope="col-toreb">ToreAus.</th>
+        <th scope="col-auswärts">Auswärts</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let match of matches;">
+        <td><span>{{match.id}}</span></td>
+        <td><span>{{match.spieltag}}</span></td>
+        <td><span>{{match.teamA}}</span></td>
+        <td><span>{{match.scoreTeamA}}</span></td>
+        <td><span>{{match.scoreTeamB}}</span></td>
+        <td><span>{{match.teamB}}</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

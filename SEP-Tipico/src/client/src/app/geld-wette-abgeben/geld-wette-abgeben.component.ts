@@ -12,6 +12,7 @@ import {TippRunde} from "../Models/TippRunde";
 import {Tipper} from "../Models/Tipper";
 import {NutzerService} from "../services/nutzer.service";
 
+
 require('../patch.js')
 
 
@@ -48,7 +49,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
   usertiptable: boolean;
 
   kontostand: bigint;
-
+  ergebnis:string="";
   copyid: bigint;
   tipprundenraw: TippRunde[];
 
@@ -301,6 +302,9 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.copyid = BigInt("0")
 
 
+  }
+  onChange(ergebnis: string) {
+    this.tipp.moneyTipp = ergebnis;
   }
 
 }
