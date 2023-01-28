@@ -1,7 +1,7 @@
 
 <div style="margin-left: 20px">
-  <label for="runden">Tipprunden:</label>
-  <select #select (change)="getStats(select.value)" name="runden" id="runden">
+  <label for="runden">Tipprunden: </label>
+  <select #select (change)="getStats(select.value)" name="runden" id="runden" style="margin-left: 10px">
     <option *ngFor="let runde of tippRunden" [value]="runde.id">
       {{runde.tipprundeName}}
     </option>
@@ -25,8 +25,8 @@
   </div>
 </div>
 
-<div style="margin-top: 40px">
-  <table class="table table-bordered table-striped">
+<div>
+  <table class="table table-striped">
     <thead class="thead-dark" >
     <tr class="überschrift" >
       <th scope="col-platz">Platz</th>

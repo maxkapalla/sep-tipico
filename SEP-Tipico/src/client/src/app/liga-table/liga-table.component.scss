@@ -106,3 +106,10 @@
 .last{
   background-color: red;
 }
+
+table tr:nth-last-child(-n+3) {
+  background-color: palevioletred;
+}
+table tr:first-child {
+  background-color: darkseagreen;
+}
