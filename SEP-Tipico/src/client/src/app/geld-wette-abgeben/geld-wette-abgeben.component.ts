@@ -21,6 +21,7 @@ require('../patch.js')
   styleUrls: ['./geld-wette-abgeben.component.scss']
 })
 export class GeldWetteAbgebenComponent implements OnInit {
+
   ligen: Liga[];
   matches: Match[];
 
@@ -76,9 +77,11 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
-    if (sessionStorage.getItem('geldWette') !== "ja") { //falls user dann route zu home
-      this.router.navigate(['/home'])
+    if (sessionStorage.getItem("id") != null) {
+      // @ts-ignore
+      this.userid = sessionStorage.getItem("id");
     }
 
     this.MatchService.getAll().subscribe((data: any) => this.matches = data)
@@ -132,6 +135,8 @@ export class GeldWetteAbgebenComponent implements OnInit {
       this.previousTipps = data;
 
     })
+
+
   }
 
   onLoadTipprunde() {
@@ -263,6 +268,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
     this.tipp.tipperID = tipperid;
     this.tipp.tipprundenid = this.tipprundenid;
+    this.tipp.quote=2;
     console.log(this.tipp)
     this.TippService.save(this.tipp).subscribe(() => {
         this.TippService.getAllTips().subscribe((data: any) => {

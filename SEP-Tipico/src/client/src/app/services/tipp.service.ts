@@ -116,6 +116,12 @@ export class TippService {
     this.http.get(this.tippURL + "/givePoints/"+ splitstr).subscribe(result => this.worked(), this.didntwork)
   }
 
+  giveTippMoney() {
+    let date = sessionStorage.getItem('datum')
+    let splitstr = date?.split(".")
+    this.http.get(this.tippURL + "/giveMoney/"+ splitstr).subscribe(result => this.worked(), this.didntwork)
+  }
+
   worked(){
     console.log("worked")
   }

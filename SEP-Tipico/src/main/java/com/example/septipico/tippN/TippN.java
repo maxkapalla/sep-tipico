@@ -24,6 +24,15 @@ public class TippN {
     @Column(name = "tippB")
     private Long tippB;
 
+    @Column(name = "moneyTipp")
+    private String moneyTipp;
+
+    @Column(name ="quote")
+    private Long quote;
+
+    @Column(name="betGeld")
+    private Long betGeld;
+
     public Long getId() {
         return id;
     }
@@ -63,6 +72,22 @@ public class TippN {
     public void setTippB(Long tippB) {
         this.tippB = tippB;
     }
+
+    public String getMoneyTipp() {
+        return moneyTipp;
+    }
+
+    public void setMoneyTipp(String moneyTipp) {
+        this.moneyTipp = moneyTipp;
+    }
+
+    public Long getQuote() {return quote;}
+
+    public void setQuote(Long quote) {this.quote = quote; }
+
+    public Long getBetGeld() {return betGeld ;}
+
+    public void setBetGeld(Long betGeld) {this.betGeld = betGeld; }
 
     public Long getTipprundenid() {
         return tipprundenid;
