@@ -75,8 +75,12 @@ export class LigaTableComponent implements OnInit {
         }
       }
       ;console.log(this.winnings)
+      // @ts-ignore
+      const joined = this.teams.map(num => `${num}: ${this.winnings.get(num)}`);
+      console.log(joined);
     })
   }
+
 
   compileLigen() {
     for (let liga of this.ligen) {
