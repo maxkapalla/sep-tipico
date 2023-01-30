@@ -28,14 +28,16 @@ export class MatchService {
       var dateParts = currentDayAsString.split(".");
 
       let currentDate = new Date((dateParts[1] + "." + dateParts[0] + "." + dateParts[2]).valueOf());
+     
       if (matchdate.getUTCFullYear() >= currentDate.getUTCFullYear()) {
+
         if (matchdate.getMonth() >= currentDate.getMonth()) {
-          if (matchdate.getDate() >= currentDate.getDate()) {
+
+          if (matchdate.getDate() > currentDate.getDate()) {
+
             return false;
           }
-          return true;
         }
-        return true;
       }
       return true;
 
