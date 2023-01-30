@@ -10,4 +10,5 @@ export class Nutzer {
 
   kontostand: bigint | undefined;
   geldWette: string | undefined;
+  messageAnfrage: string|undefined;
 }

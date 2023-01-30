@@ -77,4 +77,10 @@ public class SpielController {
     public List<Spiel> getAllGames(){
         return spielRepository.findAll();
     }
+
+    @PostMapping("/id")
+    public Spiel getGamebyID(@RequestBody Long id) {
+        Spiel s= spielRepository.findByid(id);
+        return s;
+    }
 }

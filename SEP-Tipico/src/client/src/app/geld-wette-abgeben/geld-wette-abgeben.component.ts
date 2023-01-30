@@ -29,6 +29,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
   tipprunden: TippRunde[];
   matchesMap: Map<bigint, Match>;
   match: Match;
+  matchMitDate: Match;
   ligaNamen: Map<bigint, String>;
   ligaid: bigint;
   liga: Liga;
@@ -66,6 +67,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.ligaid = BigInt("0")
     this.liga = new Liga();
     this.match = new Match();
+    this.matchMitDate=new Match();
     this.tipp = new Tipp();
     this.matchid = BigInt("0");
     this.matchesMap = new Map<bigint, Match>;
@@ -276,8 +278,8 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.tipp.quote=2; //quote ändern!
     console.log(this.tipp)
 
+    this.tipp.spiel
     if((this.kontostand - BigInt(this.tipp.betGeld)>=0)) {
-
       this.TippService.save(this.tipp).subscribe(() => {
           this.TippService.getAllTips().subscribe((data: any) => {
               this.previousTipps = data;
@@ -303,8 +305,33 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
 
   }
-  onChange(ergebnis: string) {
+  onChange(ergebnis: string) { //quote:number
     this.tipp.moneyTipp = ergebnis;
+    //this.tipp.quote=quote;
+  }
+
+  requestBet() {
+
+    this.MatchService.getSpielByID(Number(this.tipp.spiel)).subscribe((data: any) => this.matchMitDate = data);
+    console.log(this.matchMitDate.id)
+    console.log(Number(this.tipp.spiel))
+  //  console.log(this.birthdate)
+  //  var splitstr = this.birthdate.split('.')+"";
+  //  this.datum = splitstr[3] + splitstr[4]+ "." + splitstr[0] +splitstr[1]+ "." + splitstr[6]+splitstr[7]+splitstr[8]+splitstr[9];
+ //   console.log(this.datum)
+    //this.datum=this.datePipe.transform(this.datum, 'MM.dd.yyyy')
+
+ //   if(this.datum){
+      var timeDiff = Math.abs(Date.now()- this.matchMitDate.date );
+      //this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+    console.log(timeDiff)
+ //   }
+    if(timeDiff<=0) {
+      alert("Match wurde schon gespielt!")
+    }
+    else {
+      alert("Wette ist ok");
+    }
   }
 
 }

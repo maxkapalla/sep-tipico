@@ -57,5 +57,8 @@ export class MatchService {
     return this.http.post<Match>(this.matchURL + "/delete", spiel);
 
   }
+  getSpielByID(input: number): Observable<Match> {
+    return this.http.post<Match>(this.matchURL + "/id", input);
+  }
 
 }
