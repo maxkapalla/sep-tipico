@@ -48,29 +48,29 @@ export class LigaTableComponent implements OnInit {
     if (this.liga == BigInt("0")) {
       this.TeamService.getAll().subscribe((data: any) => this.teams = data);
     } else {
-      this.TeamService.getAllInLiga(this.liga).subscribe((data: any) => this.teams = data);
+      this.TeamService.getAllInLiga(this.liga).subscribe((data: any) => {
+        this.teams = data,
+          this.sortStats()});
 
     }
 
   }
 
 
-  sortStats(stats: UserStats[]) {
-    let userStats = stats;
-    userStats.sort((a: UserStats, b: UserStats) => {
-      if (a.pointsForTable !== b.pointsForTable) {
+  sortStats() {
+    this.teams.sort((a: Team, b: Team) => {
+      if (a.points !== b.points) {
         // @ts-ignore
         return a.pointsForTable - b.pointsForTable;
-      } else if (a.tordif !== b.tordif) {
+      } else if (a.goals !== b.goals) {
         // @ts-ignore
-        return a.tordif < b.tordif ? -1 : 1;
+        return a.goals < b.goals ? -1 : 1;
       } else {
         // @ts-ignore
-        return a.wins < b.wins ? -1 : 1;
+        return a.winnings < b.winnings ? -1 : 1;
       }
     });
-    userStats.reverse()
-    return userStats
+    this.teams.reverse()
   }
 
 
