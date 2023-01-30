@@ -32,6 +32,7 @@ export class LigaTableComponent implements OnInit {
     this.LigaService.getAll().subscribe((data: any) => {
       this.ligen = data;
       this.compileLigen()
+      this.sortStats()
     })
   }
 
@@ -49,8 +50,8 @@ export class LigaTableComponent implements OnInit {
       this.TeamService.getAll().subscribe((data: any) => this.teams = data);
     } else {
       this.TeamService.getAllInLiga(this.liga).subscribe((data: any) => {
-        this.teams = data,
-          this.sortStats()});
+        this.teams = data;
+        this.sortStats()});
 
     }
 
@@ -61,7 +62,7 @@ export class LigaTableComponent implements OnInit {
     this.teams.sort((a: Team, b: Team) => {
       if (a.points !== b.points) {
         // @ts-ignore
-        return a.pointsForTable - b.pointsForTable;
+        return a.points - b.points;
       } else if (a.goals !== b.goals) {
         // @ts-ignore
         return a.goals < b.goals ? -1 : 1;
