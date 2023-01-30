@@ -4,6 +4,8 @@ import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
 import {Team} from "../Models/Team";
 import {UserStats} from "../Models/UserStats";
+import {MatchService} from "../services/match.service";
+import {Match} from "../Models/Match";
 
 @Component({
   selector: 'app-liga-see',
@@ -17,13 +19,17 @@ export class LigaTableComponent implements OnInit {
   teams: Team[];
   ligaNamen: Map<bigint, String>;
   stats: UserStats[];
+  ligaObj: Liga;
+  winnings: Map<bigint, bigint>;
 
-  constructor(private LigaService: LigaService, private TeamService: TeamService) {
+  constructor(private LigaService: LigaService, private TeamService: TeamService, private matchService: MatchService) {
     this.ligen = [];
     this.teams = [];
     this.liga = BigInt("0");
     this.stats = [];
     this.ligaNamen = new Map<bigint, String>;
+    this.ligaObj = new Liga();
+    this.winnings = new Map<bigint, bigint>;
   }
 
 
@@ -33,6 +39,32 @@ export class LigaTableComponent implements OnInit {
       this.ligen = data;
       this.compileLigen()
       this.sortStats()
+    })
+  }
+
+  onCalculateWinnings() {
+    this.matchService.getByLiga(this.ligaObj).subscribe((data: Match[]) => {
+      for (let m of data) {
+        if (m.scoreTeamA < m.scoreTeamB) {
+          if (m.teamB != null) {
+            if (this.winnings.has(m.teamB)) {
+              if (this.winnings.get(m.teamB) != null) {
+                this.winnings.set(m.teamB, BigInt("1") + BigInt(this.winnings.get(m.teamB) + ""))
+              }
+            }
+            
+          }
+        } else if (m.scoreTeamA > m.scoreTeamB) {
+          if (m.teamA != null) {
+            if (this.winnings.has(m.teamA)) {
+              if (this.winnings.get(m.teamA) != null) {
+                this.winnings.set(m.teamA, BigInt("1") + BigInt(this.winnings.get(m.teamA) + ""))
+              }
+            }
+
+          }
+        }
+      }
     })
   }
 
@@ -51,7 +83,8 @@ export class LigaTableComponent implements OnInit {
     } else {
       this.TeamService.getAllInLiga(this.liga).subscribe((data: any) => {
         this.teams = data;
-        this.sortStats()});
+        this.sortStats()
+      });
 
     }
 
