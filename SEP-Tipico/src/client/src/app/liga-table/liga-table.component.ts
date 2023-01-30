@@ -43,6 +43,11 @@ export class LigaTableComponent implements OnInit {
   }
 
   onCalculateWinnings() {
+    for (let l of this.ligen) {
+      if (this.liga == l.id) {
+        this.ligaObj = l;
+      }
+    }
     this.matchService.getByLiga(this.ligaObj).subscribe((data: Match[]) => {
       for (let m of data) {
         if (m.scoreTeamA < m.scoreTeamB) {
@@ -51,8 +56,10 @@ export class LigaTableComponent implements OnInit {
               if (this.winnings.get(m.teamB) != null) {
                 this.winnings.set(m.teamB, BigInt("1") + BigInt(this.winnings.get(m.teamB) + ""))
               }
+            } else {
+              this.winnings.set(m.teamB, BigInt("1"))
             }
-            
+
           }
         } else if (m.scoreTeamA > m.scoreTeamB) {
           if (m.teamA != null) {
@@ -60,11 +67,14 @@ export class LigaTableComponent implements OnInit {
               if (this.winnings.get(m.teamA) != null) {
                 this.winnings.set(m.teamA, BigInt("1") + BigInt(this.winnings.get(m.teamA) + ""))
               }
+            } else {
+              this.winnings.set(m.teamA, BigInt("1"))
             }
 
           }
         }
       }
+      ;console.log(this.winnings)
     })
   }
 
@@ -87,7 +97,7 @@ export class LigaTableComponent implements OnInit {
       });
 
     }
-
+    this.onCalculateWinnings();
   }
 
 
