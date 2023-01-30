@@ -265,7 +265,7 @@ export class TippAbgebenComponent implements OnInit {
         tipperid = BigInt(tipper.id);
       }
     }
-
+    console.log(tipperid)
     this.tipp.tipperID = tipperid;
     this.tipp.tipprundenid = this.tipprundenid;
     console.log(this.tipp)

@@ -12,11 +12,11 @@
     <div class="line" *ngFor="let request of requests" style="border-radius: 15px; height: 60px;
         background-color: lightgrey; margin: 5px">
       <div class="colm" style="float:left; padding-left: 10px; padding-top: 17px">
-          {{request.participants![0]}}
+          {{participants.get(request)}}
       </div>
 
       <div class="button" style="width: auto; float: right; margin-right: 20px; transform: translateY(27%)">
-        <button (click)="onAccept(+(request.id+''))"
+        <button (click)="onAccept(+(request.id+''), request.participants!)"
                 style="background-color: mediumseagreen; border-color: mediumseagreen;"
                 class="btn btn-info">Annehmen</button>
       </div>

@@ -67,10 +67,10 @@ export class FriendListComponent implements OnInit {
   sendChatRequest(friendID: string){
     console.log("Request sent")
     let myID = sessionStorage.getItem("id")+""
-    let notSent: boolean
-    this.chatService.checkForRequest(BigInt(myID)).subscribe(data => {
-      notSent = data
-      if(sessionStorage.getItem("Chat") == null && notSent){
+
+    this.chatService.getMySentRequests(BigInt(myID)).subscribe(data => {
+
+      if(sessionStorage.getItem("Chat") == null && data.length < 1){
         this.chatService.sendRequest([BigInt(+friendID), BigInt(+myID)]).subscribe((data) => {
         })
         alert("Chat-Anfrage wurde gesendet!");

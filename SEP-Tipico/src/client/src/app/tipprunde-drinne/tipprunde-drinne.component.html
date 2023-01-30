@@ -3,7 +3,7 @@
   <header class="jumbotron">
     <h3>
       <strong>{{ tippRunde.tipprundeName }}</strong>
-      <button class="btn btn-info" (click)="joinTipprundenChat()" style="float: right">Chat beitreten</button>
+      <button class="btn btn-info" *ngIf="isInRunde" (click)="joinTipprundenChat()" style="float: right">Chat beitreten</button>
     </h3>
   </header>
   <p>

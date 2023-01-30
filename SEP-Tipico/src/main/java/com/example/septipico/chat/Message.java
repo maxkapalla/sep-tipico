@@ -22,6 +22,12 @@ public class Message {
 
     private String name;
 
+    public Message(){}
+
+    public Message(Long chatID, Long Sender, String content, String name){
+
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

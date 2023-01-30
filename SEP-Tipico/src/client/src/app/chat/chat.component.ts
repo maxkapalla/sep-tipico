@@ -5,6 +5,8 @@ import {NutzerService} from "../services/nutzer.service";
 import {Nutzer} from "../Models/Nutzer";
 import {Message} from "../Models/Message";
 import {interval, Subscription} from "rxjs";
+import {TippRundeService} from "../services/tipp-runde.service";
+import {TippRunde} from "../Models/TippRunde";
 
 
 @Component({
@@ -24,10 +26,13 @@ export class ChatComponent implements OnInit {
   messages: Message[]
   myName :string
   sub: Subscription
+  sub2: Subscription
+  rundenid: bigint
 
-  refreshMsg$ = interval(550)
+  refreshMsg$ = interval(200)
+  check$ = interval(3000)
 
-  constructor(private chatService: ChatService, private nutzerService: NutzerService) {
+  constructor(private chatService: ChatService, private nutzerService: NutzerService, private rundenService: TippRundeService) {
     this.accepted = new Chat()
     this.myID = BigInt(0);
     this.partnerID = BigInt(0)
@@ -37,39 +42,59 @@ export class ChatComponent implements OnInit {
     this.messages = []
     this.myName = sessionStorage.getItem("name")!
     this.sub = new Subscription();
+    this.sub2 = new Subscription();
+    this.rundenid = BigInt(0);
   }
 
   ngOnInit(): void {
     this.search()
     this.myID = BigInt(sessionStorage.getItem("id")+"")
 
-    setInterval(()=>{
-      this.search();
-      console.log("Requests wurden gesucht")
-    }, 3000)
+    this.sub2 = this.check$.subscribe(()=> this.search())
   }
 
 
   //if chat is opened
   onOpen(){
     this.clicked = true
+    this.sub2.unsubscribe();
     this.sub = this.refreshMsg$.subscribe(()=>{
-      this.chatService.receiveMessage(BigInt(+sessionStorage.getItem("Chat")!)).subscribe(data=>{
-        this.messages = data
-      })
+      if(!sessionStorage.getItem("RundenChat")) {
+        this.chatService.receiveMessage(BigInt(+sessionStorage.getItem("Chat")!)).subscribe(data => {
+          if (data.length >= 1) {
+            this.messages = data.reverse()
+          } else {
+            alert("Der Nutzer " + this.name + "hat den Chat verlassen! Damit wird der Live-Chat beendet!")
+            this.onExit()
+          }
+        })
+      }else if(sessionStorage.getItem("RundenChat")){
+        this.chatService.receiveMessage(BigInt(+sessionStorage.getItem("RundenChat")!)).subscribe(data => {
+          if (data.length >= 1) {
+            this.messages = data.reverse()
+          }
+        })
+      }
+
     })
   }
 
   onMinimize(){
     this.clicked = false
     this.sub.unsubscribe()
+    this.sub2 = this.check$.subscribe(()=> this.search())
   }
 
   //if chat is exited
   onExit(){
     this.sub.unsubscribe()
-    this.chatService.endChat(this.accepted).subscribe()
-    sessionStorage.removeItem("Chat")
+    if(!sessionStorage.getItem("RundenChat")) {
+      this.chatService.endChat(this.accepted).subscribe()
+      sessionStorage.removeItem("Chat")
+    }else{
+      this.chatService.leaveTipprundenChat(BigInt(+sessionStorage.getItem("RundenChat")!), this.myID).subscribe()
+      sessionStorage.removeItem("RundenChat")
+    }
     this.chatActive=false
     this.name = ""
   }
@@ -79,19 +104,25 @@ export class ChatComponent implements OnInit {
     this.chatService.findActiveChat(BigInt(+sessionStorage.getItem("id")!)).subscribe((data: Chat)=>{
       if(data!= null){ //wenn aktive Chats gefunden wurden
         this.accepted = data //speichere in local variable
-        sessionStorage.setItem("Chat", this.accepted.id!.toString()) //erstelle sessionstorage chatid
-        this.chatActive = true; //setze boolean auf true
-        if(this.accepted.participants![0]== this.myID){ //finde partnerid heraus
-          this.partnerID = this.accepted.participants![1]
+        if(!sessionStorage.getItem("RundenChat")) {
+          sessionStorage.setItem("Chat", this.accepted.id!.toString()) //erstelle sessionstorage chatid
+          if(this.accepted.participants![0]== this.myID){ //finde partnerid heraus
+            this.partnerID = this.accepted.participants![1]
+          }else{
+            this.partnerID = this.accepted.participants![0]
+          }
+          this.nutzerService.getNutzerByID(this.partnerID.toString()).subscribe((data: Nutzer) =>
+            this.name = data.firstName! + " " + data.lastName!) //finde partner namen heraus
         }else{
-          this.partnerID = this.accepted.participants![0]
+          if(this.name == "") {
+            this.rundenService.getTippRundeByID(+sessionStorage.getItem("rundenID")!).subscribe((data: TippRunde) =>
+              this.name = data.tipprundeName!) //finde Tipprundename heraus
+          }
         }
-        this.nutzerService.getNutzerByID(this.partnerID.toString()).subscribe((data:Nutzer )=>
-          this.name = data.firstName! + " " + data.lastName!) //finde partner namen heraus
-        // this.receive(BigInt(sessionStorage.getItem("activeChat")!)) //hole alle nachrichten für aktiven chat
+        this.chatActive = true; //setze boolean auf true
       }else{
         this.chatActive=false
-        sessionStorage.removeItem("activeChat")
+        sessionStorage.removeItem("Chat")
         this.sub.unsubscribe()
       }
       console.log(this.chatActive)
@@ -100,7 +131,10 @@ export class ChatComponent implements OnInit {
 
   send(msg: string){
     let message = new Message();
-    message.chatID = BigInt(+sessionStorage.getItem("activeChat")!)
+    if(!sessionStorage.getItem("RundenChat"))
+      message.chatID = BigInt(+sessionStorage.getItem("Chat")!)
+    if(sessionStorage.getItem("RundenChat"))
+      message.chatID = BigInt(+sessionStorage.getItem("RundenChat")!)
     message.sender = this.myID;
     message.content = msg;
     message.time = this.getTime();
@@ -121,5 +155,6 @@ export class ChatComponent implements OnInit {
 
     return hours+":"+mins;
   }
+
 
 }

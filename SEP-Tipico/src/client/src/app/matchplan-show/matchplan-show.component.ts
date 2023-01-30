@@ -71,8 +71,9 @@ export class MatchPlanShowComponent implements OnInit {
     this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
     setTimeout(() => {
       if (this.topThree.length != 0)
-        this.nutzerService.getNutzersByIds(this.topThree[0].nutzerid, BigInt(0), BigInt(0)).subscribe((data: any) => this.topThreeNames = data)
-
+        for(let top of this.topThree){
+          this.nutzerService.getNutzerByID(top.nutzerid.toString()).subscribe((data:Nutzer) => {this.topThreeNames.push(data)})
+        }
     }, 200);
   }
 
@@ -95,7 +96,4 @@ export class MatchPlanShowComponent implements OnInit {
     return "kein Name"
   }
 
-  onLoadTopThree() {
-
-  }
 }

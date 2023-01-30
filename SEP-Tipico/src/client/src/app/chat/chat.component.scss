@@ -42,11 +42,26 @@ footer .chat-open{
   color: black;
   border-bottom: 1px solid black;
 }
-.openclose{
-  text-align: right;
-  float: top;
+.mini{
+  color: dimgrey;
+  float: right;
   cursor: pointer;
 }
+.mini:hover{
+  color:black;
+}
+
+.closing{
+  margin-left: 10px;
+  margin-right: 5px;
+  color: dimgrey;
+  float: right;
+  cursor: pointer;
+}
+.closing:hover{
+  color:black;
+}
+
 footer .requests{
   background-color: white;
   border-top: 1px solid black;
@@ -82,7 +97,9 @@ button{
   overflow-x: hidden;
   overflow-y: auto;
   height: 250px;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .msg-partner{

@@ -4,6 +4,7 @@ import {TippRunde} from "../Models/TippRunde";
 import {TippRundeService} from "../services/tipp-runde.service";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
+import {ChatService} from "../services/chat.service";
 
 @Component({
   selector: 'app-tipp-runde-create',
@@ -20,7 +21,8 @@ export class TippRundeCreateComponent implements OnInit {
   name: string = "";
   id: number;
 
-  constructor(private ligaService: LigaService, private TippRundeService: TippRundeService, private router: Router) {
+  constructor(private ligaService: LigaService, private TippRundeService: TippRundeService, private router: Router,
+              private chatService: ChatService) {
     this.ligen = [];
     this.liga = new Liga();
     this.tippRunden = [];
@@ -34,12 +36,16 @@ export class TippRundeCreateComponent implements OnInit {
     this.ligaService.getAll().subscribe((data: any) => this.ligen = data);
   }
 
-  CreateTippRunde() {
+  CreateTippRunde(){
     this.createTippRunde.besitzer = sessionStorage.getItem("id") + "";
     if (this.createTippRunde.password == "") {
       this.createTippRunde.password = undefined
     }
-    this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(), this.errorWithSubmit);
+    this.chatService.createTippRundenChat().subscribe(data=>{
+      this.createTippRunde.chatID = data.id
+      this.TippRundeService.create(this.createTippRunde).subscribe(result => this.gotoTippRunde(), this.errorWithSubmit);
+    })
+
   }
 
   DeleteTippRunde() {
