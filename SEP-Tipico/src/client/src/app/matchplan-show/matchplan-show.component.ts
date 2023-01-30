@@ -43,8 +43,12 @@ export class MatchPlanShowComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.MatchService.getAll().subscribe((data: any) => {
+    this.MatchService.getAll().subscribe((data: Match[]) => {
       this.matches = data;
+      for (let m of data) {
+       
+        console.log(m.date, this.MatchService.isGameDayPassed(m.date));
+      }
     });
     this.LigaService.getAll().subscribe((data: any) => this.ligen = data);
     this.TeamService.getAll().subscribe((data: any) => {
