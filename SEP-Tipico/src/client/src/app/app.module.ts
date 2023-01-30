@@ -36,15 +36,16 @@ import {TipperProfileComponent} from './tipper-profile/tipper-profile.component'
 import {TopthreeTeamComponent} from "./topthree-teams/topthree-team.component";
 import {MinigameComponent} from "./minigame/minigame.component";
 import {LigaTableComponent} from "./liga-table/liga-table.component";
-import { UserStatsComponent } from './user-stats/user-stats.component';
-import { AdminStatsComponent } from './admin-stats/admin-stats.component';
-import { ChatComponent } from './chat/chat.component';
-import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
+import {UserStatsComponent} from './user-stats/user-stats.component';
+import {AdminStatsComponent} from './admin-stats/admin-stats.component';
+import {ChatComponent} from './chat/chat.component';
+import {AnfragenOrganisierenComponent} from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
-import { ChatRequestsComponent } from './chat-requests/chat-requests.component';
-import { GeldWetteAbgebenComponent } from './geld-wette-abgeben/geld-wette-abgeben.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ChatRequestsComponent} from './chat-requests/chat-requests.component';
+import {GeldWetteAbgebenComponent} from './geld-wette-abgeben/geld-wette-abgeben.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     ClickOutsideDirective,
     ChatRequestsComponent,
     GeldWetteAbgebenComponent
+
   ],
   imports: [
     BrowserModule,
@@ -97,7 +99,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatSnackBarModule
   ],
   exports: [
     FormsModule

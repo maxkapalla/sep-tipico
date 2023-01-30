@@ -10,6 +10,7 @@ import {TippRundeService} from "../services/tipp-runde.service";
 import {Tipp} from "../Models/TippN";
 import {TippRunde} from "../Models/TippRunde";
 import {Tipper} from "../Models/Tipper";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 require('../patch.js')
@@ -53,7 +54,7 @@ export class TippAbgebenComponent implements OnInit {
   constructor(private router: Router,
               private LigaService: LigaService, private TeamService: TeamService,
               private MatchService: MatchService, private TippService: TippService,
-              private TippRundeService: TippRundeService) {
+              private TippRundeService: TippRundeService, private snackBar: MatSnackBar) {
     this.ligen = [];
     this.matches = [];
     this.tipprunden = [];
@@ -139,6 +140,10 @@ export class TippAbgebenComponent implements OnInit {
 
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action);
+  }
+
   onLoadTipprunde() {
 
 
@@ -180,9 +185,17 @@ export class TippAbgebenComponent implements OnInit {
 
 
   onShowMatchesInLiga(): void {
+    this.matches = [];
 
     if (this.ligaid == BigInt("0")) {
-      this.MatchService.getAll().subscribe((data: any) => this.matches = data);
+      this.MatchService.getAll().subscribe((data: Match[]) => {
+        for (let match of data) {
+          if (!this.MatchService.isGameDayPassed(match.date)) {
+            this.matches.push(match);
+          }
+        }
+
+      });
     } else if (this.ligaid != null) {
       for (let ligat of this.ligen) {
         if (ligat.id != null && ligat.name != null) {
@@ -193,7 +206,16 @@ export class TippAbgebenComponent implements OnInit {
         }
       }
 
-      this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
+      this.MatchService.getByLiga(this.liga).subscribe((data: any) => {
+        this.matches = [];
+
+        for (let match of data) {
+          if (!this.MatchService.isGameDayPassed(match.date)) {
+            console.log(match);
+            this.matches.push(match);
+          }
+        }
+      });
 
     }
     this.loadtable = true;
@@ -257,11 +279,23 @@ export class TippAbgebenComponent implements OnInit {
 
 
   onSubmitTip(): void {
+
+    let semaphore = false;
+    for (let m of this.matches) {
+      if (this.tipp.spiel == m.id) {
+        semaphore = true;
+      }
+    }
+    if (!semaphore) {
+      this.snackBar.open("keine gültige Spiel ID", "OK")
+      return;
+    }
+
     let tipperid;
     for (let tipper of this.alltipper) {
       console.log(tipper.nutzerid + "=" + this.userid)
       if (tipper.nutzerid == BigInt(this.userid) && tipper.tipprundenID == this.tipp.tipprundenid) {
-        console.log("tipperid: " +tipper.id+ " tippprunde: " + tipper.tipprundenID)
+        console.log("tipperid: " + tipper.id + " tippprunde: " + tipper.tipprundenID)
         // @ts-ignore
         tipperid = BigInt(tipper.id);
       }
