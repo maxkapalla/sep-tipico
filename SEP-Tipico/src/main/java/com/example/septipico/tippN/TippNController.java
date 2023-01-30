@@ -7,11 +7,13 @@ import com.example.septipico.liga.Team;
 import com.example.septipico.liga.TeamRepository;
 import com.example.septipico.liga.spiel.Spiel;
 import com.example.septipico.liga.spiel.SpielRepository;
+import com.example.septipico.nutzer.Nutzer;
 import com.example.septipico.tipp.TippContainer;
 import com.example.septipico.tipper.Tipper;
 import com.example.septipico.tipper.TipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.example.septipico.nutzer.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +39,15 @@ public class TippNController {
     @Autowired
     private TippRundeRepository rundeRepository;
 
+    @Autowired
+    private NutzerRepository nutzerRepository;
+
     @PostMapping("/save")
     public void saveTipp(@RequestBody TippN tipp) {
 
-        System.out.println(" TippID " + tipp.getId() + " tippA: " + tipp.getTippA() + " Spiel: " + tipp.getSpiel() + " TippB: " + tipp.getTippB() + " TipprundenID: " + tipp.getTipprundenid() + " TipperID: " + tipp.getTipperID());
+        System.out.println(" TippID " + tipp.getId() + " tippA: " + tipp.getTippA() + " Spiel: " + tipp.getSpiel() +
+                " TippB: " + tipp.getTippB() + " TipprundenID: " + tipp.getTipprundenid() + " TipperID: " + tipp.getTipperID()+
+                " SiegHeim/Unent/SiegAuswärts?: " + tipp.getMoneyTipp() + " Quote: " + tipp.getQuote()+ " Geldeinsatz: " + tipp.getBetGeld());
 
         tippNRepository.save(tipp);
     }
@@ -266,5 +273,72 @@ public class TippNController {
             tipperdelete.setPoints(0L);
             tipperRepository.save(tipperdelete);
         }
+    }
+
+    @GetMapping("/giveMoney/{date}")
+    public boolean giveMoney(@PathVariable("date") String[] date){
+        System.out.println(date);
+        List<TippN> tipps = tippNRepository.findAll();
+        List<Tipper> tippers = tipperRepository.findAll();
+        List<Spiel> spiele = spielRepository.findAll();
+        List<Nutzer> nutzers = nutzerRepository.findAll();
+
+        int gewinn;
+
+        resetdb();
+        for(TippN tipp: tipps) {
+     //       long gewinner = 0L;
+     //       long[] bothTeams = new long[2];
+            gewinn = 0;
+            System.out.println("begin");
+            for (Spiel match : spiele) {
+                if (tipp.getSpiel().equals(match.getId()) && this.checkDate(match.getDate().toString(), date)) {
+
+                    if (match.getScoreTeamA() > match.getScoreTeamB()) {
+                 //       gewinner = match.getTeamA();
+                        if (tipp.getMoneyTipp().equals("SiegerA")) {
+                            gewinn= (int) (tipp.getBetGeld()*tipp.getQuote());
+                            System.out.println("SiegerA");
+                        }
+                    } else if (match.getScoreTeamA() < match.getScoreTeamB()) {
+                //        gewinner = match.getTeamB();
+                        if (tipp.getMoneyTipp().equals("SiegerB")) {
+                            gewinn= (int) (tipp.getBetGeld()*tipp.getQuote());
+                            System.out.println("SiegerB");
+                        }
+                    } else {
+                        System.out.println("Unentschieden!");
+               //         bothTeams[0] = match.getTeamA();
+               //         bothTeams[1] = match.getTeamB();
+                        if(tipp.getMoneyTipp().equals("Draw")){
+                            gewinn= (int) (tipp.getBetGeld()*tipp.getQuote());
+                        }
+                    }
+                    break;
+                }
+            }
+            if (gewinn != 0) {
+                System.out.println("TipperList size = " + tippers.size());
+                for (Tipper tipper : tippers) {
+                    System.out.println(tipp.getTipperID() + " == " + tipper.getId());
+                    if (tipp.getTipperID().equals(tipper.getId())) {
+                        System.out.println("Tipper gefunden: " + tipper.getId());
+                        for(Nutzer nutzer : nutzers) {
+                            if(tipper.getNutzerid().equals(nutzer.getId())) {
+                                System.out.println("Nutzer gefunden: " + nutzer.getId());
+                                System.out.println("Nutzer gefunden: " + nutzer.getId());
+                                nutzer.setKontostand(nutzer.getKontostand()+gewinn);
+                                nutzerRepository.save(nutzer);
+                            }
+                        }
+   //                     System.out.println("Tipper:" + tipper.getNickname());
+   //                     tipper.setPoints(tipper.getPoints() + points);
+//                        givePointsToTipper(tipper);
+ //                       tipperRepository.save(tipper);
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

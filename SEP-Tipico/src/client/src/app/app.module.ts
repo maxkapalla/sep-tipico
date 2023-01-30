@@ -42,7 +42,9 @@ import { ChatComponent } from './chat/chat.component';
 import { AnfragenOrganisierenComponent } from './anfragen-organisieren/anfragen-organisieren.component';
 import {ClickOutsideDirective} from "./clickOutside.directive";
 import { ChatRequestsComponent } from './chat-requests/chat-requests.component';
-
+import { GeldWetteAbgebenComponent } from './geld-wette-abgeben/geld-wette-abgeben.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
 
 @NgModule({
   declarations: [
@@ -85,14 +87,17 @@ import { ChatRequestsComponent } from './chat-requests/chat-requests.component';
     ChatComponent,
     AnfragenOrganisierenComponent,
     ClickOutsideDirective,
-    ChatRequestsComponent
+    ChatRequestsComponent,
+    GeldWetteAbgebenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonToggleModule
   ],
   exports: [
     FormsModule

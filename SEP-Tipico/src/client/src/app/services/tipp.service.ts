@@ -120,6 +120,12 @@ export class TippService {
     return this.http.get<boolean>(this.tipperURL+"/isInRunde/"+rundeid+"/"+userid)
   }
 
+  giveTippMoney() {
+    let date = sessionStorage.getItem('datum')
+    let splitstr = date?.split(".")
+    this.http.get(this.tippURL + "/giveMoney/"+ splitstr).subscribe(result => this.worked(), this.didntwork)
+  }
+
   worked(){
     console.log("worked")
   }

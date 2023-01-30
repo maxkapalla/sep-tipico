@@ -35,6 +35,7 @@ import {AdminStatsComponent} from "./admin-stats/admin-stats.component";
 import {UserStatsComponent} from "./user-stats/user-stats.component";
 import {ChatComponent} from "./chat/chat.component";
 import {ChatRequestsComponent} from "./chat-requests/chat-requests.component";
+import {GeldWetteAbgebenComponent} from "./geld-wette-abgeben/geld-wette-abgeben.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: "full"},
@@ -74,7 +75,8 @@ const routes: Routes = [
   {path: 'admin-stats', component: AdminStatsComponent, canActivate: [AuthService]},
   {path: 'user-stats', component: UserStatsComponent, canActivate: [AuthService]},
   {path: 'chat', component: ChatComponent, canActivate: [AuthService]},
-  {path: 'chat-requests', component: ChatRequestsComponent}
+  {path: 'chat-requests', component: ChatRequestsComponent},
+  {path: 'geld-wette-abgeben', component: GeldWetteAbgebenComponent, canActivate: [AuthService]}
 ];
 
 @NgModule({

@@ -23,6 +23,7 @@ export class DateChangeComponent implements OnInit {
   onSubmit() {
     this.datumService.datumChange(this.newDate)
     this.tippService.giveTippPoints();
+    this.tippService.giveTippMoney();
   }
 
 

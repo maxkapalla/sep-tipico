@@ -6,4 +6,7 @@ export class Tipp {
   spiel: bigint | undefined;
   tippA: number = 0;
   tippB: number = 0;
+  moneyTipp: string="";
+  quote: number=0;
+  betGeld: number=0;
 }

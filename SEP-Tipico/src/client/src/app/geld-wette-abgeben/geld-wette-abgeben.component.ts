@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {Liga} from "../Models/Liga";
 import {LigaService} from "../services/liga.service";
@@ -10,17 +10,18 @@ import {TippRundeService} from "../services/tipp-runde.service";
 import {Tipp} from "../Models/TippN";
 import {TippRunde} from "../Models/TippRunde";
 import {Tipper} from "../Models/Tipper";
+import {NutzerService} from "../services/nutzer.service";
 
 
 require('../patch.js')
 
 
 @Component({
-  selector: 'app-tipp-abgeben',
-  templateUrl: './tipp-abgeben.component.html',
-  styleUrls: ['./tipp-abgeben.component.scss']
+  selector: 'app-geld-wette-abgeben',
+  templateUrl: './geld-wette-abgeben.component.html',
+  styleUrls: ['./geld-wette-abgeben.component.scss']
 })
-export class TippAbgebenComponent implements OnInit {
+export class GeldWetteAbgebenComponent implements OnInit {
 
   ligen: Liga[];
   matches: Match[];
@@ -47,13 +48,16 @@ export class TippAbgebenComponent implements OnInit {
   usertips: Tipp[];
   usertiptable: boolean;
 
+  kontostand: bigint;
+  ergebnis:string="";
   copyid: bigint;
   tipprundenraw: TippRunde[];
 
   constructor(private router: Router,
               private LigaService: LigaService, private TeamService: TeamService,
               private MatchService: MatchService, private TippService: TippService,
-              private TippRundeService: TippRundeService) {
+              private TippRundeService: TippRundeService,
+              private nutzerService: NutzerService) {
     this.ligen = [];
     this.matches = [];
     this.tipprunden = [];
@@ -75,6 +79,7 @@ export class TippAbgebenComponent implements OnInit {
     this.usertiptable = false;
     this.copyid = BigInt("0");
 
+    this.kontostand= BigInt(sessionStorage.getItem("kontostand") + "");
   }
 
 
@@ -261,24 +266,35 @@ export class TippAbgebenComponent implements OnInit {
     for (let tipper of this.alltipper) {
       console.log(tipper.nutzerid + "=" + this.userid)
       if (tipper.nutzerid == BigInt(this.userid) && tipper.tipprundenID == this.tipp.tipprundenid) {
-        console.log("tipperid: " +tipper.id+ " tippprunde: " + tipper.tipprundenID)
         // @ts-ignore
         tipperid = BigInt(tipper.id);
       }
     }
-    console.log(tipperid)
+
     this.tipp.tipperID = tipperid;
     this.tipp.tipprundenid = this.tipprundenid;
+    this.tipp.quote=2; //quote ändern!
     console.log(this.tipp)
-    this.TippService.save(this.tipp).subscribe(() => {
-        this.TippService.getAllTips().subscribe((data: any) => {
-            this.previousTipps = data;
-          }
-        );
-      }
-    );
 
-    //his.matches.this.TippService.save(this.tipp).subscribe();
+    if((this.kontostand - BigInt(this.tipp.betGeld)>=0)) {
+
+      this.TippService.save(this.tipp).subscribe(() => {
+          this.TippService.getAllTips().subscribe((data: any) => {
+              this.previousTipps = data;
+            }
+          );
+        }
+      );
+      this.kontostand = this.kontostand - BigInt(this.tipp.betGeld);
+      this.nutzerService.setKontostand(sessionStorage.getItem("id") + "", String(this.kontostand)).subscribe();
+      sessionStorage.setItem("kontostand", String(this.kontostand));
+      alert("Viel Erfolg bei deiner Wette!")
+    }
+    else {
+      alert("Du wettest mit mehr Geld als du besitzt, mein Freund!")
+    }
+
+
     this.tipp = new Tipp();
     this.usertips = [];
     this.loadtable = false;
@@ -286,6 +302,9 @@ export class TippAbgebenComponent implements OnInit {
     this.copyid = BigInt("0")
 
 
+  }
+  onChange(ergebnis: string) {
+    this.tipp.moneyTipp = ergebnis;
   }
 
 }
