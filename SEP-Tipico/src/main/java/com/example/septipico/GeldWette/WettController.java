@@ -23,7 +23,7 @@ public class WettController {
                 if(x.getRole().equals("admin")) {
                     mail=x.getEmail();
                     tippSender.sendMail(mail,
-                            sender + " beantragt Wetten mit Geld spielen zu dürfen "
+                            sender + " beantragt, Wetten mit Geld spielen zu dürfen. Schau im System nach!"
                             , "Tippspiel-Wette Antrag von " + sender);
                     System.out.println("mail versendet an " + mail);
                 }

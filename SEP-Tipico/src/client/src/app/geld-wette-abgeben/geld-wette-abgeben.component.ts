@@ -12,6 +12,7 @@ import {TippRunde} from "../Models/TippRunde";
 import {Tipper} from "../Models/Tipper";
 import {NutzerService} from "../services/nutzer.service";
 
+
 require('../patch.js')
 
 
@@ -48,7 +49,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
   usertiptable: boolean;
 
   kontostand: bigint;
-
+  ergebnis:string="";
   copyid: bigint;
   tipprundenraw: TippRunde[];
 
@@ -272,7 +273,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
     this.tipp.tipperID = tipperid;
     this.tipp.tipprundenid = this.tipprundenid;
-    this.tipp.quote=2;
+    this.tipp.quote=2; //quote ändern!
     console.log(this.tipp)
 
     if((this.kontostand - BigInt(this.tipp.betGeld)>=0)) {
@@ -290,10 +291,10 @@ export class GeldWetteAbgebenComponent implements OnInit {
       alert("Viel Erfolg bei deiner Wette!")
     }
     else {
-      alert("Du wettest mit mehr Geld als du besitzt mein Freund!")
+      alert("Du wettest mit mehr Geld als du besitzt, mein Freund!")
     }
 
-    //his.matches.this.TippService.save(this.tipp).subscribe();
+
     this.tipp = new Tipp();
     this.usertips = [];
     this.loadtable = false;
@@ -301,6 +302,9 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.copyid = BigInt("0")
 
 
+  }
+  onChange(ergebnis: string) {
+    this.tipp.moneyTipp = ergebnis;
   }
 
 }
