@@ -57,6 +57,10 @@ export class ChatService {
     return this.http.post(this.chatURL+"/deleteRequests", participants)
   }
 
+  deleteMyRequest(myID: bigint){
+    return this.http.post(this.chatURL+"/deleteMyRequest", myID)
+  }
+
   getMySentRequests(id: bigint): Observable<Chat[]>{
     return this.http.get<Chat[]>(this.chatURL+"/myRequests/"+id)
   }

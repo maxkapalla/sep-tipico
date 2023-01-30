@@ -13,4 +13,8 @@ public interface ChatRepository extends JpaRepository<Chats, Long> {
     List<Chats> findChatsByRequestedIsFalse();
 
     List<Chats> findChatsByRequestedIsTrue();
+
+    List<Chats> findChatsByParticipantsContaining(Long id);
+
+
 }

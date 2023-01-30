@@ -35,6 +35,7 @@ export class ChatRequestsComponent implements OnInit {
         sessionStorage.setItem("Chat", data.id!.toString())
         this.chatService.deleteAllRequests(participants).subscribe()
       })
+      sessionStorage.removeItem("chatrequestsent")
       window.location.reload();
     }else{
       alert("Während eines aktiven Chats kann keine Anfrage angenommen werden. " +

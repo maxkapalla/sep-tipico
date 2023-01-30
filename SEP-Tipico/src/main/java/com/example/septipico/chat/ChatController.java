@@ -108,9 +108,10 @@ public class ChatController {
         List<Chats> all = this.chatRepo.findAll();
         List<Chats> sent = new ArrayList<>();
         for (Chats chat: all) {
-            if(chat.getParticipants().get(1).equals(id)){
-                sent.add(chat);
-            }
+            if(chat.getParticipants().size() > 1)
+                if(chat.getParticipants().get(1).equals(id)){
+                    sent.add(chat);
+                }
         }
         return sent;
     }
@@ -147,7 +148,7 @@ public class ChatController {
     }
 
     @PostMapping("/chat/deleteRequests")
-    public void deleteMyRequests(@RequestBody Long[] participants){
+    public void deleteRequests(@RequestBody Long[] participants){
         List<Chats> all = this.chatRepo.findChatsByRequestedIsTrue();
         System.out.println("delete start");
         for(Chats chat: all){
@@ -159,6 +160,16 @@ public class ChatController {
         }
     }
 
+    @PostMapping("/chat/deleteMyRequest")
+    public void deleteMyRequest(@RequestBody Long id){
+        List<Chats> all = this.chatRepo.findChatsByParticipantsContaining(id);
+        for(Chats chat: all){
+            if(chat.getParticipants().get(1).equals(id)){
+                this.chatRepo.delete(chat);
+            }
+        }
+
+    }
 
     private String getIdOfChat(List<Long> ids){
         List<Chats> all= chatRepo.findAll();

@@ -17,6 +17,7 @@ export class FriendListComponent implements OnInit {
   friendDeleted: boolean;
   friendAccepted: boolean;
   tipps: TippContainer[];
+  requestSent: boolean;
 
   constructor(private service: NutzerService, private tippService: TippService, private chatService: ChatService) {
     this.nutzers = [];
@@ -25,12 +26,14 @@ export class FriendListComponent implements OnInit {
     this.friendDeleted = false;
     this.friendAccepted = false;
     this.tipps = []
+    this.requestSent = false;
   }
 
   ngOnInit(): void {
     var preID = sessionStorage.getItem('id') + ""
     this.id = +preID;
     console.log(preID)
+    this.requestSent = !!sessionStorage.getItem("chatrequestsent");
     this.service.getFriends(this.id).subscribe((data: any) => this.nutzers = data)
     this.showFriendRequests();
     this.tippService.getTippsByUser(sessionStorage.getItem("id") + "").subscribe((data: any) => this.tipps = data)
@@ -67,18 +70,22 @@ export class FriendListComponent implements OnInit {
   sendChatRequest(friendID: string){
     console.log("Request sent")
     let myID = sessionStorage.getItem("id")+""
-
     this.chatService.getMySentRequests(BigInt(myID)).subscribe(data => {
-
       if(sessionStorage.getItem("Chat") == null && data.length < 1){
-        this.chatService.sendRequest([BigInt(+friendID), BigInt(+myID)]).subscribe((data) => {
+        this.chatService.sendRequest([BigInt(+friendID), BigInt(+myID)]).subscribe(() => {
         })
         alert("Chat-Anfrage wurde gesendet!");
+        sessionStorage.setItem("chatrequestsent", "true")
         window.location.reload()
       }else{
-        alert("Während einer aktiven Anfrage oder eines aktives Chats können keine Anfragen gesendet werden!")
+        alert("Während einer aktiven Anfrage oder eines aktiven Chats können keine Anfragen gesendet werden!")
       }
     })
 
+  }
+
+  deleteMyRequest(){
+    this.chatService.deleteMyRequest(BigInt(+sessionStorage.getItem("id")!)).subscribe()
+    sessionStorage.removeItem("chatrequestsent")
   }
 }

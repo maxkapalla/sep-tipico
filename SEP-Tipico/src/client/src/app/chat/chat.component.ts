@@ -119,6 +119,7 @@ export class ChatComponent implements OnInit {
               this.name = data.tipprundeName!) //finde Tipprundename heraus
           }
         }
+        sessionStorage.removeItem("chatrequestsent")
         this.chatActive = true; //setze boolean auf true
       }else{
         this.chatActive=false
