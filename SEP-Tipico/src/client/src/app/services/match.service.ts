@@ -21,6 +21,27 @@ export class MatchService {
     this.matchURL = 'http://localhost:8080/spiel'
   }
 
+  isGameDayPassed(matchd: Date): boolean {
+    let matchdate = new Date(matchd);
+    let currentDayAsString = sessionStorage.getItem("datum");
+    if (currentDayAsString != null) {
+      var dateParts = currentDayAsString.split(".");
+
+      let currentDate = new Date((dateParts[1] + "." + dateParts[0] + "." + dateParts[2]).valueOf());
+      if (matchdate.getUTCFullYear() >= currentDate.getUTCFullYear()) {
+        if (matchdate.getMonth() >= currentDate.getMonth()) {
+          if (matchdate.getDate() >= currentDate.getDate()) {
+            return false;
+          }
+          return true;
+        }
+        return true;
+      }
+      return true;
+
+    }
+    return false;
+  }
 
   create(spiel: Match): Observable<Match> {
 

@@ -41,7 +41,11 @@ export class MatchPlanShowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.MatchService.getAll().subscribe((data: any) => this.matches = data);
+
+
+    this.MatchService.getAll().subscribe((data: any) => {
+      this.matches = data;
+    });
     this.LigaService.getAll().subscribe((data: any) => this.ligen = data);
     this.TeamService.getAll().subscribe((data: any) => {
       this.teams = data;
@@ -71,8 +75,10 @@ export class MatchPlanShowComponent implements OnInit {
     this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
     setTimeout(() => {
       if (this.topThree.length != 0)
-        for(let top of this.topThree){
-          this.nutzerService.getNutzerByID(top.nutzerid.toString()).subscribe((data:Nutzer) => {this.topThreeNames.push(data)})
+        for (let top of this.topThree) {
+          this.nutzerService.getNutzerByID(top.nutzerid.toString()).subscribe((data: Nutzer) => {
+            this.topThreeNames.push(data)
+          })
         }
     }, 200);
   }
