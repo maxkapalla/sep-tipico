@@ -116,6 +116,10 @@ export class TippService {
     this.http.get(this.tippURL + "/givePoints/"+ splitstr).subscribe(result => this.worked(), this.didntwork)
   }
 
+  checkIfTipperInRunde(rundeid: bigint, userid: bigint): Observable<boolean>{
+    return this.http.get<boolean>(this.tipperURL+"/isInRunde/"+rundeid+"/"+userid)
+  }
+
   giveTippMoney() {
     let date = sessionStorage.getItem('datum')
     let splitstr = date?.split(".")

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Chat} from "../Models/Chat";
 import {ChatService} from "../services/chat.service";
 import {NutzerService} from "../services/nutzer.service";
-import {Nutzer} from "../Models/Nutzer";
+
 
 @Component({
   selector: 'app-chat-requests',
@@ -12,27 +12,35 @@ import {Nutzer} from "../Models/Nutzer";
 export class ChatRequestsComponent implements OnInit {
 
   requests: Chat[]
-  participants: Nutzer[]
+  participants: Map<Chat, string>
+
   constructor(private chatService: ChatService, private nutzerService: NutzerService) {
     this.requests = []
-    this.participants = []
+    this.participants = new Map<Chat, string>()
   }
 
   ngOnInit(): void {
-    this.chatService.getRequests(BigInt(sessionStorage.getItem("id")+"")).subscribe((data: any) =>
-      this.requests= data)
-    setInterval(() => {
-      this.chatService.getRequests(BigInt(sessionStorage.getItem("id")+"")).subscribe((data: any) =>
-        this.requests= data)
-    },750)
+    this.chatService.getRequests(BigInt(sessionStorage.getItem("id")+"")).subscribe((data: any) =>{
+      this.requests= data
+      for(let req of data){
+        this.nutzerService.getNutzerByID(req.participants[1].toString()).subscribe(data => this.participants.set(req,
+          data.firstName + " " + data.lastName))
+      }
+    })
   }
 
-  onAccept(id: number){
+  onAccept(id: number, participants: bigint[]){
+    if(sessionStorage.getItem("Chat")== null) {
       this.chatService.acceptRequest(BigInt(id)).subscribe((data) => {
-        sessionStorage.setItem("activeChat", data.id!.toString())
-        this.chatService.deleteAllRequests(BigInt(id))
+        sessionStorage.setItem("Chat", data.id!.toString())
+        this.chatService.deleteAllRequests(participants).subscribe()
       })
-    window.location.reload();
+      sessionStorage.removeItem("chatrequestsent")
+      window.location.reload();
+    }else{
+      alert("Während eines aktiven Chats kann keine Anfrage angenommen werden. " +
+        "Bitte verlassen Sie Ihren aktiven Chat, um einen anderen Chat anzufangen")
+    }
   }
 
   onReject(id: number){

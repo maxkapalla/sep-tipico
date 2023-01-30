@@ -2,13 +2,12 @@ package com.example.septipico.liga;
 
 import com.example.septipico.TippRunde.TippRunde;
 import com.example.septipico.TippRunde.TippRundeRepository;
+import com.example.septipico.chat.ChatRepository;
 import com.example.septipico.liga.spiel.SpielRepository;
-import com.example.septipico.nutzer.NutzerRepository;
 import com.example.septipico.tippN.TippNRepository;
 import com.example.septipico.tipper.Tipper;
 import com.example.septipico.tipper.TipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -28,7 +27,7 @@ public class LigaController {
     private TipperRepository tipperRepository;
 
     @Autowired
-    private NutzerRepository nutzerRepository;
+    private ChatRepository chatrepo;
 
     @Autowired
     private TippNRepository tippNRepository;
@@ -57,6 +56,7 @@ public class LigaController {
         for(TippRunde r : runden) {
             tippNRepository.deleteAllByTipprundenid(r.getId());
             tipperRepository.deleteAllByTipprundenID(r.getId());
+            chatrepo.deleteById(r.getChatID());
         }
 
         teamRepository.deleteAllByLiga(ligaID);

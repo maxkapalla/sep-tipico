@@ -7,4 +7,5 @@ export class Match {
   scoreTeamA: number = 0;
   scoreTeamB: number = 0;
   liga: bigint | undefined;
+  
 }

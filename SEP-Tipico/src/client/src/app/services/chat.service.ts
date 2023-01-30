@@ -52,15 +52,30 @@ export class ChatService {
     return this.http.get<Message[]>(this.chatURL+"/getMsg/"+chatID)
   }
 
-  deleteAllRequests(id: bigint): Observable<any>{
-    return this.http.post(this.chatURL+"/deleteRequests", id)
+  deleteAllRequests(participants: bigint[]): Observable<any>{
+    console.log("sending deleteRequest")
+    return this.http.post(this.chatURL+"/deleteRequests", participants)
   }
 
-  checkForRequest(id: bigint): Observable<boolean>{
-    return this.http.get<boolean>(this.chatURL+"/checkRequests/"+id)
+  deleteMyRequest(myID: bigint){
+    return this.http.post(this.chatURL+"/deleteMyRequest", myID)
   }
 
-  joinTipprundenChat(rundenid: bigint, myID: bigint): Observable<Chat>{
-    return this.http.get<Chat>(this.chatURL+"/joinRundenChat/"+rundenid+"/"+myID)
+  getMySentRequests(id: bigint): Observable<Chat[]>{
+    return this.http.get<Chat[]>(this.chatURL+"/myRequests/"+id)
   }
+
+  joinTipprundenChat(runde: bigint, myID: bigint): Observable<Chat>{
+    return this.http.get<Chat>(this.chatURL+"/joinRundenChat/"+runde+"/"+myID)
+  }
+
+  leaveTipprundenChat(chatID: bigint, myID: bigint): Observable<Chat>{
+    return this.http.get<Chat>(this.chatURL+"/leaveRundenChat/"+chatID+"/"+myID)
+  }
+
+  createTippRundenChat(): Observable<Chat>{
+    return this.http.get<Chat>(this.chatURL+"/tipprundenChat")
+  }
+
+
 }

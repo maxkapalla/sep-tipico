@@ -19,25 +19,29 @@ export class TipprundeDrinneComponent implements OnInit {
   tipper: Tipper;
   tippRunde: TippRunde;
   password: string = "";
+  isInRunde: boolean;
 
   searchInput: String = "";
   searchType: String = "TipperName";
 
-  constructor(private TippRundeService: TippRundeService, private TippService: TippService, private router: Router, private chatService: ChatService) {
+  constructor(private TippRundeService: TippRundeService, private TippService: TippService,
+              private router: Router, private chatService: ChatService) {
     this.tippRunde = new TippRunde;
     this.id = 0;
     this.tippende = [];
     this.tipper = new Tipper()
+    this.isInRunde = false
   }
 
   ngOnInit(): Tipper[] {
-
     this.checkPW()
     var x = sessionStorage.getItem('rundenID') + "";
     this.id = +x;
     console.log(x);
     this.TippRundeService.getTippRundeByID(this.id).subscribe((data: any) => this.tippRunde = data)
     console.log(this.tippRunde.id)
+    this.TippService.checkIfTipperInRunde(BigInt(this.id),BigInt(+sessionStorage.getItem("id")!)).subscribe(data=>
+      this.isInRunde = data)
     this.TippService.getAllTipperByRunde(this.id).subscribe((data: any) => this.tippende = data);
     return this.tippende;
   }
@@ -93,9 +97,15 @@ export class TipprundeDrinneComponent implements OnInit {
   }
 
 
-  joinTipprundenChat(){
-    this.chatService.joinTipprundenChat(BigInt(this.id),BigInt(+(sessionStorage.getItem('id')!))).subscribe((data)=>{
-        sessionStorage.setItem("Chat", data.id!.toString())
-    })
+  joinTipprundenChat() {
+    console.log(this.tippRunde.chatID)
+    if (!sessionStorage.getItem("RundenChat") || !sessionStorage.getItem("Chat")) {
+      this.chatService.joinTipprundenChat(this.tippRunde.id!, BigInt(+(sessionStorage.getItem('id')!))).subscribe((data) => {
+        sessionStorage.setItem("RundenChat", data.id!.toString())
+        window.location.reload();
+      })
+    }else{
+      alert("Während eines aktiven Chats kann kein neuer Chat angefangen werden.")
+    }
   }
 }

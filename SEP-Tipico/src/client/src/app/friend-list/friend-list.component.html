@@ -26,7 +26,6 @@
     </div>
   </div>
 </div>
-
 <h2>Freundesliste</h2>
 <div class="container">
   <div class="noNutzer" *ngIf="nutzers.length < 1 ">Keine Freunde gefunden</div>
@@ -100,7 +99,8 @@
     </div>
   </div>
 </div>
+<br>
+<br>
+<button class="btn btn-info" *ngIf="requestSent" (click)="deleteMyRequest()">Chat-Anfrage löschen</button>
 
-<br>
-<br>
 

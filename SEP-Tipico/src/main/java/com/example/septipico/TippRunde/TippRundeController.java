@@ -1,12 +1,10 @@
 package com.example.septipico.TippRunde;
 
 import com.example.septipico.TwoFa.TwoFaMail;
-import com.example.septipico.liga.Liga;
 import com.example.septipico.liga.Team;
 import com.example.septipico.liga.TeamRepository;
 import com.example.septipico.liga.spiel.Spiel;
 import com.example.septipico.liga.spiel.SpielRepository;
-import com.example.septipico.nutzer.Nutzer;
 import com.example.septipico.tippN.TippN;
 import com.example.septipico.tippN.TippNRepository;
 import com.example.septipico.tipper.Tipper;
@@ -211,11 +209,14 @@ public class TippRundeController {
         int gew = Integer.parseInt(tippRunde.getGewGewinner());
 
         System.out.println("spiellist länge: " +spielList.size());
+
+        List<Spiel> helpList = new ArrayList<>();
         for(Spiel spiel: spielList) {
-            if(!checkDate(spiel.getDate().toString(), date)) {
-                spielList.remove(spiel);
+            if(checkDate(spiel.getDate().toString(), date)) {
+                helpList.add(spiel);
             }
         }
+        spielList = helpList;
         System.out.println("spiellist länge: " +spielList.size());
 
         for(Spiel spiel: spielList) {

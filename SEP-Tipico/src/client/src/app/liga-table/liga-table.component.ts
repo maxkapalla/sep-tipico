@@ -4,8 +4,6 @@ import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
 import {Team} from "../Models/Team";
 import {UserStats} from "../Models/UserStats";
-import {TippRunde} from "../Models/TippRunde";
-import {TippRundeService} from "../services/tipp-runde.service";
 
 @Component({
   selector: 'app-liga-see',
@@ -14,54 +12,66 @@ import {TippRundeService} from "../services/tipp-runde.service";
 })
 export class LigaTableComponent implements OnInit {
 
-  ergebnisse: TippRunde[]
   ligen: Liga[];
+  liga: bigint;
   teams: Team[];
+  ligaNamen: Map<bigint, String>;
   stats: UserStats[];
 
-  constructor(private LigaService: LigaService, private TeamService: TeamService, private tippRundeService: TippRundeService) {
+  constructor(private LigaService: LigaService, private TeamService: TeamService) {
     this.ligen = [];
     this.teams = [];
-    this.ergebnisse = [];
+    this.liga = BigInt("0");
     this.stats = [];
+    this.ligaNamen = new Map<bigint, String>;
   }
 
 
   ngOnInit(): void {
-    this.tippRundeService.getTippRundenByMember(sessionStorage.getItem("id") + "").subscribe((data: any) => {
-      this.ergebnisse = data
+    this.TeamService.getAll().subscribe((data: any) => this.teams = data)
+    this.LigaService.getAll().subscribe((data: any) => {
+      this.ligen = data;
+      this.compileLigen()
+      this.sortStats()
+    })
+  }
 
-      if(this.ergebnisse[0].id != null) {
-        this.getStats(this.ergebnisse[0].id.toString())
+  compileLigen() {
+    for (let liga of this.ligen) {
+      if (liga.id != null && liga.name != null) {
+        this.ligaNamen.set(liga.id, liga.name);
+
       }
-    });
+    }
+  }
+
+  onShowTeamsInLiga(): void {
+    if (this.liga == BigInt("0")) {
+      this.TeamService.getAll().subscribe((data: any) => this.teams = data);
+    } else {
+      this.TeamService.getAllInLiga(this.liga).subscribe((data: any) => {
+        this.teams = data;
+        this.sortStats()});
+
+    }
 
   }
 
-  getStats(rundenID: string) {
-    let date = sessionStorage.getItem("datum")
-    this.tippRundeService.getUserStats(sessionStorage.getItem("id") + "-" + rundenID + "-" + date).subscribe((data: any) => {
-      this.stats= data,
-        this.stats = this.sortStats(this.stats)
-      });
-  }
 
-  sortStats(stats: UserStats[]) {
-    let userStats = stats;
-    userStats.sort((a: UserStats, b: UserStats) => {
-      if (a.pointsForTable !== b.pointsForTable) {
+  sortStats() {
+    this.teams.sort((a: Team, b: Team) => {
+      if (a.points !== b.points) {
         // @ts-ignore
-        return a.pointsForTable - b.pointsForTable;
-      } else if (a.tordif !== b.tordif) {
+        return a.points - b.points;
+      } else if (a.goals !== b.goals) {
         // @ts-ignore
-        return a.tordif < b.tordif ? -1 : 1;
+        return a.goals < b.goals ? -1 : 1;
       } else {
         // @ts-ignore
-        return a.wins < b.wins ? -1 : 1;
+        return a.winnings < b.winnings ? -1 : 1;
       }
     });
-    userStats.reverse()
-    return userStats
+    this.teams.reverse()
   }
 
 

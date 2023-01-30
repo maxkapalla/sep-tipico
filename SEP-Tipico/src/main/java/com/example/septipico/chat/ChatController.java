@@ -1,5 +1,9 @@
 package com.example.septipico.chat;
 
+import com.example.septipico.TippRunde.TippRunde;
+import com.example.septipico.TippRunde.TippRundeRepository;
+import com.example.septipico.nutzer.Nutzer;
+import com.example.septipico.nutzer.NutzerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,12 @@ public class ChatController {
 
     @Autowired
     private MessageRepository msgRepo;
+
+    @Autowired
+    private TippRundeRepository trRepo;
+
+    @Autowired
+    private NutzerRepository nutzerRepo;
 
     @GetMapping("/chat/requests/{id}")
     public List<Chats> getRequests(@PathVariable("id") Long id){
@@ -52,6 +62,9 @@ public class ChatController {
         System.out.println("Wird angenommen");
         chat.setRequested(false);
         chatRepo.save(chat);
+        List<Long> part = chatRepo.findChatsById(chatID).getParticipants();
+        Nutzer me = nutzerRepo.findNutzerById(part.get(0));
+        this.sendJoinMsg(me, chatID);
         return chat;
     }
 
@@ -90,15 +103,72 @@ public class ChatController {
         return this.msgRepo.findMessagesByChatID(chatid);
     }
 
-    @GetMapping("/chat/checkRequests/{id}")
-    public boolean checkForRequests(@PathVariable Long id){
+    @GetMapping("/chat/myRequests/{id}")
+    public List<Chats> getMySentRequests(@PathVariable Long id){
         List<Chats> all = this.chatRepo.findAll();
+        List<Chats> sent = new ArrayList<>();
         for (Chats chat: all) {
-            if(chat.getParticipants().get(1).equals(id)){
-                return false;
+            if(chat.getParticipants().size() > 1)
+                if(chat.getParticipants().get(1).equals(id)){
+                    sent.add(chat);
+                }
+        }
+        return sent;
+    }
+
+
+    @GetMapping("/chat/joinRundenChat/{runde}/{userid}")
+    public Chats joinRundenChat(@PathVariable("runde")Long rundeID, @PathVariable("userid")Long userid){
+        TippRunde runde = trRepo.findTippRundeById(rundeID);
+        Chats chat =  this.chatRepo.findChatsById(runde.getChatID());
+        List<Long> participants = chat.getParticipants();
+        Nutzer me = this.nutzerRepo.findNutzerById(userid);
+        participants.add(userid);
+        chat.setParticipants(participants);
+        this.chatRepo.save(chat);
+        this.sendJoinMsg(me, chat.getId());
+        return chat;
+    }
+
+    @GetMapping("/chat/leaveRundenChat/{chat}/{userid}")
+    public Chats leaveRundenChat(@PathVariable("chat") Long chatID, @PathVariable("userid") Long userid){
+        Chats chat =  this.chatRepo.findChatsById(chatID);
+        Nutzer me = this.nutzerRepo.findNutzerById(userid);
+        List<Long> participants = chat.getParticipants();
+        participants.remove(userid);
+        this.chatRepo.save(chat);
+        sendLeaveMsg(me, chat.getId());
+        return chat;
+    }
+
+    @GetMapping("/chat/tipprundenChat")
+    public Chats createChatTR(){
+        Chats chat = this.chatRepo.save(new Chats(new ArrayList<>(), false));
+        return chat;
+    }
+
+    @PostMapping("/chat/deleteRequests")
+    public void deleteRequests(@RequestBody Long[] participants){
+        List<Chats> all = this.chatRepo.findChatsByRequestedIsTrue();
+        System.out.println("delete start");
+        for(Chats chat: all){
+            System.out.println("looking at chat");
+            if(chat.getParticipants().get(1).equals(participants[0]) || chat.getParticipants().get(1).equals(participants[1])) {
+                System.out.println("gets deleted");
+                this.chatRepo.delete(chat);
             }
         }
-        return true;
+    }
+
+    @PostMapping("/chat/deleteMyRequest")
+    public void deleteMyRequest(@RequestBody Long id){
+        List<Chats> all = this.chatRepo.findChatsByParticipantsContaining(id);
+        for(Chats chat: all){
+            if(chat.getParticipants().get(1).equals(id)){
+                this.chatRepo.delete(chat);
+            }
+        }
+
     }
 
     private String getIdOfChat(List<Long> ids){
@@ -109,6 +179,24 @@ public class ChatController {
             }
         }
         return "0";
+    }
+
+    private void sendJoinMsg(Nutzer me, Long chatID){
+        Message msg = new Message();
+        msg.setChatID(chatID);
+        msg.setContent("ist dem Chat beigetreten.");
+        msg.setSender(me.getId());
+        msg.setName(me.getFirstName() + " " + me.getLastName());
+        msgRepo.save(msg);
+    }
+
+    private void sendLeaveMsg(Nutzer me, Long chatID){
+        Message msg = new Message();
+        msg.setChatID(chatID);
+        msg.setContent("hat den Chat verlassen.");
+        msg.setSender(me.getId());
+        msg.setName(me.getFirstName() + " " + me.getLastName());
+        msgRepo.save(msg);
     }
 
 }

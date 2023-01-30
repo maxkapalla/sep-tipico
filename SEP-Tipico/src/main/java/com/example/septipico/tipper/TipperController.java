@@ -64,6 +64,7 @@ public class TipperController {
             for (Tipper tpr : tprs) {
                 int i = 0;
                 for (Tipper t : tipper) {
+                    System.out.println(t.getNutzerid()+ " " + t.getNickname());
                     if (tpr.getNutzerid().equals(t.getNutzerid())) {
                         t.setPoints(tpr.getPoints() + t.getPoints());
                         i++;
@@ -95,6 +96,14 @@ public class TipperController {
         for (int i = 0; i < topThree.size(); i++)
             System.out.println(topThree.get(i).getPoints());
         return topThree;
+    }
+
+    @GetMapping("/isInRunde/{rundeID}/{userID}")
+    public boolean isInRunde(@PathVariable("rundeID") Long rundeID, @PathVariable("userID")Long userID){
+        if(tipperRepo.findTipperByNutzeridAndTipprundenID(userID, rundeID) != null){
+            return true;
+        }
+        return false;
     }
 
 }

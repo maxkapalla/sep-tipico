@@ -8,12 +8,12 @@
   <div class="chat-open" *ngIf="clicked == true && chatActive">
     <div class="name-box">
       <b>{{name}}</b>
-      <b class="openclose">
-        <b class="close" (click)="onExit()">x</b>
-        <b class="minimize" (click)="onMinimize()">_</b>
-      </b>
+      <strong class="openclose">
+        <b class="closing" (click)="onExit()">X</b>
+        <b class="mini" (click)="onMinimize()">_</b>
+      </strong>
     </div>
-    <div class="chat-room">
+    <div class="chat-room" id="chat">
       <div class="chat-msgs" *ngFor="let message of messages">
         <div class="msg-partner" *ngIf=" message.sender!= myID">
           <b>{{message.name}}</b>
