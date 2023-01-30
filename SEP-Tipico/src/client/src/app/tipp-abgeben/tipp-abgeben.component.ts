@@ -261,6 +261,7 @@ export class TippAbgebenComponent implements OnInit {
     for (let tipper of this.alltipper) {
       console.log(tipper.nutzerid + "=" + this.userid)
       if (tipper.nutzerid == BigInt(this.userid) && tipper.tipprundenID == this.tipp.tipprundenid) {
+        console.log("tipperid: " +tipper.id+ " tippprunde: " + tipper.tipprundenID)
         // @ts-ignore
         tipperid = BigInt(tipper.id);
       }

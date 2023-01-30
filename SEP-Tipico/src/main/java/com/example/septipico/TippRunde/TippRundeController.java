@@ -211,11 +211,14 @@ public class TippRundeController {
         int gew = Integer.parseInt(tippRunde.getGewGewinner());
 
         System.out.println("spiellist länge: " +spielList.size());
+
+        List<Spiel> helpList = new ArrayList<>();
         for(Spiel spiel: spielList) {
-            if(!checkDate(spiel.getDate().toString(), date)) {
-                spielList.remove(spiel);
+            if(checkDate(spiel.getDate().toString(), date)) {
+                helpList.add(spiel);
             }
         }
+        spielList = helpList;
         System.out.println("spiellist länge: " +spielList.size());
 
         for(Spiel spiel: spielList) {
