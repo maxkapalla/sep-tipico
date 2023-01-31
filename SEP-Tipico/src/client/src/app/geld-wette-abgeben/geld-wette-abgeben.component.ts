@@ -64,6 +64,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
   heimQuote:number;
   drawQuote:number;
   AuswQuote:number;
+  quote:number;
 
   constructor(private router: Router,
               private LigaService: LigaService, private TeamService: TeamService,
@@ -97,6 +98,8 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.teamA=BigInt(0);
     this.teamB=BigInt(0);
     this.a=BigInt(0);
+
+    this.quote=0;
     this.heimQuote=0;
     this.drawQuote=0;
     this.AuswQuote=0;
@@ -461,8 +464,8 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
     this.tipp.tipperID = tipperid;
     this.tipp.tipprundenid = this.tipprundenid;
-    this.tipp.quote=2; //quote ändern!
-    console.log(this.tipp)
+     //quote ändern!
+    console.log(this.tipp.spiel+"hieeeer")
 
     this.tipp.spiel
     if((this.kontostand - BigInt(this.tipp.betGeld)>=0)) {
@@ -473,7 +476,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
           );
         }
       );
-      this.winnerQuote(this.tipp.spiel);
+
       console.log(this.tipp.spiel)
       this.kontostand = this.kontostand - BigInt(this.tipp.betGeld);
       this.nutzerService.setKontostand(sessionStorage.getItem("id") + "", String(this.kontostand)).subscribe();
@@ -494,8 +497,17 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
   }
   onChange(ergebnis: string) { //quote:number
+    this.winnerQuote(this.tipp.spiel);
     this.tipp.moneyTipp = ergebnis;
-    //this.tipp.quote=quote;
+    if(ergebnis=="SiegerA") {
+      this.tipp.quote=this.heimQuote;
+    }
+    else if(ergebnis=="SiegerB") {
+      this.tipp.quote=this.AuswQuote;
+    }
+    else {
+      this.tipp.quote=this.drawQuote;
+    }
   }
 
 }

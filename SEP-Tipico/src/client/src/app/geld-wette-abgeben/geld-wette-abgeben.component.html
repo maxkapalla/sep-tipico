@@ -27,7 +27,7 @@
           <mat-button-toggle value="Draw" (change)="onChange($event.value)">Unentschieden</mat-button-toggle>
           <mat-button-toggle value="SiegerB" (change)="onChange($event.value)">Auswärtssieg</mat-button-toggle>
         </mat-button-toggle-group>
-        <p>Ausgewähltes Ergebnis {{tipp.moneyTipp}}</p>
+        <p>Ausgewähltes Ergebnis {{tipp.moneyTipp+" Quote: " + this.tipp.quote}}</p>
       </section>
 
       <label for="teamBTip">Einsatz</label>

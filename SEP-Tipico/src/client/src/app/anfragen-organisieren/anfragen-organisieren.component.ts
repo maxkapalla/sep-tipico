@@ -37,10 +37,10 @@ export class AnfragenOrganisierenComponent implements OnInit {
   acceptUser(NutzerID: string) {
     this.wettfreigabe = "ja";
     this.nachricht= "Wetten freigeschaltet";
-    //this.nutzerService.setGeldStatus(NutzerID, this.wettfreigabe).subscribe();
-    this.nutzerService.setMessage(NutzerID,this.nachricht)
+    this.nutzerService.setGeldStatus(NutzerID, this.wettfreigabe).subscribe();
+    //this.nutzerService.setMessage(NutzerID,this.nachricht)
       alert("Anfrage angenommen");
-      //window.location.reload()
+      window.location.reload()
 
   }
 
