@@ -19,4 +19,23 @@ header a:hover{
   color: darkblue;
 }
 
+.menu-toggler:hover{
+  color: darkblue;
+  cursor: pointer;
+}
+
+.menu-item {
+  background-color: steelblue;
+  width: 170px;
+  text-align: left;
+}
+.menu-item:hover{
+  color: darkblue;
+  cursor: pointer;
+}
+
+.menu{
+  border: darkblue solid 2px;
+}
+
 

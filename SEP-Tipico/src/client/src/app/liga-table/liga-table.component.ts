@@ -21,6 +21,8 @@ export class LigaTableComponent implements OnInit {
   stats: UserStats[];
   ligaObj: Liga;
   winnings: Map<bigint, bigint>;
+  losses: Map<bigint, bigint>;
+  draws: Map<bigint, bigint>;
 
   constructor(private LigaService: LigaService, private TeamService: TeamService, private matchService: MatchService) {
     this.ligen = [];
@@ -30,6 +32,8 @@ export class LigaTableComponent implements OnInit {
     this.ligaNamen = new Map<bigint, String>;
     this.ligaObj = new Liga();
     this.winnings = new Map<bigint, bigint>;
+    this.losses = new Map<bigint, bigint>;
+    this.draws = new Map<bigint, bigint>;
   }
 
 
@@ -49,32 +53,10 @@ export class LigaTableComponent implements OnInit {
       }
     }
     this.matchService.getByLiga(this.ligaObj).subscribe((data: Match[]) => {
-      for (let m of data) {
-        if (m.scoreTeamA < m.scoreTeamB) {
-          if (m.teamB != null) {
-            if (this.winnings.has(m.teamB)) {
-              if (this.winnings.get(m.teamB) != null) {
-                this.winnings.set(m.teamB, BigInt("1") + BigInt(this.winnings.get(m.teamB) + ""))
-              }
-            } else {
-              this.winnings.set(m.teamB, BigInt("1"))
-            }
-
-          }
-        } else if (m.scoreTeamA > m.scoreTeamB) {
-          if (m.teamA != null) {
-            if (this.winnings.has(m.teamA)) {
-              if (this.winnings.get(m.teamA) != null) {
-                this.winnings.set(m.teamA, BigInt("1") + BigInt(this.winnings.get(m.teamA) + ""))
-              }
-            } else {
-              this.winnings.set(m.teamA, BigInt("1"))
-            }
-
-          }
-        }
-      }
-      ;console.log(this.winnings)
+      for (let s of data) s.scoreTeamA < s.scoreTeamB ? null != s.teamB && null != s.teamA && (this.winnings.has(s.teamB) ? (null != this.winnings.get(s.teamB) && this.winnings.set(s.teamB, BigInt("1") + BigInt(this.winnings.get(s.teamB) + "")), this.losses.has(s.teamA) ? null != this.losses.get(s.teamA) && this.losses.set(s.teamA, BigInt("1") + BigInt(this.losses.get(s.teamA) + "")) : this.losses.set(s.teamA, BigInt("1"))) : (this.winnings.set(s.teamB, BigInt("1")), this.losses.has(s.teamA) ? null != this.losses.get(s.teamA) && this.losses.set(s.teamA, BigInt("1") + BigInt(this.losses.get(s.teamA) + "")) : this.losses.set(s.teamA, BigInt("1")))) : s.scoreTeamA > s.scoreTeamB ? null != s.teamB && null != s.teamA && (this.winnings.has(s.teamA) ? (null != this.winnings.get(s.teamA) && this.winnings.set(s.teamA, BigInt("1") + BigInt(this.winnings.get(s.teamA) + "")), this.losses.has(s.teamB) ? null != this.losses.get(s.teamB) && this.losses.set(s.teamB, BigInt("1") + BigInt(this.losses.get(s.teamB) + "")) : this.losses.set(s.teamB, BigInt("1"))) : (this.winnings.set(s.teamA, BigInt("1")), this.losses.has(s.teamB) ? null != this.losses.get(s.teamB) && this.losses.set(s.teamB, BigInt("1") + BigInt(this.losses.get(s.teamB) + "")) : this.losses.set(s.teamB, BigInt("1")))) : null != s.teamB && null != s.teamA && (this.draws.has(s.teamB) ? null != this.draws.get(s.teamB) && this.draws.set(s.teamB, BigInt("1") + BigInt(this.draws.get(s.teamB) + "")) : this.draws.set(s.teamB, BigInt("1")), this.draws.has(s.teamA) ? null != this.draws.get(s.teamA) && this.draws.set(s.teamA, BigInt("1") + BigInt(this.draws.get(s.teamA) + "")) : this.draws.set(s.teamA, BigInt("1"))); // minification done with https://github.com/mishoo/UglifyJS
+      console.log(this.winnings)
+      console.log(this.losses)
+      console.log(this.draws)
       // @ts-ignore
       const joined = this.teams.map(num => `${num}: ${this.winnings.get(num)}`);
       console.log(joined);

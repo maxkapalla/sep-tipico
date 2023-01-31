@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute,Router} from "@angular/router";
+import {Component} from '@angular/core';
+import {Router} from "@angular/router";
 import {Nutzer} from "../Models/Nutzer";
 import {AuthService} from "../services/auth.service";
 import {NutzerService} from "../services/nutzer.service";
@@ -13,32 +13,33 @@ import {NutzerService} from "../services/nutzer.service";
 export class RegisterUserComponent {
 
   nutzer: Nutzer;
-  datum: string= "";
+  datum: string = "";
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
+  constructor(private router: Router,
               private service: NutzerService,
-              private auth: AuthService) {this.nutzer=new Nutzer() }
+              private auth: AuthService) {
+    this.nutzer = new Nutzer()
+  }
 
-  ngOnInit(){
+  ngOnInit() {
     this.auth.checkLogged();
   }
 
-  onSubmit(){
-    var splitstr= this.datum.split('-')
-    this.datum= splitstr[2]+"."+splitstr[1]+"."+splitstr[0];
+  onSubmit() {
+    var splitstr = this.datum.split('-')
+    this.datum = splitstr[2] + "." + splitstr[1] + "." + splitstr[0];
     this.nutzer.dateOfBirth = this.datum;
-    this.service.registerUser(this.nutzer).subscribe(result=>this.gotoLogin(),this.errorWithSubmit);
+    this.nutzer.kontostand = BigInt("0");
+    this.service.registerUser(this.nutzer).subscribe(result => this.gotoLogin(), this.errorWithSubmit);
   }
 
-  gotoLogin()
-  {
+  gotoLogin() {
     alert("Registrierung erfolgreich!")
     this.router.navigate(['login']);
   }
 
-  errorWithSubmit(){
-    alert("E-Mail-Adress bereits vergeben")
+  errorWithSubmit() {
+    alert("E-Mail-Adresse bereits vergeben")
   }
 
 }

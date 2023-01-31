@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LigaSeeComponent } from './liga-see.component.ts';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {LigaSeeComponent} from './liga-see.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('LigaSeeComponent', () => {
   let component: LigaSeeComponent;
@@ -8,9 +9,10 @@ describe('LigaSeeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LigaSeeComponent ]
+      imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule],
+      declarations: [LigaSeeComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LigaSeeComponent);
     component = fixture.componentInstance;

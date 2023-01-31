@@ -1,4 +1,6 @@
 <app-header></app-header>
+<br>
+<br>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -7,45 +9,74 @@
           <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
           <ul class="text-center list-inline py-3">
             <li class="list-inline-item">
-              <a routerLink="/user" class="btn btn-info" *ngIf="loggedIn=== null">Als User registrieren</a>
+              <a *ngIf="loggedIn=== null" class="btn btn-info" routerLink="/user">Als User registrieren</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/login" class="btn btn-info" *ngIf="loggedIn=== null">Login</a>
+              <a *ngIf="loggedIn=== null" class="btn btn-info" routerLink="/login">Login</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/admin" class="btn btn-info" *ngIf="loggedIn=== null">Als Admin registrieren</a>
+              <a *ngIf="loggedIn=== null" class="btn btn-info" routerLink="/admin">Als Admin registrieren</a>
+            </li>
+
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/liga-see">Liga ansehen</a>
+            </li>
+
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/matchplan-show">Spielplan anzeigen</a>
+            </li>
+
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/team-show">Team ansehen</a>
+            </li>
+
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/search">Nutzer suchen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/date-change" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Date Change</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/friends">Freundesliste</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/liga-see" class="btn btn-info" *ngIf="loggedIn!== null">Liga ansehen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/chat-requests">Chat-Requests</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/liga-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Liga ändern</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipp-runde">Tipprunden</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/matchplan-show" class="btn btn-info" *ngIf="loggedIn!== null">Spielplan anzeigen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipp-runde-create">Tipprunde erstellen</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/matchplan-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Spielplan erstellen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipphilfe">Tipphilfe</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/team-create" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">Team erstellen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/tipp-abgeben">Tipp abgeben</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/team-show" class="btn btn-info" *ngIf="loggedIn!== null">Team ansehen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/top-three-team">Top Three Teams</a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/csv" class="btn btn-info" *ngIf="loggedIn!== null && role==='admin'">CSV einlesen</a>
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/minigame">Minigame</a>
             </li>
-            <li onclick="sessionStorage.clear() ; window.location.reload()" class="btn btn-info" *ngIf="loggedIn!== null">Logout</li>
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/user-stats">User Stats</a>
+            </li>
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null" class="btn btn-info" routerLink="/liga-table">Liga Tabelle</a>
+            </li>
+            <li class="list-inline-item">
+              <a *ngIf="loggedIn!== null && geldwette ==='ja'" class="btn btn-info" routerLink="/geld-wette-abgeben">Geldwette setzen</a>
+            </li>
           </ul>
         </div>
       </div>
       <router-outlet></router-outlet>
     </div>
   </div>
+  <br>
+  <br>
+  <br>
 </div>
 
-<!--<router-outlet></router-outlet>-->
+
+<app-chat *ngIf="loggedIn!== null"></app-chat>
+

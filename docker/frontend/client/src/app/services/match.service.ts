@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {NewLiga} from "../Models/NewLiga";
 import {Match} from "../Models/Match";
 import {Observable} from "rxjs";
-import {Team} from "../Models/Team";
 import {Liga} from "../Models/Liga";
 
 const httpOptions = {
@@ -23,6 +21,30 @@ export class MatchService {
     this.matchURL = 'http://localhost:8080/spiel'
   }
 
+  isGameDayPassed(matchd: Date): boolean {
+    let matchdate = new Date(matchd);
+    let currentDayAsString = sessionStorage.getItem("datum");
+    if (currentDayAsString != null) {
+      var dateParts = currentDayAsString.split(".");
+
+      let currentDate = new Date((dateParts[1] + "." + dateParts[0] + "." + dateParts[2]).valueOf());
+
+      if (matchdate.getUTCFullYear() == currentDate.getUTCFullYear()) {
+        if (matchdate.getMonth() < currentDate.getMonth()) {
+          return true;
+        }else if(matchdate.getMonth() == currentDate.getMonth()){
+          if (matchdate.getDate() < currentDate.getDate()) {
+            return true;
+          }
+        }
+      }else if(matchdate.getUTCFullYear()< currentDate.getUTCFullYear()){
+        return true;
+      }
+      return false;
+
+    }
+    return false;
+  }
 
   create(spiel: Match): Observable<Match> {
 

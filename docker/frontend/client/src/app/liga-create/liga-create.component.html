@@ -19,54 +19,65 @@
   </div>
 
   <div class="changeLigaNameForm">
-    <form (ngSubmit)="onChangeName()" #ligaChangeForm="ngForm">
+    <form #ligaChangeForm="ngForm" (ngSubmit)="onChangeName()">
       <div class="form-group">
-        <label for="name">Liga Name ändern</label>
-        <input type="text" [(ngModel)]="changeliga.name"
-               class="form-control"
+        <label for="name">Liga Name anpassen</label>
+        <input [(ngModel)]="changeliga.name" class="form-control"
                id="name"
                name="name"
                placeholder="Liga Name"
-               required>
+               required
+               type="text">
 
       </div>
       <div class="form-group">
         <label for="name">Liga ID</label>
-        <input type="text" [(ngModel)]="changeliga.id"
-               class="form-control"
+        <input [(ngModel)]="changeliga.id" class="form-control"
                id="id"
                name="id"
+               pattern="([0-9]{4}"
                placeholder="Liga ID"
-               pattern="([0-9]{4}" s
-               required>
+               required
+               type="text">
+
+      </div>
+      <div class="form-group">
+        <label for="name">Liga URL</label>
+        <input [(ngModel)]="changeliga.url" class="form-control"
+               id="url"
+               name="url"
+               pattern="([0-9]{4}"
+               placeholder="Liga ID"
+               required
+               type="text">
 
       </div>
       <div class="dangerButton">
-        <button type="submit" [disabled]="!ligaChangeForm.form.valid"
-                class="btn btn-info">Name ändern
+        <button [disabled]="!ligaChangeForm.form.valid" class="btn btn-info"
+                type="submit">Name ändern
         </button>
       </div>
 
     </form>
   </div>
   <div class="deleteLigaForm">
-    <form (ngSubmit)="onDelete()" #ligaDeleteForm="ngForm">
+    <form #ligaDeleteForm="ngForm" (ngSubmit)="onDelete()">
 
       <div class="form-group">
         <label for="name">Liga löschen</label>
-        <input type="text" [(ngModel)]="deleteliga.id"
-               class="form-control"
+        <input [(ngModel)]="deleteliga.id" class="form-control"
                id="deleteid"
                name="id"
+               pattern="([0-9]{4}"
                placeholder="Liga ID"
-               pattern="([0-9]{4}" s
-               required>
+               required s
+               type="text">
 
       </div>
 
       <div class="dangerButton">
-        <button type="submit" [disabled]="!ligaDeleteForm.form.valid"
-                class="btn btn-info">Delete
+        <button [disabled]="!ligaDeleteForm.form.valid" class="btn btn-info"
+                type="submit">Delete
         </button>
       </div>
 
@@ -76,25 +87,35 @@
 
   <div class="createLigaForm">
     <br>
-    <form (ngSubmit)="onCreateLiga()" #ligaCreateForm="ngForm">
+    <form #ligaCreateForm="ngForm" (ngSubmit)="onCreateLiga()">
       <div class="form-group">
-        <label for="name">Liga erstellen</label>
-        <input type="text" [(ngModel)]="createLiga.name"
+        <label for="createLigaName">Liga erstellen</label>
+        <input #ligaName="ngModel" [(ngModel)]="createLiga.name"
                class="form-control"
                id="createLigaName"
                name="name"
                placeholder="Liga Name"
-               required #ligaName="ngModel">
+               required type="text">
 
       </div>
-      <button type="Erstellen" [disabled]="!ligaCreateForm.form.valid"
-              class="btn btn-info">Submit
+      <div class="form-group">
+        <label for="createLigaUrl">Liga Bild URL</label>
+        <input #ligaName="ngModel" [(ngModel)]="createLiga.url"
+               class="form-control"
+               id="createLigaUrl"
+               name="url"
+               placeholder="Liga Name"
+               required type="text">
+
+      </div>
+      <button [disabled]="!ligaCreateForm.form.valid" class="btn btn-info"
+              type="Erstellen">Submit
       </button>
-      <button type="button" (click)="onFlush()"
-              class="btn btn-info">Flush
+      <button (click)="onFlush()" class="btn btn-info"
+              type="button">Flush
       </button>
-      <button type="button" (click)="onRandomCreate()"
-              class="btn btn-info">Random generate
+      <button (click)="onRandomCreate()" class="btn btn-info"
+              type="button">Random generate
       </button>
     </form>
     <br>
