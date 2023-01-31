@@ -115,7 +115,8 @@ export class UserStatsComponent implements OnInit {
       ctx.fill();
       startAngle += sliceAngle;
     }
-    if(this.stats.length == 0) {
+    console.log("pie stats " + this.pieStats.length + " ergebnisstats: " + this.ergebnisStats.length)
+    if(this.pieStats.length == 0) {
       let angle = 360
       ctx.fillStyle = 'grey'
       ctx.beginPath();
@@ -123,7 +124,9 @@ export class UserStatsComponent implements OnInit {
       ctx.arc(canvas.width/2, canvas.height/2, canvas.height/2, 0, 360);
       ctx.lineTo(canvas.width/2, canvas.height/2);
       ctx.fill();
-      alert("Diese Tipprunde enthält keine Daten"!)
+      if (this.ergebnisStats.length == 0) {
+        alert("Diese Tipprunde enthält keine Daten von Dir!")
+      }
     }
   }
 
