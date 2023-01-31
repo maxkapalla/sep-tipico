@@ -100,7 +100,7 @@ public class TippRunde {
         this.gewDiff=gewDiff;
     }
     public String getGewGewinner() {
-        return gewTore;
+        return gewGewinner;
     }
     public void setGewGewinner(String gewGewinner) {
         this.gewGewinner=gewGewinner;
