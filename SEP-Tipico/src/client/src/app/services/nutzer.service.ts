@@ -90,5 +90,4 @@ export class NutzerService {
   public getNutzersByWettstatus(status: string): Observable<Nutzer[]> {
     return this.http.post<Nutzer[]>("http://localhost:8080/nutzer/Wettstatus/",status)
   }
-
 }

@@ -31,7 +31,8 @@ public class Nutzer {
     public Nutzer() {
     }
 
-    public Nutzer(String firstName, String lastName, String dateOfBirth, String email, String password, String imageURL, String role, String geldWette) {
+    public Nutzer(String firstName, String lastName, String dateOfBirth, String email, String password,
+                  String imageURL, String role, String geldWette) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;

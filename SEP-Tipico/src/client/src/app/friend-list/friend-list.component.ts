@@ -87,5 +87,7 @@ export class FriendListComponent implements OnInit {
   deleteMyRequest(){
     this.chatService.deleteMyRequest(BigInt(+sessionStorage.getItem("id")!)).subscribe()
     sessionStorage.removeItem("chatrequestsent")
+    alert("Anfrage gelöscht.")
+    window.location.reload()
   }
 }
