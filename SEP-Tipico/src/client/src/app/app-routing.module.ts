@@ -75,7 +75,7 @@ const routes: Routes = [
   {path: 'admin-stats', component: AdminStatsComponent, canActivate: [AuthService]},
   {path: 'user-stats', component: UserStatsComponent, canActivate: [AuthService]},
   {path: 'chat', component: ChatComponent, canActivate: [AuthService]},
-  {path: 'chat-requests', component: ChatRequestsComponent},
+  {path: 'chat-requests', component: ChatRequestsComponent, canActivate: [AuthService]},
   {path: 'geld-wette-abgeben', component: GeldWetteAbgebenComponent, canActivate: [AuthService]}
 ];
 

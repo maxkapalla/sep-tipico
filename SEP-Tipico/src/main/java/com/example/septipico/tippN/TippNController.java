@@ -135,8 +135,10 @@ public class TippNController {
             for (Spiel match : spiele) {
                 if (tipp.getSpiel().equals(match.getId()) && this.checkDate(match.getDate().toString(), date)) {
                     int[] bewertungen = this.getBewertungen(tipp);
+                    System.out.println(bewertungen[0]+" "+bewertungen[1]+" " +bewertungen[2]);
                     if (tipp.getTippA().equals((long)match.getScoreTeamA()) && tipp.getTippB().equals((long)match.getScoreTeamB())) {
                         points += bewertungen[0];
+                        System.out.println(bewertungen[0]);
                         System.out.println("erghit");
                     }
 
@@ -144,6 +146,7 @@ public class TippNController {
                         gewinner = match.getTeamA();
                         if (tipp.getTippA() > tipp.getTippB()) {
                             points += bewertungen[1];
+                            System.out.println(bewertungen[1]);
                             System.out.println("gewA");
                         }
                     } else if (match.getScoreTeamA() < match.getScoreTeamB()) {
@@ -163,11 +166,13 @@ public class TippNController {
 
                     if ((tipp.getTippA() - tipp.getTippB()) == (match.getScoreTeamA() - match.getScoreTeamB())) {
                         points += bewertungen[2];
+                        System.out.println(bewertungen[2]);
                         System.out.println("diffhit");
                     }
                     break;
                 }
             }
+            System.out.println("Punkte: "+ points);
             if (points != 0) {
                 System.out.println("TipperList size = " + tippers.size());
                 for (Tipper tipper : tippers) {
@@ -214,8 +219,14 @@ public class TippNController {
         for(TippRunde runde:  tippRunden){
             if(tipp.getTipprundenid().equals(runde.getId())){
                 bewertungen[0] = Integer.parseInt(runde.getGewTore());
+                System.out.println(Integer.parseInt(runde.getGewTore()));
+
                 bewertungen[1] = Integer.parseInt(runde.getGewGewinner());
+                System.out.println(Integer.parseInt(runde.getGewGewinner()));
+
                 bewertungen[2] = Integer.parseInt(runde.getGewDiff());
+                System.out.println(Integer.parseInt(runde.getGewDiff()));
+
             }
         }
         return bewertungen;
@@ -224,7 +235,7 @@ public class TippNController {
     private boolean checkDate(String date1, String[] date2){
         date1 = date1.substring(0,10);
         String[] splitstr1 = date1.split("-");
-        if(Integer.parseInt(splitstr1[0]) <= Integer.parseInt(date2[2])){
+        if(Integer.parseInt(splitstr1[0]) == Integer.parseInt(date2[2])){
                 if(Integer.parseInt(splitstr1[1]) < Integer.parseInt(date2[1])){
                     return true;
                 }else if(Integer.parseInt(splitstr1[1]) == Integer.parseInt(date2[1])){

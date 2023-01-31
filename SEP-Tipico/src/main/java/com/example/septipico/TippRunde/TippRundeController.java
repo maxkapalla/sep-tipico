@@ -281,7 +281,7 @@ public class TippRundeController {
         String[] date3 = date2.split("\\.");
         date1 = date1.substring(0,10);
         String[] splitstr1 = date1.split("-");
-        if(Integer.parseInt(splitstr1[0]) <= Integer.parseInt(date3[2])){
+        if(Integer.parseInt(splitstr1[0]) == Integer.parseInt(date3[2])){
             if(Integer.parseInt(splitstr1[1]) < Integer.parseInt(date3[1])){
                 return true;
             }else if(Integer.parseInt(splitstr1[1]) == Integer.parseInt(date3[1])){
