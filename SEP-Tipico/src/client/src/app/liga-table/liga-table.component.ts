@@ -87,9 +87,8 @@ export class LigaTableComponent implements OnInit {
               this.winnings.get((m.teamA)) != null ? this.winnings.set(m.teamA, BigInt("1") + BigInt(this.winnings.get(m.teamA) + "")) : false;
 
               if (this.losses.has(m.teamB)) {
-                if (this.losses.get(m.teamB) != null) {
-                  this.losses.set(m.teamB, BigInt("1") + BigInt(this.losses.get(m.teamB) + ""))
-                }
+                this.losses.get(m.teamB) != null ? this.losses.set(m.teamB, BigInt("1") + BigInt(this.losses.get(m.teamB) + "")) : false;
+
               } else {
                 this.losses.set(m.teamB, BigInt("1"))
               }
@@ -127,6 +126,8 @@ export class LigaTableComponent implements OnInit {
         }
       }
       console.log(this.winnings)
+      console.log(this.losses)
+      console.log(this.draws)
       // @ts-ignore
       const joined = this.teams.map(num => `${num}: ${this.winnings.get(num)}`);
       console.log(joined);
