@@ -1,12 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TwoFaService } from './two-fa.service';
+import {TwoFaService} from './two-fa.service';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('TwoFaServiceService', () => {
+describe('TwoFaService', () => {
   let service: TwoFaService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      declarations: [TwoFaService],
+      imports: [HttpClientTestingModule]
+    });
     service = TestBed.inject(TwoFaService);
   });
 

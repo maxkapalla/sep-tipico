@@ -1,3 +1,16 @@
+<div class="ligaSelectForm">
+  <form #matchCreateForm="ngForm">
+    <div class="form-group">
+      <label for="liga">liga</label>
+      <select [(ngModel)]="liga.id" [(ngModel)]="match.liga" id="liga" name="liga" required>
+        <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
+      </select>
+    </div>
+    <button (click)="onLoadLiga()" class="btn btn-info"
+            type="button">Liga laden
+    </button>
+  </form>
+</div>
 <div class="createMatchList">
   <table>
     <tr>
@@ -33,24 +46,23 @@
       <td>{{ spiel.date }}</td>
       <td>{{ spiel.spieltag }}</td>
       <td>{{getTeamName(spiel.teamA)}}</td>
-      <td>{{ spiel.scoreTeamA }}</td>
-      <td>{{ spiel.scoreTeamB }}</td>
+      <td *ngIf="markFutureMatches(spiel.date)">{{ spiel.scoreTeamA }}</td>
+      <td *ngIf="markFutureMatches(spiel.date)">{{ spiel.scoreTeamB }}</td>
+      <td *ngIf="!markFutureMatches(spiel.date)">-</td>
+      <td *ngIf="!markFutureMatches(spiel.date)">-</td>
       <td>{{getTeamName(spiel.teamB)}}</td>
 
     </tr>
   </table>
-
 </div>
-<div class="ligaSelectForm">
-  <form #matchCreateForm="ngForm">
-    <div class="form-group">
-      <label for="liga">liga</label>
-      <select [(ngModel)]="liga.id" [(ngModel)]="match.liga" id="liga" name="liga" required>
-        <option *ngFor="let liga of ligen" value="{{ liga.id }}">{{ liga.name }}</option>
-      </select>
+
+<div class="topThree">
+  <br>
+  <h3>Toptipper:</h3>
+  <a *ngIf="topThree.length === 0 && matchCreateForm.valid" style="color: red"> Keine Tipper gefunden!</a>
+  <div *ngFor="let tipper of topThree">
+    <div *ngFor="let topThreeName of topThreeNames">
+      <a *ngIf="tipper.nutzerid.toString() == topThreeName.id">{{topThreeName.firstName}} {{topThreeName.lastName}} - {{tipper.points}}</a>
     </div>
-    <button (click)="onLoadLiga()" class="btn btn-info"
-            type="button">Liga laden
-    </button>
-  </form>
+  </div>
 </div>

@@ -8,14 +8,18 @@
         <th>
           Liga ID
         </th>
+        <th>
+          Bild
+        </th>
 
       </tr>
       <tr *ngFor="let liga of ligen">
         <td> {{ liga.name }} </td>
         <td>{{ liga.id }}</td>
+        <td><img height="50" src={{liga.url}}><a></a></td>
       </tr>
     </table>
 
   </div>
 
- </div>
+</div>

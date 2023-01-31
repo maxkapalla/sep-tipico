@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {TippService} from "../services/tipp.service";
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private tippservice: TippService) {
   }
 
+  ngOnInit(): void {
+    this.tippservice.giveTippPoints();
+    this.tippservice.giveTippMoney();
+  }
 }

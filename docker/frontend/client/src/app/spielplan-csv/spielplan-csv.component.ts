@@ -118,8 +118,6 @@ export class SpielplanCsvComponent implements OnInit {
       });
 
       this.TeamService.saveByName(this.tempTeam).subscribe();
-
-
     }
 
     for (let csvR of this.csvArr) {

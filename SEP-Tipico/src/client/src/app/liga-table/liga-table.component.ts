@@ -83,9 +83,9 @@ export class LigaTableComponent implements OnInit {
         } else if (m.scoreTeamA > m.scoreTeamB) {
           if (m.teamB != null && m.teamA != null) {
             if (this.winnings.has(m.teamA)) {
-              if (this.winnings.get(m.teamA) != null) {
-                this.winnings.set(m.teamA, BigInt("1") + BigInt(this.winnings.get(m.teamA) + ""))
-              }
+
+              this.winnings.get((m.teamA)) != null ? this.winnings.set(m.teamA, BigInt("1") + BigInt(this.winnings.get(m.teamA) + "")) : false;
+
               if (this.losses.has(m.teamB)) {
                 if (this.losses.get(m.teamB) != null) {
                   this.losses.set(m.teamB, BigInt("1") + BigInt(this.losses.get(m.teamB) + ""))

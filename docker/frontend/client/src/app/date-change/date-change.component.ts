@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {DatumService} from "../services/datum.service";
+import {TippService} from "../services/tipp.service";
 
 @Component({
   selector: 'app-date-change',
@@ -8,17 +9,21 @@ import {DatumService} from "../services/datum.service";
   styleUrls: ['./date-change.component.scss']
 })
 export class DateChangeComponent implements OnInit {
-  newDate="";
-  constructor(private router: Router, private datumService: DatumService) { }
+  newDate = "";
+
+  constructor(private router: Router, private datumService: DatumService, private tippService: TippService) {
+  }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('role')=="user"){ //falls user dann route zu home
+    if (sessionStorage.getItem('role') == "user") { //falls user dann route zu home
       this.router.navigate(['/home'])
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     this.datumService.datumChange(this.newDate)
+    this.tippService.giveTippPoints();
+    this.tippService.giveTippMoney();
   }
 
 

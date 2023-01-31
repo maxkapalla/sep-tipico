@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-willkommen-bar',
@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WillkommenBarComponent implements OnInit {
   title = 'Willkommen auf SEP-Tipico!';
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

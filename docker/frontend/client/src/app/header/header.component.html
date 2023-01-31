@@ -1,6 +1,26 @@
 <header>
   <img class="logo" src="assets/LogoMakr-3Vjava.png">
+  <a href onclick="sessionStorage.clear() ; window.location.reload()"  *ngIf="loggedIn!== null">Logout</a>
   <a href='/profile' *ngIf="nutzer !== 'null'">{{nutzer}}</a>
   <b>{{datum}}</b>
+
+  <b class="menu-container" clickOutside (clickOutside)="clickedOutside()">
+    <div class="menu-toggler" *ngIf="nutzer !== 'null' && role ==='admin'" (click)="toggleMenu()">Admin Menü</div>
+    <div class="menu" *ngIf="isMenuOpened">
+      <div class="menu-item" routerLink="/date-change">Date
+        Change</div>
+      <div class="menu-item" routerLink="/liga-create">Liga
+        ändern</div>
+      <div class="menu-item" routerLink="/matchplan-create">Spielplan
+        erstellen</div>
+      <div class="menu-item" routerLink="/team-create">Team
+        erstellen</div>
+      <div class="menu-item" routerLink="/csv">CSV
+        einlesen</div>
+      <div class="menu-item" routerLink="/anfragen-organisieren">Anfragen
+        verwalten</div>
+      <div class="menu-item" routerLink="/admin-stats">Admin Stats</div>
+    </div>
+  </b>
 </header>
 

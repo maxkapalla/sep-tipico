@@ -1,11 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Liga} from "../Models/Liga";
 import {Match} from "../Models/Match";
-import {ActivatedRoute, Router} from "@angular/router";
 import {MatchService} from "../services/match.service";
 import {LigaService} from "../services/liga.service";
 import {TeamService} from "../services/team.service";
 import {Team} from "../Models/Team";
+import {TippService} from "../services/tipp.service";
+import {Tipper} from "../Models/Tipper";
+import {NutzerService} from "../services/nutzer.service";
+import {Nutzer} from "../Models/Nutzer";
 
 @Component({
   selector: 'app-liga-change',
@@ -20,8 +23,12 @@ export class MatchPlanShowComponent implements OnInit {
   team: Team;
   teams: Team[];
   teamNamen: Map<bigint, String>;
+  topThree: Tipper[];
+  topThreeNames: Nutzer[];
 
-  constructor(private route: ActivatedRoute, private TeamService: TeamService, private LigaService: LigaService, private MatchService: MatchService, private router: Router) {
+  constructor(private TeamService: TeamService,
+              private LigaService: LigaService, private MatchService: MatchService,
+              private tippService: TippService, private nutzerService: NutzerService) {
     this.match = new Match;
     this.matches = [];
     this.liga = new Liga();
@@ -29,27 +36,55 @@ export class MatchPlanShowComponent implements OnInit {
     this.team = new Team();
     this.teams = [];
     this.teamNamen = new Map<bigint, String>;
+    this.topThree = [];
+    this.topThreeNames = [];
   }
 
   ngOnInit(): void {
-    this.MatchService.getAll().subscribe((data: any) => this.matches = data);
+
+
+    this.MatchService.getAll().subscribe((data: Match[]) => {
+      this.matches = data;
+      for (let m of data) {
+       
+        console.log(m.date, this.MatchService.isGameDayPassed(m.date));
+      }
+    });
     this.LigaService.getAll().subscribe((data: any) => this.ligen = data);
     this.TeamService.getAll().subscribe((data: any) => {
       this.teams = data;
       this.compileTeamNames()
     });
-
-
   }
 
-  onShow() {
-
+  markFutureMatches(date: string): boolean {
+    let datum = sessionStorage.getItem('datum') + ""
+    date = date.slice(0, 10)
+    let splitstr1 = date.split('-')
+    let splitstr2 = datum.split('.')
+    if (+splitstr1[0] <= +splitstr2[2]) {
+      if (+splitstr1[1] < +splitstr2[1]) {
+        return true;
+      } else if (+splitstr1[1] == +splitstr2[1]) {
+        if (+splitstr1[2] <= +splitstr2[0]) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   onLoadLiga(): void {
     this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
-
-
+    this.tippService.getTopThree(this.liga).subscribe((data: any) => this.topThree = data)
+    setTimeout(() => {
+      if (this.topThree.length != 0)
+        for (let top of this.topThree) {
+          this.nutzerService.getNutzerByID(top.nutzerid.toString()).subscribe((data: Nutzer) => {
+            this.topThreeNames.push(data)
+          })
+        }
+    }, 200);
   }
 
   compileTeamNames() {
