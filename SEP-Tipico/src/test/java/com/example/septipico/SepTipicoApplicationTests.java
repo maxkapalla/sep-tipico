@@ -89,7 +89,7 @@ class SepTipicoApplicationTests {
 
     @Test
     @Transactional
-    void testDeleteMyRequest() {
+    void testChatRequest() {
         List<Long> list = new ArrayList<Long>();
         list.add(getLong());
         list.add(getLong());
