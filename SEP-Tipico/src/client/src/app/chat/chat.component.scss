@@ -8,13 +8,13 @@ footer{
   //border-top: 1px solid black;
 }
 footer .chat-minimized{
-  background-color: white;
+  background-color: cornflowerblue;
   border-top: 1px solid black;
   border-left: 1px solid black;
   width: 200px;
   float: right;
   display: block;
-  color: black;
+  color: white;
   text-align: center;
   padding: 9px 9px;
   text-decoration: none;
@@ -34,32 +34,33 @@ footer .chat-open{
 
 .name-box{
   height: 50px;
+  background-color: cornflowerblue;
+  color: white;
   width: 100%;
   padding-top: 10px;
   padding-left: 5px;
   font-size: 18px;
   text-align: left;
-  color: black;
   border-bottom: 1px solid black;
 }
 .mini{
-  color: dimgrey;
+  color: white;
   float: right;
   cursor: pointer;
 }
 .mini:hover{
-  color:black;
+  color:darkblue;
 }
 
 .closing{
   margin-left: 10px;
   margin-right: 5px;
-  color: dimgrey;
+  color: white;
   float: right;
   cursor: pointer;
 }
 .closing:hover{
-  color:black;
+  color:darkblue;
 }
 
 footer .requests{
@@ -84,7 +85,8 @@ button{
   position: absolute;
   width: 500px;
   border-top: black 1px solid;
-  background-color: white;
+  background-color: darkgrey;
+  padding-bottom: 3px;
 }
 
 .field{
@@ -98,14 +100,20 @@ button{
   overflow-y: auto;
   height: 250px;
   padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column-reverse;
 }
 
 .msg-partner{
+  padding-top: 10px;
   text-align: left;
+  border-bottom: solid rgba(0, 0, 0, 0.37) 1px;
 }
 
 .msg-me{
+  padding-top: 10px;
   text-align: right;
+  border-bottom: solid rgba(0, 0, 0, 0.37) 1px;
 }
