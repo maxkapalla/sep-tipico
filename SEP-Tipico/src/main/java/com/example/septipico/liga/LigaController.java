@@ -147,8 +147,8 @@ public class LigaController {
             List<Long> userIDs = new ArrayList<Long>();
 
             for(Tipper t : tippers) {
-                if (!userIDs.contains(t.getId())) {
-                    userIDs.add(t.getId());
+                if (!userIDs.contains(t.getNutzerid())) {
+                    userIDs.add(t.getNutzerid());
                 }
             }
             statsObj.setUserCount(userIDs.size());
