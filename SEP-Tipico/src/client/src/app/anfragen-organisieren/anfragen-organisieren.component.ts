@@ -36,6 +36,7 @@ export class AnfragenOrganisierenComponent implements OnInit {
     this.nutzerService.setGeldStatus(NutzerID, this.wettfreigabe).subscribe();
       alert("Anfrage angenommen");
       window.location.reload()
+
   }
 
 }

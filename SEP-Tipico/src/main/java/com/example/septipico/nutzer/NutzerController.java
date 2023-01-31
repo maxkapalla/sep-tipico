@@ -125,5 +125,4 @@ public class NutzerController {
         x.addAll(nutzerrepo.findAllByGeldWette(status));
         return x;
     }
-
 }
