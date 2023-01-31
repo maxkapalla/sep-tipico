@@ -243,6 +243,8 @@ public class TippNController {
                         return true;
                 }
 
+        }else if(Integer.parseInt(splitstr1[0]) < Integer.parseInt(date2[2])){
+            return true;
         }
         return false;
     }

@@ -289,6 +289,8 @@ public class TippRundeController {
                     return true;
             }
 
+        }else if(Integer.parseInt(splitstr1[0]) < Integer.parseInt(date3[2])){
+            return true;
         }
         return false;
     }
