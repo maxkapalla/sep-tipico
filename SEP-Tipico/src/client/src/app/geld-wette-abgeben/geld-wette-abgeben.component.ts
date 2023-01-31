@@ -11,7 +11,7 @@ import {Tipp} from "../Models/TippN";
 import {TippRunde} from "../Models/TippRunde";
 import {Tipper} from "../Models/Tipper";
 import {NutzerService} from "../services/nutzer.service";
-
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 require('../patch.js')
 
@@ -25,11 +25,12 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
   ligen: Liga[];
   matches: Match[];
+  vergangeneMatches: Match[];
 
   tipprunden: TippRunde[];
   matchesMap: Map<bigint, Match>;
   match: Match;
-  matchMitDate: Match;
+  alleMatches:Match[];
   ligaNamen: Map<bigint, String>;
   ligaid: bigint;
   liga: Liga;
@@ -50,15 +51,25 @@ export class GeldWetteAbgebenComponent implements OnInit {
   usertiptable: boolean;
 
   kontostand: bigint;
-  ergebnis:string="";
+
   copyid: bigint;
   tipprundenraw: TippRunde[];
+
+
+  teamA:bigint|undefined
+  teamB:bigint|undefined
+  a:bigint|undefined
+  SpieleTeamA=0;
+  insgesamtSiege=0;
+  heimQuote:number;
+  drawQuote:number;
+  AuswQuote:number;
 
   constructor(private router: Router,
               private LigaService: LigaService, private TeamService: TeamService,
               private MatchService: MatchService, private TippService: TippService,
               private TippRundeService: TippRundeService,
-              private nutzerService: NutzerService) {
+              private nutzerService: NutzerService, private snackBar: MatSnackBar) {
     this.ligen = [];
     this.matches = [];
     this.tipprunden = [];
@@ -67,7 +78,8 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.ligaid = BigInt("0")
     this.liga = new Liga();
     this.match = new Match();
-    this.matchMitDate=new Match();
+    this.vergangeneMatches= [];
+    this.alleMatches=[];
     this.tipp = new Tipp();
     this.matchid = BigInt("0");
     this.matchesMap = new Map<bigint, Match>;
@@ -82,6 +94,13 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.copyid = BigInt("0");
 
     this.kontostand= BigInt(sessionStorage.getItem("kontostand") + "");
+    this.teamA=BigInt(0);
+    this.teamB=BigInt(0);
+    this.a=BigInt(0);
+    this.heimQuote=0;
+    this.drawQuote=0;
+    this.AuswQuote=0;
+
   }
 
 
@@ -187,9 +206,17 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
 
   onShowMatchesInLiga(): void {
+    this.matches = [];
 
     if (this.ligaid == BigInt("0")) {
-      this.MatchService.getAll().subscribe((data: any) => this.matches = data);
+      this.MatchService.getAll().subscribe((data: Match[]) => {
+        for (let match of data) {
+          if (!this.MatchService.isGameDayPassed(match.date)) {
+            this.matches.push(match);
+          }
+        }
+
+      });
     } else if (this.ligaid != null) {
       for (let ligat of this.ligen) {
         if (ligat.id != null && ligat.name != null) {
@@ -199,8 +226,29 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
         }
       }
+      this.MatchService.getByLiga(this.liga).subscribe((data: any) => {
+        this.alleMatches = data;})
 
-      this.MatchService.getByLiga(this.liga).subscribe((data: any) => this.matches = data);
+      this.MatchService.getByLiga(this.liga).subscribe((data: any) => {
+        this.vergangeneMatches = [];
+
+        for (let match of data) {
+          if (this.MatchService.isGameDayPassed(match.date)) {
+            this.vergangeneMatches.push(match);
+          }
+        }
+      });
+
+      this.MatchService.getByLiga(this.liga).subscribe((data: any) => {
+        this.matches = [];
+
+        for (let match of data) {
+          if (!this.MatchService.isGameDayPassed(match.date)) {
+            console.log(match);
+            this.matches.push(match);
+          }
+        }
+      });
 
     }
     this.loadtable = true;
@@ -262,8 +310,146 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
   }
 
+  winnerQuote(id:bigint|undefined) {
+
+
+
+    console.log(this.alleMatches.length+" Wieviele Spiele gibt es? ")
+
+    for(let m=0;m<this.alleMatches.length;m++) {
+     // console.log(this.alleMatches[m].spieltag)
+      if(id == this.alleMatches[m].id) {
+        this.a=this.alleMatches[m].id;
+        this.teamA=this.alleMatches[m].teamA;
+        this.teamB=this.alleMatches[m].teamB;
+        console.log("Match gefunden!")
+      }
+      else {
+      }
+    }
+    console.log("Team A: "+this.teamA+ ", Team B: "+this.teamB);
+    console.log("spielid: "+ this.tipp.id+ "== " +this.a);
+
+    //Zeile 228-236 verlegt wegen LigaID suche
+    console.log(this.vergangeneMatches.length+" Wieviele gespielten Spiele gibt es? ")
+
+    this.SpieleTeamA=0;
+    let SpieleTeamB=0;
+    let insgesamtSpiele=SpieleTeamB+this.SpieleTeamA;
+
+    let SiegeA=0; //für Heimquote
+    let LosesB=0;
+
+    let SiegeB=0; //Auswärtsquote
+    let LosesA=0;
+
+    let DrawA=0;  //Unentschiedenquote
+    let DrawB=0;
+
+    this.insgesamtSiege=0;
+
+    for(let g of this.vergangeneMatches) {
+
+      if(g.teamA==this.teamA) {
+        if(this.SpieleTeamA>=5) {
+
+        }
+        else {
+          this.SpieleTeamA += 1;
+          if(g.scoreTeamA>g.scoreTeamB) {
+            SiegeA += 1;
+          }
+          else if(g.scoreTeamA==g.scoreTeamB) {
+            DrawA += 1;
+          }
+          else {
+            LosesA += 1;
+          }
+
+        }
+      }
+      else if(g.teamB==this.teamA) {
+        if(this.SpieleTeamA>=5) {
+
+        }
+        else {
+          this.SpieleTeamA += 1;
+          if(g.scoreTeamA<g.scoreTeamB) {
+            SiegeA += 1;
+          }
+          else if(g.scoreTeamA==g.scoreTeamB) {
+            DrawA += 1;
+          }
+          else {
+            LosesA += 1;
+          }
+        }
+      }
+      if(g.teamA==this.teamB) {
+        if(SpieleTeamB>=5) {
+
+        }
+        else {
+          SpieleTeamB += 1;
+          if(g.scoreTeamA<g.scoreTeamB) {
+            LosesB += 1;
+          }
+          else if(g.scoreTeamA==g.scoreTeamB) {
+            DrawB +=1;
+          }
+          else {
+            SiegeB +=1;
+          }
+        }
+      }
+      else if(g.teamB==this.teamB) {
+        if(SpieleTeamB>=5) {
+
+        }
+        else {
+          SpieleTeamB += 1;
+          if(g.scoreTeamA>g.scoreTeamB) {
+            LosesB += 1;
+          }
+          else if(g.scoreTeamA==g.scoreTeamB) {
+            DrawB += 1;
+          }
+          else {
+            SiegeB;
+          }
+        }
+      }
+    }
+
+    insgesamtSpiele=SpieleTeamB+this.SpieleTeamA;
+    this.heimQuote=insgesamtSpiele/(SiegeA+LosesB);
+    this.drawQuote=insgesamtSpiele/(DrawA+DrawB);
+    this.AuswQuote=insgesamtSpiele/(SiegeB+LosesA);
+
+    console.log("Spiele A: "+this.SpieleTeamA+", Spiele B: "+SpieleTeamB)
+    console.log("Siege A: "+SiegeA+ ", Loses B: "+LosesB);
+    console.log("Draw A: "+DrawA+ ", Draw B: "+ DrawB);
+    console.log("Siege B: "+SiegeB+ ", Loses A: "+LosesA);
+
+    console.log("Spiele von A+B: "+insgesamtSpiele);
+    console.log(this.heimQuote+" Heimquote, DrawQuote: "+this.drawQuote+", AuswSieg: "+this.AuswQuote);
+
+
+  }
 
   onSubmitTip(): void {
+
+    let semaphore = false;
+    for (let m of this.matches) {
+      if (this.tipp.spiel == m.id) {
+        semaphore = true;
+      }
+    }
+    if (!semaphore) {
+      this.snackBar.open("keine gültige Spiel ID", "OK")
+      return;
+    }
+
     let tipperid;
     for (let tipper of this.alltipper) {
       console.log(tipper.nutzerid + "=" + this.userid)
@@ -287,6 +473,8 @@ export class GeldWetteAbgebenComponent implements OnInit {
           );
         }
       );
+      this.winnerQuote(this.tipp.spiel);
+      console.log(this.tipp.spiel)
       this.kontostand = this.kontostand - BigInt(this.tipp.betGeld);
       this.nutzerService.setKontostand(sessionStorage.getItem("id") + "", String(this.kontostand)).subscribe();
       sessionStorage.setItem("kontostand", String(this.kontostand));
@@ -308,30 +496,6 @@ export class GeldWetteAbgebenComponent implements OnInit {
   onChange(ergebnis: string) { //quote:number
     this.tipp.moneyTipp = ergebnis;
     //this.tipp.quote=quote;
-  }
-
-  requestBet() {
-
-    this.MatchService.getSpielByID(Number(this.tipp.spiel)).subscribe((data: any) => this.matchMitDate = data);
-    console.log(this.matchMitDate.id)
-    console.log(Number(this.tipp.spiel))
-  //  console.log(this.birthdate)
-  //  var splitstr = this.birthdate.split('.')+"";
-  //  this.datum = splitstr[3] + splitstr[4]+ "." + splitstr[0] +splitstr[1]+ "." + splitstr[6]+splitstr[7]+splitstr[8]+splitstr[9];
- //   console.log(this.datum)
-    //this.datum=this.datePipe.transform(this.datum, 'MM.dd.yyyy')
-
- //   if(this.datum){
-      var timeDiff = Math.abs(Date.now()- this.matchMitDate.date );
-      //this.age = Math.floor((timeDiff / (1000 * 3600 * 24))/365);
-    console.log(timeDiff)
- //   }
-    if(timeDiff<=0) {
-      alert("Match wurde schon gespielt!")
-    }
-    else {
-      alert("Wette ist ok");
-    }
   }
 
 }
