@@ -196,7 +196,7 @@ public class TippRundeController {
 
         System.out.println("teamlistlänge: " + teamList.size() + " tipplistlänge: " + tippList.size());
 
-        userStatsList = fillUserTable(userStatsList, teamList, tippList);
+        userStatsList = fillUserTable(userStatsList, teamList, tippList, tippRunde);
         userStatsList = fillPieChartStats(userStatsList, teamList, tippList, spielList, date, tippRunde);
 
         return userStatsList;
@@ -226,9 +226,9 @@ public class TippRundeController {
 
                     System.out.println("in der inneren for schleife");
                     if (tipp.getTippA().intValue() == spiel.getScoreTeamA() && tipp.getTippB().intValue() == spiel.getScoreTeamB()) {
-                        giveToRightTeam(userStatsList, spiel, erg);
+                        giveToRightTeam(userStatsList, spiel, erg+dif+gew);
                     } else if (tipp.getTippA().intValue() - spiel.getScoreTeamA() == tipp.getTippB().intValue() - spiel.getScoreTeamB()) {
-                        giveToRightTeam(userStatsList, spiel, dif);
+                        giveToRightTeam(userStatsList, spiel, dif+gew);
                     } else if (tipp.getTippA() > tipp.getTippB() && spiel.getScoreTeamA() > spiel.getScoreTeamB()) {
                         giveToRightTeam(userStatsList, spiel, gew);
                     } else if (tipp.getTippA() < tipp.getTippB() && spiel.getScoreTeamA() < spiel.getScoreTeamB()) {
@@ -293,7 +293,11 @@ public class TippRundeController {
         return false;
     }
 
-    private List<UserStats> fillUserTable(List<UserStats> userStatsList, List<Team> teamList, List<TippN> tippList) {
+    private List<UserStats> fillUserTable(List<UserStats> userStatsList, List<Team> teamList, List<TippN> tippList, TippRunde tippRunde) {
+
+        int erg = Integer.parseInt(tippRunde.getGewTore());
+        int dif = Integer.parseInt(tippRunde.getGewDiff());
+        int gew = Integer.parseInt(tippRunde.getGewGewinner());
 
         for(Team team: teamList) {
             UserStats stat = new UserStats();
