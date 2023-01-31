@@ -90,11 +90,4 @@ export class NutzerService {
   public getNutzersByWettstatus(status: string): Observable<Nutzer[]> {
     return this.http.post<Nutzer[]>("http://localhost:8080/nutzer/Wettstatus/",status)
   }
-  public getNutzerMessageAnfrage(message:string): Observable<Nutzer[]> {
-    return this.http.post<Nutzer[]>("http://localhost:8080/nutzer/messagae2/",message)
-  }
-  public setMessage(id: String, message: String): Observable<any> {
-    console.log(id,message)
-    return this.http.post<Observable<any>>(`http://localhost:8080/nutzer/message?id=${id}`, message);
-  }
 }

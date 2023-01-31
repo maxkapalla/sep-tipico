@@ -33,9 +33,4 @@ public interface NutzerRepository extends JpaRepository<Nutzer, Long> {
 
     List<Nutzer> findAllByGeldWette(String status);
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE Nutzer SET message = ?2 WHERE id = ?1")
-    void updateMessageById(Long id, String message );
-
 }

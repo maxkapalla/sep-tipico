@@ -10,22 +10,13 @@ import {Nutzer} from "../Models/Nutzer";
 })
 export class HomeComponent implements OnInit {
 
-  nutzer: Nutzer
-
   constructor(private tippservice: TippService, private nutzerService: NutzerService) {
-    this.nutzer= new Nutzer();
+
   }
 
   ngOnInit(): void {
     this.tippservice.giveTippPoints();
     this.tippservice.giveTippMoney();
-    this.nutzerService.getNutzerByID(sessionStorage.getItem('id')+"").subscribe((data: any) => this.nutzer=data)
-    if(this.nutzer.messageAnfrage==null) {
-
-    }
-    else {
-        alert(this.nutzer.messageAnfrage)
-    }
   }
 
 

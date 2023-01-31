@@ -125,19 +125,4 @@ public class NutzerController {
         x.addAll(nutzerrepo.findAllByGeldWette(status));
         return x;
     }
-
-
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @RequestMapping(path = "/nutzer/message",
-            method = RequestMethod.POST)
-    public ResponseEntity<?> setMessage(@RequestParam(name = "id") String id, @RequestBody String message) {
-        System.out.println(id + " " + message);
-        try {
-            nutzerrepo.updateMessageById(Long.parseLong(id), message);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>("", HttpStatus.OK);
-    }
-
 }

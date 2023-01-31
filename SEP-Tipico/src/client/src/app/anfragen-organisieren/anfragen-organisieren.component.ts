@@ -13,7 +13,6 @@ export class AnfragenOrganisierenComponent implements OnInit {
 
   wettfreigabe: string;
   nutzers:Nutzer[];
-  nachricht: string="";
 
   constructor(private router: Router, private nutzerService:NutzerService) {
     this.wettfreigabe="";
@@ -27,18 +26,14 @@ export class AnfragenOrganisierenComponent implements OnInit {
 
   removeUser(NutzerID: string) {
     this.wettfreigabe = "Nicht angefragt";
-    this.nachricht= "Wettanfrage abgelehnt!";
     this.nutzerService.setGeldStatus(NutzerID, this.wettfreigabe).subscribe();
-    this.nutzerService.setMessage(NutzerID,this.nachricht)
       alert("Entfernt");
       window.location.reload()
   }
 
   acceptUser(NutzerID: string) {
     this.wettfreigabe = "ja";
-    this.nachricht= "Wetten freigeschaltet";
     this.nutzerService.setGeldStatus(NutzerID, this.wettfreigabe).subscribe();
-    //this.nutzerService.setMessage(NutzerID,this.nachricht)
       alert("Anfrage angenommen");
       window.location.reload()
 

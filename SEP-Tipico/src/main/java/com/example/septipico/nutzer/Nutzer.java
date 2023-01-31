@@ -28,14 +28,11 @@ public class Nutzer {
     @Column(name = "GeldWette")
     private String geldWette;
 
-    @Column(name= "Message")
-    private String message;
-
     public Nutzer() {
     }
 
     public Nutzer(String firstName, String lastName, String dateOfBirth, String email, String password,
-                  String imageURL, String role, String geldWette, String message) {
+                  String imageURL, String role, String geldWette) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -44,7 +41,6 @@ public class Nutzer {
         this.imageURL = imageURL;
         this.role = role;
         this.geldWette = geldWette;
-        this.message=message;
     }
 
     public Long getId() {
@@ -125,13 +121,5 @@ public class Nutzer {
 
     public void setGeldWette(String geldWette) {
         this.geldWette = geldWette;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }
