@@ -425,9 +425,24 @@ export class GeldWetteAbgebenComponent implements OnInit {
     }
 
     insgesamtSpiele=SpieleTeamB+this.SpieleTeamA;
-    this.heimQuote=insgesamtSpiele/(SiegeA+LosesB);
-    this.drawQuote=insgesamtSpiele/(DrawA+DrawB);
-    this.AuswQuote=insgesamtSpiele/(SiegeB+LosesA);
+    if(SiegeA+LosesB==0) { //infinity bug fix
+      this.heimQuote=insgesamtSpiele/1;
+    }
+    else {
+      this.heimQuote=insgesamtSpiele/(SiegeA+LosesB);
+    }
+    if(DrawB+DrawA==0) {
+      this.drawQuote=insgesamtSpiele/1;
+    }
+    else {
+      this.drawQuote=insgesamtSpiele/(DrawA+DrawB);
+    }
+    if(SiegeB+LosesA==0) {
+      this.AuswQuote=insgesamtSpiele/1;
+    }
+    else {
+      this.AuswQuote=insgesamtSpiele/(SiegeB+LosesA);
+    }
 
     console.log("Spiele A: "+this.SpieleTeamA+", Spiele B: "+SpieleTeamB)
     console.log("Siege A: "+SiegeA+ ", Loses B: "+LosesB);

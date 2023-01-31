@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GeldWetteService} from "../services/geld-wette.service";
 import {NutzerService} from "../services/nutzer.service";
-
+import {Nutzer} from "../Models/Nutzer";
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,7 @@ import {NutzerService} from "../services/nutzer.service";
 export class ProfileComponent implements OnInit {
 
   datum: string | null;
-  id: number=0;
+  id: string="";
   url: string = ""
   name: string = ""
   email: string = ""
@@ -21,14 +21,20 @@ export class ProfileComponent implements OnInit {
   wettfreigabe: string;
   adminemail: string|undefined;
   age: number=0;
+  nutzer: Nutzer
+  nutzers: Nutzer[];
 
   constructor(private geldWetteService: GeldWetteService, private nutzerService: NutzerService) {
   this.birthdate="";
   this.datum="";
   this.wettfreigabe = sessionStorage.getItem('geldWette')+"";
+  this.nutzer=new Nutzer();
+  this.nutzers=[];
   }
 
   ngOnInit(): void {
+
+    this.id= sessionStorage.getItem('id')+"";
     this.url = sessionStorage.getItem('picURL') + ""
     this.name = sessionStorage.getItem('name') + ""
     this.email = sessionStorage.getItem('email') + ""
@@ -36,6 +42,18 @@ export class ProfileComponent implements OnInit {
     this.role = (sessionStorage.getItem('role') + "").toUpperCase()
     this.konto = sessionStorage.getItem('kontostand') + "";
     this.wettfreigabe = sessionStorage.getItem('geldWette') +""
+
+
+    this.nutzerService.getAllNutzer().subscribe((data:any) => {
+      this.nutzers=data;
+
+      for(let nutzer of this.nutzers) {
+        if(this.id==nutzer.id) {
+          sessionStorage.setItem('kontostand', String(nutzer.kontostand));
+          console.log(this.id+"=="+nutzer.id)
+        }
+      }
+      ;})
   }
 
 
