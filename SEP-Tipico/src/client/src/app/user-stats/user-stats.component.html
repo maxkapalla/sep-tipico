@@ -8,7 +8,7 @@
   </select>
 </div>
 
-<div style="float: left; max-width: 50%; margin-right: 2%;  background-color: lightgrey; padding: 20px; border-radius: 15px">
+<div style="float: left; max-width: 50%; margin-right: 2%; margin-bottom: 4%;  background-color: lightgrey; padding: 20px; border-radius: 15px">
   <canvas id="pieChart" width="280" height="280" style="float: left"></canvas>
   <ul id="pieValues" style="float: left;  height: 280px;" [style.line-height.px]="280/pieStats.length">
     <li *ngFor="let stat of pieStats, let i = index">
@@ -16,7 +16,7 @@
     </li>
   </ul>
 </div>
-<div id="columnChartContainer" style="float: right; width: 45%; padding: 20px; border-radius: 15px; background-color: lightgrey">
+<div id="columnChartContainer" style="float: right; width: 45%; padding: 20px; margin-bottom: 4%; border-radius: 15px; background-color: lightgrey">
   <div class="col" style="" *ngFor="let stat of ergebnisStats, let i = index">
     {{stat.ergebnis}}
     <div class="column" style="margin-bottom: 5px; text-align: center; color: lightgrey;" [style.width.%]="(ergebnisCounts[i]/maxValue)*100" [style.height.%]="100/ergebnisStats.length" [style.background-color]="colors[i]">
@@ -26,7 +26,7 @@
 </div>
 
 <div>
-  <table class="table table-striped" style="margin-top: 35%;">
+  <table class="table table-striped">
     <thead class="thead-dark" >
     <tr class="überschrift" >
       <th scope="col-platz">Platz</th>
