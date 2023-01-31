@@ -12,6 +12,7 @@ import {TippRunde} from "../Models/TippRunde";
 import {Tipper} from "../Models/Tipper";
 import {NutzerService} from "../services/nutzer.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Team} from "../Models/Team";
 
 require('../patch.js')
 
@@ -55,7 +56,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
   copyid: bigint;
   tipprundenraw: TippRunde[];
 
-
+  teams:Team[];
   teamA:bigint|undefined
   teamB:bigint|undefined
   a:bigint|undefined
@@ -97,13 +98,13 @@ export class GeldWetteAbgebenComponent implements OnInit {
     this.kontostand= BigInt(sessionStorage.getItem("kontostand") + "");
     this.teamA=BigInt(0);
     this.teamB=BigInt(0);
+    this.teams=[];
     this.a=BigInt(0);
 
     this.quote=0;
     this.heimQuote=0;
     this.drawQuote=0;
     this.AuswQuote=0;
-
   }
 
 
@@ -315,10 +316,10 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
   winnerQuote(id:bigint|undefined) {
 
-
+    let tabPointsA:number|undefined;
+    let tabPointsB:number|undefined;
 
     console.log(this.alleMatches.length+" Wieviele Spiele gibt es? ")
-
     for(let m=0;m<this.alleMatches.length;m++) {
      // console.log(this.alleMatches[m].spieltag)
       if(id == this.alleMatches[m].id) {
@@ -330,6 +331,21 @@ export class GeldWetteAbgebenComponent implements OnInit {
       else {
       }
     }
+
+    this.TeamService.getAll().subscribe((data: any) => this.teams = data)
+
+    for(let g of this.teams) {
+      if(this.teamA==g.id) {
+        tabPointsA=g.points;
+        console.log("TeamA Liste gefunden: "+tabPointsA)
+      }
+      if(this.teamB==g.id) {
+        tabPointsB=g.points;
+        console.log("TeamB Liste gefunden: "+tabPointsB)
+      }
+    }
+
+
     console.log("Team A: "+this.teamA+ ", Team B: "+this.teamB);
     console.log("spielid: "+ this.tipp.id+ "== " +this.a);
 
@@ -348,6 +364,7 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
     let DrawA=0;  //Unentschiedenquote
     let DrawB=0;
+
 
     this.insgesamtSiege=0;
 
@@ -425,11 +442,21 @@ export class GeldWetteAbgebenComponent implements OnInit {
     }
 
     insgesamtSpiele=SpieleTeamB+this.SpieleTeamA;
-    if(SiegeA+LosesB==0) { //infinity bug fix
-      this.heimQuote=insgesamtSpiele/1;
+    if(SiegeA+LosesB==0) {//infinity bug fix
+      if(tabPointsA!=0) {
+        this.heimQuote=insgesamtSpiele/1-(Number(tabPointsA)/100);
+      }
+      else {
+        this.heimQuote=insgesamtSpiele/1;
+      }
     }
     else {
-      this.heimQuote=insgesamtSpiele/(SiegeA+LosesB);
+      if(tabPointsA!=0) {
+        this.heimQuote=insgesamtSpiele/(SiegeA+LosesB)-(Number(tabPointsA)/100);
+      }
+      else {
+        this.heimQuote=insgesamtSpiele/(SiegeA+LosesB)
+      }
     }
     if(DrawB+DrawA==0) {
       this.drawQuote=insgesamtSpiele/1;
@@ -438,10 +465,20 @@ export class GeldWetteAbgebenComponent implements OnInit {
       this.drawQuote=insgesamtSpiele/(DrawA+DrawB);
     }
     if(SiegeB+LosesA==0) {
-      this.AuswQuote=insgesamtSpiele/1;
+      if(tabPointsB!=0) {
+        this.AuswQuote=insgesamtSpiele/1-(Number(tabPointsB)/100);
+      }
+      else {
+        this.AuswQuote=insgesamtSpiele/1;
+      }
     }
     else {
-      this.AuswQuote=insgesamtSpiele/(SiegeB+LosesA);
+      if(tabPointsB!=0) {
+        this.AuswQuote=insgesamtSpiele/(SiegeB+LosesA)-(Number(tabPointsB)/100);
+      }
+      else {
+        this.AuswQuote=insgesamtSpiele/(SiegeB+LosesA);
+      }
     }
 
     console.log("Spiele A: "+this.SpieleTeamA+", Spiele B: "+SpieleTeamB)
@@ -451,8 +488,6 @@ export class GeldWetteAbgebenComponent implements OnInit {
 
     console.log("Spiele von A+B: "+insgesamtSpiele);
     console.log(this.heimQuote+" Heimquote, DrawQuote: "+this.drawQuote+", AuswSieg: "+this.AuswQuote);
-
-
   }
 
   onSubmitTip(): void {
