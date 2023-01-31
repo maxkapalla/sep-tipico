@@ -226,9 +226,9 @@ public class TippRundeController {
 
                     System.out.println("in der inneren for schleife");
                     if (tipp.getTippA().intValue() == spiel.getScoreTeamA() && tipp.getTippB().intValue() == spiel.getScoreTeamB()) {
-                        giveToRightTeam(userStatsList, spiel, erg);
+                        giveToRightTeam(userStatsList, spiel, erg+dif+gew);
                     } else if (tipp.getTippA().intValue() - spiel.getScoreTeamA() == tipp.getTippB().intValue() - spiel.getScoreTeamB()) {
-                        giveToRightTeam(userStatsList, spiel, dif);
+                        giveToRightTeam(userStatsList, spiel, dif+gew);
                     } else if (tipp.getTippA() > tipp.getTippB() && spiel.getScoreTeamA() > spiel.getScoreTeamB()) {
                         giveToRightTeam(userStatsList, spiel, gew);
                     } else if (tipp.getTippA() < tipp.getTippB() && spiel.getScoreTeamA() < spiel.getScoreTeamB()) {
