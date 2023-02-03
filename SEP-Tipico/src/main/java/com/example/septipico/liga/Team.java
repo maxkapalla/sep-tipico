@@ -11,7 +11,7 @@ public class Team {
     private Long id;
 
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = false)
     private String name;
 
     @Column(name = "points", nullable = false)

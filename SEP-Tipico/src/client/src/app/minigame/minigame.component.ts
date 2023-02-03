@@ -29,7 +29,7 @@ export class MinigameComponent implements OnInit {
   initAnimation() {
     this.visible = false;
     this.timeout = setTimeout(() => {
-      let size = Math.random() * (200 - 20) + 20;
+      let size = Math.random() * (400 - 5) + 5;
       let pos_top = Math.random() * (100);
       let pos_left = Math.random() * (100);
       this.root.style.setProperty('--football-size', size + 'px')

@@ -6,6 +6,6 @@ fi
 
 docker image rm -f backend
 docker image rm -f frontend
-docker load -i frontend/frontend-latest.tar 
-docker load -i backend/backend-latest.tar
+docker load -i frontend-latest.tar 
+docker load -i backend-latest.tar
 
